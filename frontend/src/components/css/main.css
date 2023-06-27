@@ -1,0 +1,8 @@
+:root {background-color: rgb(29, 28, 28); color: rgb(254, 215, 255);}
+.button {
+    border-radius: 7px;
+    background-color: rgb(75, 75, 75);
+    color: aliceblue;
+
+    box-shadow: 0 1px 1px rgb(201 28 109 / 24%);
+}
