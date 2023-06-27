@@ -3,6 +3,11 @@
     <head>
         <title>MIsskeyAPI テスト</title>
         <script src="./index.js"></script>
+        <script>
+            function UUIDtest() {
+                document.getElementById('UUID').innerHTML =`UUID=${GenUUID()}`;
+            }
+        </script>
         <style>
             p{margin: 0;}
             .bt {
@@ -18,14 +23,14 @@
     </head>
     <body>
         <h1>APIテスト会場</h1>
-        <a class="bt" href="javascript:GenUUID();">GenUUID</a>
+        <a class="bt" href="javascript:UUIDtest();">GenUUID</a>
         <p id="UUID">UUID=</p>
         <form>
             <p>インスタンスのURL</p>
             <input type=text placeholder="exanple.com" id="instanceURL" value="misskey.io"/>
             <p>お前のユーザーID</p>
             <input type=text placeholder="@~~~" id="UserID" value=""/>
-            <a class="bt" href="javascript:GenOAuthURL();">Submit</a>
+            <a class="bt" href="javascript:GenMiAuthURL();">Submit</a>
         </form>
         <p id="UserID"></p>
         <a id="OauthURL"></a>
