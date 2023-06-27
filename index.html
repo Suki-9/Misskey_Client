@@ -4,6 +4,7 @@
         <title>MIsskeyAPI テスト</title>
         <script src="./index.js"></script>
         <style>
+            p{margin: 0;}
             .bt {
                 border-radius: 5px;
                 text-align: center;
@@ -19,6 +20,14 @@
         <h1>APIテスト会場</h1>
         <a class="bt" href="javascript:GenUUID();">GenUUID</a>
         <p id="UUID">UUID=</p>
-        <div id="draw"></div>
+        <form>
+            <p>インスタンスのURL</p>
+            <input type=text placeholder="exanple.com" id="instanceURL" value="misskey.io"/>
+            <p>お前のユーザーID</p>
+            <input type=text placeholder="@~~~" id="UserID" value=""/>
+            <a class="bt" href="javascript:GenOAuthURL();">Submit</a>
+        </form>
+        <p id="UserID"></p>
+        <a id="OauthURL"></a>
     </body>
 </html>

@@ -4,3 +4,7 @@ function GenUUID(){
         return v.toString(16);
     })}`
 }
+
+function GenOAuthURL() {
+    
+}
