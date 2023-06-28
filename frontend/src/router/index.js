@@ -12,9 +12,12 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue')
+      component: () => import('../views/Login.vue'),
+      meta: { title: '認証' }
     }
   ]
 })
-
+router.afterEach((to, from) => {
+  document.title = to.meta.title || DEFAULT_TITLE
+})
 export default router

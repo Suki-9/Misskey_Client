@@ -1,9 +1,34 @@
-:root {background-color: rgb(29, 28, 28); color: rgb(254, 215, 255);}
-body {margin: 0;}
-.button {
-    border-radius: 7px;
-    background-color: rgb(75, 75, 75);
-    color: aliceblue;
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@300&display=swap');
+:root {
+    --themecolor-100: rgb(10, 10, 10);
+    --themecolor-200: rgb(15, 15, 15);
+    --themecolor-300: rgb(20, 20, 20);
+    --themecolor-400: rgb(25, 25, 25);
+    --themecolor-500: rgb(30, 30, 30);
+    --themecolor-600: rgb(35, 35, 35);
 
-    box-shadow: 0 1px 1px rgb(201 28 109 / 24%);
+    --fontcolor-w: rgb(253, 240, 253);
+    --fontcolor-r: rgb(199, 0, 0);
+    
+    --buttoncolor-blew: rgb(118, 116, 218);
+
+    background-color: var(--themecolor-100);
+    color: var(--fontcolor-100);
+    font-family: 'M PLUS 1p', sans-serif;
+}
+body {margin: 0;}
+p,a{margin: 0;color: var(--fontcolor-w)}
+.button {
+    background-color: var(--buttoncolor-blew);
+    border-radius: 7px;
+    color: var(--fontcolor-w);
+}
+
+input {
+    background-color: var(--themecolor-500);
+    border-radius: 7px;
+    color: var(--fontcolor-w);
+    border: none;
+}input:focus {
+    outline: none;
 }
