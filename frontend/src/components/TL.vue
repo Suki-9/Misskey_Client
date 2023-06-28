@@ -36,6 +36,17 @@ export default {
                         params: {}
                     }
                 }));
+
+                setTimeout(() => {
+                    TL.send(JSON.stringify({
+                        type: 'disconnect',
+                        body: {
+		                    channel: 'localTimeline',
+		                    id: uuid,
+                        }
+                    }))
+                },3000);
+
             });
             TL.onmessage = function(event) {
                 note.Gen(event.data);
