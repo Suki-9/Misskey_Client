@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div class="pagehead">
             <p>ようこそ(借)へ</p>
         </div>
         <div>
@@ -8,17 +8,22 @@
             <datalist id="hostlist">
                 <option v-for="host in  hosts" :key="host.id" :value="host.text"></option>
             </datalist>
-            <a class="button" @click="Miauth">Lets Go!</a>
-        </div>
-        <div>
-            <p>追加されているインスタンス一覧</p>
-            <p v-for="host in  hosts" :key="host.id">{{ host.text }}</p>
+            <a class="button" @click="Miauth">Login!</a>
         </div>
     </div>
 </template>
 
+<style scoped>
+@import '../components/css/pc/login.css';
+.pagehead {
+    width: max(100%,1000px);
+}
+
+</style>
+
 <script>
 import Cookie from '@/components/js/Cookie.js'
+import UUID from '@/components/js/UUID.js'
 
 let id = 0
 export default {
@@ -45,26 +50,11 @@ export default {
                     }
                 }
             }
-        },
-        loadlist() {
-            //正規表現できれいにしておけ2
-            const host = Cookie.lead("hosts").replace("[","").replace("]","").split(",")
-            for (let i = 0;i < host.length;i++){
-                let addhost = []
-                addhost.push(`id: id++`)
-                addhost.push(`host: ${host[i]}`)
-                console.log(addhost)
-                this.hosts.push(addhost)
-            }
-        },
-    },
-    mounted() {
-        this.loadlist();
-  },
+            const uuid = UUID.Gen();
+            document.cookie = `uuid=${uuid}`;
+            const MiAauthURL = `https://${host}/miauth/${uuid}`;
+            document.location = MiAauthURL;
+        }
+    }
 }
 </script>
-
-
-<style scoped>
-@import '../components/css/pc/login.css';
-</style>

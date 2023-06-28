@@ -1,4 +1,5 @@
 :root {background-color: rgb(29, 28, 28); color: rgb(254, 215, 255);}
+body {margin: 0;}
 .button {
     border-radius: 7px;
     background-color: rgb(75, 75, 75);
