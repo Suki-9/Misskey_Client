@@ -1,6 +1,6 @@
 export default {
     Get() {
-        const Cookie = document.cookie.split(";");
+        const Cookie = document.cookie.split("; ");
         const Cookies = [];
         const index = [];
         for (let i=0;i<Cookie.length;i++) {
@@ -12,7 +12,7 @@ export default {
     },
     lead(key) {
         const index = this.Get()[1];
-        const Cookie = this.Get()[0]
+        const Cookie = this.Get()[0];
         let i = index.indexOf(key);
         if (i !== -1) {
             return Cookie[i][1];

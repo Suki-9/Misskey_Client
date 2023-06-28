@@ -1,11 +1,13 @@
 <template>
-
+    <TL />
 </template>
 
 <script setup>
-import Cookie from '@/components/js/Cookie.js'
+import Cookie from '@/components/js/Cookie.js';
+import TL from "@/components/TL.vue";
+
 if (navigator.cookieEnabled) {
-    if (Cookie.lead("API_Key") == null){
+    if (Cookie.lead("hosts") == null){
         document.location = "/login";
     } else {
     }

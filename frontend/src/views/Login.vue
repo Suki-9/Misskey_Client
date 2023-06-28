@@ -44,27 +44,21 @@ export default {
         Miauth() {
             if (this.login_type.bool) {
                 if (this.host !== ""){
-                    let hosts = Cookie.lead("hosts")
-                    if (hosts == null) {
-                        document.cookie = `hosts=[${this.host}]`;
-                    } else {
-                        //正規表現できれいにしておけ1
-                        if ( hosts.indexOf(this.host) == -1) {
-                            document.cookie = `hosts=[${this.host},${hosts.replace("[","").replace("]","")}]`;
-                        }
-                    }
                     const uuid = UUID.Gen();
-                    document.cookie = `uuid=${uuid}`;
-                    const MiAauthURL = `https://${this.host}/miauth/${uuid}`;
-                    alert(MiAauthURL)
-                    //document.location = MiAauthURL;
-                    this.host = "";
+                    document.cookie = `session=${uuid},${this.host}`;
+                    const MiAauthURL = `https://${this.host}/miauth/${uuid}?name=MiView&callback=http://localhost:4000/callback`;
+                    document.location = MiAauthURL;
                 } else {
                     this.form_alert = "ホスト名を入力してください!"
                 }
             } else {
                 if (this.host !== "" && this.token !== "") {
+                    const hosts = (Cookie.lead("hosts") != null) ? Cookie.lead("hosts").split(",") : ""
+                    if (hosts.indexOf(this.host) == -1) {
+                        document.cookie = `hosts=${hosts},${this.host}`
+                    }
                     document.cookie = `${this.host}_token=${this.token},${this.host}`
+                    document.location = "../";
                 } else {
                     this.form_alert = "入力してください!"
                 }

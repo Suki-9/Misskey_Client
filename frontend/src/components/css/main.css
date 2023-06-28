@@ -7,10 +7,14 @@
     --themecolor-500: rgb(30, 30, 30);
     --themecolor-600: rgb(35, 35, 35);
 
+    --bordercolor-w: rgba(255, 167, 255, 0.267);
+
     --fontcolor-w: rgb(253, 240, 253);
     --fontcolor-r: rgb(199, 0, 0);
     
     --buttoncolor-blew: rgb(118, 116, 218);
+
+    --online_status-online: rgb(0, 236, 59);
 
     background-color: var(--themecolor-100);
     color: var(--fontcolor-100);
