@@ -17,6 +17,7 @@
     width: 10%;
     border-radius: 50%;
     height: auto;
+    object-fit: cover;
 }
 .note_contents {
     width: 90%;
@@ -47,4 +48,26 @@
     background-color: var(--themecolor-400);
     border-radius: 3px;
     word-wrap: break-word;
+}
+.note_media {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+
+    width: 96%;
+    padding: 2%;
+}
+.medias {
+    width: 48%;
+    padding: 1%;
+    border-radius: 7px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+.media {
+    width: 100%;
+    border-radius: 7px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
