@@ -35,8 +35,7 @@ export default {
 		                id: uuid,
                         params: {}
                     }
-                }));
-/*
+                }));/*
                 setTimeout(() => {
                     TL.send(JSON.stringify({
                         type: 'disconnect',
@@ -45,8 +44,7 @@ export default {
 		                    id: uuid,
                         }
                     }))
-                },3000);
-*/
+                },10000);*/
             });
             TL.onmessage = function(event) {
                 note.Gen(event.data);

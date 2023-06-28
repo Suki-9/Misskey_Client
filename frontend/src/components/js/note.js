@@ -3,14 +3,18 @@ export default {
         const GetNote = JSON.parse(data).body.body;
         const UserData = GetNote.user;
 
-        //console.log(GetNote);
-
         const Username = UserData.name.replace(/\:.*?\:/g,"{emo}");
         const username_emozi = UserData.name.match(/\:.*?\:/g);
         const userId = `@${UserData.username}`;
 
-        const text = (GetNote.text == null) ? "" : GetNote.text.replace(/\:.*?\:/g,"{emo}");
         const text_emozi = (GetNote.text == null) ? "" : GetNote.text.match(/\:.*?\:/g);
+        const text_emozi_len = (text_emozi !== null) ? text_emozi.length : 0;
+        let text = (GetNote.text == null) ? "" : GetNote.text.replace(/\:.*?\:/g,"{emo}");
+        if (text_emozi_len !== 0) {
+            for (let i = 0;i < text_emozi_len;i++) {
+            }
+            console.log(text_emozi);
+        }
 
         const media_len = (GetNote.files.length >= 4) ? 4 : GetNote.files.length;
         let media = ""

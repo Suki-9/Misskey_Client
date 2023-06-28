@@ -1,9 +1,11 @@
 .note {
     padding: 10px;
+    margin: 3px 0 3px 0;
     display: flex;
     width: 100%;
+    border-radius: 7px;
+    
     background-color: var(--themecolor-300);
-    border-bottom: solid 1px var(--bordercolor-w);
 }
 .article {
     margin: 0;
@@ -30,6 +32,8 @@
 .note_head {
     width: 96%;
     margin-bottom: 5px;
+
+    border-bottom: solid 1px var(--bordercolor-w);
 
     display: flex;
     flex-direction: row;
