@@ -8,9 +8,8 @@ const get = async(host) => {
     fs.writeFile(`./emoji_index/${host}_emojis.json`, JSON.stringify(emo), (err) => {
         if (err) {
           console.error(err);
-          return;
+          return 1;
         }
-        console.log('success');
     });
 
     let categorys = [];
@@ -29,18 +28,21 @@ const get = async(host) => {
     fs.writeFile(`./emoji_index/${host}_index_key.json`, JSON.stringify(categorys), (err) => {
         if (err) {
           console.error(err);
-          return;
+          return 1;
         }
-        console.log('success');
     });
 
     fs.writeFile(`./emoji_index/${host}_index.json`, JSON.stringify(emoji_index), (err) => {
         if (err) {
           console.error(err);
-          return;
+          return 1;
         }
-        console.log('success');
     });
+    return 0;
+}
+const search = async(host) => {
+
 }
 
 exports.get = get
+exports.search = search

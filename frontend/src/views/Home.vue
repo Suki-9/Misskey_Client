@@ -32,7 +32,7 @@ export default {
                     host: host,
                 }),
             })
-            console.log(await res.json())
+            console.log(res.body)
         }
     }
 }

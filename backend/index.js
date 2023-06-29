@@ -17,10 +17,8 @@ app.get('/test', function(req, res) {
 
 app.post('/req/emojis', function(req, res) {
     const host = req.body.host
-    emojis.get(host)
-    console.log(host)
     res.send({
-        Code: "OK"
+        msg: "OK"
     })
 })
 
