@@ -25,7 +25,7 @@ export default {
             const mainhost = (this.settings.mainhost.bool) ? Cookie.lead("mainhost") : Cookie.lead("hosts").split(",")[1];
             const token = Cookie.lead(`${mainhost}_token`);
             const uuid = UUID.Gen();
-            const TL = new WebSocket(`wss://${mainhost}/streaming?i=${token}`);
+            const TL = new WebSocket(`wss://${mainhost}k/streaming?i=${token}`);
             TL.addEventListener('open', (event) => {
                 console.log("Join success!")
                 TL.send(JSON.stringify({
