@@ -6,11 +6,14 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 
-
 app.get('/test', function(req, res) {
     res.send({
         msg: "うぇぶさぁばぁです(笑)"
     })
+})
+
+app.post('/req/emojis', function(req, res) {
+    console.log(req.body)
 })
 
 app.listen(process.env.PORT || 3000)
