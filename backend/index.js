@@ -1,9 +1,12 @@
+const emojis = require('./api/emojis.js')
+
 const express = require('express')
-const bodyParser = require('body-parser')
+var bodyParser = require('body-parser')
+const app = express()
 const cors = require('cors')
 
-const app = express()
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cors())
 
 app.get('/test', function(req, res) {
@@ -13,7 +16,12 @@ app.get('/test', function(req, res) {
 })
 
 app.post('/req/emojis', function(req, res) {
-    console.log(req.body)
+    const host = req.body.host
+    emojis.get(host)
+    console.log(host)
+    res.send({
+        Code: "OK"
+    })
 })
 
 app.listen(process.env.PORT || 3000)

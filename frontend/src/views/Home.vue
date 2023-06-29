@@ -1,6 +1,8 @@
 <template>
-    <TL />
-    <a @click="emo">絵文字取得しろボタン</a>
+    <div>
+        <TL />
+        <a @click="emo('misskey.io')">絵文字取得しろボタン</a>
+    </div>
 </template>
 
 <script>
@@ -19,14 +21,18 @@ export default {
         }
     },
     methods: {
-        emo() {
-            console.log("あ")
-            fetch("http://localhost:3000/req/emojis",{
+        async emo(host) {
+            const res = await fetch("http://localhost:3000/req/emojis",{
+                mode: 'cors',
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
-                    host: "misskey.io",
-                });
+                    host: host,
+                }),
             })
+            console.log(await res.json())
         }
     }
 }
