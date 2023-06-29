@@ -15,11 +15,17 @@ app.get('/test', function(req, res) {
     })
 })
 
-app.post('/req/emojis', function(req, res) {
-    const host = req.body.host
+app.post('/req/emojis/get', function(req, res) {
+    emojis.get(req.body.host)
     res.send({
-        msg: "OK"
+        msg: "OK!"
     })
 })
-
+app.post('/req/emojis/search', function(req, res) {
+    const result = emojis.search(req.body.query);
+    //console.log(result)
+    res.send({
+        links: result
+    })
+})
 app.listen(process.env.PORT || 3000)

@@ -1,4 +1,4 @@
-var fs = require('fs');
+const fs = require('fs');
 
 const get = async(host) => {
     const emo = await fetch(`https://${host}/api/emojis`)
@@ -8,7 +8,7 @@ const get = async(host) => {
     fs.writeFile(`./emoji_index/${host}_emojis.json`, JSON.stringify(emo), (err) => {
         if (err) {
           console.error(err);
-          return 1;
+          return;
         }
     });
 
@@ -28,20 +28,25 @@ const get = async(host) => {
     fs.writeFile(`./emoji_index/${host}_index_key.json`, JSON.stringify(categorys), (err) => {
         if (err) {
           console.error(err);
-          return 1;
+          return;
         }
     });
 
     fs.writeFile(`./emoji_index/${host}_index.json`, JSON.stringify(emoji_index), (err) => {
         if (err) {
           console.error(err);
-          return 1;
+          return;
         }
     });
-    return 0;
+    return;
 }
-const search = async(host) => {
+const search = async(query) => {
+    const querys = query.match(/\:.*?\:/g);
+    for (let i = 0;i < querys.length;i++) {
+        console.log(querys[i])
 
+    }
+    return querys[0]
 }
 
 exports.get = get
