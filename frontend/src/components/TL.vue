@@ -1,20 +1,34 @@
 <template>
     <v-virtual-scroll
-        :items="items" 
+        :items="notes"
+        height=100vh
+        item-height="0"
     >
     <template v-slot:default="{ item }">
         <v-card
-            class="mx-auto"
-            width="400"
-            prepend-icon="mdi-home"
+            max-width = "400"
+            class="mx-auto note_body"
+            :elevation="1"
         >
-            <template v-slot:title>
-            {{ item.user_name }}
-            </template>
-
+            <v-card-title>
+                {{ item.user_name }}
+            </v-card-title>
             <v-card-text>
                 {{ item.note_text }}
             </v-card-text>
+            <v-card-actions
+                class="card_actions"
+            >
+                <v-btn>
+                    <i class="icon-comment"></i>
+                </v-btn>
+                <v-btn>
+                    <i class="icon-retweet"></i>
+                </v-btn>
+                <v-btn>
+                    <i class="icon-plus-squared-alt"></i>
+                </v-btn>
+            </v-card-actions>
         </v-card>
     </template>
 </v-virtual-scroll>
@@ -34,16 +48,7 @@ export default {
                     text: "d",
                 }
             },
-            items: [
-                {   
-                    id: 0,
-                    user_name: "テストユーザー",
-                    user_id: "hogehoge",
-                    user_icon: "hoge.com",
-                    note_id: "piyopiyo",
-                    note_text: "こんにちは 世界!",
-                    note_atter: "note",
-                }
+            notes: [
             ],
             mainhost: "",
         }
@@ -63,7 +68,7 @@ export default {
                         id: uuid,
                         params: {}
                     }
-                }));
+                }));/*
                 setTimeout(() => {
                     TL.send(JSON.stringify({
                         type: 'disconnect',
@@ -72,15 +77,27 @@ export default {
                             id: uuid,
                         }
                     }))
-                },10000);
+                },10000);*/
             });
-            TL.onmessage = function(event) {
-                note.Gen(event.data,mainhost);
-            };
+            var th = this
+            TL.addEventListener('message', async (event) => {
+            console.log("Get Note!")
+                const note_data = await note.Gen(event.data,mainhost);
+                th.notes.unshift(note_data);
+            });
         }
     },
     mounted() {
-        //this.TL()
+        this.TL()
     }
 }
 </script>
+
+<style>
+.note_body {
+    margin: 5px 0 5px 0;
+}
+.card_actions {
+    justify-content: space-evenly;
+}
+</style>
