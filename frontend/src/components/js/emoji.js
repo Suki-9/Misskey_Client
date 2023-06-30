@@ -13,8 +13,8 @@ export default {
         }).then((response) => response.json()).then((data) => {return data});
 
         if (res.msg !== "success!") {
-            await get(host);
-            await emo_search(query,host);
+            await this.get(host);
+            await this.search(query,host);
         }
         return res
     },

@@ -30,13 +30,13 @@ export default {
             const token = Cookie.lead(`${mainhost}_token`);
             const uuid = UUID.Gen();
             const TL = new WebSocket(`wss://${mainhost}/streaming?i=${token}`);
-            TL.addEventListener('open', (event) => {
+            TL.addEventListener('open', () => {
                 console.log("Join success!")
                 TL.send(JSON.stringify({
                     type: 'connect',
                     body: {
-		                channel: 'localTimeline',
-		                id: uuid,
+                        channel: 'localTimeline',
+                        id: uuid,
                         params: {}
                     }
                 }));
@@ -44,8 +44,8 @@ export default {
                     TL.send(JSON.stringify({
                         type: 'disconnect',
                         body: {
-		                    channel: 'localTimeline',
-		                    id: uuid,
+                            channel: 'localTimeline',
+                            id: uuid,
                         }
                     }))
                 },10000);
@@ -60,7 +60,3 @@ export default {
     }
 }
 </script>
-
-<style>
-@import './css/pc/TL.css';
-</style>

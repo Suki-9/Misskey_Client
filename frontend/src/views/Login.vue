@@ -72,7 +72,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-@import '../components/css/pc/login.css';
-</style>

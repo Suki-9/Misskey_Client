@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
-    <link id="PageStyleSheet" rel="stylesheet" href="/src/components/css/pc.css" />
+    <link id="PageStyleSheet" rel="stylesheet" href="/src/styles/pc.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MiView</title>
     <script type="text/javascript">
       document.addEventListener('DOMContentLoaded', (event) =>  {
         if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-          document.getElementById("PageStyleSheet").href = "/src/components/css/mobile.css";
+          document.getElementById("PageStyleSheet").href = "/src/styles/mobile.css";
         }
       });
     </script>

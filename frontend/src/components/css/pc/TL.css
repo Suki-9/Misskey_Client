@@ -1,6 +1,0 @@
-@import "./note.css";
-.TL {
-    display: flex;
-    flex-direction: column-reverse;
-    width: 700px;
-}

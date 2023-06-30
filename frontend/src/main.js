@@ -1,5 +1,14 @@
-import { createApp } from 'vue'
+// Components
 import App from './App.vue'
-import router from './router'
 
-createApp(App).use(router).mount('#app')
+// Composables
+import { createApp } from 'vue'
+
+// Plugins
+import { registerPlugins } from '@/plugins'
+
+const app = createApp(App)
+
+registerPlugins(app)
+
+app.mount('#app')
