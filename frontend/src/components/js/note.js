@@ -1,6 +1,9 @@
+import emoji from '@/components/js/emoji.js';
+
 export default {
-    Gen(data){
+    async Gen(data,host){
         const GetNote = JSON.parse(data).body.body;
+        console.log(GetNote.text)
         const UserData = GetNote.user;
 
         const Username = UserData.name.replace(/\:.*?\:/g,"{emo}");
@@ -9,11 +12,13 @@ export default {
 
         const text_emozi = (GetNote.text == null) ? "" : GetNote.text.match(/\:.*?\:/g);
         const text_emozi_len = (text_emozi !== null) ? text_emozi.length : 0;
-        let text = (GetNote.text == null) ? "" : GetNote.text.replace(/\:.*?\:/g,"{emo}");
+        let text = (GetNote.text == null) ? "" : GetNote.text.replace(/\n/g,'</p><br><p class="text">');
+        console.log(text)
         if (text_emozi_len !== 0) {
             for (let i = 0;i < text_emozi_len;i++) {
+                const emoji_url = await emoji.search(text_emozi[i],host)
+                text = text.replace(text_emozi[i],`<img class="emoji" src="${emoji_url[text_emozi[i]]}">`)
             }
-            console.log(text_emozi);
         }
 
         const media_len = (GetNote.files.length >= 4) ? 4 : GetNote.files.length;
@@ -33,7 +38,7 @@ export default {
                             <p class="name">${Username}</p>
                             <p class="name">${userId}</p>
                         </div>
-                        ${(GetNote.text == null) ? "" : `<div class='note_text'><p>${text}</p></div>`}
+                        ${(GetNote.text == null) ? "" : `<div class='note_text'><p class="text">${text}</p></div>`}
                         ${(media_len == 0) ? "" : ` <div class="note_media">${media}</div>`}
                         <div class="note_reaction">
                         </div>

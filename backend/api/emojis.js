@@ -37,6 +37,7 @@ const get = async(host) => {
     });
     return;
 }
+
 const search = async(query,host) => {
     const querys = query.match(/\:.*?\:/g);
     const results = {}

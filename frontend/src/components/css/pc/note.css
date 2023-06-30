@@ -47,11 +47,17 @@
 	overflow: hidden;
 }
 .note_text {
+    display: flex;
+    flex-wrap: wrap;
+    
     width: 92%;
     padding: 2%;
     background-color: var(--themecolor-400);
     border-radius: 3px;
     word-wrap: break-word;
+}
+.emoji {
+    height: 1.5em;
 }
 .note_media {
     display: flex;
@@ -72,6 +78,5 @@
 .media {
     width: 100%;
     border-radius: 7px;
-    aspect-ratio: 16 / 9;
     object-fit: cover;
 }
