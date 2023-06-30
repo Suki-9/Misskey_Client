@@ -21,11 +21,8 @@ app.post('/req/emojis/get', function(req, res) {
         msg: "OK!"
     })
 })
-app.post('/req/emojis/search', function(req, res) {
-    const result = emojis.search(req.body.query);
-    //console.log(result)
-    res.send({
-        links: result
-    })
+app.post('/req/emojis/search', async function(req, res) {
+    const result = await emojis.search(req.body.query,req.body.host);
+    res.send(result)
 })
 app.listen(process.env.PORT || 3000)

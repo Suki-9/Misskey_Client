@@ -1,7 +1,7 @@
 <template>
     <div>
         <TL />
-        <a @click="emo_search(':hyper_vibecat::oyasumisskey:')">絵文字取得しろボタン</a>
+        <a @click="emo_search(':oyasumisskey::hyper_vibecat:','misskey.io')">絵文字取得しろボタン</a>
     </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
                 })
             })
         },
-        async emo_search(query) {
+        async emo_search(query,host) {
             const res = await fetch("http://localhost:3000/req/emojis/search",{
                 mode: 'cors',
                 method: 'POST',
@@ -42,11 +42,13 @@ export default {
                 },
                 body: JSON.stringify({
                     query: query,
+                    host: host,
                 }),
-            })
-            .then((response) => response.json())
-            .then((data) => {return data.links});
-            console.log(await res)
+            }).then((response) => response.json()).then((data) => {return data});
+
+            if (res.msg !== "success!") {
+                emo_search(query,host)
+            }
         }
     }
 }

@@ -7,8 +7,7 @@ const get = async(host) => {
 
     fs.writeFile(`./emoji_index/${host}_emojis.json`, JSON.stringify(emo), (err) => {
         if (err) {
-          console.error(err);
-          return;
+            return;
         }
     });
 
@@ -27,26 +26,39 @@ const get = async(host) => {
 
     fs.writeFile(`./emoji_index/${host}_index_key.json`, JSON.stringify(categorys), (err) => {
         if (err) {
-          console.error(err);
-          return;
+            return;
         }
     });
 
     fs.writeFile(`./emoji_index/${host}_index.json`, JSON.stringify(emoji_index), (err) => {
         if (err) {
-          console.error(err);
-          return;
+            return;
         }
     });
     return;
 }
-const search = async(query) => {
+const search = async(query,host) => {
     const querys = query.match(/\:.*?\:/g);
-    for (let i = 0;i < querys.length;i++) {
-        console.log(querys[i])
+    const results = {}
 
+    try{
+        const index = await JSON.parse(fs.readFileSync(`./emoji_index/${host}_emojis.json`, 'utf8'));
+        for (let i = 0;i < index.length;i++) {
+            for (let j = 0;j < querys.length;j++) {
+                if (index[i].name == querys[j].replace(/:/g,"")) {
+                    const key = querys[j];
+                    results[key] = index[i].url;
+                }
+            }
+        }
+    } catch(e) {
+        await get(host);
+        results.msg = "index error!";
+        return results;
     }
-    return querys[0]
+
+    results.msg = "success!";
+    return results;
 }
 
 exports.get = get
