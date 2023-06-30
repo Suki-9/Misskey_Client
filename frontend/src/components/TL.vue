@@ -1,10 +1,23 @@
 <template>
-    <div class="TL" id="TL">
-        <v-virtual-scroll
-            height="100"
-            tem-height="20"
-        ></v-virtual-scroll>
-    </div>
+    <v-virtual-scroll
+        :items="items" 
+    >
+    <template v-slot:default="{ item }">
+        <v-card
+            class="mx-auto"
+            width="400"
+            prepend-icon="mdi-home"
+        >
+            <template v-slot:title>
+            {{ item.user_name }}
+            </template>
+
+            <v-card-text>
+                {{ item.note_text }}
+            </v-card-text>
+        </v-card>
+    </template>
+</v-virtual-scroll>
 </template>
 
 <script>
@@ -21,6 +34,17 @@ export default {
                     text: "d",
                 }
             },
+            items: [
+                {   
+                    id: 0,
+                    user_name: "テストユーザー",
+                    user_id: "hogehoge",
+                    user_icon: "hoge.com",
+                    note_id: "piyopiyo",
+                    note_text: "こんにちは 世界!",
+                    note_atter: "note",
+                }
+            ],
             mainhost: "",
         }
     },
