@@ -120,7 +120,7 @@ export default {
                     document.cookie = `session=${host},${session}`
                     document.location = MiAuth_URL;
                 } else {
-                    const token = this.token;
+                    //const token = this.token;
                 }
             } else {
                 this.snackbar = true;

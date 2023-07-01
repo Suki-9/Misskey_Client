@@ -1,35 +1,48 @@
 <template>
     <v-virtual-scroll
-        :items="notes"
-        height=100vh
-        itemHeight=50
+      :items="notes"
+      height="100vh"
     >
         <template v-slot:default="{ item }">
-            <div class="note">
-                <a :href="item.user_url">
-                   <img :src="item.user_icon" class="user_icon" />
-                </a>
-                <div class="note_body">
-                    <p class="note_head">
-                        <span v-html="item.user_name" class="user_name" ></span>
-                        <span class="user_id" v-text="item.user_id"></span>
-                    </p>
-
-                    <p class="note_text"><span v-html="item.note_text"></span></p>
-                    
-                    <div class="card_actions">
-                        <v-btn variant="text">
-                            <i class="icon-comment"></i>
-                        </v-btn>
-                        <v-btn variant="text">
-                            <i class="icon-retweet"></i>
-                        </v-btn>
-                        <v-btn variant="text">
-                            <i class="icon-plus-squared"></i>
-                        </v-btn>
-                    </div>
+            <v-card
+              class="ma-2 pa-2"
+              width="96%"
+            >
+                <div
+                    class="ma-0 d-flex"
+                >
+                    <img 
+                        class="rounded-circle"
+                        width="60"
+                        height="60"
+                        :src="item.user_icon"
+                    >
+                    <v-sheet
+                        class="pa-2"
+                    >
+                        <p class="d-flex">
+                            <span v-html="item.user_name"></span>
+                            <span v-text="item.user_id"></span>
+                        </p>
+                        <p>
+                            <span v-html="item.note_text"></span>
+                        </p>
+                        <v-card-actions
+                            class="pa-0"
+                        >
+                            <v-btn variant="text" >
+                                <i class="icon-comment"></i>
+                            </v-btn>
+                            <v-btn variant="text">
+                                <i class="icon-retweet"></i>
+                            </v-btn>
+                            <v-btn variant="text">
+                                <i class="icon-plus-squared"></i>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-sheet>
                 </div>
-            </div>
+            </v-card>
         </template>
     </v-virtual-scroll>
 </template>
@@ -48,9 +61,10 @@ export default {
                     text: "d",
                 }
             },
+            offsetTop: 0,
+            refresh: true,
             notes: [
             ],
-            mainhost: "",
         }
     },
     methods: {
@@ -79,12 +93,24 @@ export default {
                     }))
                 },60000);*/
             });
-            var th = this
+            let th = this;
+            let notes_inbox = [];
             TL.addEventListener('message', async (event) => {
                 const note_data = await note.Gen(event.data,mainhost);
-                th.notes.unshift(note_data);
+                if (th.offsetTop <= 100) {
+                    for (let i = 0;i < notes_inbox.length;i++){
+                        th.notes.unshift(notes_inbox[i])
+                    }
+                    notes_inbox = []
+                    th.notes.unshift(note_data);
+                } else {
+                    notes_inbox.unshift(note_data);
+                }
             });
-        }
+        },
+        onScroll (e) {
+            this.offsetTop = e.target.scrollTop
+        },
     },
     mounted() {
         this.TL()
@@ -105,29 +131,9 @@ export default {
 
     background-color: rgb(255, 255, 255);
 }
-.note_head {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: baseline;
-    
-    position: relative;
-
-    max-width: 430px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    padding: 0 0 0 1rem;
-}
 .user_name {
     display: flex;
     align-items: center;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
     font-size: 1.2em;
 }
 .user_id {
