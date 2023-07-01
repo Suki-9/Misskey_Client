@@ -2,27 +2,25 @@
     <v-virtual-scroll
         :items="notes"
         height=100vh
-        item-height=200
+        itemHeight=50
     >
         <template v-slot:default="{ item }">
            <v-card
                width=500
+               elevation="0"
                class="note"
             >
                <div class="note_body" >
                    <img :src="item.user_icon" class="user_icon" />
                    <article>
-                        <span>
-                            <v-card-title class="note_head">
-                                {{ item.user_name }}
-                            </v-card-title>
-
-                            <v-card-subtitle>
-                                @{{ item.user_id }}
-                            </v-card-subtitle>
-                        </span>
-                        <v-card-text>
-                            {{ item.note_text }}
+                        <v-card-title class="note_head">
+                            <span v-html="item.user_name" class="user_name"></span>
+                        </v-card-title>
+                        <v-card-subtitle>
+                            @{{ item.user_id }}
+                        </v-card-subtitle>
+                        <v-card-text >
+                            <span v-html="item.note_text" class="note_text"></span>
                         </v-card-text>
                         <v-card-actions class="card_actions">
                             <v-btn>
@@ -91,7 +89,6 @@ export default {
             TL.addEventListener('message', async (event) => {
                 const note_data = await note.Gen(event.data,mainhost);
                 th.notes.unshift(note_data);
-                console.log(th.notes)
             });
         }
     },
@@ -105,18 +102,30 @@ export default {
 .note {
     margin: 5px auto 5px auto;
 }
-.note_head {
-    overflow: hidden;
-}
 .note_body {
     display: flex;
     padding: 10px;
+}
+.user_name {
+    display: flex;
+    align-items: center;
 }
 .user_icon {
     border-radius: 50%;
     height: 3em;
     width: 3em;
 }
-.card_actions {
+.user_name_emoji {
+    height: 1em;
+    margin: 0 2px 0 2px;
+}
+.note_text_emoji {
+    height: 1.5em;
+    margin: 0 3px 0 3px;
+}
+.note_text {
+    font-size: 1.1em; 
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 </style>

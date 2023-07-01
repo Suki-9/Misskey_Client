@@ -1,5 +1,5 @@
 <template>
-  <TL />
+  <TL class="TL" />
 </template>
 
 <script>
@@ -25,4 +25,7 @@ export default {
 </script>
 
 <style>
+.TL {
+    background-color: rgb(220, 220, 220);
+}
 </style>

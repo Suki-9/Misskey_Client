@@ -30,4 +30,13 @@ export default {
             })
         })
     },
+    async parse(user_name,mainhost,attr) {
+        const emoji = user_name.match(/:.*?:/g)
+        if (emoji !== null) {
+            const emoji_url = await this.search(emoji.join(''),mainhost)
+            for (let i = 0;i < emoji.length;i++)
+                user_name = user_name.replace(emoji[i],`<img class='${attr}_emoji' src='${emoji_url[emoji[i]]}'>`)
+        }
+        return user_name
+    },
 }
