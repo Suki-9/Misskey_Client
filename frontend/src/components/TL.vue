@@ -2,36 +2,44 @@
     <v-virtual-scroll
         :items="notes"
         height=100vh
-        item-height="0"
+        item-height=200
     >
-    <template v-slot:default="{ item }">
-        <v-card
-            max-width = "400"
-            class="mx-auto note_body"
-            :elevation="1"
-        >
-            <v-card-title>
-                {{ item.user_name }}
-            </v-card-title>
-            <v-card-text>
-                {{ item.note_text }}
-            </v-card-text>
-            <v-card-actions
-                class="card_actions"
+        <template v-slot:default="{ item }">
+           <v-card
+               width=500
+               class="note"
             >
-                <v-btn>
-                    <i class="icon-comment"></i>
-                </v-btn>
-                <v-btn>
-                    <i class="icon-retweet"></i>
-                </v-btn>
-                <v-btn>
-                    <i class="icon-plus-squared-alt"></i>
-                </v-btn>
-            </v-card-actions>
-        </v-card>
-    </template>
-</v-virtual-scroll>
+               <div class="note_body" >
+                   <img :src="item.user_icon" class="user_icon" />
+                   <article>
+                        <span>
+                            <v-card-title class="note_head">
+                                {{ item.user_name }}
+                            </v-card-title>
+
+                            <v-card-subtitle>
+                                @{{ item.user_id }}
+                            </v-card-subtitle>
+                        </span>
+                        <v-card-text>
+                            {{ item.note_text }}
+                        </v-card-text>
+                        <v-card-actions class="card_actions">
+                            <v-btn>
+                                <i class="icon-comment"></i>
+                            </v-btn>
+                            <v-btn>
+                                <i class="icon-retweet"></i>
+                            </v-btn>
+                            <v-btn>
+                                <i class="icon-plus-squared-alt"></i>
+                            </v-btn>
+                       </v-card-actions>
+                   </article>
+               </div>
+           </v-card>
+        </template>
+    </v-virtual-scroll>
 </template>
 
 <script>
@@ -55,8 +63,8 @@ export default {
     },
     methods: {
         TL() {
-            const mainhost = (this.settings.mainhost.bool) ? Cookie.lead("mainhost") : Cookie.lead("hosts").split(",")[1];
-            const token = Cookie.lead(`${mainhost}_token`);
+            const mainhost = (this.settings.mainhost.bool) ? Cookie.read("mainhost") : Cookie.read("hosts").split(",")[1];
+            const token = Cookie.read(`${mainhost}_token`);
             const uuid = UUID.Gen();
             const TL = new WebSocket(`wss://${mainhost}/streaming?i=${token}`);
             TL.addEventListener('open', () => {
@@ -77,13 +85,13 @@ export default {
                             id: uuid,
                         }
                     }))
-                },10000);*/
+                },60000);*/
             });
             var th = this
             TL.addEventListener('message', async (event) => {
-            console.log("Get Note!")
                 const note_data = await note.Gen(event.data,mainhost);
                 th.notes.unshift(note_data);
+                console.log(th.notes)
             });
         }
     },
@@ -94,10 +102,21 @@ export default {
 </script>
 
 <style>
+.note {
+    margin: 5px auto 5px auto;
+}
+.note_head {
+    overflow: hidden;
+}
 .note_body {
-    margin: 5px 0 5px 0;
+    display: flex;
+    padding: 10px;
+}
+.user_icon {
+    border-radius: 50%;
+    height: 3em;
+    width: 3em;
 }
 .card_actions {
-    justify-content: space-evenly;
 }
 </style>

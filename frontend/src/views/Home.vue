@@ -12,7 +12,7 @@ export default {
   },
   setup() {
       if (navigator.cookieEnabled) {
-          if (Cookie.lead("hosts") == null){
+          if (Cookie.read("hosts") == null){
               document.location = "/login";
           }
       } else {

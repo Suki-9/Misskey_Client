@@ -10,7 +10,7 @@ export default {
         }
         return [Cookies,index];
     },
-    lead(key) {
+    read(key) {
         const index = this.Get()[1];
         const Cookie = this.Get()[0];
         let i = index.indexOf(key);
