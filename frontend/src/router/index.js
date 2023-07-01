@@ -13,6 +13,28 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/login',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Login',
+        component: () => import('@/views/Login.vue'),
+      },
+    ],
+  },
+  {
+    path: '/callback',
+    component: () => import('@/layouts/default/Default.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Callback',
+        component: () => import('@/views/Callback.vue'),
+      },
+    ],
+  },
 ]
 
 const router = createRouter({

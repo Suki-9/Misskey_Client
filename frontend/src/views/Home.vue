@@ -13,7 +13,7 @@ export default {
   setup() {
       if (navigator.cookieEnabled) {
           if (Cookie.read("hosts") == null){
-              document.location = "/login";
+              //document.location = "/login";
           }
       } else {
           alert("Cookieを有効にしてください。")

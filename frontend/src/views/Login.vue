@@ -1,74 +1,134 @@
 <template>
-    <div class="loginpage">
-        <div class="pagehead">
-            <p>MiAuth認証</p>
-        </div>
-        <p class="pageattention">
-            MiAuth認証を使ってトークンを取得します。<br>
-            もしアクセストークンでログインしたい場合は下のスイッチから切り替えてください。
-        </p>
-        <div class="form_attention">
-            <p>{{ form_attention }}</p>
-            <p class="form_alert">{{ form_alert }}</p>
-        </div>
-        <input :value="host" @input="hostInput" class="loginform_textinput" autocomplete="off" placeholder="hogehoge.com"/>
-        <input :value="token" @input="tokenInput" v-show="!login_type.bool" class="loginform_textinput" autocomplete="off" placeholder="32文字の英数字"/>
-        <a id="loginswitch" @click="login_switch" class="loginswitch">{{ login_type.text }}</a>
-        <a class="button" @click="Miauth">Login!</a>
-    </div>
+    <div claaa="mobile">
+        <v-toolbar 
+            density="compact"
+        >
+            <v-app-bar-nav-icon
+                @click="menu = !menu"
+            ></v-app-bar-nav-icon>
+            <v-toolbar-title>{{ login_type.text }}でログイン</v-toolbar-title>
+        </v-toolbar>
+        <v-sheet>
+            <v-expand-transition>
+                <v-col
+                    class="pa-0 ma-0"
+                    v-show="menu"
+                    @click="menu = !menu"
+                >
+                    <v-btn
+                        variant="text"
+                        width="100%"
+                        @click="login_type.text = 'MiAuth',login_type.bool = false"
+                    >MiAuthでログイン</v-btn>
+                    <v-divider></v-divider>
+                    <v-btn
+                        variant="text"
+                        width="100%"
+                        @click="login_type.text = 'Token',login_type.bool = true"
+                    >Tokenでログイン</v-btn>
+                    <v-divider></v-divider>
+                </v-col>
+            </v-expand-transition>
+        </v-sheet>
+        <v-card 
+            class="mx-auto"
+            elevation="0"
+        >
+            <v-form>
+                <v-text-field 
+                    v-model="host"
+                    label="Host URL"
+                    placeholder="hogehoge.com"
+                    hint="Enter use host URL"
+                    class="px-5 pt-5"
+                    variant="underlined"
+                    clearable
+                ></v-text-field>
+                <v-text-field
+                    v-model="token"
+                    v-show="login_type.bool"
+                    label="Your Token"
+                    placeholder="32 alphanumeric characters."
+                    class="px-5"
+                    variant="underlined"
+                    clearable
+                ></v-text-field>
+                <v-card-actions> 
+                <v-row 
+                    justify="end"
+                    class="px-5"
+                >
+                    <v-btn
+                        :loading="loading"
+                        @click="login"
+                        variant="flat"
+                        size="large"
+                        class="px-5"
+                    >Login!</v-btn>
+                </v-row>
+                </v-card-actions>
+            </v-form>
+        </v-card>
+        <v-snackbar
+          v-model="snackbar"
+          :timeout="timeout"
+        >
+            hostを入力してください!
+            <template v-slot:actions>
+                <v-btn
+                    color="red"
+                    variant="text"
+                    @click="snackbar = false"
+                >
+                    Close
+                </v-btn>
+            </template>
+        </v-snackbar>
+  </div>
 </template>
 <script>
-import Cookie from '@/components/js/Cookie.js'
+// import Cookie from '@/components/js/Cookie.js'
 import UUID from '@/components/js/UUID.js'
 
 export default {
     data() {
         return {
-            form_attention: "サーバーのホスト名を入力",
-            form_alert: '',
+            menu: false,
             login_type: {
-                text: "トークンでログイン",
-                bool: true,
+                bool: false,
+                text: "MiAuth",
             },
-            token: '',
-            host: '',
+            token: null,
+            host: null,
+            loading: false,
+            snackbar: false,
         }
     },
     methods: {
-        hostInput(e) {
-            this.host = e.target.value
-        },
-        tokenInput(e) {
-            this.token = e.target.value
+        login() {
+            this.Miauth();
+            this.loading = true;
+            setTimeout(() => (this.loading = false), 2000);
         },
         Miauth() {
-            if (this.login_type.bool) {
-                if (this.host !== ""){
-                    const uuid = UUID.Gen();
-                    document.cookie = `session=${uuid},${this.host}`;
-                    const MiAauthURL = `https://${this.host}/miauth/${uuid}?name=MiView&callback=http://localhost:4000/callback`;
-                    document.location = MiAauthURL;
+            if (this.host !== null) {
+                const host = this.host;
+
+                if (!this.login_type.bool) {
+                    const session = UUID.Gen()
+                    const MiAuth_URL = `https://${host}/miauth/${session}?name=Mive&callback=http://192.168.11.7:4000/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`
+                    document.cookie = `session=${host},${session}`
+                    document.location = MiAuth_URL;
                 } else {
-                    this.form_alert = "ホスト名を入力してください!"
+                    const token = this.token;
                 }
             } else {
-                if (this.host !== "" && this.token !== "") {
-                    const hosts = (Cookie.lead("hosts") != null) ? Cookie.lead("hosts").split(",") : ""
-                    if (hosts.indexOf(this.host) == -1) {
-                        document.cookie = `hosts=${hosts},${this.host}`
-                    }
-                    document.cookie = `${this.host}_token=${this.token},${this.host}`
-                    document.location = "../";
-                } else {
-                    this.form_alert = "入力してください!"
-                }
+                this.snackbar = true;
             }
-        },
-        login_switch() {
-            this.login_type.text = (this.login_type.bool) ? "トークンでログイン" : "MiAuthでログイン";
-            this.form_attention = (this.login_type.bool) ? "トークンを入力" : "サーバーのホスト名を入力";
-            this.login_type.bool = !this.login_type.bool;
         }
     }
 }
 </script>
+
+<style scoped>
+</style>

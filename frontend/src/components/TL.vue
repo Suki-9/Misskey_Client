@@ -5,37 +5,31 @@
         itemHeight=50
     >
         <template v-slot:default="{ item }">
-           <v-card
-               width=500
-               elevation="0"
-               class="note"
-            >
-               <div class="note_body" >
+            <div class="note">
+                <a :href="item.user_url">
                    <img :src="item.user_icon" class="user_icon" />
-                   <article>
-                        <v-card-title class="note_head">
-                            <span v-html="item.user_name" class="user_name"></span>
-                        </v-card-title>
-                        <v-card-subtitle>
-                            @{{ item.user_id }}
-                        </v-card-subtitle>
-                        <v-card-text >
-                            <span v-html="item.note_text" class="note_text"></span>
-                        </v-card-text>
-                        <v-card-actions class="card_actions">
-                            <v-btn>
-                                <i class="icon-comment"></i>
-                            </v-btn>
-                            <v-btn>
-                                <i class="icon-retweet"></i>
-                            </v-btn>
-                            <v-btn>
-                                <i class="icon-plus-squared-alt"></i>
-                            </v-btn>
-                       </v-card-actions>
-                   </article>
-               </div>
-           </v-card>
+                </a>
+                <div class="note_body">
+                    <p class="note_head">
+                        <span v-html="item.user_name" class="user_name" ></span>
+                        <span class="user_id" v-text="item.user_id"></span>
+                    </p>
+
+                    <p class="note_text"><span v-html="item.note_text"></span></p>
+                    
+                    <div class="card_actions">
+                        <v-btn variant="text">
+                            <i class="icon-comment"></i>
+                        </v-btn>
+                        <v-btn variant="text">
+                            <i class="icon-retweet"></i>
+                        </v-btn>
+                        <v-btn variant="text">
+                            <i class="icon-plus-squared"></i>
+                        </v-btn>
+                    </div>
+                </div>
+            </div>
         </template>
     </v-virtual-scroll>
 </template>
@@ -50,7 +44,7 @@ export default {
         return {
             settings: {
                 mainhost: {
-                    bool: false,
+                    bool: true,
                     text: "d",
                 }
             },
@@ -100,32 +94,73 @@ export default {
 
 <style>
 .note {
-    margin: 5px auto 5px auto;
-}
-.note_body {
     display: flex;
+
+    width: max(500px,500px);
+
+    margin: 5px auto 5px auto;
     padding: 10px;
+
+    border-radius: 24px 8px 8px 8px;
+
+    background-color: rgb(255, 255, 255);
+}
+.note_head {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    
+    position: relative;
+
+    max-width: 430px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    padding: 0 0 0 1rem;
 }
 .user_name {
     display: flex;
     align-items: center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 1.2em;
+}
+.user_id {
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+
+    margin: 0 0 0 5px;
+
+    font-size: 0.8em;
+    color: rgb(82, 82, 82);
+}
+.note_text {
+    padding: 2px 0 2px 1rem;
+    font-size: 0.9em;
+    
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 .user_icon {
     border-radius: 50%;
-    height: 3em;
-    width: 3em;
+    height: 50px;
+    width: 50px;
 }
 .user_name_emoji {
-    height: 1em;
+    height: 1.2em;
     margin: 0 2px 0 2px;
 }
 .note_text_emoji {
     height: 1.5em;
     margin: 0 3px 0 3px;
 }
-.note_text {
-    font-size: 1.1em; 
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
+.card_actions {
+    padding: 2px 0 2px 1rem;
 }
 </style>
