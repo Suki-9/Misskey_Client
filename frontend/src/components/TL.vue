@@ -112,14 +112,7 @@ export default {
             let th = this;
             TL.addEventListener('message', async (event) => {
                 const note_data = await note.Gen(await JSON.parse(event.data).body.body,mainhost);
-                if (th.offsetTop < 200) {
-                    th.notes.unshift(note_data);
-                    console.log("notein!");
-                } else {
-                    this.notes_inbox.unshift(note_data);
-                    console.log("inbox!");
-                    console.log(this.notes_inbox);
-                }
+                th.notes.unshift(note_data);
             });
         },
         async get_note() {
@@ -145,13 +138,7 @@ export default {
         },
         onScroll (e) {
             this.offsetTop = e.target.scrollTop
-            if (this.offsetTop < 200) {
-                for (let i = 0;i < this.notes_inbox.length;i++){
-                    console.log(this.notes_inbox[i])
-                    this.notes.unshift(this.notes_inbox[i])
-                }
-                this.notes_inbox = []
-            }
+            console.log(this.offsetTop)
         },
     },
     mounted() {
