@@ -87,7 +87,7 @@
   </div>
 </template>
 <script>
-// import Cookie from '@/components/js/Cookie.js'
+import Cookie from '@/components/js/Cookie';
 import UUID from '@/components/js/UUID.js'
 
 export default {
@@ -102,7 +102,7 @@ export default {
             host: null,
             loading: false,
             snackbar: false,
-            server_url: "",
+            server_url: "http://localhost:4000",
         }
     },
     methods: {
@@ -122,6 +122,11 @@ export default {
                     document.location = MiAuth_URL;
                 } else {
                     const token = this.token;
+                    document.cookie = `${host}_token=${token}`
+                    if (Cookie.read("mainhost") == null)
+                        document.cookie = `mainhost=${host}`
+                    document.cookie = `hosts=${(Cookie.read("hosts") == null) ? "" : Cookie.read("hosts")},${host}`
+                    document.location = "/";
                 }
             } else {
                 this.snackbar = true;

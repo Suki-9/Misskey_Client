@@ -1,9 +1,10 @@
 import emoji from '@/components/js/emoji.js';
 
 export default {
-    async Gen(data){
-        const mainhost = "misskey.io";
-        const GetNote = await JSON.parse(data).body.body;
+    async Gen(data,h){
+        const host = h;
+        console.log(data)
+        const GetNote = data;
 
         const time = ["年前","ヶ月前","日前","時間前","分前","秒前","未来"];
         const nowDate = new Date().toISOString().replace("Z","").split(/:|-|T/);
@@ -17,13 +18,13 @@ export default {
         }
 
         return {
-            user_name: (GetNote.user.name == null) ? GetNote.user.username : await emoji.parse(GetNote.user.name,mainhost,"user_name"),
+            user_name: (GetNote.user.name == null) ? GetNote.user.username : await emoji.parse(GetNote.user.name,host,"user_name"),
             user_id: `@${GetNote.user.username}`,
             user_url: `/user?@${GetNote.user.username}`,
             user_icon: GetNote.user.avatarUrl,
             note_id: GetNote.id,
             date: date,
-            note_text: (GetNote.text == null) ? "" : await emoji.parse(GetNote.text,mainhost,"note_text"),
+            note_text: (GetNote.text == null) ? "" : await emoji.parse(GetNote.text,host,"note_text"),
             cw: GetNote.cw,
             renote_count: 0,
             reactions: {},

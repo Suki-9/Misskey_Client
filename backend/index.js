@@ -9,15 +9,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 
-app.post('/api/miauth', function(req, res) {
-    console.log("OK")
-    res.send({
-        body: {
-            i: "hogehoge",
-        }
-    })
-})
-
 app.post('/req/emojis/get', function(req, res) {
     emojis.get(req.body.host)
     res.send({
