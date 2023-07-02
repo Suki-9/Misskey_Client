@@ -9,9 +9,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 
-app.get('/test', function(req, res) {
+app.post('/api/miauth', function(req, res) {
+    console.log("OK")
     res.send({
-        msg: "うぇぶさぁばぁです(笑)"
+        body: {
+            i: "hogehoge",
+        }
     })
 })
 

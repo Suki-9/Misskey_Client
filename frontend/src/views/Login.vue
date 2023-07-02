@@ -102,6 +102,7 @@ export default {
             host: null,
             loading: false,
             snackbar: false,
+            server_url: "",
         }
     },
     methods: {
@@ -116,11 +117,11 @@ export default {
 
                 if (!this.login_type.bool) {
                     const session = UUID.Gen()
-                    const MiAuth_URL = `https://${host}/miauth/${session}?name=Mive&callback=http://192.168.11.7:4000/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`
+                    const MiAuth_URL = `https://${host}/miauth/${session}?name=Mive&callback=${this.server_url}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`
                     document.cookie = `session=${host},${session}`
                     document.location = MiAuth_URL;
                 } else {
-                    //const token = this.token;
+                    const token = this.token;
                 }
             } else {
                 this.snackbar = true;
