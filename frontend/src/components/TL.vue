@@ -2,9 +2,11 @@
     <v-virtual-scroll
       :items="notes"
       height="100vh"
+      id="scroll-target"
     >
         <template v-slot:default="{ item }">
             <v-card
+                v-scroll:#scroll-target="onScroll"
                 class="ma-3 pa-3"
             >
                 <div
@@ -20,12 +22,20 @@
                         class="pl-3"
                         :width=this.window_Width*0.86-60
                     >
-                        <p class="d-flex note_head">
+                        <p
+                            class=""
+                        >
                             <span v-html="item.user_name"></span>
-                            <span v-text="item.user_id"></span>
+                            <span 
+                                v-text="item.user_id"
+                                class="text-body-2 text-medium-emphasis"
+                            ></span>
+                            <span 
+                                v-text="item.date"
+                                class="text-disabled text-body-2 float-end"
+                            ></span>
                         </p>
                         <sheet-footer
-                        
                         >
                             <span v-html="item.note_text"></span>
                         </sheet-footer>
@@ -78,6 +88,8 @@ export default {
             offsetTop: 0,
             notes: [
             ],
+            notes_inbox: [
+            ],
         }
     },
     methods: {
@@ -98,16 +110,15 @@ export default {
                 }));
             });
             let th = this;
-            let notes_inbox = [];
             TL.addEventListener('message', async (event) => {
                 const note_data = await note.Gen(await JSON.parse(event.data).body.body,mainhost);
-                if (th.offsetTop <= 100) {
-                    for (let i = 0;i < notes_inbox.length;i++){
-                        th.notes.unshift(notes_inbox[i])
-                    }
+                if (th.offsetTop < 200) {
                     th.notes.unshift(note_data);
+                    console.log("notein!");
                 } else {
-                    notes_inbox.unshift(note_data);
+                    this.notes_inbox.unshift(note_data);
+                    console.log("inbox!");
+                    console.log(this.notes_inbox);
                 }
             });
         },
@@ -132,6 +143,16 @@ export default {
                 this.notes.push(note_data)
             }
         },
+        onScroll (e) {
+            this.offsetTop = e.target.scrollTop
+            if (this.offsetTop < 200) {
+                for (let i = 0;i < this.notes_inbox.length;i++){
+                    console.log(this.notes_inbox[i])
+                    this.notes.unshift(this.notes_inbox[i])
+                }
+                this.notes_inbox = []
+            }
+        },
     },
     mounted() {
         this.get_note()
@@ -141,11 +162,6 @@ export default {
 </script>
 
 <style>
-.note_head {
-    display: flex;
-    white-space: nowrap;
-    overflow: hidden;
-}
 .user_name_emoji {
     height: 1.2em;
     margin: 0 2px 0 2px;

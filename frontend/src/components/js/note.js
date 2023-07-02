@@ -3,7 +3,6 @@ import emoji from '@/components/js/emoji.js';
 export default {
     async Gen(data,h){
         const host = h;
-        console.log(data)
         const GetNote = data;
 
         const time = ["年前","ヶ月前","日前","時間前","分前","秒前","未来"];
@@ -12,7 +11,7 @@ export default {
         let date = null
         for (let i = 0;i < 6;i++) {
             if (nowDate[i] - note_date[i] !== 0) {
-                date = `${(nowDate[i] - note_date[i] < 1 && i > 4) ? 0 : nowDate[i] - note_date[i]}${time[i]}`
+                date = `${(nowDate[i] - note_date[i] < 1 && i > 4) ? 0 : Math.round(nowDate[i] - note_date[i])}${time[i]}`
                 break
             }
         }

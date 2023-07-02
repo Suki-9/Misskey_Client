@@ -1,5 +1,6 @@
 <template>
     <div>
+        <HeadBar />
         <TL />
     </div>
 </template>
@@ -7,10 +8,12 @@
 <script>
 import Cookie from '@/components/js/Cookie.js';
 import TL from "@/components/TL.vue";
+import HeadBar from "@/components/HeadBar.vue";
 
 export default {
   components: { 
-      TL
+      TL,
+      HeadBar
   },
   setup() {
       if (navigator.cookieEnabled) {
