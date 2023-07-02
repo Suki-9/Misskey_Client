@@ -61,7 +61,6 @@ export default {
                     text: "d",
                 }
             },
-            offsetTop: 0,
             refresh: true,
             notes: [
             ],
