@@ -24,6 +24,7 @@
                 <TL :attr=TLattr />
             </v-window-item>
         </v-window>
+        <HomeUI />
     </div>
 </template>
 
