@@ -3,6 +3,7 @@
       :items="notes"
       height="100vh"
       id="scroll-target"
+      v-if="notes.length!==0"
     >
         <template v-slot:default="{ item }">
             <v-card
@@ -84,6 +85,7 @@ export default {
                 }
             },
             window_Width: window.outerWidth,
+            //消すな、壊れる。
             refresh: true,
             offsetTop: 0,
             notes: [
@@ -112,7 +114,17 @@ export default {
             let th = this;
             TL.addEventListener('message', async (event) => {
                 const note_data = await note.Gen(await JSON.parse(event.data).body.body,mainhost);
-                th.notes.unshift(note_data);
+                if (th.offsetTop < 200) {
+                    th.notes.unshift(note_data);
+                    if (th.notes.length > 30)
+                        th.notes.pop()
+                    console.log("Note -> TL!")
+                } else {
+                    th.notes_inbox.unshift(note_data);
+                    if (th.notes_inbox.length > 30)
+                        th.notes_inbox.pop()
+                    console.log("Note -> InBox!")
+                }
             });
         },
         async get_note() {
@@ -127,7 +139,7 @@ export default {
                     i: token,
                     withFiles: false,
                     excludeNsfw: false,
-                    limit: 10,
+                    limit: 20,
                 }),
             }).then((response) => response.json()).then((data) => {return data});
 
@@ -138,7 +150,15 @@ export default {
         },
         onScroll (e) {
             this.offsetTop = e.target.scrollTop
-            console.log(this.offsetTop)
+            if (this.offsetTop < 200) {
+                for (let i = 0;i < this.notes_inbox.length;i++){
+                    this.notes.unshift(this.notes_inbox[i]);
+                    if (this.notes.length > 30)
+                        this.notes.pop()
+                    console.log("Note -> TL!")
+                }
+                this.notes_inbox = []
+            }
         },
     },
     mounted() {

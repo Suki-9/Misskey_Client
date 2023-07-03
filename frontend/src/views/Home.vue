@@ -7,13 +7,13 @@
 
 <script>
 import Cookie from '@/components/js/Cookie.js';
-import TL from "@/components/TL.vue";
-import HeadBar from "@/components/HeadBar.vue";
+import TL from "@/components/vue/home/TL.vue";
+import HeadBar from "@/components/vue/home/HeadBar.vue";
 
 export default {
   components: { 
       TL,
-      HeadBar
+      HeadBar,
   },
   setup() {
       if (navigator.cookieEnabled) {

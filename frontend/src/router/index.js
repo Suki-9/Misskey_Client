@@ -15,26 +15,21 @@ const routes = [
   },
   {
     path: '/login',
-    component: () => import('@/layouts/default/Default.vue'),
+    name: 'Login',
+    component: () => import('@/layouts/login/Default.vue'),
     children: [
       {
         path: '',
         name: 'Login',
         component: () => import('@/views/Login.vue'),
       },
-    ],
-  },
-  {
-    path: '/callback',
-    component: () => import('@/layouts/default/Default.vue'),
-    children: [
       {
-        path: '',
+        path: '/callback',
         name: 'Callback',
-        component: () => import('@/views/Callback.vue'),
+        component: () => import('@/components/vue/login/Callback.vue'),
       },
     ],
-  },
+  }
 ]
 
 const router = createRouter({
