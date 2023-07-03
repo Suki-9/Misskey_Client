@@ -1,13 +1,12 @@
 <template>
     <v-virtual-scroll
-      :items="notes"
-      height="100vh"
-      id="scroll-target"
-      v-if="notes.length!==0"
+        :items="notes"
+        height="100vh"
+        v-scroll.self="onScroll"
+        v-if="notes.length!==0"
     >
         <template v-slot:default="{ item }">
             <v-card
-                v-scroll:#scroll-target="onScroll"
                 class="ma-3 pa-3"
             >
                 <div
@@ -80,7 +79,6 @@ export default {
     props: ['attr'],
     data() {
         return {
-            tla: "",
             settings: {
                 mainhost: {
                     bool: true,
@@ -152,6 +150,7 @@ export default {
         },
         onScroll (e) {
             this.offsetTop = e.target.scrollTop
+            console.log(this.offsetTop)
             if (this.offsetTop < 200) {
                 for (let i = 0;i < this.notes_inbox.length;i++){
                     this.notes.unshift(this.notes_inbox[i]);

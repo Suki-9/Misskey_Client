@@ -12,7 +12,6 @@
                 {{ TLattr }}
             </v-tab>
         </v-tabs>
-
         <v-window
             v-model="tab"
             show-arrows="hover"
@@ -22,7 +21,7 @@
                 v-for="TLattr in TLattrs"
                 :key="TLattr"
             >
-                <HTL :attr=TLattr />
+                <TL :attr=TLattr />
             </v-window-item>
         </v-window>
     </div>
@@ -30,14 +29,12 @@
 
 <script>
 import Cookie from '@/components/js/Cookie.js';
-import HTL from "@/components/vue/home/HTL.vue";
-import HeadBar from "@/components/vue/home/HeadBar.vue";
+import TL from "@/components/vue/home/TL.vue";
 import HomeUI from "@/components/vue/home/HomeUI.vue";
 
 export default {
     components: { 
-        HTL,
-        HeadBar,
+        TL,
         HomeUI
     },
     data: () => ({
