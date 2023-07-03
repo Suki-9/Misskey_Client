@@ -77,8 +77,10 @@ import UUID from '@/components/js/UUID.js';
 import note from '@/components/js/note.js';
 
 export default {
+    props: ['attr'],
     data() {
         return {
+            tla: "",
             settings: {
                 mainhost: {
                     bool: true,
@@ -105,7 +107,7 @@ export default {
                 TL.send(JSON.stringify({
                     type: 'connect',
                     body: {
-                        channel: 'localTimeline',
+                        channel: `${this.attr}Timeline`,
                         id: uuid,
                         params: {}
                     }
@@ -130,7 +132,7 @@ export default {
         async get_note() {
             const mainhost = (this.settings.mainhost.bool) ? Cookie.read("mainhost") : Cookie.read("hosts").split(",")[1];
             const token = Cookie.read(`${mainhost}_token`);
-            const res = await fetch(`https://${mainhost}/api/notes/local-timeline`, {
+            const res = await fetch(`https://${mainhost}/api/notes/${(this.attr == "home") ? "" : `${this.attr}-`}timeline`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

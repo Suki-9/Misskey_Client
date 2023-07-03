@@ -1,3 +1,4 @@
+
 export default {
     Gen(){
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(a) {

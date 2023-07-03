@@ -1,33 +1,68 @@
 <template>
     <div>
-        <HeadBar />
-        <TL />
+        <v-tabs
+            v-model="tab"
+            color="basil"
+            grow
+        >
+            <v-tab
+                v-for="TLattr in TLattrs"
+                :key="TLattr"
+            >
+                {{ TLattr }}
+            </v-tab>
+        </v-tabs>
+
+        <v-window
+            v-model="tab"
+            show-arrows="hover"
+            direction="vertical"
+        >
+            <v-window-item
+                v-for="TLattr in TLattrs"
+                :key="TLattr"
+            >
+                <HTL :attr=TLattr />
+            </v-window-item>
+        </v-window>
     </div>
 </template>
 
 <script>
 import Cookie from '@/components/js/Cookie.js';
-import TL from "@/components/vue/home/TL.vue";
+import HTL from "@/components/vue/home/HTL.vue";
 import HeadBar from "@/components/vue/home/HeadBar.vue";
+import HomeUI from "@/components/vue/home/HomeUI.vue";
 
 export default {
-  components: { 
-      TL,
-      HeadBar,
-  },
-  setup() {
-      if (navigator.cookieEnabled) {
+    components: { 
+        HTL,
+        HeadBar,
+        HomeUI
+    },
+    data: () => ({
+        tab: null,
+        TLattrs: [
+            "home",
+            "local",
+            "hybrid",
+            "global",
+        ],
+    }),
+    setup() {
+        if (navigator.cookieEnabled) {
             if (Cookie.read("hosts") == null){
                 document.location = "/login";
             }
-      } else {
-          alert("Cookieを有効にしてください。")
-      }
-  },
-  methods: {
-  }
+        } else {
+            alert("Cookieを有効にしてください。")
+        }
+    },
+    methods: {
+    }
 }
 </script>
 
 <style>
+
 </style>
