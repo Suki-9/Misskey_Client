@@ -4,10 +4,12 @@
             :class="{'pt-1': loading === true, 'pa-0': loading === false}"
             :loading="loading"
             elevation="0"
+            
         ></v-card>
+        
         <v-virtual-scroll
+            class="h-100"
             :items="notes"
-            height="100vh"
             v-scroll.self="onScroll"
             v-if="notes.length!==0"
         >
@@ -172,7 +174,7 @@ export default {
             }
         },
     },
-    mounted() {
+    created() {
         this.get_note()
         this.stream()
     },

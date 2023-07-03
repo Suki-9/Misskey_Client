@@ -1,5 +1,7 @@
 <template>
-  <v-app>
+  <v-app
+    class="overflow-hidden"
+  >
     <HeadBar />
     <default-view />
   </v-app>
