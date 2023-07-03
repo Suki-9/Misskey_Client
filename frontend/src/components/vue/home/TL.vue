@@ -1,73 +1,80 @@
 <template>
-    <v-virtual-scroll
-        :items="notes"
-        height="100vh"
-        v-scroll.self="onScroll"
-        v-if="notes.length!==0"
-    >
-        <template v-slot:default="{ item }">
-            <v-card
-                class="ma-3 pa-3"
-            >
-                <div
-                    class="ma-0 d-flex"
+    <div>
+        <v-card
+            :class="{'pt-1': loading === true, 'pa-0': loading === false}"
+            :loading="loading"
+            elevation="0"
+        ></v-card>
+        <v-virtual-scroll
+            :items="notes"
+            height="100vh"
+            v-scroll.self="onScroll"
+            v-if="notes.length!==0"
+        >
+            <template v-slot:default="{ item }">
+                <v-card
+                    class="ma-3 pa-3"
                 >
-                    <a :href="`/user?${item.user_id}`"><img 
-                        class="rounded-circle"
-                        width="60"
-                        height="60"
-                        :src="item.user_icon"
-                    ></a>
-                    <v-sheet
-                        class="pl-3"
-                        :width=this.window_Width*0.86-60
+                    <div
+                        class="ma-0 d-flex"
                     >
-                        <p
-                            class=""
+                        <a :href="`/user?${item.user_id}`"><img 
+                            class="rounded-circle"
+                            width="60"
+                            height="60"
+                            :src="item.user_icon"
+                        ></a>
+                        <v-sheet
+                            class="pl-3"
+                            :width=this.window_Width*0.86-60
                         >
-                            <span v-html="item.user_name"></span>
-                            <span 
-                                v-text="item.user_id"
-                                class="text-body-2 text-medium-emphasis"
-                            ></span>
-                            <span 
-                                v-text="item.date"
-                                class="text-disabled text-body-2 float-end"
-                            ></span>
-                        </p>
-                        <sheet-footer
-                        >
-                            <span v-html="item.note_text"></span>
-                        </sheet-footer>
-                        <v-card-actions
-                            class="pa-0"
-                        >
-                            <v-btn 
-                                variant="text"
+                            <p
+                                class=""
                             >
-                                <i class="icon-comment"></i>
-                            </v-btn>
-                            <v-btn 
-                                variant="text"
+                                <span v-html="item.user_name"></span>
+                                <span 
+                                    v-text="item.user_id"
+                                    class="text-body-2 text-medium-emphasis"
+                                ></span>
+                                <span 
+                                    v-text="item.date"
+                                    class="text-disabled text-body-2 float-end"
+                                ></span>
+                            </p>
+                            <sheet-footer
                             >
-                                <i class="icon-retweet"></i>
-                            </v-btn>
-                            <v-btn 
-                                variant="text"
+                                <span v-html="item.note_text"></span>
+                            </sheet-footer>
+                            <v-card-actions
+                                class="pa-0"
                             >
-                                <i class="icon-plus-squared"></i>
-                            </v-btn>
-                        </v-card-actions>
-                        <sheet-footer
-                            class="ma-0 pa-0 text-caption d-flex flex-row-reverse"
-                        >
-                            note_id : {{ item.note_id }}
-                        </sheet-footer>
-                    </v-sheet>
-                </div>
-            </v-card>
-        </template>
-    </v-virtual-scroll>
+                                <v-btn 
+                                    variant="text"
+                                >
+                                    <i class="icon-comment"></i>
+                                </v-btn>
+                                <v-btn 
+                                    variant="text"
+                                >
+                                    <i class="icon-retweet"></i>
+                                </v-btn>
+                                <v-btn 
+                                    variant="text"
+                                >
+                                    <i class="icon-plus-squared"></i>
+                                </v-btn>
+                            </v-card-actions>
+                            <sheet-footer
+                                class="ma-0 pa-0 text-caption d-flex flex-row-reverse"
+                            >
+                                note_id : {{ item.note_id }}
+                            </sheet-footer>
+                        </v-sheet>
+                    </div>
+                </v-card>
+            </template>
+        </v-virtual-scroll>
+    </div>
 </template>
 
 <script>
@@ -87,6 +94,7 @@ export default {
             window_Width: window.outerWidth,
             //消すな、壊れる。
             refresh: true,
+            loading: true,
             offsetTop: 0,
             notes: [
             ],
@@ -139,13 +147,15 @@ export default {
                     i: token,
                     withFiles: false,
                     excludeNsfw: false,
-                    limit: 20,
+                    limit: 30,
                 }),
             }).then((response) => response.json()).then((data) => {return data});
 
             for (let i = 0;i < res.length;i++) {
                 const note_data = await note.Gen(await res[i],mainhost);
                 this.notes.push(note_data)
+                this.loading = (i==29) ? false : true
+                console.log(this.loading)
             }
         },
         onScroll (e) {
@@ -165,7 +175,7 @@ export default {
     mounted() {
         this.get_note()
         this.stream()
-    }
+    },
 }
 </script>
 

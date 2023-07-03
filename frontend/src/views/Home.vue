@@ -2,8 +2,8 @@
     <div>
         <v-tabs
             v-model="tab"
-            color="basil"
-            grow
+            fixed-tabs
+            absolute
         >
             <v-tab
                 v-for="TLattr in TLattrs"
@@ -14,7 +14,6 @@
         </v-tabs>
         <v-window
             v-model="tab"
-            show-arrows="hover"
             direction="vertical"
         >
             <v-window-item
@@ -40,6 +39,7 @@ export default {
     },
     data: () => ({
         tab: null,
+        isLoading:true,
         TLattrs: [
             "home",
             "local",
@@ -57,7 +57,7 @@ export default {
         }
     },
     methods: {
-    }
+    },
 }
 </script>
 
