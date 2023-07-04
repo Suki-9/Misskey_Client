@@ -26,6 +26,7 @@
                 <TL :attr=TLattr />
             </v-window-item>
         </v-window>
+        <Bottombar />
     </div>
 </template>
 
@@ -33,11 +34,13 @@
 import Cookie from '@/components/js/Cookie.js';
 
 import TL from "@/components/vue/home/TL.vue";
+import Bottombar from "@/components/vue/home/Bottombar.vue";
 //import HomeUI from "@/components/vue/home/HomeUI.vue";
 
 export default {
     components: { 
         TL,
+        Bottombar,
     },
     data: () => ({
         tab: null,
@@ -51,9 +54,8 @@ export default {
     }),
     setup() {
         if (navigator.cookieEnabled) {
-            if (Cookie.read("hosts") == null){
-                document.location = "/login";
-            }
+            if (Cookie.read("hosts") == null)
+                    document.location = "/login";
         } else {
             alert("Cookieを有効にしてください。")
         }

@@ -1,6 +1,6 @@
 export default {
     async search(query,host) {
-        const res = await fetch("http://192.168.11.2:3000/req/emojis/search",{
+        const res = await fetch("http://192.168.23.88:3000/req/emojis/search",{
             mode: 'cors',
             method: 'POST',
             headers: {
@@ -19,7 +19,7 @@ export default {
         return res
     },
     async get(host) {
-        const server = "192.168.11.2:3000"
+        const server = "192.168.23.88:3000"
         await fetch(`http://${server}/req/emojis/get`,{
             mode: 'cors',
             method: 'POST',
