@@ -157,7 +157,6 @@ export default {
                 const note_data = await note.Gen(await res[i],mainhost);
                 this.notes.push(note_data)
                 this.loading = (i==29) ? false : true
-                console.log(this.loading)
             }
         },
         onScroll (e) {
