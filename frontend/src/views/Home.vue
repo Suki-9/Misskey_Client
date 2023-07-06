@@ -4,8 +4,8 @@
             density="compact"
             :elevation="1">
             <v-tabs
-            v-model="tab"
-            fixed-tabs
+                v-model="tab"
+                fixed-tabs
             >
                 <v-tab
                     v-for="TLattr in TLattrs"

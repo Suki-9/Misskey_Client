@@ -45,7 +45,7 @@
                             </p>
                             <sheet-footer
                             >
-                                <span v-html="item.note_text"></span>
+                                <p><span v-html="item.note_text"></span></p>
                             </sheet-footer>
                             <v-card-actions
                                 class="pa-0"
@@ -63,7 +63,7 @@
                                 <v-btn 
                                     variant="text"
                                 >
-                                    <i class="icon-plus-squared"></i>
+                                    <i class="icon-plus"></i>
                                 </v-btn>
                             </v-card-actions>
                             <sheet-footer
