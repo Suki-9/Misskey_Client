@@ -4,7 +4,6 @@
             :class="{'pt-1': loading === true, 'pa-0': loading === false}"
             :loading="loading"
             elevation="0"
-            
         ></v-card>
         
         <v-virtual-scroll
@@ -94,8 +93,6 @@ export default {
                 }
             },
             window_Width: window.outerWidth,
-            //消すな、壊れる。
-            refresh: true,
             loading: true,
             offsetTop: 0,
             notes: [
