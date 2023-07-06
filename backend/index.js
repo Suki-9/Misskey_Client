@@ -9,6 +9,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 
+app.get('/test', function(req, res) {
+    res.send({
+        msg: "OK!"
+    })
+})
+
 app.post('/req/emojis/get', function(req, res) {
     emojis.get(req.body.host)
     res.send({
