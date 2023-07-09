@@ -102,7 +102,7 @@ export default {
             host: null,
             loading: false,
             snackbar: false,
-            server_url: "http://192.168.23.88:4000",
+            server_url: "http://192.168.11.2:4000",
         }
     },
     methods: {

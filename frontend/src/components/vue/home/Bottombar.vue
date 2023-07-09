@@ -1,18 +1,18 @@
 <template>
     <v-bottom-navigation
-        :elevation="0"
+        :elevation="5"
         grow
     >
-        <v-btn class="mx-3">
+        <v-btn>
             <i class="icon-menu icon-f"></i>
         </v-btn>
-        <v-btn class="mx-3">
+        <v-btn>
             <i class="icon-home icon-f"></i>
         </v-btn>
-        <v-btn class="mx-3">
+        <v-btn>
             <i class="icon-bell-alt icon-f"></i>  
         </v-btn>
-        <v-btn class="mx-3">
+        <v-btn @click="reload">
             <i class="icon-spin3 icon-f"></i>
         </v-btn>
     </v-bottom-navigation>
@@ -20,7 +20,11 @@
 
 <script>
 export default {
-
+    methods: {
+        reload() {
+            location.reload();
+        },
+    }
 }
 </script>
 

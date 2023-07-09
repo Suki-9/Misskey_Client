@@ -5,12 +5,12 @@
             :loading="loading"
             elevation="0"
         ></v-card>
-        
+    
         <v-virtual-scroll
-            class="h-100"
             :items="notes"
+            height="100vh"
             v-scroll.self="onScroll"
-            v-if="notes.length!==0"
+            v-if="notes.length!==0 && !loading"
         >
             <template v-slot:default="{ item }">
                 <v-card
@@ -42,10 +42,10 @@
                                     class="text-disabled text-body-2 float-end"
                                 ></span>
                             </p>
-                            <sheet-footer
+                            <div
                             >
                                 <p><span v-html="item.note_text"></span></p>
-                            </sheet-footer>
+                            </div>
                             <v-card-actions
                                 class="pa-0"
                             >
@@ -65,11 +65,11 @@
                                     <i class="icon-plus"></i>
                                 </v-btn>
                             </v-card-actions>
-                            <sheet-footer
+                            <p
                                 class="ma-0 pa-0 text-caption d-flex flex-row-reverse"
                             >
                                 note_id : {{ item.note_id }}
-                            </sheet-footer>
+                            </p>
                         </v-sheet>
                     </div>
                 </v-card>
@@ -157,8 +157,8 @@ export default {
             }
         },
         onScroll (e) {
-            this.offsetTop = e.target.scrollTop
-            console.log(this.offsetTop)
+            this.offsetTop = e.target.scrollTop;
+            console.log(this.offsetTop);
             if (this.offsetTop < 200) {
                 for (let i = 0;i < this.notes_inbox.length;i++){
                     this.notes.unshift(this.notes_inbox[i]);
