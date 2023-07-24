@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@200&display=swap');
+
+@import './defaultComponent/index.css';
+@import './theme/dark.css';
+
+:root {
+    background-color: var(--default-bg);
+
+    color: var(--default-text-color);
+    font-family: 'M PLUS 1', sans-serif;
+}
+
+/*text*/
+p,a,h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+}
+.h1 {font-size: 2em;}
+.h2 {font-size: 1.75em;}
+.h3 {font-size: 1.5em;}
+.h4 {font-size: 1.25em;}
