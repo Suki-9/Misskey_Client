@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import HeadBar from './HeadBar.vue';
+
 </script>
 
 <template>
-    <p>MiAuth</p>
+    <HeadBar />
 </template>

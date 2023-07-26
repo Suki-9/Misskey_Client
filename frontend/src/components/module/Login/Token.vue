@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import HeadBar from './HeadBar.vue';
 
 </script>
 
 <template>
-    <p>Token</p>
+    <HeadBar />
 </template>
