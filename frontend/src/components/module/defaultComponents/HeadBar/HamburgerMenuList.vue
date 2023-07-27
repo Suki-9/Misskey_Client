@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ListItem } from './types';
+import { ListItem } from '../../ts/types/headbar';
 
 defineProps<{
     listItems: ListItem[];

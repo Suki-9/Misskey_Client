@@ -2,14 +2,14 @@
 defineProps<{
     active: boolean;
 }>();
-defineEmits(['switch'])
+defineEmits<{(e: 'switch'): void}>();
 </script>
 
 <template>
     <div :class="$style.hamburger_menu" @click="$emit('switch')">
-        <span v-show="!active" ></span>
-        <span :class="[$style.cross_L ,{[$style.active]: active}]" ></span>
-        <span :class="[$style.cross_R ,{[$style.active]: active}]" ></span>
+        <span v-show="!active"></span>
+        <span :class="[$style.cross_L ,{[$style.active]: active}]"></span>
+        <span :class="[$style.cross_R ,{[$style.active]: active}]"></span>
     </div>
 </template>
 

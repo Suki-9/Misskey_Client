@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { data } from './types';
+import { data } from '../../ts/types/headbar';
 
 import HamburgerMenuIcon from './HamburgerMenuIcon.vue';
 import HamburgerMenuList from './HamburgerMenuList.vue';
