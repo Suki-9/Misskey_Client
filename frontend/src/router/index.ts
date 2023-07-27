@@ -21,7 +21,7 @@ const router = createRouter({
         {
           path: '',
           name: 'MiAuth',
-          component: () => import('../components/module/Login/MiAuht.vue')
+          component: () => import('../components/module/Login/MiAuth.vue')
         },
         {
           path: 'token',

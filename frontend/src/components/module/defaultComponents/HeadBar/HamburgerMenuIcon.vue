@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const menu_open = ref<boolean>(false)
+defineProps<{
+    active: boolean;
+}>();
+defineEmits(['switch'])
 </script>
 
 <template>
-    <div class="hamburger_menu" @click="menu_open = !menu_open">
-        <span v-show="!menu_open" ></span>
-        <span class="cross_L" :class="(menu_open) ? 'active' : ''" ></span>
-        <span class="cross_R" :class="(menu_open) ? 'active' : ''" v-show="menu_open"></span>
-        <span v-show="!menu_open" ></span>
+    <div :class="$style.hamburger_menu" @click="$emit('switch')">
+        <span v-show="!active" ></span>
+        <span :class="[$style.cross_L ,{[$style.active]: active}]" ></span>
+        <span :class="[$style.cross_R ,{[$style.active]: active}]" ></span>
     </div>
 </template>
 
-<style scoped lang="postcss">
+<style module lang="postcss">
 .hamburger_menu {
     --component-size: 1.2em;
 
