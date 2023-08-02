@@ -1,0 +1,10 @@
+:root {
+    /*background color*/
+    --primary-bg-color: rgb(255, 255, 255);
+
+    /*border color*/
+    --primary-border-color: rgb(74, 74, 74);
+
+    /*text color*/
+    --primary-text-color: rgb(20, 20, 20);
+}

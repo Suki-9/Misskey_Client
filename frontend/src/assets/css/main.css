@@ -1,24 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@200&display=swap');
 
-@import './defaultComponent/index.css';
-@import './theme/dark.css';
+@import './theme/light.css';
+
+/*仮*/
+@import './device/mobile.css';
+/**/
 
 :root {
-    background-color: var(--default-bg);
+    background-color: var(--primary-bg-color);
 
-    color: var(--default-text-color);
+    color: var(--primary-text-color);
     font-family: 'M PLUS 1', sans-serif;
 }
 
-body {
-    margin: 0;
-}
-
+body { margin: 1; }
 
 /*text*/
-p,a,h1,h2,h3,h4,h5,h6 {
-    margin: 0;
-}
+p,a,h1,h2,h3,h4,h5,h6 { margin: 0; }
 .h1 {font-size: 2em;}
 .h2 {font-size: 1.75em;}
 .h3 {font-size: 1.5em;}
