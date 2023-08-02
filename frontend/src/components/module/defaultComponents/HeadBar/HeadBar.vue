@@ -32,24 +32,25 @@ const data = ref<data>({
             @switch="data.active = !data.active"
             /><p>{{ data.listItems[data.selectItemId].title }}</p>
     </div>
-    <HamburgerMenuList :list-items="data.listItems"/>
+    <HamburgerMenuList v-bind="data"/>
 </template>
 
 <style scoped lang="postcss">
 .head_bar {
+    /* 変数 */
+    --component-size: 1.4em;
+    
     display: flex;
     align-items: center;
 
-    width: 98%;
-
-    padding: 0 1% 0 1%;
+    padding: 0 2% 0 2%;
 
     border-bottom: solid 1px var(--default-border);
 
     p {
         margin-left: 1%;
 
-        font-size: 1.5em;
+        font-size: calc(var(--component-size)*0.9);
     }
 }
 </style>

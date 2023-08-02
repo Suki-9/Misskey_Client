@@ -15,28 +15,24 @@ defineEmits<{(e: 'switch'): void}>();
 
 <style module lang="postcss">
 .hamburger_menu {
-    --component-size: 1.2em;
-
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 
     position: relative;
 
-    margin: calc(var(--component-size) / 12);
-
-    height: var(--component-size);
-    width: var(--component-size);
+    height: calc(var(--component-size) * 0.7);
+    width: calc(var(--component-size) * 0.7);
 
     & span {
         margin: 0px;
 
-        width: var(--component-size);
-        height: calc(var(--component-size) / 6);
+        height: 2px;
+        width: 100%;
 
         background-color: var(--default-text-color);
 
-        border-radius: 2px;
+        border-radius: 1px;
     }
     .cross_L.active,.cross_R.active {
         position: absolute;
