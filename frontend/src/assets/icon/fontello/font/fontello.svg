@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2023 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="pencil" unicode="&#xe801;" d="M938 605q22-22 22-55t-22-55l-570-570q-22-21-60-38t-73-17l-235 0 0 234q0 35 17 74t38 60l570 570q23 22 55 22t55-22z m-794-426l65-64 431 433-64 63z m91-205q14 0 33 8-10 10-27 26t-50 50-56 56l-22 22q-9-21-9-32l0-78 52-52 79 0z m74 40l432 432-63 64-433-431z m469 469l67 67-165 165-67-66z" horiz-adv-x="960" />
+
+<glyph glyph-name="tag" unicode="&#xe802;" d="M250 600q0 30-21 51t-50 20-51-20-21-51 21-50 51-21 50 21 21 50z m595-321q0-30-20-51l-274-274q-22-21-51-21-30 0-50 21l-399 399q-21 21-36 57t-15 65v232q0 29 21 50t50 22h233q29 0 65-15t57-36l399-399q20-21 20-50z" horiz-adv-x="857.1" />
+
+<glyph glyph-name="doc-text" unicode="&#xe803;" d="M678-119l-522 0q-65 0-110 46t-46 111l0 625q0 65 46 110t110 46l522 0q65 0 110-46t46-110l0-625q0-65-46-111t-110-46z m-522 834q-21 0-37-15t-15-37l0-625q0-21 15-37t37-16l522 0q21 0 36 16t15 37l0 625q0 21-15 37t-36 15l-522 0z m469-312l-416 0q-26 0-26 25 0 11 7 19t19 7l416 0q11 0 19-7t7-19q0-25-26-25z m0 156l-416 0q-11 0-19 8t-7 18q0 25 26 25l416 0q26 0 26-25 0-11-7-18t-19-8z m0-312l-416 0q-11 0-19 7t-7 19q0 25 26 25l416 0q26 0 26-25 0-11-7-19t-19-7z m0-157l-416 0q-26 0-26 25 0 12 7 19t19 8l416 0q11 0 19-8t7-19q0-25-26-25z" horiz-adv-x="834" />
+
+<glyph glyph-name="cancel" unicode="&#xe804;" d="M452 194q18-18 18-43t-18-43q-18-16-43-16t-43 16l-132 152-132-152q-18-16-43-16t-43 16q-16 18-16 43t16 43l138 156-138 158q-16 18-16 43t16 43q18 16 43 16t43-16l132-152 132 152q18 16 43 16t43-16q18-18 18-43t-18-43l-138-158z" horiz-adv-x="470" />
+
+<glyph glyph-name="trash" unicode="&#xe83d;" d="M275 825c-14 0-25-11-25-25l0-75-200 0c-28 0-50-22-50-50 0-28 22-50 50-50l650 0c28 0 50 22 50 50 0 28-22 50-50 50l-200 0 0 75c0 14-11 25-25 25l-200 0z m25-50l150 0 0-50-150 0 0 50z m-250-200c-28 0-54-23-49-50l99-600c5-27 22-50 50-50l450 0c28 0 45 23 50 50l99 600c5 27-21 50-49 50l-650 0z" horiz-adv-x="750" />
+</font>
+</defs>
+</svg>

@@ -29,9 +29,9 @@ const router = createRouter({
           component: () => import('../components/module/Login/Token.vue')
         },
         {
-          path: 'redirect',
-          name: 'ReDirect',
-          component: () => import('../components/module/Login/ReDirect.vue')
+          path: 'callback',
+          name: 'Callback',
+          component: () => import('../components/module/Login/Callback.vue')
         }, 
       ]
     },

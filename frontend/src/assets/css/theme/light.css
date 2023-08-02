@@ -1,10 +1,17 @@
 :root {
     /*background color*/
     --primary-bg-color: rgb(255, 255, 255);
+    --secondary-bg-color: rgb(240, 240, 240);
+
+    /*button color*/
+    --true-button-color: rgb(230, 230, 230);
 
     /*border color*/
     --primary-border-color: rgb(74, 74, 74);
 
     /*text color*/
     --primary-text-color: rgb(20, 20, 20);
+
+    /*shadow color*/
+    --shadow-color: rgba(14, 2, 7, 0.24);
 }

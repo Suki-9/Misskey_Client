@@ -9,7 +9,7 @@ defineEmits<{ (e: 'switch'): void }>();
         <a
             v-for="item in listData"
             :class="$style.active"
-            @click="[$router.push(String(item.link)),$emit('switch')]"
+            @click="[$router.push(String(item.link)/*TODO: undefinedのときに/undefinedに遷移してしまう問題 */),$emit('switch')]"
             v-text="item.title"
         ></a>
     </div>
@@ -26,9 +26,9 @@ defineEmits<{ (e: 'switch'): void }>();
         border-bottom: solid 1px var(--primary-border-color);
     }
     .active {
+        animation-name: fadein;
         animation-duration: 0.2s;
         animation-fill-mode: forwards;
-        animation-name: fadein;
 
         transform: translateX(-50px);
         opacity: 0;
