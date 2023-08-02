@@ -11,7 +11,7 @@ let host = ref<string>('')
 const input = (text: string) => { host.value = text }
 const login = (text: string) => {
     document.cookie = `${host.value}_token=${text}; path=/`
-    document.cookie = `loginHost=${host.value}`
+    document.cookie = `loginHost=${host.value}; path=/`
     
     router.push('/')
 }
