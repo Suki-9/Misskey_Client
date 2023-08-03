@@ -14,10 +14,9 @@ type note = {
         thumbnailUrl: string;
         url: string;
     }[]
-    reaction?: reaction[];
+    reactions?: reaction[];
     cw?: boolean;
     renote?: {
-        userId: string;
         userName: string;
         avatar: string;
     }

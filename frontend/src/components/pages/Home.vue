@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TimeLine from '../module/TimeLine.vue';
+import BottomBar from '../module/BottomBar.vue';
 
 import { read } from '../module/ts/Cookie';
 import { useRouter } from 'vue-router';
@@ -22,4 +23,5 @@ else if (Hosts?.split(',').indexOf(String(loginHost)) == null)
     <TimeLine 
         :hostName="loginHost"
         :channel="'hybrid'"/>
+    <BottomBar />
 </template>

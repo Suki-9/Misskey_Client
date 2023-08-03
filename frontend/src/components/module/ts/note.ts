@@ -9,16 +9,12 @@ export const noteGen = (noteData: noteData): note => {
     const reactions: reaction[] = []
     if (note.reactions !== undefined) {
         Object.keys(note.reactions).forEach(reaction => {
-            if (note.reactions !== undefined) {
-                reactions.push({
-                    name: reaction,
-                    count: note.reactions[Object.keys(note.reactions).indexOf(reaction)],
-                    link: emojiSearch(reaction.replaceAll(':', '').replaceAll('.', '').replaceAll('@', ''))[0],
-                
-                })
-            }
+            reactions.push({
+                name: reaction,
+                count: note.reactions[reaction],
+                link: emojiSearch(reaction.replaceAll(':', '').replaceAll('.', '').replaceAll('@', ''))[0],
+            })
         })
-    console.log(reactions)
     }
 
     if (noteData.renote !== undefined) {
@@ -40,7 +36,7 @@ export const noteGen = (noteData: noteData): note => {
         })
     }
 
-    return {
+    const res = {
         id: note.id,
         userId: note.user.username,
         userName: emojiPerth(note.user.name),
@@ -49,7 +45,9 @@ export const noteGen = (noteData: noteData): note => {
         files: files,
         text: emojiPerth(note.text),
         cw: note.cw,
-        reaction: reactions,
+        reactions: reactions,
         renote: renoter
     }
+
+    return res
 }

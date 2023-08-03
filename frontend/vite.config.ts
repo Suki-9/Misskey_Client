@@ -5,16 +5,11 @@ import postcssNesting from "postcss-nesting"
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  base: './',
+  server: { port: 4000, host: true },
   css: {
     postcss: {
       plugins: [postcssNesting],
     },
   },
-  resolve: {
-    alias: {
-      '@/': `./`,
-    },
-  },
-  base: './',
-  server: { port: 4000, host: true },
 })
