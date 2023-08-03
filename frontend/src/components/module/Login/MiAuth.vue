@@ -5,14 +5,13 @@ import formInput from '../Components/FormInput.vue';
 
 const login = (text: string) => {
     const host = text;
-    const callback = 'http://localhost:4000/login'
+    const callback = 'http://miew.netlify.app/login'
     const sessionId: string = UUIDGen()
     const MiAuth_URL: string = `https://${host}/miauth/${sessionId}?name=Mive&callback=${callback}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`
 
     document.cookie = `loginHost=${host}; path=/`
     window.location.href = MiAuth_URL;
 }
-
 </script>
 
 

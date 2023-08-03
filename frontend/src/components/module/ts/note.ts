@@ -1,11 +1,25 @@
 import './types'
-import { emojiPerth } from './emoji'
+import { emojiPerth, emojiSearch } from './emoji'
 
 
 export const noteGen = (noteData: noteData): note => {
     const note: noteData = (noteData.renote == undefined) ? noteData : noteData.renote
     let renoter = undefined;
-
+    
+    const reactions: reaction[] = []
+    if (note.reactions !== undefined) {
+        Object.keys(note.reactions).forEach(reaction => {
+            if (note.reactions !== undefined) {
+                reactions.push({
+                    name: reaction,
+                    count: note.reactions[Object.keys(note.reactions).indexOf(reaction)],
+                    link: emojiSearch(reaction.replaceAll(':', '').replaceAll('.', '').replaceAll('@', ''))[0],
+                
+                })
+            }
+        })
+    console.log(reactions)
+    }
 
     if (noteData.renote !== undefined) {
         renoter = {
@@ -35,6 +49,7 @@ export const noteGen = (noteData: noteData): note => {
         files: files,
         text: emojiPerth(note.text),
         cw: note.cw,
+        reaction: reactions,
         renote: renoter
     }
 }

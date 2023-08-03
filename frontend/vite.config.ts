@@ -15,5 +15,6 @@ export default defineConfig({
       '@/': `./`,
     },
   },
+  base: './',
   server: { port: 4000, host: true },
 })

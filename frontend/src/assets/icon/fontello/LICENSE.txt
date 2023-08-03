@@ -1,6 +1,15 @@
 Font license info
 
 
+## Entypo
+
+   Copyright (C) 2012 by Daniel Bruce
+
+   Author:    Daniel Bruce
+   License:   SIL (http://scripts.sil.org/OFL)
+   Homepage:  http://www.entypo.com
+
+
 ## Typicons
 
    (c) Stephen Hutchings 2012
@@ -19,13 +28,13 @@ Font license info
    Homepage:  http://fortawesome.github.com/Font-Awesome/
 
 
-## Entypo
+## Iconic
 
-   Copyright (C) 2012 by Daniel Bruce
+   Copyright (C) 2012 by P.J. Onori
 
-   Author:    Daniel Bruce
+   Author:    P.J. Onori
    License:   SIL (http://scripts.sil.org/OFL)
-   Homepage:  http://www.entypo.com
+   Homepage:  http://somerandomdude.com/work/iconic/
 
 
 ## Maki

@@ -12,8 +12,12 @@ const props = defineProps<{
 }>();
 
 const notes = ref<note[]>([])
+const maxIndexSize = 20
 
-if (props.hostName !== undefined) { get_note(); stream(); }
+if (props.hostName !== undefined) {
+    get_note();
+    stream();
+}
 
 function stream() {
     const token = read(`${props.hostName}_token`);
@@ -32,6 +36,8 @@ function stream() {
     });
 
     timeLine.addEventListener('message', async (event) => {
+        if (maxIndexSize < notes.value.length)
+            notes.value.shift()
         notes.value.push(noteGen(JSON.parse(event.data).body.body))
     });
 }
@@ -46,7 +52,7 @@ async function get_note() {
         },
         body: JSON.stringify({
             i: token,
-            limit: 30,
+            limit: maxIndexSize,
         }),
     }).then((response) => response.json()).then((data) => data );
 
@@ -79,10 +85,21 @@ async function get_note() {
                     </header>
                     <div :class="$style.text" v-html="note.text"></div>
                     <div v-if="!(note.files == undefined)">
-                        <img v-for="file in note.files" :src="file.thumbnailUrl" :class="$style.media">
+                        <img v-for="file in note.files" :src="file?.thumbnailUrl" :class="{ [$style.media]: (note.files.length = 1), [$style.medias]: (note.files.length > 1) }">
                     </div>
+                    <div :class="$style.reactions">
+                        <div :class="$style.reaction" v-for="reaction in note.reaction">
+                            <img class="emoji"  :src="reaction.link" :ref="reaction.name" />
+                            <p>{{ reaction.count }}</p>
+                        </div>
+                    </div>
+                    <footer>
+                        <i class="icon-comment"></i>
+                        <i class="icon-retweet"></i>
+                        <i class="icon-plus"></i>
+                        <i class="icon-dot-3"></i>
+                    </footer>
                 </article>
-                <p :class="$style.noteId">{{ note.id }}</p>
             </div>
         </div>
     </div>
@@ -179,6 +196,38 @@ async function get_note() {
         }
         .media { width: 100%; }
         .medias { width: 50%; }
+
+        .reactions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .reaction {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                padding: 1% 2% 1% 2%;
+                margin: 2px;
+
+                border-radius: 3px;
+
+                background-color: var(--primary-bg-color);
+
+                p { padding: 0 2% 0 2%; }
+            }
+        }
+
+        footer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+
+            width: 80%;
+
+            i { font-size: 1.2em; }
+        }
     }
     .noteId {
         position: absolute;

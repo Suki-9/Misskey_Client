@@ -14,16 +14,19 @@ type note = {
         thumbnailUrl: string;
         url: string;
     }[]
-    reaction?: {
-        name: string;
-        link: string;
-    }[]
+    reaction?: reaction[];
     cw?: boolean;
     renote?: {
         userId: string;
         userName: string;
         avatar: string;
     }
+}
+
+type reaction = {
+    name: string;
+    count: number;
+    link: string;
 }
 
 type noteData = {
@@ -39,6 +42,7 @@ type noteData = {
         username: string;
         avatarUrl: string;
     }
+    reactions?: number[];
     cw?: boolean;
     renote?: {
         id: string;
