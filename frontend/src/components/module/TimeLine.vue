@@ -13,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const notes = ref<note[]>([])
-const maxIndexSize: number = 20
+const maxIndexSize: number = 10
 
 let scrollIndex: number = 0
 

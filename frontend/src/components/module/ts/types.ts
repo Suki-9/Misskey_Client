@@ -13,6 +13,7 @@ type note = {
     reactions?: reaction[];
     renoter?: user;
 }
+
 type noteData = {
     id: string;
     createdAt: string;

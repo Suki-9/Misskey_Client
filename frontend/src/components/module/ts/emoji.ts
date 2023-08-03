@@ -1,6 +1,7 @@
 import { read } from "./Cookie"
 
 export const getEmojiIndex = async (host?: string) => {
+    //emojisを取得 -> Key名のみのindexを生成
     const hostName: string = (host == undefined) ? read('loginHost') as string : host;
     const emojis: any[] = await fetch(`https://${hostName}/api/emojis`)
 		.then((response) => response.json())
@@ -15,10 +16,12 @@ export const getEmojiIndex = async (host?: string) => {
     localStorage.setItem(`${hostName}_emojis`, JSON.stringify(emojis))
 }
 
-export const emojiSearch = (name: string ,host?: string) => {
+export const emojiSearch = (name: string, host?: string) => {
+    //
     const hostName = (host == undefined) ? read('loginHost') : host;
     const emojis = JSON.parse(localStorage.getItem(`${hostName}_emojis`) as string)
     const index = JSON.parse(localStorage.getItem(`${hostName}_emojis_index`) as string)
+
     if (index.indexOf(name) !== -1)
         return [emojis[index.indexOf(name)].url,'success']
     else
