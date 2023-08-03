@@ -20,7 +20,7 @@ type noteData = {
     cw?: boolean;
     user: user;
     files?: file[];
-    reactions?: number[];
+    reactions?: { [key: string]: number}
     renote?: {
         id: string;
         createdAt: string;

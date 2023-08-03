@@ -8,11 +8,13 @@ export const noteGen = (noteData: noteData): note => {
     const reactions: reaction[] = []
     if (note.reactions !== undefined) {
         Object.keys(note.reactions).forEach(reaction => {
-            reactions.push({
-                name: reaction,
-                count: note.reactions[reaction],
-                link: emojiSearch(reaction.replaceAll(':', '').replaceAll('.', '').replaceAll('@', ''))[0],
-            })
+            if (note.reactions !== undefined) {
+                reactions.push({
+                    name: reaction,
+                    count: note.reactions[reaction],
+                    link: emojiSearch(reaction.replaceAll(':', '').replaceAll('.', '').replaceAll('@', ''))[0],
+                })
+            }
         })
     }
 
