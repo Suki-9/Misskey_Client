@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { read } from './ts/Cookie';
+import { read } from './ts/Cookie'
 import { UUIDGen } from './ts/UUID';
-import { noteGen } from './ts/note';
+import { noteGen } from './ts/note'
 
 
 const props = defineProps<{
@@ -13,14 +13,13 @@ const props = defineProps<{
 
 const notes = ref<note[]>([])
 
-if (props.hostName !== undefined) { stream(); get_note(); }
+if (props.hostName !== undefined) { get_note(); stream(); }
 
-function stream() { 
+function stream() {
     const token = read(`${props.hostName}_token`);
     const uuid = UUIDGen();
     const timeLine = new WebSocket(`wss://${props.hostName}/streaming?i=${token}`);
 
-    //join
     timeLine.addEventListener('open', () => {
         timeLine.send(JSON.stringify({
             type: 'connect',
@@ -32,36 +31,28 @@ function stream() {
         }));
     });
 
-    //get note
     timeLine.addEventListener('message', async (event) => {
-        const note_data: any = noteGen(JSON.parse(event.data).body.body);
-        if (notes.value.length > 30)
-            notes.value.pop()
-        notes.value.push(note_data)
-        //console.log(JSON.parse(event.data).body.body)
+        notes.value.push(noteGen(JSON.parse(event.data).body.body))
     });
 }
+
 async function get_note() {
     const token = read(`${props.hostName}_token`);
     const channel = (props.channel == undefined) ? 'home' : props.channel
-    const res = await fetch(`https://${props.hostName}/api/notes/${channel}-timeline`, {
+    const res: noteData[] = await fetch(`https://${props.hostName}/api/notes/${channel}-timeline`, {
         method: 'POST',
-        mode: "cors",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             i: token,
-            withFiles: false,
-            excludeNsfw: false,
             limit: 30,
         }),
     }).then((response) => response.json()).then((data) => data );
 
-    for (let i = 0; i < res.length; i++) {
-        const note_data: any = noteGen(JSON.parse(res[i]).body.body);
-        notes.value.push(note_data)
-    }
+    res.forEach(note => {
+        notes.value.push(noteGen(note))
+    });
 }
 </script>
 

@@ -25,7 +25,7 @@ export const emojiSearch = (name: string ,host?: string) => {
         return [name,'fail']
 }
 
-export const emojiPerth = (text: string) => { 
+export const emojiPerth = (text: string) => {
     const regex = /:.*?:/g;
     let result = text
     if (text !== null) {
