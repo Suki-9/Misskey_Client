@@ -16,7 +16,8 @@ const listData: HamburgerMenuList = [
 </script>
 
 <template>
-    <HeadBar 
+    <HeadBar
+        v-if="$route.name !== 'Callback'"
         :title="`${String($route.name)}でログイン`"
         :listData="listData"
     />

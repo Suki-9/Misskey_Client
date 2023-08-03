@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { read } from './ts/Cookie'
 import { UUIDGen } from './ts/UUID'
 import { noteGen } from './ts/note'
+import { getNote } from './ts/misskeyAPI/note'
 
 import Note from './Note.vue'
 
@@ -18,7 +19,7 @@ const maxIndexSize: number = 10
 let scrollIndex: number = 0
 
 if (props.hostName !== undefined) {
-    get_note();
+    getNote(props.hostName, props.channel)
     stream();
 }
 
@@ -43,33 +44,13 @@ function stream() {
             ? notes.value.shift()
             : (scrollIndex < 100)
                 ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-                : console.log('lost Note!')
+                : console.log('Lost note')
     });
 }
 
-async function get_note() {
-    const token = read(`${props.hostName}_token`);
-    const channel = (props.channel == undefined) ? 'home' : props.channel
-    const res: noteData[] = await fetch(`https://${props.hostName}/api/notes/${channel}-timeline`, {
-        method: 'POST',
-
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            i: token,
-            limit: maxIndexSize,
-        }),
-    }).then((response) => response.json()).then((data) => data );
-
-    res.forEach(note => {
-        notes.value.push(noteGen(note))
-    });
-}
-
+//TODO: 後で書き直す
 window.addEventListener('scroll',() => {
     scrollIndex = window.scrollY;
-    console.log(scrollIndex)
 });
 </script>
 
