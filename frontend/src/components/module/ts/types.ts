@@ -5,20 +5,29 @@ type HamburgerMenuList = {
 
 type note = {
     id: string;
-    userId: string;
-    userName: string;
     date?: string;
-    avatar: string;
     text?: string;
-    files?: {
-        thumbnailUrl: string;
-        url: string;
-    }[]
-    reactions?: reaction[];
     cw?: boolean;
+    user: user;
+    files?: file[];
+    reactions?: reaction[];
+    renoter?: user;
+}
+type noteData = {
+    id: string;
+    createdAt: string;
+    text?: string;
+    cw?: boolean;
+    user: user;
+    files?: file[];
+    reactions?: number[];
     renote?: {
-        userName: string;
-        avatar: string;
+        id: string;
+        createdAt: string;
+        text?: string;
+        cw?: boolean;
+        files?: file[];
+        user: user;
     }
 }
 
@@ -28,32 +37,13 @@ type reaction = {
     link: string;
 }
 
-type noteData = {
-    id: string;
-    text: string;
-    createdAt?: string;
-    files: {
-        thumbnailUrl: string;
-        url: string;
-    }[]
-    user: {
-        name: string;
-        username: string;
-        avatarUrl: string;
-    }
-    reactions?: number[];
-    cw?: boolean;
-    renote?: {
-        id: string;
-        text: string;
-        files: {
-            thumbnailUrl: string;
-            url: string;
-        }[]
-        user: {
-            name: string;
-            username: string;
-            avatarUrl: string;
-        }
-    }
+type user = {
+    name: string;
+    username?: string;
+    avatarUrl: string;
+}
+
+type file = {
+    thumbnailUrl: string;
+    url: string;
 }

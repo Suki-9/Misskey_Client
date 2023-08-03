@@ -10,18 +10,18 @@ defineProps<{
 <template>
     <div :class="$style.root">
         <div
-            v-if="note.renote !== undefined"
+            v-if="note.renoter !== undefined"
             :class="$style.renote">
-            <img :class="$style.renoterAvatar" :src="note.renote?.avatar">
-            <p :class="$style.renoterName"><span v-html="note.renote.userName"></span>さんがリノート</p>
+            <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl">
+            <p :class="$style.renoterName"><span v-html="note.renoter.name"></span>さんがリノート</p>
         </div>
         <div :class="$style.note">
-            <img :class="$style.avatar" :src="note.avatar">
+            <img :class="$style.avatar" :src="note.user.avatarUrl">
             <article>
                 <header>
                     <p :class="$style.userName">
-                        <span v-html="note.userName"></span>
-                        <span>@{{ note.userId }}</span>
+                        <span v-html="note.user.name"></span>
+                        <span>@{{ note.user.username }}</span>
                     </p>
                 </header>
                 <div 

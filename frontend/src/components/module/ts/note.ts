@@ -4,7 +4,6 @@ import { emojiPerth, emojiSearch } from './emoji'
 
 export const noteGen = (noteData: noteData): note => {
     const note: noteData = (noteData.renote == undefined) ? noteData : noteData.renote
-    let renoter = undefined;
     
     const reactions: reaction[] = []
     if (note.reactions !== undefined) {
@@ -17,11 +16,12 @@ export const noteGen = (noteData: noteData): note => {
         })
     }
 
+    let renoter = undefined;
     if (noteData.renote !== undefined) {
         renoter = {
-            userId: noteData.user.username,
-            userName: emojiPerth(noteData.user.name),
-            avatar: noteData.user.avatarUrl,
+            name: emojiPerth(noteData.user.name),
+            username: noteData.user.username,
+            avatarUrl: noteData.user.avatarUrl,
         }
     }
 
@@ -36,18 +36,18 @@ export const noteGen = (noteData: noteData): note => {
         })
     }
 
-    const res = {
+    return {
         id: note.id,
-        userId: note.user.username,
-        userName: emojiPerth(note.user.name),
         date: note.createdAt,
-        avatar: note.user.avatarUrl,
-        files: files,
-        text: emojiPerth(note.text),
+        text: (note.text !== undefined) ? emojiPerth(note.text) : '',
         cw: note.cw,
+        user: {
+            name: emojiPerth(note.user.name),
+            username: note.user.username,
+            avatarUrl: note.user.avatarUrl,
+        },
+        files: files,
         reactions: reactions,
-        renote: renoter
+        renoter: renoter,
     }
-
-    return res
 }
