@@ -4,16 +4,15 @@ import { Note, Reaction, User, ModifiedNote } from "./types";
 export const noteGen = (noteData: Note): ModifiedNote => {
   const note: Note = noteData.renote ?? noteData;
 
-  const reactions: Reaction[] = [];
-  if (note.reactions) {
-    Object.keys(note.reactions).forEach((reaction) => {
-      reactions.push({
+  const reactions: Reaction[] = Object.entries(note.reactions).map(
+    ([reaction, count]) => {
+      return {
         name: reaction,
-        count: note.reactions![reaction],
+        count,
         link: searchEmoji(reaction.slice(1, reaction.indexOf("@")))[0],
-      });
-    });
-  }
+      };
+    },
+  );
 
   let renoter: User | undefined;
 
