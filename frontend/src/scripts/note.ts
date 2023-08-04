@@ -25,8 +25,6 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     };
   }
 
-  const files = note.files ?? [];
-
   // let files: File[] | undefined;
   // if (note.files) {
   //     files = []
@@ -48,7 +46,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       username: note.user.username,
       avatarUrl: note.user.avatarUrl,
     },
-    files: files,
+    files: note.files,
     reactions: reactions,
     renoter: renoter,
   };

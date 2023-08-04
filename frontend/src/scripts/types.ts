@@ -18,7 +18,7 @@ export type Note = {
   text?: string;
   cw?: string;
   user: User;
-  files?: File[];
+  files: File[];
   reactions?: Record<string, number>;
   renote?: Omit<Note, "renote">;
 };
