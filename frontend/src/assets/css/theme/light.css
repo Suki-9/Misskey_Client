@@ -1,19 +1,19 @@
 :root {
-    /*background color*/
-    --primary-bg-color: rgb(255, 255, 255);
-    --secondary-bg-color: rgb(240, 240, 240);
+  /*background color*/
+  --primary-bg-color: rgb(255, 255, 255);
+  --secondary-bg-color: rgb(240, 240, 240);
 
-    /*button color*/
-    --true-button-color: rgb(230, 230, 230);
+  /*button color*/
+  --true-button-color: rgb(230, 230, 230);
 
-    /*border color*/
-    --primary-border-color: rgb(74, 74, 74);
-    --secondary-border-color: rgb(150, 150, 150);
+  /*border color*/
+  --primary-border-color: rgb(74, 74, 74);
+  --secondary-border-color: rgb(150, 150, 150);
 
-    /*text color*/
-    --primary-text-color: rgb(20, 20, 20);
-    --secondary-text-color: rgb(70, 70, 70);
+  /*text color*/
+  --primary-text-color: rgb(20, 20, 20);
+  --secondary-text-color: rgb(70, 70, 70);
 
-    /*shadow color*/
-    --shadow-color: rgba(14, 2, 7, 0.24);
+  /*shadow color*/
+  --shadow-color: rgba(14, 2, 7, 0.24);
 }

@@ -1,11 +1,10 @@
 :root {
-    /*background color*/
-    --default-bg: rgb(15, 15, 15);
+  /*background color*/
+  --default-bg: rgb(15, 15, 15);
 
-    /*border color*/
-    --default-border: rgb(41, 41, 41);
+  /*border color*/
+  --default-border: rgb(41, 41, 41);
 
-    /*text color*/
-    --default-text-color:  rgb(230, 230, 230);
-
+  /*text color*/
+  --default-text-color: rgb(230, 230, 230);
 }
