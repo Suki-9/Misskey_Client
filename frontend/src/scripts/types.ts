@@ -3,33 +3,24 @@ export type HamburgerMenuList = {
   link: string;
 }[];
 
-export type Note = {
-  id: string;
+export type modifiedNote = Pick<
+  Note,
+  "id" | "text" | "cw" | "user" | "files"
+> & {
   date?: string;
-  text?: string;
-  cw?: boolean;
-  user: User;
-  files?: File[];
   reactions?: Reaction[];
   renoter?: User;
 };
 
-export type NoteData = {
+export type Note = {
   id: string;
   createdAt: string;
   text?: string;
-  cw?: boolean;
+  cw?: string;
   user: User;
   files?: File[];
   reactions?: Record<string, number>;
-  renote?: {
-    id: string;
-    createdAt: string;
-    text?: string;
-    cw?: boolean;
-    files?: File[];
-    user: User;
-  };
+  renote?: Omit<Note, "renote">;
 };
 
 export type Reaction = {

@@ -1,14 +1,14 @@
 import { readCookie } from "../Cookie";
 import { noteGen } from "../note";
-import { Note, NoteData } from "../types";
+import { modifiedNote, Note } from "../types";
 
 export const getNote = async (
   host: string,
   channel?: string,
   token?: string,
   maxIndexSize?: number,
-): Promise<Note[]> => {
-  const res: NoteData[] = await fetch(
+): Promise<modifiedNote[]> => {
+  const res: Note[] = await fetch(
     `https://${host}/api/notes/${channel ?? "home"}-timeline`,
     {
       method: "POST",
