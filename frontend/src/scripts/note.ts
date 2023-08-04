@@ -38,7 +38,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
 
   return {
     id: note.id,
-    date: note.createdAt,
+    createdAt: note.createdAt,
     text: note.text && parseEmoji(note.text), // stringじゃないといけないのであれば(note.text && parseEmoji(note.text)) ?? ""
     cw: note.cw,
     user: {

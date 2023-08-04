@@ -5,10 +5,9 @@ export type HamburgerMenuList = {
 
 export type ModifiedNote = Pick<
   Note,
-  "id" | "text" | "cw" | "user" | "files"
+  "id" | "createdAt" | "text" | "cw" | "user" | "files"
 > & {
-  date?: string;
-  reactions?: Reaction[];
+  reactions: Reaction[];
   renoter?: User;
 };
 
