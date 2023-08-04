@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
-defineProps<{
+const props = defineProps<{
   title?: string;
   button?: {
     isEnable?: boolean;
     title?: string;
   };
 }>();
+
 const emit = defineEmits<{ (e: "receive", text: string): string }>();
 
 const text = ref("");
@@ -16,19 +17,21 @@ const active = ref(false);
 const reset = () => {
   text.value = "";
 };
+
+const isEnableMemo = computed<boolean>(() => props.button?.isEnable ?? false);
 </script>
 
 <template>
   <form @submit="emit('receive', text)">
     <div
       :class="$style.input"
-      :style="button?.isEnable ? 'width: 76%;' : 'width: 96%;'"
+      :style="isEnableMemo ? 'width: 76%;' : 'width: 96%;'"
     >
       <P :class="{ [$style.active]: text || active }">{{ title }}</P>
       <input
         v-model="text"
         @focus="active = true"
-        @blur="[(active = false), button?.isEnable || emit('receive', text)]"
+        @blur="[(active = false), isEnableMemo || emit('receive', text)]"
       />
       <i class="icon-cancel" @click="reset"></i>
     </div>
@@ -36,7 +39,7 @@ const reset = () => {
       @click="emit('receive', text)"
       :class="$style.submit"
       v-text="button?.title"
-      v-show="button?.isEnable"
+      v-show="isEnableMemo"
     >
     </a>
   </form>
