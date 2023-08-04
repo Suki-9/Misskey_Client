@@ -1,7 +1,7 @@
 import { readCookie } from "./Cookie";
 
 export const getEmojiIndex = async (host?: string) => {
-  const hostName: string | undefined = host && readCookie("loginHost");
+  const hostName: string = host ?? readCookie("loginHost")!;
   const emojis: { name: string }[] = await fetch(
     `https://${hostName}/api/emojis`,
   )
