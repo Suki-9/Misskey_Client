@@ -29,7 +29,7 @@ export const searchEmoji = (name: string, host?: string): [string, string] => {
   );
   if (index.indexOf(name) !== -1)
     return [emojis[index.indexOf(name)].url, "success"];
-  else return [name, "fail"];
+  return [name, "fail"];
 };
 
 export const parseEmoji = (text: string | undefined) => {
