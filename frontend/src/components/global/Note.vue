@@ -54,10 +54,11 @@ defineProps<{
   display: flex;
   flex-direction: column;
 
-  width: 96%;
+  min-width: 300px;
+  max-width: 600px;
 
   padding: 2%;
-  margin: 2% 0 2% 0;
+  margin: 10px 0 0 0;
 
   border-radius: 7px;
 
