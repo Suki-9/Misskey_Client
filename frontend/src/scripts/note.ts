@@ -19,7 +19,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
 
   if (noteData.renote) {
     renoter = {
-      name: parseEmoji(noteData.user.name),
+      name: parseEmoji(noteData.user.name ?? noteData.user.username),
       username: noteData.user.username,
       avatarUrl: noteData.user.avatarUrl,
     };

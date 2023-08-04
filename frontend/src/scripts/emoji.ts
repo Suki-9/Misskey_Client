@@ -32,8 +32,7 @@ export const searchEmoji = (name: string, host?: string): [string, string] => {
   return [name, "fail"];
 };
 
-export const parseEmoji = (text: string | undefined) => {
-  if (!text) return;
+export const parseEmoji = (text: string) => {
   const regex = /:.*?:/g;
   const matches = text.match(regex);
   matches?.forEach((emoji) => {
