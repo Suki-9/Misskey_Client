@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-import FormInput from "../../components/global/FormInput.vue"
+import FormInput from "../../components/global/FormInput.vue";
 
 const router = useRouter();
 
