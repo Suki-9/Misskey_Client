@@ -47,7 +47,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       avatarUrl: note.user.avatarUrl,
     },
     files: note.files,
-    reactions: reactions,
-    renoter: renoter,
+    reactions,
+    renoter,
   };
 };
