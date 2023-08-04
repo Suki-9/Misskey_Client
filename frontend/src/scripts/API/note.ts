@@ -4,12 +4,12 @@ import { ModifiedNote, Note } from "../types";
 
 export const getNote = async (
   host: string,
-  channel?: string,
+  channel: string = "home",
   token?: string,
-  maxIndexSize?: number,
+  maxIndexSize: number = 10,
 ): Promise<ModifiedNote[]> => {
   const res: Note[] = await fetch(
-    `https://${host}/api/notes/${channel ?? "home"}-timeline`,
+    `https://${host}/api/notes/${channel}-timeline`,
     {
       method: "POST",
 
@@ -18,7 +18,7 @@ export const getNote = async (
       },
       body: JSON.stringify({
         i: token ?? readCookie(`${host}_token`),
-        limit: maxIndexSize ?? 10,
+        limit: maxIndexSize,
       }),
     },
   )
