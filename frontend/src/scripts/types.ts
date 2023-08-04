@@ -15,11 +15,11 @@ export type ModifiedNote = Pick<
 export type Note = {
   id: string;
   createdAt: string;
-  text?: string;
-  cw?: string;
+  text: string | null;
+  cw: string | null;
   user: User;
   files: File[];
-  reactions?: Record<string, number>;
+  reactions: Record<string, number>;
   renote?: Omit<Note, "renote">;
 };
 
