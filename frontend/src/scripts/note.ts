@@ -4,6 +4,10 @@ import { Note, Reaction, User, ModifiedNote } from "./types";
 export const noteGen = (noteData: Note): ModifiedNote => {
   const note: Note = noteData.renote ?? noteData;
 
+  // nameは初期設定だと空の場合があるので空であればidを使う
+  note.user.name ??= note.user.username;
+  noteData.user.name ??= noteData.user.username;
+
   const reactions: Reaction[] = Object.entries(note.reactions).map(
     ([reaction, count]) => {
       return {
@@ -18,7 +22,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
 
   if (noteData.renote) {
     renoter = {
-      name: parseEmoji(noteData.user.name ?? noteData.user.username),
+      name: parseEmoji(noteData.user.name),
       username: noteData.user.username,
       avatarUrl: noteData.user.avatarUrl,
     };
@@ -41,7 +45,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     text: note.text && parseEmoji(note.text), // stringじゃないといけないのであれば(note.text && parseEmoji(note.text)) ?? ""
     cw: note.cw,
     user: {
-      name: parseEmoji(note.user.name ?? note.user.username),
+      name: parseEmoji(note.user.name),
       username: note.user.username,
       avatarUrl: note.user.avatarUrl,
     },
