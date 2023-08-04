@@ -4,7 +4,7 @@ import { ref } from "vue";
 defineProps<{
   title?: string;
   button?: {
-    enable?: boolean;
+    isEnable?: boolean;
     title?: string;
   };
 }>();
@@ -22,21 +22,21 @@ const reset = () => {
   <form @submit="emit('receive', text)">
     <div
       :class="$style.input"
-      :style="button?.enable ? 'width: 76%;' : 'width: 96%;'"
+      :style="button?.isEnable ? 'width: 76%;' : 'width: 96%;'"
     >
       <P :class="{ [$style.active]: text || active }">{{ title }}</P>
       <input
         v-model="text"
         @focus="active = true"
-        @blur="[(active = false), button?.enable || emit('receive', text)]"
+        @blur="[(active = false), button?.isEnable || emit('receive', text)]"
       />
       <i class="icon-cancel" @click="reset"></i>
     </div>
     <a
       @click="emit('receive', text)"
       :class="$style.submit"
-      v-text="button?.title ?? ''"
-      v-show="button?.enable ?? ''"
+      v-text="button?.title"
+      v-show="button?.isEnable"
     >
     </a>
   </form>

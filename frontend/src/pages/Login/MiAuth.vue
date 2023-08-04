@@ -18,7 +18,7 @@ const login = (text: string) => {
   <FormInput
     :class="$style.input"
     title="Host name"
-    :button="{ enable: true, title: 'login!' }"
+    :button="{ isEnable: true, title: 'login!' }"
     @receive="login"
   />
 </template>
