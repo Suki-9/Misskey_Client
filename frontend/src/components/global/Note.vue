@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { modifiedNote } from "../../scripts/types";
+import { ModifiedNote } from "../../scripts/types";
 
 defineProps<{
-  note: modifiedNote;
+  note: ModifiedNote;
 }>();
 </script>
 

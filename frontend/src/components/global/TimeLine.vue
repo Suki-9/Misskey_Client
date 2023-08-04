@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { UUIDGen } from "../../scripts/UUID";
-import { modifiedNote } from "../../scripts/types";
+import { ModifiedNote } from "../../scripts/types";
 import { readCookie } from "../../scripts/Cookie";
 import { noteGen } from "../../scripts/note";
 import { getNote } from "../../scripts/API/note";
@@ -13,7 +13,7 @@ const props = defineProps<{
   channel?: string;
 }>();
 
-const notes = ref<modifiedNote[]>([]);
+const notes = ref<ModifiedNote[]>([]);
 const maxIndexSize: number = 10;
 
 let scrollIndex: number = 0;

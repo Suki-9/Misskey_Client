@@ -3,7 +3,7 @@ export type HamburgerMenuList = {
   link: string;
 }[];
 
-export type modifiedNote = Pick<
+export type ModifiedNote = Pick<
   Note,
   "id" | "text" | "cw" | "user" | "files"
 > & {

@@ -1,7 +1,7 @@
 import { parseEmoji, searchEmoji } from "./emoji";
-import { Note, Reaction, User, modifiedNote } from "./types";
+import { Note, Reaction, User, ModifiedNote } from "./types";
 
-export const noteGen = (noteData: Note): modifiedNote => {
+export const noteGen = (noteData: Note): ModifiedNote => {
   const note: Note = noteData.renote ?? noteData;
 
   const reactions: Reaction[] = [];
