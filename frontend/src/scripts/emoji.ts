@@ -40,7 +40,6 @@ export const parseEmoji = (text: string | undefined) => {
     const url = searchEmoji(emoji.replaceAll(":", ""));
     if (url[1] === "success")
       text = text!.replace(emoji, `<img class="emoji" src="${url[0]}">`);
-    else text = text!.replace(emoji, emoji);
   });
   return text;
 };
