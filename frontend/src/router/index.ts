@@ -21,17 +21,17 @@ const router = createRouter({
         {
           path: "",
           name: "MiAuth",
-          component: () => import("../components/Login/MiAuth.vue"),
+          component: () => import("../pages/Login/MiAuth.vue"),
         },
         {
           path: "token",
           name: "Token",
-          component: () => import("../components/Login/Token.vue"),
+          component: () => import("../pages/Login/Token.vue"),
         },
         {
           path: "callback",
           name: "Callback",
-          component: () => import("../components/Login/Callback.vue"),
+          component: () => import("../pages/Login/Callback.vue"),
         },
       ],
     },

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { UUIDGen } from "../../scripts/UUID";
 
-import FormInput from "../FormInput.vue";
+import FormInput from "../../components/global/FormInput.vue";
 
 const login = (text: string) => {
   const host = text;
