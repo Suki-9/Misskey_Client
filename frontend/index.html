@@ -22,7 +22,7 @@
 			isErr() {
 				return false;
 			}
-			unwrapOk() {
+			unwrap_or() {
 				return this.value;
 			}
 			unwrap() {
@@ -40,7 +40,9 @@
 			isErr() {
 				return true;
 			}
-			unwrapOk() { }
+			unwrap_or(default_) {
+				return this.default_;
+			}
 			unwrap() {
 				throw this.error;
 			}
