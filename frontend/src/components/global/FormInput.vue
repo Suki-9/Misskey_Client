@@ -59,7 +59,7 @@ form {
 
   font-size: 120%;
 
-  border-radius: 7px;
+  border-radius: var(--default-border-radius);
 
   .input {
     position: relative;

@@ -1,4 +1,7 @@
 :root {
   /*text*/
   font-size: 170%;
+
+  /*border*/
+  --default-border-radius: 7px;
 }
