@@ -65,6 +65,36 @@
       "css": "dot-3",
       "code": 59400,
       "src": "entypo"
+    },
+    {
+      "uid": "c155bb86da2f8da808394d58220b5146",
+      "css": "bell",
+      "code": 59401,
+      "src": "typicons"
+    },
+    {
+      "uid": "a42f298da5c64e646a5d532724cd6e15",
+      "css": "home-outline",
+      "code": 59402,
+      "src": "typicons"
+    },
+    {
+      "uid": "5qynhqqaenby227l5kogqj8sdk5s4e7h",
+      "css": "cw",
+      "code": 59403,
+      "src": "typicons"
+    },
+    {
+      "uid": "ccc2329632396dc096bb638d4b46fb98",
+      "css": "mail-alt",
+      "code": 61664,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "559647a6f430b3aeadbecd67194451dd",
+      "css": "menu",
+      "code": 61641,
+      "src": "fontawesome"
     }
   ]
 }
