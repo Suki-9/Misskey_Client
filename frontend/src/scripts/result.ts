@@ -6,6 +6,9 @@ class Ok<T> {
   constructor(value: T) {
     this.value = value;
   }
+
+  type = "Ok" as const;
+
   isOk(): this is Ok<T> {
     return true;
   }
@@ -20,6 +23,9 @@ class Err<E extends Error> {
   constructor(error: E) {
     this.error = error;
   }
+
+  type = "Err" as const;
+
   isOk(): this is Ok<unknown> {
     return false;
   }
