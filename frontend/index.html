@@ -22,6 +22,9 @@
 			isErr() {
 				return false;
 			}
+			unwrap() {
+    			return this.value;
+			}
 		}
 
 		class Err {
@@ -34,6 +37,7 @@
 			isErr() {
 				return true;
 			}
+			unwrap() {}
 		}
 
 		window.Ok = Ok;
