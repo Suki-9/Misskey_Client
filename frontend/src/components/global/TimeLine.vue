@@ -60,11 +60,14 @@ function stream() {
 
   timeLine.addEventListener("message", event => {
     console.log("GetNote!")
-    maxIndexSize < notes.value.length
-      ? notes.value.shift()
-      : scrollIndex < 100
+    if(maxIndexSize < notes.value.length) notes.value.shift()
+    scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
       : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body))
+  });
+
+  timeLine.addEventListener('close', () => {
+    console.log("Disconnection");
   });
 }
 
