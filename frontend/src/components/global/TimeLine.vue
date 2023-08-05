@@ -80,6 +80,7 @@ window.addEventListener("scroll", () => {
     noteKeep.value.forEach(note => {
       notes.value.push(note);
     });
+    noteKeep.value = []
   }
 });
 
