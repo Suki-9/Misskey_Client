@@ -1,18 +1,19 @@
 import { readCookie } from "./Cookie";
 
+type Emojis = {
+  aliases: string[];
+  name: string;
+  category: string;
+  url: string;
+}[];
+
 export const getEmojiIndex = async (host?: string) => {
   const hostName: string = host ?? readCookie("loginHost")!;
-  const emojis: { name: string }[] = await fetch(
-    `https://${hostName}/api/emojis`,
-  )
+  const emojis: Emojis = await fetch(`https://${hostName}/api/emojis`)
     .then((response) => response.json())
     .then((data) => data.emojis);
 
-  const index: string[] = [];
-
-  emojis.forEach((emoji) => {
-    index.push(emoji.name);
-  });
+  const index = emojis.map((emoji) => emoji.name);
 
   localStorage.setItem(`${hostName}_emojis_index`, JSON.stringify(index));
   localStorage.setItem(`${hostName}_emojis`, JSON.stringify(emojis));
@@ -21,19 +22,17 @@ export const getEmojiIndex = async (host?: string) => {
 export const searchEmoji = (name: string, host?: string): [string, string] => {
   //emojisを取得 -> Key名のみのindexを生成
   const hostName = host ?? readCookie("loginHost");
-  const emojis: { url: string }[] = JSON.parse(
+  const emojis: Emojis = JSON.parse(
     localStorage.getItem(`${hostName}_emojis`)!,
   );
   const index: string = JSON.parse(
     localStorage.getItem(`${hostName}_emojis_index`)!,
   );
-  if (index.indexOf(name) !== -1)
-    return [emojis[index.indexOf(name)].url, "success"];
-  return [name, "fail"];
+  if (index.indexOf(name) === -1) return [name, "fail"];
+  return [emojis[index.indexOf(name)].url, "success"];
 };
 
-export const parseEmoji = (text: string | undefined) => {
-  if (!text) return;
+export const parseEmoji = (text: string) => {
   const regex = /:.*?:/g;
   const matches = text.match(regex);
   matches?.forEach((emoji) => {

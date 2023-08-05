@@ -5,21 +5,20 @@ export type HamburgerMenuList = {
 
 export type ModifiedNote = Pick<
   Note,
-  "id" | "text" | "cw" | "user" | "files"
+  "id" | "createdAt" | "text" | "cw" | "user" | "files"
 > & {
-  date?: string;
-  reactions?: Reaction[];
+  reactions: Reaction[];
   renoter?: User;
 };
 
 export type Note = {
   id: string;
   createdAt: string;
-  text?: string;
-  cw?: string;
+  text: string | null;
+  cw: string | null;
   user: User;
-  files?: File[];
-  reactions?: Record<string, number>;
+  files: File[];
+  reactions: Record<string, number>;
   renote?: Omit<Note, "renote">;
 };
 
@@ -30,7 +29,7 @@ export type Reaction = {
 };
 
 export type User = {
-  name?: string;
+  name: string | null;
   username: string;
   avatarUrl: string;
 };

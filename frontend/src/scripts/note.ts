@@ -4,16 +4,19 @@ import { Note, Reaction, User, ModifiedNote } from "./types";
 export const noteGen = (noteData: Note): ModifiedNote => {
   const note: Note = noteData.renote ?? noteData;
 
-  const reactions: Reaction[] = [];
-  if (note.reactions) {
-    Object.keys(note.reactions).forEach((reaction) => {
-      reactions.push({
+  // nameは初期設定だと空の場合があるので空であればidを使う
+  note.user.name ??= note.user.username;
+  noteData.user.name ??= noteData.user.username;
+
+  const reactions: Reaction[] = Object.entries(note.reactions).map(
+    ([reaction, count]) => {
+      return {
         name: reaction,
-        count: note.reactions![reaction],
+        count,
         link: searchEmoji(reaction.slice(1, reaction.indexOf("@")))[0],
-      });
-    });
-  }
+      };
+    },
+  );
 
   let renoter: User | undefined;
 
@@ -24,8 +27,6 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       avatarUrl: noteData.user.avatarUrl,
     };
   }
-
-  const files = note.files ?? [];
 
   // let files: File[] | undefined;
   // if (note.files) {
@@ -40,16 +41,16 @@ export const noteGen = (noteData: Note): ModifiedNote => {
 
   return {
     id: note.id,
-    date: note.createdAt,
+    createdAt: note.createdAt,
     text: note.text && parseEmoji(note.text), // stringじゃないといけないのであれば(note.text && parseEmoji(note.text)) ?? ""
     cw: note.cw,
     user: {
-      name: parseEmoji(note.user.name ?? note.user.username),
+      name: parseEmoji(note.user.name),
       username: note.user.username,
       avatarUrl: note.user.avatarUrl,
     },
-    files: files,
-    reactions: reactions,
-    renoter: renoter,
+    files: note.files,
+    reactions,
+    renoter,
   };
 };
