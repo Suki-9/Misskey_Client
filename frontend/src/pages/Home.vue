@@ -9,7 +9,7 @@ import { readCookie } from "../scripts/Cookie";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-/* トークンの有無を確認 */
+// トークンの有無を確認
 const loginHost: string | undefined = readCookie("loginHost");
 const Hosts: string | undefined = readCookie("Hosts");
 
@@ -23,7 +23,7 @@ if (!loginHost) {
 </script>
 
 <template>
-  <TimeLine :hostName="loginHost" channel="" />
+  <TimeLine :hostName="loginHost"  />
   <Post />
   <BottomBar />
 </template>
