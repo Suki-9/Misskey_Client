@@ -7,9 +7,8 @@ export const getCookie = (): [string[][], string[]] => {
 };
 
 export const readCookie = (key: string) => {
-  const index = getCookie()[1];
-  const Cookie = getCookie()[0];
+  const [cookie, index] = getCookie();
   const i = index.indexOf(key);
   if (i === -1) return;
-  return Cookie[i][1];
+  return cookie[i][1];
 };
