@@ -19,7 +19,7 @@ export const getEmojiIndex = async (host?: string) => {
   localStorage.setItem(`${hostName}_emojis`, JSON.stringify(emojis));
 };
 
-export const searchEmoji = (name: string, host?: string) => {
+export const searchEmoji = (name: string, host?: string): Result<string, Error> => {
   const start = performance.now();
   //emojisを取得 -> Key名のみのindexを生成
   const hostName = host ?? readCookie("loginHost");
