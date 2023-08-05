@@ -7,7 +7,8 @@ declare class Ok<T> {
 
   isOk(): this is Ok<T>;
   isErr(): this is Err<Error>;
-  unwrap(): T;
+  unwrapOk(): T; // エラー時なにもしない
+  unwrap(): T; // エラー時例外を投げる
 }
 
 declare class Err<E extends Error> {
@@ -19,6 +20,7 @@ declare class Err<E extends Error> {
 
   isOk(): this is Ok<unknown>;
   isErr(): this is Err<E>;
+  unwrapOk(): never;
   unwrap(): never;
 }
 

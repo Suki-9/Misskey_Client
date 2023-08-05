@@ -22,8 +22,11 @@
 			isErr() {
 				return false;
 			}
+			unwrapOk() {
+				return this.value;
+			}
 			unwrap() {
-    			return this.value;
+				return this.value;
 			}
 		}
 
@@ -37,7 +40,10 @@
 			isErr() {
 				return true;
 			}
-			unwrap() {}
+			unwrapOk() { }
+			unwrap() {
+				throw this.error;
+			}
 		}
 
 		window.Ok = Ok;
