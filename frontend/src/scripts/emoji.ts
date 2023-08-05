@@ -33,12 +33,12 @@ export const searchEmoji = (name: string, host?: string): Result<string, Error> 
     localStorage.getItem(`${hostName}_emojis_index`)!
   );
 
-  if (index.indexOf(name) === -1) return new Failure(new Error(name));
+  if (index.indexOf(name) === -1) return new Err(new Error(name));
 
   const end = performance.now();
   console.log(`${(end - start) * 100}ms!`);
 
-  return new Success(emojis[index.indexOf(name)].url);
+  return new Ok(emojis[index.indexOf(name)].url);
 };
 
 export const parseEmoji = (text: string) => {
@@ -46,7 +46,7 @@ export const parseEmoji = (text: string) => {
   const matches = text.match(regex);
   matches?.forEach(emoji => {
     const url = searchEmoji(emoji.replaceAll(":", ""));
-    if (url.isSuccess())
+    if (url.isOk())
       text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
   });
   return text;

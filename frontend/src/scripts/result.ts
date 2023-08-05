@@ -1,29 +1,29 @@
-type Result<T, E extends Error> = Success<T> | Failure<E>;
+type Result<T, E extends Error> = Ok<T> | Err<E>;
 
-class Success<T> {
+class Ok<T> {
   readonly value: T;
 
   constructor(value: T) {
     this.value = value;
   }
-  isSuccess(): this is Success<T> {
+  isOk(): this is Ok<T> {
     return true;
   }
-  isFailure(): this is Failure<Error> {
+  isErr(): this is Err<Error> {
     return false;
   }
 }
 
-class Failure<E extends Error> {
+class Err<E extends Error> {
   readonly error: E;
 
   constructor(error: E) {
     this.error = error;
   }
-  isSuccess(): this is Success<unknown> {
+  isOk(): this is Ok<unknown> {
     return false;
   }
-  isFailure(): this is Failure<E> {
+  isErr(): this is Err<E> {
     return true;
   }
 }
