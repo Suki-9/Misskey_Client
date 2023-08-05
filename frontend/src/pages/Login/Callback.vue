@@ -15,7 +15,7 @@ const res = await fetch(
   .then(response => response.json())
   .then(data => data);
 
-document.cookie = `${host}_token=${await res.token}; path=/`;
+document.cookie = `${host}_token=${res.token}; path=/`;
 router.push("/");
 </script>
 
