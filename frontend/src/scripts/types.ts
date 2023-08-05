@@ -38,3 +38,17 @@ export type File = {
   thumbnailUrl: string;
   url: string;
 };
+
+export type NotificationFilterTypes = (
+  | "follow"
+  | "mention"
+  | "reply"
+  | "renote"
+  | "quote"
+  | "reaction"
+  | "pollVote"
+  | "pollEnded"
+  | "followRequestAccepted"
+  | "groupInvited"
+  | "app"
+)
