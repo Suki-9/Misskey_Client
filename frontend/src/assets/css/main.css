@@ -13,12 +13,15 @@
   /*font text*/
   --primary-font-size: 2em;
 
+  /*border*/
+  --default-border-radius: 7px;
+
   color: var(--primary-text-color);
   font-family: "M PLUS 1", sans-serif;
 }
 
 body {
-  margin: 1;
+  margin: 1%;
 }
 
 /*text*/

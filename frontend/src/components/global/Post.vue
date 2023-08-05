@@ -8,7 +8,7 @@ const CreatePost = () => {};
 
 <style module lang="postcss">
 .postButton {
-  position: absolute;
+  position: fixed;
   bottom: 10%;
   right: 5%;
 

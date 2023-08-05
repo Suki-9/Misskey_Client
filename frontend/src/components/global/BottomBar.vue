@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: space-around;
 
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
 
@@ -27,14 +27,9 @@
     background-color: var(--primary-bg-color);
 
     i {
-
-        border-radius: 50%;
-
-        padding: 3%;
+        padding: 2% 3%;
 
         line-height: 0;
-
-        border: solid 1px var( --accent-color);
     }
     i::before {
         margin: 0;

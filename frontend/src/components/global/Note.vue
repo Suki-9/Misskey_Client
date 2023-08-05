@@ -135,6 +135,7 @@ defineProps<{
       }
 
       .text {
+        overflow: hidden;
         font-size: 60%;
       }
       .media {
