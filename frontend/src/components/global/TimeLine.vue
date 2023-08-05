@@ -27,19 +27,17 @@ const noteKeep = ref<ModifiedNote[]>([]);
 const maxIndexSize: number = 10;
 let scrollIndex: number = 0;
 
-//VirtualScroller
-//const BeforeNote = ref<ModifiedNote>()
-//const NoteIndexSize = ref<number>(0)
 
 //EntryPoint
 if (props.hostName !== undefined) {
   getNote(props.hostName, props.channel, maxIndexSize).then(
-    gotNotes => (notes.value = gotNotes)
+    getNotes => (notes.value = getNotes.reverse())
   );
   stream();
 }
 
 function stream() {
+  console.log(props.channel)
   const token = readCookie(`${props.hostName}_token`);
   const uuid = UUIDGen();
   const timeLine = new WebSocket(
@@ -57,24 +55,18 @@ function stream() {
         },
       })
     );
+    console.log("Connection success!")
   });
 
   timeLine.addEventListener("message", event => {
+    console.log("GetNote!")
     maxIndexSize < notes.value.length
       ? notes.value.shift()
       : scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body));
+      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body))
   });
 }
-
-//let onAddNote: boolean = false
-//onUpdated(() => {
-//  if (onAddNote) {
-//    NoteIndexSize.value += document.getElementById("BeforeNote")?.getBoundingClientRect().height ?? 0
-//    onAddNote = !onAddNote
-//  }
-//})
 
 window.addEventListener("scroll", () => {
   scrollIndex = window.scrollY;
@@ -84,6 +76,19 @@ window.addEventListener("scroll", () => {
     });
   }
 });
+
+
+//VirtualScroller
+//const BeforeNote = ref<ModifiedNote>()
+//const NoteIndexSize = ref<number>(0)
+
+//let onAddNote: boolean = false
+//onUpdated(() => {
+//  if (onAddNote) {
+//    NoteIndexSize.value += document.getElementById("BeforeNote")?.getBoundingClientRect().height ?? 0
+//    onAddNote = !onAddNote
+//  }
+//})
 </script>
 
 <template>
