@@ -23,7 +23,6 @@ export const searchEmoji = (
   name: string,
   host?: string
 ): Result<string, Error> => {
-  const start = performance.now();
   //emojisを取得 -> Key名のみのindexを生成
   const hostName = host ?? readCookie("loginHost");
 
@@ -37,9 +36,6 @@ export const searchEmoji = (
   );
 
   if (index.indexOf(name) === -1) return new Err(new Error(name));
-
-  const end = performance.now();
-  console.log(`${(end - start) * 100}ms!`);
 
   return new Ok(emojis[index.indexOf(name)].url);
 };
