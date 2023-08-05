@@ -45,7 +45,7 @@ defineProps<{
     flex-direction: column;
 
     padding: 2%;
-    margin: 1%;
+    margin: 2%;
 
     background-color: var(--secondary-bg-color);
 
