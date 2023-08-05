@@ -1,37 +1,28 @@
 <script setup lang="ts">
-
-
-const CreatePost = () => { 
-
-}
+const CreatePost = () => {};
 </script>
 
-
 <template>
-    <i
-        class="icon-pencil"
-        :class="$style.postButton"
-        @click="CreatePost"></i>
+  <i class="icon-pencil" :class="$style.postButton" @click="CreatePost"></i>
 </template>
-
 
 <style module lang="postcss">
 .postButton {
-    position: absolute;
-    bottom: 10%;
-    right: 5%;
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
 
-    border-radius: var(--default-border-radius);
+  border-radius: var(--default-border-radius);
 
-    padding: 3%;
+  padding: 3%;
 
-    font-size: 1.5em;
-    line-height: 0;
-    color: var(--primary-bg-color);
+  font-size: 1.5em;
+  line-height: 0;
+  color: var(--primary-bg-color);
 
-    background-color: var(--accent-color);
+  background-color: var(--accent-color);
 }
 .postButton::before {
-    margin: 0;
+  margin: 0;
 }
 </style>

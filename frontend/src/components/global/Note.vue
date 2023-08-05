@@ -9,10 +9,7 @@ defineProps<{
 <template>
   <div :class="$style.root">
     <div v-if="note.renoter" :class="$style.renote">
-      <img
-        :class="$style.renoterAvatar"
-        :src="note.renoter.avatarUrl"
-      />
+      <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
       <p :class="$style.renoterName">
         <span v-html="note.renoter.name"></span>さんがリノート
       </p>
@@ -31,10 +28,7 @@ defineProps<{
           <img v-for="file in note.files" :src="file.thumbnailUrl" />
         </div>
         <div :class="$style.reactions">
-          <p
-            v-for="reaction in note.reactions"
-            :class="$style.reaction"
-          >
+          <p v-for="reaction in note.reactions" :class="$style.reaction">
             <span
               :style="`content: url(${reaction.link})`"
               :class="$style.emoji"

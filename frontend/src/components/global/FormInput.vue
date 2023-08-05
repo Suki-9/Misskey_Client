@@ -18,9 +18,7 @@ const reset = () => {
   text.value = "";
 };
 
-const isEnableMemo = computed<boolean>(
-  () => props.button?.isEnable ?? false
-);
+const isEnableMemo = computed<boolean>(() => props.button?.isEnable ?? false);
 </script>
 
 <template>
@@ -33,9 +31,7 @@ const isEnableMemo = computed<boolean>(
       <input
         v-model="text"
         @focus="active = true"
-        @blur="
-          [(active = false), isEnableMemo || emit('receive', text)]
-        "
+        @blur="[(active = false), isEnableMemo || emit('receive', text)]"
       />
       <i class="icon-cancel" @click="reset"></i>
     </div>

@@ -15,17 +15,11 @@ export const getEmojiIndex = async (host?: string) => {
 
   const index = emojis.map(emoji => emoji.name);
 
-  localStorage.setItem(
-    `${hostName}_emojis_index`,
-    JSON.stringify(index)
-  );
+  localStorage.setItem(`${hostName}_emojis_index`, JSON.stringify(index));
   localStorage.setItem(`${hostName}_emojis`, JSON.stringify(emojis));
 };
 
-export const searchEmoji = (
-  name: string,
-  host?: string
-): [string, string] => {
+export const searchEmoji = (name: string, host?: string): [string, string] => {
   const start = performance.now();
   //emojisを取得 -> Key名のみのindexを生成
   const hostName = host ?? readCookie("loginHost");
@@ -53,10 +47,7 @@ export const parseEmoji = (text: string) => {
   matches?.forEach(emoji => {
     const url = searchEmoji(emoji.replaceAll(":", ""));
     if (url[1] === "success")
-      text = text.replace(
-        emoji,
-        `<img class="emoji" src="${url[0]}">`
-      );
+      text = text.replace(emoji, `<img class="emoji" src="${url[0]}">`);
   });
   return text;
 };

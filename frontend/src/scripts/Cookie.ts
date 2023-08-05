@@ -1,7 +1,5 @@
 export const getCookie = (): [string[][], string[]] => {
-  const cookies = document.cookie
-    .split("; ")
-    .map(cookie => cookie.split("="));
+  const cookies = document.cookie.split("; ").map(cookie => cookie.split("="));
   const cookieNames = cookies.map(cookie => cookie[0]);
   return [cookies, cookieNames];
 };

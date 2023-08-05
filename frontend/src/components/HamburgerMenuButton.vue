@@ -6,12 +6,8 @@ const emit = defineEmits<{ (e: "switch"): void }>();
 <template>
   <div :class="$style.root" @click="emit('switch')">
     <span v-show="!isActive"></span>
-    <span
-      :class="[$style.cross_L, { [$style.active]: isActive }]"
-    ></span>
-    <span
-      :class="[$style.cross_R, { [$style.active]: isActive }]"
-    ></span>
+    <span :class="[$style.cross_L, { [$style.active]: isActive }]"></span>
+    <span :class="[$style.cross_R, { [$style.active]: isActive }]"></span>
   </div>
 </template>
 

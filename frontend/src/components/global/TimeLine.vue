@@ -66,9 +66,7 @@ function stream() {
       ? notes.value.shift()
       : scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-      : noteKeep.value.push(
-          noteGen(JSON.parse(event.data).body.body)
-        );
+      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body));
   });
 }
 

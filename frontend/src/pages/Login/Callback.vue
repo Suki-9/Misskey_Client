@@ -6,12 +6,9 @@ const route = useRoute();
 
 const session = route.query["session"];
 const host = readCookie("loginHost");
-const res = await fetch(
-  `https://${host}/api/miauth/${session}/check`,
-  {
-    method: "POST",
-  }
-)
+const res = await fetch(`https://${host}/api/miauth/${session}/check`, {
+  method: "POST",
+})
   .then(response => response.json())
   .then(data => data);
 
