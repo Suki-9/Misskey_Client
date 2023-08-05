@@ -20,7 +20,7 @@ declare class Err<E extends Error> {
 
   isOk(): this is Ok<unknown>;
   isErr(): this is Err<E>;
-  unwrap_or(default_: T): T;
+  unwrap_or<T>(default_: T): T;
   unwrap(): never;
 }
 
