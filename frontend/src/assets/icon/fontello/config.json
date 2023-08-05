@@ -67,18 +67,6 @@
       "src": "entypo"
     },
     {
-      "uid": "c155bb86da2f8da808394d58220b5146",
-      "css": "bell",
-      "code": 59401,
-      "src": "typicons"
-    },
-    {
-      "uid": "a42f298da5c64e646a5d532724cd6e15",
-      "css": "home-outline",
-      "code": 59402,
-      "src": "typicons"
-    },
-    {
       "uid": "5qynhqqaenby227l5kogqj8sdk5s4e7h",
       "css": "cw",
       "code": 59403,
@@ -91,9 +79,21 @@
       "src": "fontawesome"
     },
     {
-      "uid": "559647a6f430b3aeadbecd67194451dd",
-      "css": "menu",
-      "code": 61641,
+      "uid": "a42f298da5c64e646a5d532724cd6e15",
+      "css": "home-outline",
+      "code": 59402,
+      "src": "typicons"
+    },
+    {
+      "uid": "513ac180ff85bd275f2b736720cbbf5e",
+      "css": "home",
+      "code": 59404,
+      "src": "entypo"
+    },
+    {
+      "uid": "671f29fa10dda08074a4c6a341bb4f39",
+      "css": "bell-alt",
+      "code": 61683,
       "src": "fontawesome"
     }
   ]
