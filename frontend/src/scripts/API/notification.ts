@@ -1,18 +1,20 @@
-import { NotificationFilterTypes } from '../types'
+//types
+import { NotificationFilterTypes, postData } from '../types'
+
+//TS module
+import { readCookie } from '../Cookie';
+
 
 export const getNotifications = async (
     host: string,
-    token: string,
-    maxSize: number = 10,
-    includeTypes: NotificationFilterTypes[] = [],
-    excludeTypes: NotificationFilterTypes[] = []
+    token?: string,
+    maxSize: number = 1,
+    following: boolean = false,
+    unreadOnly: boolean = false,
+    markAsRead: boolean = false,
+    includeTypes?: NotificationFilterTypes[],
+    excludeTypes?: NotificationFilterTypes[],
 ) => {
-    const postData = {
-        i: token,
-        limit: maxSize,
-        includeTypes: includeTypes,
-        excludeTypes: excludeTypes,
-    }
     const res = await fetch(
         `https://${host}/api/i/notifications`,
         {
@@ -20,8 +22,17 @@ export const getNotifications = async (
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(postData),
+            body: JSON.stringify({
+                i: token ?? readCookie(`${host}_token`),
+                limit: maxSize,
+                following: following,
+                unreadOnly: unreadOnly,
+                markAsRead: markAsRead,
+                includeTypes: includeTypes,
+                excludeTypes: excludeTypes,
+            }),
         }
     )
-    console.log(res)
+        .then(response => response.json())
+        .then(data => data);
 }

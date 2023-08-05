@@ -52,3 +52,11 @@ export type NotificationFilterTypes = (
   | "groupInvited"
   | "app"
 )
+
+export type postData = { 
+    i: string;
+    limit: number;
+    following: boolean;
+    unreadOnly: boolean;
+    markAsRead: boolean;
+}
