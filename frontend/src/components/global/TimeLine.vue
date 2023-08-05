@@ -14,11 +14,15 @@ import { getNote } from "../../scripts/API/note";
 //vue Component
 import Note from "./Note.vue";
 
-
-const props = defineProps<{
-  hostName?: string;
-  channel?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    hostName?: string;
+    channel?: string;
+  }>(),
+  {
+    channel: "home",
+  },
+);
 
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
@@ -31,10 +35,10 @@ let scrollIndex: number = 0;
 
 //EntryPoint
 if (props.hostName !== undefined) {
-  getNote(props.hostName, props.channel, maxIndexSize).then(function (gatNotes) { 
-    notes.value = gatNotes
-  })
-  stream()
+  getNote(props.hostName, props.channel, maxIndexSize).then(
+    (gotNotes) => (notes.value = gotNotes),
+  );
+  stream();
 }
 
 function stream() {
@@ -49,9 +53,7 @@ function stream() {
       JSON.stringify({
         type: "connect",
         body: {
-          channel: `${
-            props.channel == undefined ? "home" : props.channel
-          }Timeline`,
+          channel: `${props.channel}Timeline`,
           id: uuid,
           params: {},
         },
@@ -64,7 +66,7 @@ function stream() {
       ? notes.value.shift()
       : scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body))
+      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body));
   });
 }
 
@@ -78,10 +80,10 @@ function stream() {
 
 window.addEventListener("scroll", () => {
   scrollIndex = window.scrollY;
-  if (scrollIndex < 100) { 
-    noteKeep.value.forEach(note => { 
-      notes.value.push(note)
-    })
+  if (scrollIndex < 100) {
+    noteKeep.value.forEach((note) => {
+      notes.value.push(note);
+    });
   }
 });
 </script>
