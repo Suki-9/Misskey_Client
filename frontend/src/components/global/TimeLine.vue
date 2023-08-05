@@ -25,6 +25,7 @@ const props = withDefaults(
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
 const maxIndexSize: number = 10;
+const autoReConnection: boolean = true
 let scrollIndex: number = 0;
 
 
@@ -68,6 +69,8 @@ function stream() {
 
   timeLine.addEventListener('close', () => {
     console.log("Disconnection");
+    if (autoReConnection) stream()
+    return
   });
 }
 
