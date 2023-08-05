@@ -13,9 +13,11 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       return {
         name: reaction,
         count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@")))[0],
+        link: searchEmoji(
+          reaction.slice(1, reaction.indexOf("@"))
+        )[0],
       };
-    },
+    }
   );
 
   let renoter: User | undefined;

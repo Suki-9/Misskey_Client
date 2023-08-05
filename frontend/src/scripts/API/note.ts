@@ -6,7 +6,7 @@ export const getNote = async (
   host: string,
   channel: string = "home",
   maxIndexSize: number = 10,
-  token?: string,
+  token?: string
 ): Promise<ModifiedNote[]> => {
   const res: Note[] = await fetch(
     `https://${host}/api/notes/${channel}-timeline`,
@@ -19,10 +19,10 @@ export const getNote = async (
         i: token ?? readCookie(`${host}_token`),
         limit: maxIndexSize,
       }),
-    },
+    }
   )
-    .then((response) => response.json())
-    .then((data) => data);
+    .then(response => response.json())
+    .then(data => data);
 
-  return res.map((note) => noteGen(note));
+  return res.map(note => noteGen(note));
 };

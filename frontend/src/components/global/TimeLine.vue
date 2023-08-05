@@ -21,7 +21,7 @@ const props = withDefaults(
   }>(),
   {
     channel: "home",
-  },
+  }
 );
 
 const notes = ref<ModifiedNote[]>([]);
@@ -36,7 +36,7 @@ let scrollIndex: number = 0;
 //EntryPoint
 if (props.hostName !== undefined) {
   getNote(props.hostName, props.channel, maxIndexSize).then(
-    (gotNotes) => (notes.value = gotNotes),
+    gotNotes => (notes.value = gotNotes)
   );
   stream();
 }
@@ -45,7 +45,7 @@ function stream() {
   const token = readCookie(`${props.hostName}_token`);
   const uuid = UUIDGen();
   const timeLine = new WebSocket(
-    `wss://${props.hostName}/streaming?i=${token}`,
+    `wss://${props.hostName}/streaming?i=${token}`
   );
 
   timeLine.addEventListener("open", () => {
@@ -57,16 +57,18 @@ function stream() {
           id: uuid,
           params: {},
         },
-      }),
+      })
     );
   });
 
-  timeLine.addEventListener("message", (event) => {
+  timeLine.addEventListener("message", event => {
     maxIndexSize < notes.value.length
       ? notes.value.shift()
       : scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body));
+      : noteKeep.value.push(
+          noteGen(JSON.parse(event.data).body.body)
+        );
   });
 }
 
@@ -81,7 +83,7 @@ function stream() {
 window.addEventListener("scroll", () => {
   scrollIndex = window.scrollY;
   if (scrollIndex < 100) {
-    noteKeep.value.forEach((note) => {
+    noteKeep.value.forEach(note => {
       notes.value.push(note);
     });
   }

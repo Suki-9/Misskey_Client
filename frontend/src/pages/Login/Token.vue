@@ -21,7 +21,11 @@ const login = (text: string) => {
 </script>
 
 <template>
-  <FormInput :class="$style.input" title="Host name" @receive="input" />
+  <FormInput
+    :class="$style.input"
+    title="Host name"
+    @receive="input"
+  />
   <FormInput
     :class="$style.input"
     title="Your Token"

@@ -13,7 +13,10 @@ const isActive = ref(false);
 
 <template>
   <div :class="$style.root">
-    <HamburgerMenuButton :isActive="isActive" @switch="isActive = !isActive" />
+    <HamburgerMenuButton
+      :isActive="isActive"
+      @switch="isActive = !isActive"
+    />
     <h4>{{ title }}</h4>
   </div>
   <XHamburgerMenuList

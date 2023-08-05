@@ -2,8 +2,8 @@ const fs = require('fs');
 
 const getEmojis = async (host) => {
 	const emojis = await fetch(`https://${host}/api/emojis`)
-		.then((response) => response.json())
-		.then((data) => { return data.emojis });
+		.then(response => response.json())
+		.then(data => data.emojis);
 
 	fs.writeFile(`./emoji_index/${host}_emojis.json`, JSON.stringify(emojis), (err) => {
 		if (err) {

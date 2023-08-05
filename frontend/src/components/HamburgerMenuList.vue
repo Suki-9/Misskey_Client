@@ -13,7 +13,7 @@ const emit = defineEmits<{ (e: "switch"): void }>();
       @click="
         [
           $router.push(
-            item.link /*TODO: undefinedのときに/undefinedに遷移してしまう問題 */,
+            item.link /*TODO: undefinedのときに/undefinedに遷移してしまう問題 */
           ),
           emit('switch'),
         ]
