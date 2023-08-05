@@ -37,7 +37,7 @@ export const searchEmoji = (name: string, host?: string): [string, string] => {
 
   const end = performance.now();
   console.log(`${(end - start) * 100}ms!`);
-  
+
   return [emojis[index.indexOf(name)].url, "success"];
 };
 
