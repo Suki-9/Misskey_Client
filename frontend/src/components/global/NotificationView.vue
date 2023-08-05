@@ -24,6 +24,10 @@ if (host !== undefined) {
 
 <template>
     <div :class="$style.root">
+        <div :class="$style.head">
+            <i class="icon-bell-alt"></i>
+            <p>通知</p>
+        </div>
         <Notification
             v-for="Notification in Notifications"
             :Notification="Notification"/>
@@ -43,5 +47,17 @@ if (host !== undefined) {
     border: solid 1px;
 
     background-color: var(--primary-bg-color);
+
+    .head {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        margin: 1%;
+
+        font-size: 80%;
+
+        border-bottom: solid 1px var(--primary-border-color);
+    }
 }
 </style>
