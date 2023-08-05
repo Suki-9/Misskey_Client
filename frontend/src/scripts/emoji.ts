@@ -19,7 +19,7 @@ export const getEmojiIndex = async (host?: string) => {
   localStorage.setItem(`${hostName}_emojis`, JSON.stringify(emojis));
 };
 
-export const searchEmoji = (name: string, host?: string): [string, string] => {
+export const searchEmoji = (name: string, host?: string): Result<string, Error> => {
   const start = performance.now();
   //emojisを取得 -> Key名のみのindexを生成
   const hostName = host ?? readCookie("loginHost");
@@ -33,12 +33,12 @@ export const searchEmoji = (name: string, host?: string): [string, string] => {
     localStorage.getItem(`${hostName}_emojis_index`)!
   );
 
-  if (index.indexOf(name) === -1) return [name, "fail"];
+  if (index.indexOf(name) === -1) return new Err(new Error(name));
 
   const end = performance.now();
   console.log(`${(end - start) * 100}ms!`);
 
-  return [emojis[index.indexOf(name)].url, "success"];
+  return new Ok(emojis[index.indexOf(name)].url);
 };
 
 export const parseEmoji = (text: string) => {
@@ -46,8 +46,8 @@ export const parseEmoji = (text: string) => {
   const matches = text.match(regex);
   matches?.forEach(emoji => {
     const url = searchEmoji(emoji.replaceAll(":", ""));
-    if (url[1] === "success")
-      text = text.replace(emoji, `<img class="emoji" src="${url[0]}">`);
+    if (url.isOk())
+      text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
   });
   return text;
 };
