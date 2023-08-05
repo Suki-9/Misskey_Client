@@ -2,7 +2,8 @@
 @import "../icon/fontello/css/fontello.css";
 
 /*仮*/
-@import "./theme/light.css";
+/*@import "./theme/light.css";*/
+@import "./theme/dark.css";
 @import "./device/mobile.css";
 /**/
 

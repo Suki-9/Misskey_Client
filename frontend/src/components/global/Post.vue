@@ -18,7 +18,7 @@ const CreatePost = () => {};
 
   font-size: 1.5em;
   line-height: 0;
-  color: var(--primary-bg-color);
+  color: var(--tertiary-bg-color);
 
   background-color: var(--accent-color);
 }
