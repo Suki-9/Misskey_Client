@@ -1,6 +1,9 @@
-import { readCookie } from "../Cookie";
+//types
 import { ModifiedNote, Note, Reaction, User } from "../types";
+
+//ts module
 import { parseEmoji, searchEmoji } from "../emoji";
+import { readCookie } from "../Cookie";
 
 
 export const getNote = async (

@@ -24,7 +24,7 @@ export type Note = {
 
 export type Reaction = {
   name: string;
-  count: number;
+  count?: number;
   link: string;
 };
 
@@ -36,10 +36,11 @@ export type User = {
 
 export type File = {
   thumbnailUrl: string;
+  createdAt: string;
   url: string;
 };
 
-export type NotificationFilterTypes = (
+export type NotificationType = (
   | "follow"
   | "mention"
   | "reply"
@@ -52,6 +53,23 @@ export type NotificationFilterTypes = (
   | "groupInvited"
   | "app"
 )
+
+export type Notification = {
+  id: string;
+  user: User;
+  type: NotificationType;
+  note: Note;
+  reaction?: string;
+}
+
+export type ModifiedNotification = {
+  id: string;
+  user: User;
+  type: NotificationType;
+  text?: string | null;
+  note?: ModifiedNote;
+  reaction?: Reaction;
+}
 
 export type postData = { 
     i: string;

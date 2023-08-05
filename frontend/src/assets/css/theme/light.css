@@ -2,6 +2,7 @@
   /*background color*/
   --primary-bg-color: rgb(255, 255, 255);
   --secondary-bg-color: rgb(240, 240, 240);
+  --tertiary-bg-color: rgb(197, 197, 197);
 
   /*button color*/
   --true-button-color: rgb(230, 230, 230);
@@ -9,6 +10,7 @@
   /*border color*/
   --primary-border-color: rgb(74, 74, 74);
   --secondary-border-color: rgb(150, 150, 150);
+
 
   /*text color*/
   --primary-text-color: rgb(20, 20, 20);
