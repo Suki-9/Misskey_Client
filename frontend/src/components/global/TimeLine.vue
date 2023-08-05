@@ -8,9 +8,7 @@ import { UUIDGen } from "../../scripts/UUID";
 import { readCookie } from "../../scripts/Cookie";
 
 //後にファイルを統合する予定
-import { noteGen } from "../../scripts/note";
-import { getNote } from "../../scripts/API/note";
-
+import { noteGen, getNote } from "../../scripts/API/note";
 //vue Component
 import Note from "./Note.vue";
 
