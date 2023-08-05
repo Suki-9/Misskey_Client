@@ -23,7 +23,7 @@ if (!loginHost) {
 </script>
 
 <template>
-  <TimeLine :hostName="loginHost" channel="hybrid" />
+  <TimeLine :hostName="loginHost" channel="" />
   <Post />
   <BottomBar />
 </template>

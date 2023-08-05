@@ -5,12 +5,13 @@ import { parseEmoji, searchEmoji } from "../emoji";
 
 export const getNote = async (
   host: string,
-  channel: string = "home",
+  channel: string = "",
   maxIndexSize: number = 10,
   token?: string
 ): Promise<ModifiedNote[]> => {
+  channel = (channel == '' || channel =='home') ? '' : `${channel}-`
   const res: Note[] = await fetch(
-    `https://${host}/api/notes/${channel}-timeline`,
+    `https://${host}/api/notes/${channel}timeline`,
     {
       method: "POST",
       headers: {
