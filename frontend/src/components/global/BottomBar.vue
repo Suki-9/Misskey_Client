@@ -30,8 +30,7 @@ const viewNotices = ref<boolean>(false)
     ></i>
     <i class="icon-mail-alt"></i>
   </div>
-  <NoticesVue v-show="viewNotices"/>
-  
+  <NoticesVue v-show="viewNotices" />
 </template>
 
 <style module lang="postcss">

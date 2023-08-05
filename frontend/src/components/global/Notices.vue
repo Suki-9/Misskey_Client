@@ -4,7 +4,7 @@ import { readCookie } from '../../scripts/Cookie';
 
 
 const host = readCookie("loginHost")
-if (host !== undefined) { 
+if (host !== undefined) {
     getNotifications(host)
 }
 </script>
