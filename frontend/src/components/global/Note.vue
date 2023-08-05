@@ -66,7 +66,7 @@ defineProps<{
   padding: 2%;
   margin: 10px 0 0 0;
 
-  border-radius: 7px;
+  border-radius: var(--default-border-radius);
 
   background-color: var(--secondary-bg-color);
 
@@ -158,7 +158,7 @@ defineProps<{
           object-fit: cover;
           aspect-ratio: 16 / 9;
 
-          border-radius: 7px;
+          border-radius: var(--default-border-radius);
         }
       }
       .reactions {
@@ -178,7 +178,7 @@ defineProps<{
 
           background-color: var(--primary-bg-color);
 
-          border-radius: 7px;
+          border-radius: var(--default-border-radius);
           .emoji {
             height: 1.3em;
 

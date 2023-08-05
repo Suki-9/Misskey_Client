@@ -9,7 +9,7 @@ const CreatePost = () => {
 
 <template>
     <i
-        class="icon-pencil" 
+        class="icon-pencil"
         :class="$style.postButton"
         @click="CreatePost"></i>
 </template>
@@ -21,7 +21,7 @@ const CreatePost = () => {
     bottom: 10%;
     right: 5%;
 
-    border-radius: 7px;
+    border-radius: var(--default-border-radius);
 
     padding: 3%;
 
