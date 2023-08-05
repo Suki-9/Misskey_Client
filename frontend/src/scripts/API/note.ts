@@ -41,7 +41,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       return {
         name: reaction,
         count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap(),
+        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrapOk(),
       };
     }
   );
