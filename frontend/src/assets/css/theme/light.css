@@ -16,4 +16,7 @@
 
   /*shadow color*/
   --shadow-color: rgba(14, 2, 7, 0.24);
+
+  /* */
+  --accent-color: rgb(226, 112, 160);
 }
