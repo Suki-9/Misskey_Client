@@ -1,12 +1,19 @@
 <script setup lang="ts">
+//type
+import { ModifiedNote } from "../../scripts/types";
+
+//TS Module
 import { ref } from "vue";
 import { UUIDGen } from "../../scripts/UUID";
-import { ModifiedNote } from "../../scripts/types";
 import { readCookie } from "../../scripts/Cookie";
+
+//後にファイルを統合する予定
 import { noteGen } from "../../scripts/note";
 import { getNote } from "../../scripts/API/note";
 
-import XNote from "./Note.vue";
+//vue Component
+import Note from "./Note.vue";
+
 
 const props = defineProps<{
   hostName?: string;
@@ -15,12 +22,18 @@ const props = defineProps<{
 
 const notes = ref<ModifiedNote[]>([]);
 const maxIndexSize: number = 10;
-
 let scrollIndex: number = 0;
 
+//VirtualScroller
+//const BeforeNote = ref<ModifiedNote>()
+//const NoteIndexSize = ref<number>(0)
+
+//EntryPoint
 if (props.hostName !== undefined) {
-  getNote(props.hostName, props.channel);
-  stream();
+  getNote(props.hostName, props.channel, maxIndexSize).then(function (gatNotes) { 
+    notes.value = gatNotes
+  })
+  stream()
 }
 
 function stream() {
@@ -45,23 +58,42 @@ function stream() {
     );
   });
 
-  timeLine.addEventListener("message", async (event) => {
+  timeLine.addEventListener("message", (event) => {
     maxIndexSize < notes.value.length
       ? notes.value.shift()
       : scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-      : console.log("Lost note");
+      : console.log("Lost note")
   });
 }
 
+//let onAddNote: boolean = false
+//onUpdated(() => {
+//  if (onAddNote) {
+//    NoteIndexSize.value += document.getElementById("BeforeNote")?.getBoundingClientRect().height ?? 0
+//    onAddNote = !onAddNote
+//  }
+//})
+
+
 //TODO: 後で書き直す
-window.addEventListener("scroll", () => {
-  scrollIndex = window.scrollY;
-});
+//window.addEventListener("scroll", () => {
+//  scrollIndex = window.scrollY;
+//});
 </script>
 
 <template>
-  <XNote v-for="note in notes" :note="note" />
+  <div :class="$style.root">
+    <Note v-for="note in notes" :note="note" />
+  </div>
 </template>
 
-<style module lang="postcss"></style>
+<style module lang="postcss">
+.root {
+  display: flex;
+  flex-direction: column-reverse;
+
+  min-width: 300px;
+  max-width: 600px;
+}
+</style>
