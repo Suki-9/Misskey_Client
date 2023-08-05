@@ -1,11 +1,37 @@
+<script setup lang="ts">
+//TS Module
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+//vue component
+import NoticesVue from "./Notices.vue";
+
+const goHome = () => { router.push("/") }
+const reload = () => { location.reload() }
+const viewNotices = ref<boolean>(false)
+</script>
+
+
 <template>
   <div :class="$style.root">
     <i class="icon-dot-3"></i>
-    <i class="icon-home"></i>
-    <i class="icon-bell-alt"></i>
-    <i class="icon-cw"></i>
+    <i 
+      class="icon-home"
+      @click="goHome"
+      ></i>
+    <i 
+      class="icon-bell-alt"
+      @click="viewNotices = !viewNotices"
+      ></i>
+    <i
+      class="icon-cw"
+      @click="reload"
+    ></i>
     <i class="icon-mail-alt"></i>
   </div>
+  <NoticesVue v-show="viewNotices"/>
+  
 </template>
 
 <style module lang="postcss">
