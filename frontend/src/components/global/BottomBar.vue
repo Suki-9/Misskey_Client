@@ -14,9 +14,9 @@
   align-items: center;
   justify-content: space-around;
 
-    position: fixed;
-    bottom: 0;
-    left: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
   width: 96vw;
 
@@ -26,13 +26,13 @@
 
   background-color: var(--primary-bg-color);
 
-    i {
-        padding: 2% 3%;
+  i {
+    padding: 2% 3%;
 
-        line-height: 0;
-    }
-    i::before {
-        margin: 0;
-    }
+    line-height: 0;
+  }
+  i::before {
+    margin: 0;
+  }
 }
 </style>

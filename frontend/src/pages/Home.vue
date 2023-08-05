@@ -23,13 +23,9 @@ if (!loginHost) {
 </script>
 
 <template>
-  <TimeLine
-    :hostName="loginHost"
-    channel="hybrid" />
+  <TimeLine :hostName="loginHost" channel="hybrid" />
   <Post />
   <BottomBar />
 </template>
 
-<style module lang="postcss">
-
-</style>
+<style module lang="postcss"></style>
