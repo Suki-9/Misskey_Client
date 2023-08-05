@@ -24,11 +24,11 @@
   },
   "prettier": {
     "arrowParens": "avoid",
-	"printWidth": 70,
-  	"trailingComma": "es5",
-  	"tabWidth": 2,
-  	"semi": true,
-  	"singleQuote": false,
-  	"endOfLine": "lf"
+    "printWidth": 70,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false,
+    "endOfLine": "lf"
   }
 }
