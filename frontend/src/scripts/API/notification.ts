@@ -4,7 +4,6 @@ import { NotificationType, ModifiedNotification, Notification } from '../types'
 //TS module
 import { readCookie } from '../Cookie';
 import { parseEmoji, searchEmoji } from '../emoji';
-import { noteGen } from './note';
 
 
 export const getNotifications = async (

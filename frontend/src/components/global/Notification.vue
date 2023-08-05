@@ -89,9 +89,5 @@ defineProps<{
             white-space: nowrap;
         }
     }
-
-    .text {
-
-    }
 }
 </style>
