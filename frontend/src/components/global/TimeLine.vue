@@ -21,6 +21,7 @@ const props = defineProps<{
 }>();
 
 const notes = ref<ModifiedNote[]>([]);
+const noteKeep = ref<ModifiedNote[]>([]);
 const maxIndexSize: number = 10;
 let scrollIndex: number = 0;
 
@@ -63,7 +64,7 @@ function stream() {
       ? notes.value.shift()
       : scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-      : console.log("Lost note")
+      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body))
   });
 }
 
@@ -75,11 +76,14 @@ function stream() {
 //  }
 //})
 
-
-//TODO: 後で書き直す
-//window.addEventListener("scroll", () => {
-//  scrollIndex = window.scrollY;
-//});
+window.addEventListener("scroll", () => {
+  scrollIndex = window.scrollY;
+  if (scrollIndex < 100) { 
+    noteKeep.value.forEach(note => { 
+      notes.value.push(note)
+    })
+  }
+});
 </script>
 
 <template>
