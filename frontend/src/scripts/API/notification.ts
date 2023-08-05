@@ -14,7 +14,7 @@ export const getNotifications = async (
         excludeTypes: excludeTypes,
     }
     const res = await fetch(
-        `https://${host}/api/notes/${channel}timeline`,
+        `https://${host}/api/i/notifications`,
         {
             method: "POST",
             headers: {
