@@ -28,21 +28,10 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     };
   }
 
-  // let files: File[] | undefined;
-  // if (note.files) {
-  //     files = []
-  //     note.files.forEach(file => {
-  //         files!.push({
-  //             thumbnailUrl: file.thumbnailUrl,
-  //             url: file.url,
-  //         })
-  //     })
-  // }
-
   return {
     id: note.id,
     createdAt: note.createdAt,
-    text: note.text && parseEmoji(note.text), // stringじゃないといけないのであれば(note.text && parseEmoji(note.text)) ?? ""
+    text: note.text && parseEmoji(note.text),
     cw: note.cw,
     user: {
       name: parseEmoji(note.user.name),
