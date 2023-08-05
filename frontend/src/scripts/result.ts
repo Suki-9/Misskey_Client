@@ -1,6 +1,6 @@
-type Result<T, E extends Error> = Ok<T> | Err<E>;
+export type Result<T, E extends Error> = Ok<T> | Err<E>;
 
-class Ok<T> {
+export class Ok<T> {
   readonly value: T;
 
   constructor(value: T) {
@@ -14,7 +14,7 @@ class Ok<T> {
   }
 }
 
-class Err<E extends Error> {
+export class Err<E extends Error> {
   readonly error: E;
 
   constructor(error: E) {
