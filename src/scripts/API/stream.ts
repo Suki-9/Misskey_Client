@@ -9,10 +9,6 @@ import { addNote } from "../../components/global/TimeLine.vue";
 import { addNotifications } from  "../../components/global/NotificationView.vue";
 
 
-export const streamEventHandler = () => { 
-
-}
-
 export const streamTimeLine = (
     host: string,
     channel?: string,
