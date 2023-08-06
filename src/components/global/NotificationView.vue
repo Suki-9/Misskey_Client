@@ -53,8 +53,8 @@ export const addNotifications = (notification: ModifiedNotification) => {
   position: relative;
   overflow: scroll;
 
-  border: solid 1px;
-
+  border: solid 1px var(--primary-border-color);
+ 
   background-color: var(--primary-bg-color);
 
   .head {
