@@ -172,6 +172,9 @@ defineProps<{
 
           height: 1.3em;
 
+          overflow: hidden;
+          white-space: nowrap;
+
           background-color: var(--primary-bg-color);
 
           border-radius: var(--default-border-radius);
