@@ -3,7 +3,7 @@ import { ModifiedNote, Note, Reaction, User } from "../types";
 
 //ts module
 import { parseEmoji, searchEmoji } from "../emoji";
-import { readCookie } from "../Cookie";
+import { readCookie } from "../cookie";
 
 
 export const getNote = async (

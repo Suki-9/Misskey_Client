@@ -2,7 +2,7 @@
 import { NotificationType, ModifiedNotification, Notification } from '../types'
 
 //TS module
-import { readCookie } from '../Cookie';
+import { readCookie } from '../cookie';
 import { parseEmoji, searchEmoji } from '../emoji';
 
 
@@ -40,22 +40,22 @@ export const getNotifications = async (
 	return res.map(Notification => notificationGen(Notification))
 }
 
-const notificationGen = (Notification: Notification): ModifiedNotification => { 
-	Notification.user.name ??= Notification.user.username;
+const notificationGen = (notification: Notification): ModifiedNotification => { 
+	notification.user.name ??= notification.user.username;
 
     return {
-        id: Notification.id,
+        id: notification.id,
         user: {
-            name: (Notification.user.name !== null) ? parseEmoji(Notification.user.name) : Notification.user.username,
-            username: Notification.user.username,
-            avatarUrl: Notification.user.avatarUrl,
+            name: parseEmoji(notification.user.name),
+            username: notification.user.username,
+            avatarUrl: notification.user.avatarUrl,
         },
-		type: Notification.type,
-		text: Notification.note.text && parseEmoji(Notification.note.text),
-		//note: noteGen(Notification.note),
-		reaction: (Notification.reaction !== undefined) ? {
-			name: Notification.reaction,
-			link: searchEmoji(Notification.reaction.slice(1, Notification.reaction.indexOf("@"))).unwrap_or(""),
+		type: notification.type,
+		text: notification.note.text && parseEmoji(notification.note.text),
+		//note: noteGen(notification.note),
+		reaction: notification.reaction ? {
+			name: notification.reaction,
+			link: searchEmoji(notification.reaction.slice(1, notification.reaction.indexOf("@"))).unwrap_or(""),
 		} : undefined
     }
 }

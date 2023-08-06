@@ -5,7 +5,7 @@ import Post from "../components/global/Post.vue";
 import BottomBar from "../components/global/BottomBar.vue";
 
 //TS module
-import { readCookie } from "../scripts/Cookie";
+import { readCookie } from "../scripts/cookie";
 import { useRouter } from "vue-router";
 const router = useRouter();
 

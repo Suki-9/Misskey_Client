@@ -6,7 +6,7 @@ import { ModifiedNotification } from "../../scripts/types";
 import Note from "./Note.vue";
 
 defineProps<{
-    Notification: ModifiedNotification;
+    notification: ModifiedNotification;
 }>();
 </script>
 
@@ -15,27 +15,27 @@ defineProps<{
     <div :class="$style.root">
         <div :class="$style.head">
             <p
-                v-if="Notification.reaction !== undefined"
+                v-if="notification.reaction !== undefined"
                 :class="$style.reaction"
-                :style="`content: url(${Notification.reaction?.link})`"
+                :style="`content: url(${notification.reaction?.link})`"
             >
-                {{ Notification.reaction?.name }}
+                {{ notification.reaction?.name }}
             </p>
         </div>
         <div :class="$style.content">
-            <img :class="$style.avatar" :src="Notification.user.avatarUrl">
+            <img :class="$style.avatar" :src="notification.user.avatarUrl">
             <P :class="$style.username">
-                <span v-html="Notification.user.name"></span>
-                <span>さんがあなたの投稿に{{ Notification.type }}しました。</span>
+                <span v-html="notification.user.name"></span>
+                <span>さんがあなたの投稿に{{ notification.type }}しました。</span>
             </P>
         </div>
         <div
             :class="$style.text">
         </div>
         <Note
-            v-if="Notification.note !== undefined"
+            v-if="notification.note"
             v-html="null"
-            :note="Notification.note"/>
+            :note="notification.note"/>
     </div>
 </template>
 

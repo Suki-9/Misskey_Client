@@ -5,7 +5,7 @@ import { ModifiedNote } from "../../scripts/types";
 //TS Module
 import { ref } from "vue";
 import { UUIDGen } from "../../scripts/UUID";
-import { readCookie } from "../../scripts/Cookie";
+import { readCookie } from "../../scripts/cookie";
 
 //後にファイルを統合する予定
 import { noteGen, getNote } from "../../scripts/API/note";

@@ -1,4 +1,4 @@
-import { readCookie } from "./Cookie";
+import { readCookie } from "./cookie";
 
 type Emojis = {
   aliases: string[];

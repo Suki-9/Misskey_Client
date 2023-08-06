@@ -5,18 +5,18 @@ import { ModifiedNotification } from '../../scripts/types';
 //TS Module
 import { ref } from 'vue';
 import { getNotifications } from '../../scripts/API/notification';
-import { readCookie } from '../../scripts/Cookie';
+import { readCookie } from '../../scripts/cookie';
 
 //Vue Component
 import Notification from './Notification.vue';
 
 
 const host = readCookie("loginHost");
-const Notifications = ref<ModifiedNotification[]>([]);
+const notifications = ref<ModifiedNotification[]>([]);
 
 if (host !== undefined) {
     getNotifications(host).then(
-        getNotifications => (Notifications.value = getNotifications)
+        getNotifications => (notifications.value = getNotifications)
     );
 }
 </script>
@@ -29,8 +29,8 @@ if (host !== undefined) {
             <p>通知</p>
         </div>
         <Notification
-            v-for="Notification in Notifications"
-            :Notification="Notification"/>
+            v-for="notification in notifications"
+            :notification="notification"/>
     </div>
 </template>
 

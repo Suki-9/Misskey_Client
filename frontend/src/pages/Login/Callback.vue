@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { readCookie } from "../../scripts/Cookie";
+import { readCookie } from "../../scripts/cookie";
 import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute();
