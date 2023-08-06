@@ -7,11 +7,11 @@ import { parseEmoji, searchEmoji } from "../emoji";
 
 export const getNotifications = async (
   host: string,
-  token: string = readCookie(`${host}_token`).unwrap(),
-  maxSize: number = 20,
-  following: boolean = false,
-  unreadOnly: boolean = false,
-  markAsRead: boolean = false,
+  token = readCookie(`${host}_token`).unwrap(),
+  maxSize = 20,
+  following = false,
+  unreadOnly = false,
+  markAsRead = false,
   includeTypes?: NotificationType[],
   excludeTypes?: NotificationType[]
 ): Promise<ModifiedNotification[]> => {

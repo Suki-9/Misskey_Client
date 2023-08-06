@@ -7,9 +7,9 @@ import { readCookie } from "../cookie";
 
 export const getNote = async (
   host: string,
-  channel: string = "",
-  maxIndexSize: number = 10,
-  token: string = readCookie(`${host}_token`).unwrap()
+  channel = "",
+  maxIndexSize = 10,
+  token = readCookie(`${host}_token`).unwrap()
 ): Promise<ModifiedNote[]> => {
   channel &&= `${channel}-`;
   const res: Note[] = await fetch(

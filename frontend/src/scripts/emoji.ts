@@ -7,7 +7,9 @@ type Emojis = {
   url: string;
 }[];
 
-export const getEmojiIndex = async (host: string = readCookie("loginHost").unwrap()) => {
+export const getEmojiIndex = async (
+  host = readCookie("loginHost").unwrap()
+) => {
   const emojis: Emojis = await fetch(`https://${host}/api/emojis`)
     .then(response => response.json())
     .then(data => data.emojis);
@@ -20,7 +22,7 @@ export const getEmojiIndex = async (host: string = readCookie("loginHost").unwra
 
 export const searchEmoji = (
   name: string,
-  host: string = readCookie("loginHost").unwrap()
+  host = readCookie("loginHost").unwrap()
 ): Result<string, Error> => {
   //emojisを取得 -> Key名のみのindexを生成
 

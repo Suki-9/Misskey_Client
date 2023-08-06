@@ -19,9 +19,9 @@ const props = defineProps<{
 
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
-const maxIndexSize: number = 10;
-const autoReConnection: boolean = true;
-let scrollIndex: number = 0;
+const maxIndexSize = 10;
+const autoReConnection = true;
+let scrollIndex = 0;
 
 //EntryPoint
 if (props.hostName) {

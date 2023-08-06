@@ -18,7 +18,7 @@ const reset = () => {
   text.value = "";
 };
 
-const isEnableMemo = computed<boolean>(() => props.button?.isEnable ?? false);
+const isEnableMemo = computed(() => props.button?.isEnable ?? false);
 </script>
 
 <template>
