@@ -27,7 +27,7 @@ const isEnableMemo = computed(() => props.button?.isEnable ?? false);
       :class="$style.input"
       :style="isEnableMemo ? 'width: 76%;' : 'width: 96%;'"
     >
-      <P :class="{ [$style.active]: text || active }">{{ title }}</P>
+      <p :class="{ [$style.active]: text || active }">{{ title }}</p>
       <input
         v-model="text"
         @focus="active = true"
