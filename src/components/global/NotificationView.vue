@@ -1,24 +1,39 @@
 <script setup lang="ts">
-//Types
+//Type
 import { ModifiedNotification } from "../../scripts/types";
 
 //TS Module
 import { ref } from "vue";
-import { getNotifications } from "../../scripts/API/notification";
+//import { getNotifications } from "../../scripts/API/notification";
+//import { streamEventHandler } from "../../scripts/API/stream";
 import { readCookie } from "../../scripts/cookie";
+//import { genUuid } from "../../scripts/UUID"
 
 //Vue Component
 import Notification from "./Notification.vue";
+
 
 const host = readCookie("loginHost").unwrap();
 const notifications = ref<ModifiedNotification[]>([]);
 
 if (host) {
-  getNotifications(host).then(
-    getNotifications => (notifications.value = getNotifications)
-  );
+  //getNotifications(host).then(
+  //  getNotifications => (notifications.value = getNotifications)
+  //);
+
+  //streamTimeLine()
+}
+
+
+</script>
+
+<script lang="ts">
+export const test = () => {
+  console.log("OK!")
 }
 </script>
+
+
 
 <template>
   <div :class="$style.root">

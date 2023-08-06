@@ -70,6 +70,25 @@ export type ModifiedNotification = {
   reaction?: Reaction;
 };
 
+export type MainStreamEventType = (
+  | "Notification"
+  | "mention"
+  | "reply"
+  | "renote"
+  | "follow"
+  | "followed"
+  | "unfollow"
+  | "messagingMessage"
+  | "readAllNotifications"
+  | "unreadNotification"
+  | "unreadMention" 
+  | "readAllUnreadMentions"
+  | "unreadSpecifiedNote"
+  | "readAllUnreadSpecifiedNotes"
+  | "unreadMessagingMessage"
+  | "readAllMessagingMessages"
+)
+
 export type PostData = {
   i: string;
   limit: number;

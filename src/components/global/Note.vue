@@ -1,4 +1,5 @@
 <script setup lang="ts">
+//Type
 import { ModifiedNote } from "../../scripts/types";
 
 defineProps<{
