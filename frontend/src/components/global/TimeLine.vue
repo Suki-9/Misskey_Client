@@ -4,7 +4,7 @@ import { ModifiedNote } from "../../scripts/types";
 
 //TS Module
 import { ref } from "vue";
-import { UUIDGen } from "../../scripts/UUID";
+import { genUuid } from "../../scripts/UUID";
 import { readCookie } from "../../scripts/cookie";
 
 //後にファイルを統合する予定
@@ -39,7 +39,7 @@ if (props.hostName !== undefined) {
 function stream() {
   console.log(props.channel);
   const token = readCookie(`${props.hostName}_token`);
-  const uuid = UUIDGen();
+  const uuid = genUuid();
   const timeLine = new WebSocket(
     `wss://${props.hostName}/streaming?i=${token}`
   );

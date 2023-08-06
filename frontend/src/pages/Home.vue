@@ -11,13 +11,13 @@ const router = useRouter();
 
 // トークンの有無を確認
 const loginHost: string | undefined = readCookie("loginHost");
-const Hosts: string | undefined = readCookie("Hosts");
+const hosts: string | undefined = readCookie("Hosts");
 
 if (!loginHost) {
   router.push("/login");
-} else if (Hosts?.split(",").indexOf(loginHost) == undefined) {
+} else if (hosts?.split(",").indexOf(loginHost) == undefined) {
   document.cookie = `Hosts=${loginHost},${
-    Hosts ? readCookie("Hosts") : ""
+    hosts ? readCookie("Hosts") : ""
   }; path=/`;
 }
 </script>
