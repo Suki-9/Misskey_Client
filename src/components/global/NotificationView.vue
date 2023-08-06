@@ -13,7 +13,6 @@ import Notification from "./Notification.vue";
 
 
 const host = readCookie("loginHost").unwrap();
-const notifications = ref<ModifiedNotification[]>([]);
 const autoReConnection = true;
 
 
@@ -27,6 +26,11 @@ if (host) {
 </script>
 
 <script lang="ts">
+const notifications = ref<ModifiedNotification[]>([]);
+
+export const addNotifications = (notification: ModifiedNotification) => {
+  notifications.value.push(notification)
+}
 
 </script>
 

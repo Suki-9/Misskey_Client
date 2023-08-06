@@ -5,6 +5,10 @@ import { NotificationType, ModifiedNotification, Notification } from "../types";
 import { readCookie } from "../cookie";
 import { parseEmoji, searchEmoji } from "../emoji";
 
+//vue Component functions
+import { addNotifications } from "../../components/global/NotificationView.vue";
+
+
 export const getNotifications = async (
   host: string,
   token = readCookie(`${host}_token`).unwrap(),
@@ -14,7 +18,7 @@ export const getNotifications = async (
   markAsRead = false,
   includeTypes?: NotificationType[],
   excludeTypes?: NotificationType[]
-): Promise<ModifiedNotification[]> => {
+) => {
   const res: Notification[] = await fetch(
     `https://${host}/api/i/notifications`,
     {
@@ -36,10 +40,10 @@ export const getNotifications = async (
     .then(response => response.json())
     .then(data => data);
 
-  return res.map(notification => notificationGen(notification));
+  res.map(notification => addNotifications(notificationGen(notification)));
 };
 
-const notificationGen = (notification: Notification): ModifiedNotification => {
+export const notificationGen = (notification: Notification): ModifiedNotification => {
   notification.user.name ??= notification.user.username;
 
   return {

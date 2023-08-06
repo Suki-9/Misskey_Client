@@ -1,11 +1,12 @@
 //TS module
-import { genUuid } from "../UUID"
-import { readCookie } from "../cookie"
+import { genUuid } from "../UUID";
+import { readCookie } from "../cookie";
 import { noteGen } from "./note";
+import { notificationGen } from "./notification";
 
 //vue Component functions
 import { addNote } from "../../components/global/TimeLine.vue";
-import { type } from "os";
+import { addNotifications } from  "../../components/global/NotificationView.vue";
 
 
 export const streamEventHandler = () => { 
@@ -78,6 +79,16 @@ export const streamMain = (
 
   timeLine.addEventListener("message", event => {
     console.log("GetEvent!");
+    const gentEvent = JSON.parse(event.data).body
+
+    switch (gentEvent.type) {
+      case "notification":
+        addNotifications(notificationGen(JSON.parse(event.data).body.body))
+        break;
+    
+      default:
+        break;
+    }
   });
 
   timeLine.addEventListener("close", () => {
