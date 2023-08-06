@@ -23,7 +23,7 @@ if (!loginHost) {
 </script>
 
 <template>
-  <TimeLine :hostName="loginHost"  />
+  <TimeLine :hostName="loginHost" />
   <Post />
   <BottomBar />
 </template>

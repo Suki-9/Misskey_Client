@@ -5,14 +5,13 @@ import { ModifiedNote, Note, Reaction, User } from "../types";
 import { parseEmoji, searchEmoji } from "../emoji";
 import { readCookie } from "../cookie";
 
-
 export const getNote = async (
   host: string,
   channel: string = "",
   maxIndexSize: number = 10,
   token?: string
 ): Promise<ModifiedNote[]> => {
-  channel = (channel == "" || channel =="home") ? "" : `${channel}-`
+  channel = channel == "" || channel == "home" ? "" : `${channel}-`;
   const res: Note[] = await fetch(
     `https://${host}/api/notes/${channel}timeline`,
     {
@@ -44,7 +43,9 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       return {
         name: reaction,
         count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(""),
+        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(
+          ""
+        ),
       };
     }
   );

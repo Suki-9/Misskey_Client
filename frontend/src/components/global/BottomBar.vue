@@ -7,31 +7,22 @@ const router = useRouter();
 //vue component
 import NoticesVue from "./NotificationView.vue";
 
-const goHome = () => { router.push("/") }
-const reload = () => { location.reload() }
-const viewNotices = ref<boolean>(false)
+const goHome = () => {
+  router.push("/");
+};
+const reload = () => {
+  location.reload();
+};
+const viewNotices = ref<boolean>(false);
 </script>
 
-
 <template>
-  <NoticesVue 
-    v-show="viewNotices"
-    :class="$style.notices"
-    />
+  <NoticesVue v-show="viewNotices" :class="$style.notices" />
   <div :class="$style.root">
     <i class="icon-dot-3"></i>
-    <i 
-      class="icon-home"
-      @click="goHome"
-      ></i>
-    <i 
-      class="icon-bell-alt"
-      @click="viewNotices = !viewNotices"
-      ></i>
-    <i
-      class="icon-cw"
-      @click="reload"
-    ></i>
+    <i class="icon-home" @click="goHome"></i>
+    <i class="icon-bell-alt" @click="viewNotices = !viewNotices"></i>
+    <i class="icon-cw" @click="reload"></i>
     <i class="icon-mail-alt"></i>
   </div>
 </template>

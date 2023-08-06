@@ -6,7 +6,6 @@ defineProps<{
 }>();
 </script>
 
-
 <template>
   <div :class="$style.root">
     <div v-if="note.renoter" :class="$style.renote">

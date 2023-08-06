@@ -25,9 +25,8 @@ const props = withDefaults(
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
 const maxIndexSize: number = 10;
-const autoReConnection: boolean = true
+const autoReConnection: boolean = true;
 let scrollIndex: number = 0;
-
 
 //EntryPoint
 if (props.hostName !== undefined) {
@@ -38,7 +37,7 @@ if (props.hostName !== undefined) {
 }
 
 function stream() {
-  console.log(props.channel)
+  console.log(props.channel);
   const token = readCookie(`${props.hostName}_token`);
   const uuid = UUIDGen();
   const timeLine = new WebSocket(
@@ -56,21 +55,21 @@ function stream() {
         },
       })
     );
-    console.log("Connection success!")
+    console.log("Connection success!");
   });
 
   timeLine.addEventListener("message", event => {
-    console.log("GetNote!")
-    if(maxIndexSize < notes.value.length) notes.value.shift()
+    console.log("GetNote!");
+    if (maxIndexSize < notes.value.length) notes.value.shift();
     scrollIndex < 100
       ? notes.value.push(noteGen(JSON.parse(event.data).body.body))
-      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body))
+      : noteKeep.value.push(noteGen(JSON.parse(event.data).body.body));
   });
 
-  timeLine.addEventListener('close', () => {
+  timeLine.addEventListener("close", () => {
     console.log("Disconnection");
-    if (autoReConnection) stream()
-    return
+    if (autoReConnection) stream();
+    return;
   });
 }
 
@@ -80,10 +79,9 @@ window.addEventListener("scroll", () => {
     noteKeep.value.forEach(note => {
       notes.value.push(note);
     });
-    noteKeep.value = []
+    noteKeep.value = [];
   }
 });
-
 
 //VirtualScroller
 //const BeforeNote = ref<ModifiedNote>()

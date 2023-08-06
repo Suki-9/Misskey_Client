@@ -1,63 +1,61 @@
 <script setup lang="ts">
 //Types
-import { ModifiedNotification } from '../../scripts/types';
+import { ModifiedNotification } from "../../scripts/types";
 
 //TS Module
-import { ref } from 'vue';
-import { getNotifications } from '../../scripts/API/notification';
-import { readCookie } from '../../scripts/cookie';
+import { ref } from "vue";
+import { getNotifications } from "../../scripts/API/notification";
+import { readCookie } from "../../scripts/cookie";
 
 //Vue Component
-import Notification from './Notification.vue';
-
+import Notification from "./Notification.vue";
 
 const host = readCookie("loginHost");
 const notifications = ref<ModifiedNotification[]>([]);
 
 if (host !== undefined) {
-    getNotifications(host).then(
-        getNotifications => (notifications.value = getNotifications)
-    );
+  getNotifications(host).then(
+    getNotifications => (notifications.value = getNotifications)
+  );
 }
 </script>
 
-
 <template>
-    <div :class="$style.root">
-        <div :class="$style.head">
-            <i class="icon-bell-alt"></i>
-            <p>通知</p>
-        </div>
-        <Notification
-            v-for="notification in notifications"
-            :notification="notification"/>
+  <div :class="$style.root">
+    <div :class="$style.head">
+      <i class="icon-bell-alt"></i>
+      <p>通知</p>
     </div>
+    <Notification
+      v-for="notification in notifications"
+      :notification="notification"
+    />
+  </div>
 </template>
-
 
 <style module lang="postcss">
 .root {
-    width: 98vw;
+  width: 98vw;
 
-    border-radius: var(--default-border-radius);
+  border-radius: var(--default-border-radius);
 
-    position:relative;
-    overflow: scroll;
+  position: relative;
+  overflow: scroll;
 
-    border: solid 1px;
+  border: solid 1px;
 
-    background-color: var(--primary-bg-color);
+  background-color: var(--primary-bg-color);
 
-    .head {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+  .head {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
-        margin: 1%;
+    margin: 1%;
 
-        font-size: 80%;
+    font-size: 80%;
 
-        border-bottom: solid 1px var(--primary-border-color);
-    }
+    border-bottom: solid 1px var(--primary-border-color);
+  }
 }
 </style>

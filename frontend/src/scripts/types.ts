@@ -40,7 +40,7 @@ export type File = {
   url: string;
 };
 
-export type NotificationType = (
+export type NotificationType =
   | "follow"
   | "mention"
   | "reply"
@@ -51,8 +51,7 @@ export type NotificationType = (
   | "pollEnded"
   | "followRequestAccepted"
   | "groupInvited"
-  | "app"
-)
+  | "app";
 
 export type Notification = {
   id: string;
@@ -60,7 +59,7 @@ export type Notification = {
   type: NotificationType;
   note: Note;
   reaction?: string;
-}
+};
 
 export type ModifiedNotification = {
   id: string;
@@ -69,12 +68,12 @@ export type ModifiedNotification = {
   text?: string | null;
   note?: ModifiedNote;
   reaction?: Reaction;
-}
+};
 
-export type postData = { 
-    i: string;
-    limit: number;
-    following: boolean;
-    unreadOnly: boolean;
-    markAsRead: boolean;
-}
+export type postData = {
+  i: string;
+  limit: number;
+  following: boolean;
+  unreadOnly: boolean;
+  markAsRead: boolean;
+};
