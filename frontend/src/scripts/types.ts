@@ -70,7 +70,7 @@ export type ModifiedNotification = {
   reaction?: Reaction;
 };
 
-export type postData = {
+export type PostData = {
   i: string;
   limit: number;
   following: boolean;

@@ -36,7 +36,7 @@ export const getNotifications = async (
     .then(response => response.json())
     .then(data => data);
 
-  return res.map(Notification => notificationGen(Notification));
+  return res.map(notification => notificationGen(notification));
 };
 
 const notificationGen = (notification: Notification): ModifiedNotification => {

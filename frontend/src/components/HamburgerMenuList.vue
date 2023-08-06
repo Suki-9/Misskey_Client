@@ -10,14 +10,7 @@ const emit = defineEmits<{ (e: "switch"): void }>();
     <a
       v-for="item in listData"
       :class="$style.active"
-      @click="
-        [
-          $router.push(
-            item.link
-          ),
-          emit('switch'),
-        ]
-      "
+      @click="[$router.push(item.link), emit('switch')]"
       v-text="item.title"
     ></a>
   </div>

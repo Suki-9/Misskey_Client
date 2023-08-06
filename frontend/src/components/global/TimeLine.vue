@@ -12,15 +12,10 @@ import { noteGen, getNote } from "../../scripts/API/note";
 //vue Component
 import Note from "./Note.vue";
 
-const props = withDefaults(
-  defineProps<{
-    hostName?: string;
-    channel?: string;
-  }>(),
-  {
-    channel: "home",
-  }
-);
+const props = defineProps<{
+  hostName?: string;
+  channel?: string;
+}>();
 
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
@@ -29,7 +24,7 @@ const autoReConnection: boolean = true;
 let scrollIndex: number = 0;
 
 //EntryPoint
-if (props.hostName !== undefined) {
+if (props.hostName) {
   getNote(props.hostName, props.channel, maxIndexSize).then(
     getNotes => (notes.value = getNotes.reverse())
   );
@@ -37,7 +32,8 @@ if (props.hostName !== undefined) {
 }
 
 function stream() {
-  console.log(props.channel);
+  const channel = props.channel ?? "home";
+  console.log(channel);
   const token = readCookie(`${props.hostName}_token`);
   const uuid = genUuid();
   const timeLine = new WebSocket(
@@ -49,7 +45,7 @@ function stream() {
       JSON.stringify({
         type: "connect",
         body: {
-          channel: `${props.channel}Timeline`,
+          channel: `${channel}Timeline`,
           id: uuid,
           params: {},
         },

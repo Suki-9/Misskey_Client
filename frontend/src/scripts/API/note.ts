@@ -11,7 +11,7 @@ export const getNote = async (
   maxIndexSize: number = 10,
   token?: string
 ): Promise<ModifiedNote[]> => {
-  channel = channel == "" || channel == "home" ? "" : `${channel}-`;
+  channel &&= `${channel}-`;
   const res: Note[] = await fetch(
     `https://${host}/api/notes/${channel}timeline`,
     {
