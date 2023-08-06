@@ -10,14 +10,14 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 // トークンの有無を確認
-const loginHost: string | undefined = readCookie("loginHost");
-const hosts: string | undefined = readCookie("Hosts");
+const loginHost: string | undefined = readCookie("loginHost").unwrap();
+const hosts: string | undefined = readCookie("Hosts").unwrap();
 
 if (!loginHost) {
   router.push("/login");
 } else if (hosts?.split(",").indexOf(loginHost) == undefined) {
   document.cookie = `Hosts=${loginHost},${
-    hosts ? readCookie("Hosts") : ""
+    hosts ? readCookie("Hosts").unwrap() : ""
   }; path=/`;
 }
 </script>

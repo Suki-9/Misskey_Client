@@ -34,7 +34,7 @@ if (props.hostName) {
 function stream() {
   const channel = props.channel ?? "home";
   console.log(channel);
-  const token = readCookie(`${props.hostName}_token`);
+  const token = readCookie(`${props.hostName}_token`).unwrap();
   const uuid = genUuid();
   const timeLine = new WebSocket(
     `wss://${props.hostName}/streaming?i=${token}`

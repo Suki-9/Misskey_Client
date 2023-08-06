@@ -10,10 +10,10 @@ import { readCookie } from "../../scripts/cookie";
 //Vue Component
 import Notification from "./Notification.vue";
 
-const host = readCookie("loginHost");
+const host = readCookie("loginHost").unwrap();
 const notifications = ref<ModifiedNotification[]>([]);
 
-if (host !== undefined) {
+if (host) {
   getNotifications(host).then(
     getNotifications => (notifications.value = getNotifications)
   );

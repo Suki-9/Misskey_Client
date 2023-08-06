@@ -20,7 +20,7 @@ export const getNote = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        i: token ?? readCookie(`${host}_token`),
+        i: token ?? readCookie(`${host}_token`).unwrap(),
         limit: maxIndexSize,
       }),
     }

@@ -8,7 +8,7 @@ type Emojis = {
 }[];
 
 export const getEmojiIndex = async (host?: string) => {
-  const hostName = host ?? readCookie("loginHost");
+  const hostName = host ?? readCookie("loginHost").unwrap();
   const emojis: Emojis = await fetch(`https://${hostName}/api/emojis`)
     .then(response => response.json())
     .then(data => data.emojis);
@@ -24,7 +24,7 @@ export const searchEmoji = (
   host?: string
 ): Result<string, Error> => {
   //emojisを取得 -> Key名のみのindexを生成
-  const hostName = host ?? readCookie("loginHost");
+  const hostName = host ?? readCookie("loginHost").unwrap();
 
   const localEmojis = localStorage.getItem(`${hostName}_emojis`);
 
