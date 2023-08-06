@@ -7,7 +7,7 @@ import { parseEmoji, searchEmoji } from "../emoji";
 
 export const getNotifications = async (
   host: string,
-  token?: string,
+  token: string = readCookie(`${host}_token`).unwrap(),
   maxSize: number = 20,
   following: boolean = false,
   unreadOnly: boolean = false,
@@ -23,7 +23,7 @@ export const getNotifications = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        i: token ?? readCookie(`${host}_token`).unwrap(),
+        i: token,
         limit: maxSize,
         following: following,
         unreadOnly: unreadOnly,

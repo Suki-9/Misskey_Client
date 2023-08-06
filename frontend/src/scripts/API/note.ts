@@ -9,7 +9,7 @@ export const getNote = async (
   host: string,
   channel: string = "",
   maxIndexSize: number = 10,
-  token?: string
+  token: string = readCookie(`${host}_token`).unwrap()
 ): Promise<ModifiedNote[]> => {
   channel &&= `${channel}-`;
   const res: Note[] = await fetch(
@@ -20,7 +20,7 @@ export const getNote = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        i: token ?? readCookie(`${host}_token`).unwrap(),
+        i: token,
         limit: maxIndexSize,
       }),
     }

@@ -7,32 +7,30 @@ type Emojis = {
   url: string;
 }[];
 
-export const getEmojiIndex = async (host?: string) => {
-  const hostName = host ?? readCookie("loginHost").unwrap();
-  const emojis: Emojis = await fetch(`https://${hostName}/api/emojis`)
+export const getEmojiIndex = async (host: string = readCookie("loginHost").unwrap()) => {
+  const emojis: Emojis = await fetch(`https://${host}/api/emojis`)
     .then(response => response.json())
     .then(data => data.emojis);
 
   const index = emojis.map(emoji => emoji.name);
 
-  localStorage.setItem(`${hostName}_emojis_index`, JSON.stringify(index));
-  localStorage.setItem(`${hostName}_emojis`, JSON.stringify(emojis));
+  localStorage.setItem(`${host}_emojis_index`, JSON.stringify(index));
+  localStorage.setItem(`${host}_emojis`, JSON.stringify(emojis));
 };
 
 export const searchEmoji = (
   name: string,
-  host?: string
+  host: string = readCookie("loginHost").unwrap()
 ): Result<string, Error> => {
   //emojisを取得 -> Key名のみのindexを生成
-  const hostName = host ?? readCookie("loginHost").unwrap();
 
-  const localEmojis = localStorage.getItem(`${hostName}_emojis`);
+  const localEmojis = localStorage.getItem(`${host}_emojis`);
 
-  if (!localEmojis) getEmojiIndex(hostName);
+  if (!localEmojis) getEmojiIndex(host);
 
   const emojis: Emojis = JSON.parse(localEmojis!);
   const index: string = JSON.parse(
-    localStorage.getItem(`${hostName}_emojis_index`)!
+    localStorage.getItem(`${host}_emojis_index`)!
   );
 
   if (index.indexOf(name) === -1) return new Err(new Error(name));
