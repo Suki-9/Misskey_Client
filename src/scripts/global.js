@@ -27,7 +27,7 @@ class Err {
     return true;
   }
   unwrap_or(default_) {
-    return this.default_;
+    return default_;
   }
   unwrap() {
     throw this.error;
