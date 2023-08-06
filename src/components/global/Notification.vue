@@ -16,9 +16,7 @@ defineProps<{
       <p
         v-if="notification.reaction"
         :class="$style.reaction"
-        :style="
-          notification.reaction && `content: url(${notification.reaction.link})`
-        "
+        :style="notification.reaction.link && `content: url(${notification.reaction.link})`"
       >
         {{ notification.reaction?.name }}
       </p>

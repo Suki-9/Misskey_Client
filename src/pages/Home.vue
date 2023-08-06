@@ -25,7 +25,7 @@ if (loginHost.isErr()) {
 </script>
 
 <template>
-  <TimeLine v-if="loginHost.isOk()" :hostName="loginHost.value" channel="hybrid" />
+  <TimeLine v-if="loginHost.isOk()" :hostName="loginHost.value"/>
   <Post />
   <BottomBar />
 </template>

@@ -28,7 +28,6 @@ const notifications = ref<ModifiedNotification[]>([]);
 export const addNotifications = (notification: ModifiedNotification) => {
   notifications.value.push(notification)
 }
-
 </script>
 
 
