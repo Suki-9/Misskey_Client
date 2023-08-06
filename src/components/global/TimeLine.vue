@@ -14,7 +14,7 @@ import Note from "./Note.vue";
 
 const props = defineProps<{
   hostName?: string;
-  channel?: string;
+  channel?: string; // homeの場合はなにも指定しない(undefinedにする)
 }>();
 
 const notes = ref<ModifiedNote[]>([]);
