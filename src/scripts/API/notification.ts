@@ -4,6 +4,7 @@ import { NotificationType, ModifiedNotification, Notification } from "../types";
 //TS module
 import { readCookie } from "../cookie";
 import { parseEmoji, searchEmoji } from "../emoji";
+import { noteGen } from "./note";
 
 //vue Component functions
 import { addNotifications } from "../../components/global/NotificationView.vue";
@@ -46,23 +47,40 @@ export const getNotifications = async (
 export const notificationGen = (notification: Notification): ModifiedNotification => {
   notification.user.name ??= notification.user.username;
 
-  return {
+  const ModifiedNotification: ModifiedNotification = {
     id: notification.id,
+    type: notification.type,
     user: {
       name: parseEmoji(notification.user.name),
       username: notification.user.username,
       avatarUrl: notification.user.avatarUrl,
-    },
-    type: notification.type,
-    text: notification.note.text && parseEmoji(notification.note.text),
-    //note: noteGen(notification.note),
-    reaction: notification.reaction
-      ? {
+    }
+  }
+
+  console.log(notification.type)
+  switch (notification.type) {
+    // @ts-ignore
+    case "quote", "reply": {
+      ModifiedNotification.note = noteGen(notification.note)
+    }
+    // @ts-ignore
+    case "reaction", "renote", "reply": { 
+      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text)
+    }
+    case "reaction": { 
+      ModifiedNotification.reaction =
+        notification.reaction ? {
           name: notification.reaction,
           link: searchEmoji(
             notification.reaction.slice(1, notification.reaction.indexOf("@"))
           ).unwrap_or(""),
-        }
-      : undefined,
-  };
+        } : undefined
+      break;
+    }
+    default:
+      break;
+  }
+  
+
+  return ModifiedNotification
 };

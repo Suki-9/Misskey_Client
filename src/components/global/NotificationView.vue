@@ -4,7 +4,7 @@ import { ModifiedNotification } from "../../scripts/types";
 
 //TS Module
 import { ref } from "vue";
-//import { getNotifications } from "../../scripts/API/notification";
+import { getNotifications } from "../../scripts/API/notification";
 import { streamMain } from "../../scripts/API/stream";
 import { readCookie } from "../../scripts/cookie";
 
@@ -17,7 +17,7 @@ const autoReConnection = true;
 
 
 if (host) {
-  //getNotifications(host);
+  getNotifications(host);
   streamMain(host, autoReConnection)
 }
 </script>

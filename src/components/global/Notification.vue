@@ -31,7 +31,7 @@ defineProps<{
       </p>
     </div>
     <div :class="$style.text"></div>
-    <Note v-if="notification.note" v-html="null" :note="notification.note" />
+    <Note v-if="notification.note" :note="notification.note" />
   </div>
 </template>
 
