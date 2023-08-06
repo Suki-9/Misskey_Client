@@ -25,10 +25,10 @@ defineProps<{
     </div>
     <div :class="$style.content">
       <img :class="$style.avatar" :src="notification.user.avatarUrl" />
-      <P :class="$style.username">
+      <p :class="$style.username">
         <span v-html="notification.user.name"></span>
         <span>さんがあなたの投稿に{{ notification.type }}しました。</span>
-      </P>
+      </p>
     </div>
     <div :class="$style.text"></div>
     <Note v-if="notification.note" v-html="null" :note="notification.note" />
