@@ -31,7 +31,7 @@ defineProps<{
         <div :class="$style.reactions">
           <p v-for="reaction in note.reactions" :class="$style.reaction">
             <span
-              :style="`content: url(${reaction.link})`"
+              :style="reaction.link && `content: url(${reaction.link})`"
               :class="$style.emoji"
             >
               {{ reaction.name }}
