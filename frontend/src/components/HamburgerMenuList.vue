@@ -23,7 +23,7 @@ const emit = defineEmits<{ (e: "switch"): void }>();
   </div>
 </template>
 
-<style module lang="postcss">
+<style module lang="scss">
 .root {
   display: flex;
   flex-direction: column;

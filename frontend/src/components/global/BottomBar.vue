@@ -27,7 +27,7 @@ const viewNotices = ref<boolean>(false);
   </div>
 </template>
 
-<style module lang="postcss">
+<style module lang="scss">
 .root {
   display: flex;
   align-items: center;

@@ -33,7 +33,7 @@ if (host !== undefined) {
   </div>
 </template>
 
-<style module lang="postcss">
+<style module lang="scss">
 .root {
   width: 98vw;
 

@@ -28,4 +28,4 @@ if (!loginHost) {
   <BottomBar />
 </template>
 
-<style module lang="postcss"></style>
+<style module lang="scss"></style>

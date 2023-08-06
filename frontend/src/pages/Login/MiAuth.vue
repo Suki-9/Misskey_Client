@@ -23,7 +23,7 @@ const login = (text: string) => {
   />
 </template>
 
-<style module lang="postcss">
+<style module lang="scss">
 .input {
   margin-top: 5%;
 }

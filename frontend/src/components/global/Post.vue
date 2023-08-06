@@ -6,7 +6,7 @@ const CreatePost = () => {};
   <i class="icon-pencil" :class="$style.postButton" @click="CreatePost"></i>
 </template>
 
-<style module lang="postcss">
+<style module lang="scss">
 .postButton {
   position: fixed;
   bottom: 10%;

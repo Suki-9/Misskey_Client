@@ -11,7 +11,7 @@ const emit = defineEmits<{ (e: "switch"): void }>();
   </div>
 </template>
 
-<style lang="postcss" module>
+<style lang="scss" module>
 .root {
   --component-size: 1.3em;
 

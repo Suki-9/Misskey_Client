@@ -45,7 +45,7 @@ const isEnableMemo = computed<boolean>(() => props.button?.isEnable ?? false);
   </form>
 </template>
 
-<style module lang="postcss">
+<style module lang="scss">
 form {
   display: flex;
   flex-direction: row;
