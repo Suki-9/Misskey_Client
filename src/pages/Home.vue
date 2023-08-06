@@ -10,20 +10,22 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 // トークンの有無を確認
-const loginHost = readCookie("loginHost").unwrap_or("");
-const hosts = loginHost && readCookie("Hosts").unwrap();
+const loginHost = readCookie("loginHost");
 
-if (!loginHost) {
+let hosts: Result<string, Error>;
+
+if (loginHost.isErr()) {
   router.push("/login");
-} else if (hosts?.split(",").indexOf(loginHost) == undefined) {
-  document.cookie = `Hosts=${loginHost},${
-    hosts ? readCookie("Hosts").unwrap() : ""
-  }; path=/`;
+} else if (
+  ((hosts = readCookie("Hosts")),
+  hosts.isErr() || hosts.value.split(",").indexOf(loginHost.value) === -1)
+) {
+  document.cookie = `Hosts=${loginHost.value},${hosts.unwrap_or("")}; path=/`;
 }
 </script>
 
 <template>
-  <TimeLine :hostName="loginHost" />
+  <TimeLine v-if="loginHost.isOk()" :hostName="loginHost.value" />
   <Post />
   <BottomBar />
 </template>
