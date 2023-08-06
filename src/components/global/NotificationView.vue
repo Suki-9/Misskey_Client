@@ -17,10 +17,7 @@ const autoReConnection = true;
 
 
 if (host) {
-  //getNotifications(host).then(
-  //  getNotifications => (notifications.value = getNotifications)
-  //);
-
+  //getNotifications(host);
   streamMain(host, autoReConnection)
 }
 </script>
@@ -33,7 +30,6 @@ export const addNotifications = (notification: ModifiedNotification) => {
 }
 
 </script>
-
 
 
 <template>
