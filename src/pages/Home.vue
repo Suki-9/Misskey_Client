@@ -10,8 +10,8 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 // トークンの有無を確認
-const loginHost: string | undefined = readCookie("loginHost").unwrap();
-const hosts: string | undefined = readCookie("Hosts").unwrap();
+const loginHost = readCookie("loginHost").unwrap_or("");
+const hosts = loginHost && readCookie("Hosts").unwrap();
 
 if (!loginHost) {
   router.push("/login");
