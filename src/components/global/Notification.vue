@@ -28,7 +28,7 @@ defineProps<{
         <span>さんがあなたの投稿に{{ notification.type }}しました。</span>
       </p>
     </div>
-    <div :class="$style.text"></div>
+    <div v-if="notification.text" :class="$style.text" v-html="notification.text"></div>
     <Note v-if="notification.note" :note="notification.note" />
   </div>
 </template>
@@ -87,6 +87,16 @@ defineProps<{
       overflow: hidden;
       white-space: nowrap;
     }
+  }
+
+  .text {
+    font-size: 50%;
+    overflow: hidden;
+    color: var(--secondary-text-color);
+  }
+  .text::before,.text::after { 
+    content: "”" ; 
+    font-size: 20%; 
   }
 }
 </style>

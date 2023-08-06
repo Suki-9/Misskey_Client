@@ -20,6 +20,7 @@ export type Note = {
   files: File[];
   reactions: Record<string, number>;
   renote?: Omit<Note, "renote">;
+  reply?: Note
 };
 
 export type Reaction = {

@@ -59,15 +59,27 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
 
   console.log(notification.type)
   switch (notification.type) {
+
     // @ts-ignore
-    case "quote", "reply": {
-      ModifiedNotification.note = noteGen(notification.note)
-    }
-    // @ts-ignore
-    case "reaction", "renote", "reply": { 
+    case "renote": {
       ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text)
+      break;
     }
+
+    case "reply": {
+      console.log(notification)
+      ModifiedNotification.text = notification.note.reply.text && parseEmoji(notification.note.reply.text)
+      ModifiedNotification.note = noteGen(notification.note)
+      break;
+    }
+
+    case "quote": {
+      ModifiedNotification.note = noteGen(notification.note)
+      break;
+    }
+
     case "reaction": { 
+      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text)
       ModifiedNotification.reaction =
         notification.reaction ? {
           name: notification.reaction,
