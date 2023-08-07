@@ -46,7 +46,6 @@ export const getNotifications = async (
 };
 
 export const notificationGen = (notification: Notification): ModifiedNotification => {
-  console.log(notification)
   notification.user ??= {
     name: null,
     avatarUrl: "",
