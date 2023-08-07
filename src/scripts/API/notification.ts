@@ -7,11 +7,12 @@ import { parseEmoji, searchEmoji } from "../emoji";
 import { noteGen } from "./note";
 
 //vue Component functions
-import { addNotifications } from "../../components/global/NotificationView.vue";
+import { addNotificationsBefore } from "../../components/global/NotificationView.vue";
 
 
 export const getNotifications = async (
   host: string,
+  untilId?: string,
   token = readCookie(`${host}_token`).unwrap(),
   maxSize = 20,
   following = false,
@@ -30,6 +31,7 @@ export const getNotifications = async (
       body: JSON.stringify({
         i: token,
         limit: maxSize,
+        untilId: untilId,
         following: following,
         unreadOnly: unreadOnly,
         markAsRead: markAsRead,
@@ -41,7 +43,7 @@ export const getNotifications = async (
     .then(response => response.json())
     .then(data => data);
 
-  res.map(notification => addNotifications(notificationGen(notification)));
+  res.map(notification => addNotificationsBefore(notificationGen(notification)));
 };
 
 export const notificationGen = (notification: Notification): ModifiedNotification => {
@@ -57,7 +59,6 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
     }
   }
 
-  console.log(notification.type)
   switch (notification.type) {
 
     // @ts-ignore
@@ -68,7 +69,7 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
 
     case "reply": {
       console.log(notification)
-      ModifiedNotification.text = notification.note.reply.text && parseEmoji(notification.note.reply.text)
+      ModifiedNotification.text = notification.note.reply?.text && parseEmoji(notification.note.reply.text)
       ModifiedNotification.note = noteGen(notification.note)
       break;
     }

@@ -3,10 +3,12 @@
 import { ModifiedNotification } from "../../scripts/types";
 
 //TS Module
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { getNotifications } from "../../scripts/API/notification";
 import { streamMain } from "../../scripts/API/stream";
 import { readCookie } from "../../scripts/cookie";
+
+
 
 //Vue Component
 import Notification from "./Notification.vue";
@@ -20,19 +22,32 @@ if (host) {
   getNotifications(host);
   streamMain(host, autoReConnection)
 }
+onMounted(() => {
+  document.getElementById("NotificationView")?.addEventListener("scroll", (event) => {
+    // @ts-ignore
+    if (event.target.scrollTop == event.target.scrollHeight - event.target.clientHeight) { 
+      console.log(notifications.value[notifications.value.length - 1].id)
+      getNotifications(host, notifications.value[notifications.value.length - 1].id)
+    }
+  });
+})
 </script>
 
 <script lang="ts">
 const notifications = ref<ModifiedNotification[]>([]);
 
-export const addNotifications = (notification: ModifiedNotification) => {
+export const addNotificationsBefore = (notification: ModifiedNotification) => {
   notifications.value.push(notification)
+}
+
+export const addNotificationsAfter = (notification: ModifiedNotification) => {
+  notifications.value.unshift(notification)
 }
 </script>
 
 
 <template>
-  <div :class="$style.root">
+  <div :class="$style.root" id="NotificationView">
     <div :class="$style.head">
       <i class="icon-bell-alt"></i>
       <p>通知</p>

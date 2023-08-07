@@ -23,12 +23,17 @@ defineProps<{
     </div>
     <div :class="$style.content">
       <img :class="$style.avatar" :src="notification.user.avatarUrl" />
-      <p :class="$style.username">
-        <span v-html="notification.user.name"></span>
-        <span>さんがあなたの投稿に{{ notification.type }}しました。</span>
-      </p>
+      <div>
+        <p :class="$style.username">
+          <span v-html="notification.user.name"></span>
+          <span>さん</span>
+        </p>
+        <p :class="$style.action">
+          あなたの投稿に{{ notification.type }}しました。
+        </p>
+        <div v-if="notification.text" :class="$style.text" v-html="notification.text"></div>
+      </div>
     </div>
-    <div v-if="notification.text" :class="$style.text" v-html="notification.text"></div>
     <Note v-if="notification.note" :note="notification.note" />
   </div>
 </template>
@@ -77,26 +82,37 @@ defineProps<{
 
       border-radius: var(--default-border-radius);
     }
-    .username {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
 
-      font-size: 60%;
-
+    div {
       overflow: hidden;
-      white-space: nowrap;
-    }
-  }
 
-  .text {
-    font-size: 50%;
-    overflow: hidden;
-    color: var(--secondary-text-color);
-  }
-  .text::before,.text::after { 
-    content: "”" ; 
-    font-size: 20%; 
+      .username,.action {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        font-size: 60%;
+
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    
+      .text {
+        margin-top: 2%;
+
+        font-size: 50%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: var(--secondary-text-color);
+      }
+
+      .text::before,.text::after { 
+        content: "”" ;
+        font-size: 20%;
+      }
+    }
   }
 }
 </style>
