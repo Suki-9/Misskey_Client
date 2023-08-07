@@ -13,21 +13,28 @@ import Note from "./Note.vue";
 
 const props = defineProps<{
   hostName: string;
-  channel?: string; // homeの場合はなにも指定しない(undefinedにする)
+  channel?: string;
 }>();
-
-const maxIndexSize = 10;
-const autoReConnection = true;
-
 
 //EntryPoint
 if (props.hostName) {
-  getNote(props.hostName, props.channel, maxIndexSize).then(
-    getNotes => (notes.value = getNotes.reverse())
-  );
-  const channel = props.channel ?? "home";
-  streamTimeLine(props.hostName, channel, autoReConnection);
+  getNote(props.hostName, props.channel, maxIndexSize);
+  streamTimeLine(props.hostName, props.channel, autoReConnection);
 }
+
+window.addEventListener("scroll", () => {
+  scrollY = window.scrollY;
+  if (scrollY < 100) {
+    noteKeep.value.forEach(note => {
+      notes.value.push(note);
+    });
+    noteKeep.value = [];
+  }
+  if (scrollY == document.documentElement.scrollHeight - window.innerHeight) {
+    getNote(props.hostName, props.channel, maxIndexSize, notes.value[notes.value.length-1].id)
+    console.log("OK!")
+  }
+});
 
 //VirtualScroller
 //const BeforeNote = ref<ModifiedNote>()
@@ -44,28 +51,24 @@ if (props.hostName) {
 
 <script lang="ts">
 const notes = ref < ModifiedNote[] > ([]);
-const noteKeep = ref < ModifiedNote[] > ([]);
-const maxIndexSize = 10;
+const noteKeep = ref<ModifiedNote[]>([]);
+
+const autoReConnection = true;
+
+let maxIndexSize = 10;
 let scrollY = 0
 
 
-export const addNote = (note: ModifiedNote) => { 
-  if (maxIndexSize < notes.value.length) notes.value.shift();
+export const addNoteAfter = (note: ModifiedNote) => { 
+  if (maxIndexSize < notes.value.length) notes.value.pop();
   scrollY < 100
-    ? notes.value.push(note)
-    : noteKeep.value.push(note);
+    ? notes.value.unshift(note)
+    : noteKeep.value.unshift(note)
 }
 
-
-window.addEventListener("scroll", () => {
-  scrollY = window.scrollY;
-  if (scrollY < 100) {
-    noteKeep.value.forEach(note => {
-      notes.value.push(note);
-    });
-    noteKeep.value = [];
-  }
-});
+export const addNoteBefore = (note: ModifiedNote) => {
+  notes.value.push(note)
+}
 </script>
 
 
@@ -79,7 +82,7 @@ window.addEventListener("scroll", () => {
 <style module lang="scss">
 .root {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   min-width: 300px;
   max-width: 600px;

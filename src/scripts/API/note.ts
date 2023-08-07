@@ -5,12 +5,17 @@ import { ModifiedNote, Note, Reaction, User } from "../types";
 import { parseEmoji, searchEmoji } from "../emoji";
 import { readCookie } from "../cookie";
 
+//vue Component function
+import { addNoteBefore } from "../../components/global/TimeLine.vue";
+
+
 export const getNote = async (
   host: string,
   channel = "",
   maxIndexSize = 10,
+  untilId?: string,
   token = readCookie(`${host}_token`).unwrap()
-): Promise<ModifiedNote[]> => {
+) => {
   channel &&= `${channel}-`;
   const res: Note[] = await fetch(
     `https://${host}/api/notes/${channel}timeline`,
@@ -22,13 +27,14 @@ export const getNote = async (
       body: JSON.stringify({
         i: token,
         limit: maxIndexSize,
+        untilId: untilId,
       }),
     }
   )
     .then(response => response.json())
     .then(data => data);
 
-  return res.map(note => noteGen(note));
+  res.map(note => addNoteBefore(noteGen(note)));
 };
 
 export const noteGen = (noteData: Note): ModifiedNote => {

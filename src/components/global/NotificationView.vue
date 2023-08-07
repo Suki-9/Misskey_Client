@@ -19,15 +19,14 @@ const autoReConnection = true;
 
 //Entry point
 if (host) {
-  getNotifications(host);
-  streamMain(host, autoReConnection)
+  //getNotifications(host);
+  //streamMain(host, autoReConnection)
 }
 
 onMounted(() => {
   document.getElementById("NotificationView")?.addEventListener("scroll", (event) => {
     // @ts-ignore
     if (event.target.scrollTop == event.target.scrollHeight - event.target.clientHeight) { 
-      console.log(notifications.value[notifications.value.length - 1].id)
       getNotifications(host, notifications.value[notifications.value.length - 1].id)
     }
   });
@@ -39,7 +38,7 @@ const notifications = ref<ModifiedNotification[]>([]);
 
 export const addNotificationsBefore = (notification: ModifiedNotification) => {
   notifications.value.push(notification)
-  
+
 }
 
 export const addNotificationsAfter = (notification: ModifiedNotification) => {

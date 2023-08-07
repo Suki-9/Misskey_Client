@@ -5,13 +5,13 @@ import { noteGen } from "./note";
 import { notificationGen } from "./notification";
 
 //vue Component functions
-import { addNote } from "../../components/global/TimeLine.vue";
+import { addNoteAfter } from "../../components/global/TimeLine.vue";
 import { addNotificationsAfter } from  "../../components/global/NotificationView.vue";
 
 
 export const streamTimeLine = (
     host: string,
-    channel?: string,
+    channel: string = "home",
     autoReConnection: boolean = false
 ) => {
   const token = readCookie(`${host}_token`).unwrap();
@@ -38,7 +38,7 @@ export const streamTimeLine = (
 
   timeLine.addEventListener("message", event => {
     console.log("GetNote!");
-    addNote(noteGen(JSON.parse(event.data).body.body))
+    addNoteAfter(noteGen(JSON.parse(event.data).body.body))
   });
 
   timeLine.addEventListener("close", () => {
