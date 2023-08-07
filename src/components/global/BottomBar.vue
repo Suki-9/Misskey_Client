@@ -61,7 +61,7 @@ const viewNotices = ref<boolean>(false);
   height: 90vh;
 
   animation-name: moveIn;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-fill-mode: forwards;
 
   transform: translateY(-100%);
