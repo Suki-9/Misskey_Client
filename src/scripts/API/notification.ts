@@ -42,11 +42,16 @@ export const getNotifications = async (
   )
     .then(response => response.json())
     .then(data => data);
-
   res.map(notification => addNotificationsBefore(notificationGen(notification)));
 };
 
 export const notificationGen = (notification: Notification): ModifiedNotification => {
+  console.log(notification)
+  notification.user ??= {
+    name: null,
+    avatarUrl: "",
+    username: "",
+  }
   notification.user.name ??= notification.user.username;
 
   const ModifiedNotification: ModifiedNotification = {
@@ -60,7 +65,6 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
   }
 
   switch (notification.type) {
-
     // @ts-ignore
     case "renote": {
       ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text)
