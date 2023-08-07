@@ -17,11 +17,12 @@ import Notification from "./Notification.vue";
 const host = readCookie("loginHost").unwrap();
 const autoReConnection = true;
 
-
+//Entry point
 if (host) {
   getNotifications(host);
   streamMain(host, autoReConnection)
 }
+
 onMounted(() => {
   document.getElementById("NotificationView")?.addEventListener("scroll", (event) => {
     // @ts-ignore
@@ -38,6 +39,7 @@ const notifications = ref<ModifiedNotification[]>([]);
 
 export const addNotificationsBefore = (notification: ModifiedNotification) => {
   notifications.value.push(notification)
+  
 }
 
 export const addNotificationsAfter = (notification: ModifiedNotification) => {

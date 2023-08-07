@@ -6,7 +6,7 @@ import { notificationGen } from "./notification";
 
 //vue Component functions
 import { addNote } from "../../components/global/TimeLine.vue";
-import { addNotifications } from  "../../components/global/NotificationView.vue";
+import { addNotificationsAfter } from  "../../components/global/NotificationView.vue";
 
 
 export const streamTimeLine = (
@@ -79,9 +79,9 @@ export const streamMain = (
 
     switch (gentEvent.type) {
       case "notification":
-        addNotifications(notificationGen(JSON.parse(event.data).body.body))
+        addNotificationsAfter(notificationGen(JSON.parse(event.data).body.body))
         break;
-    
+
       default:
         break;
     }
