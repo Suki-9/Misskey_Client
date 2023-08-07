@@ -4,7 +4,7 @@ import { readCookie } from "../cookie";
 export const getUserData = async (
 	host: string,
 	token?: string
-) => {
+): Promise<string> => {
   const res = await fetch(
     `https://${host}/api/i`,
     {
@@ -20,5 +20,6 @@ export const getUserData = async (
     .then(response => response.json())
 		.then(data => data);
 
-    document.cookie = `userData_${host}=${JSON.stringify(res)}; path=/`
+  document.cookie = `${host}_userData=${JSON.stringify(res)}; path=/`
+  return JSON.stringify(res)
 };
