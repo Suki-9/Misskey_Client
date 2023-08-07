@@ -78,6 +78,8 @@ defineProps<{
       height: 0.8em;
       width: 0.8em;
 
+      object-fit: cover;
+
       border-radius: 0.2em;
     }
     .renoterName {
@@ -106,6 +108,8 @@ defineProps<{
     .avatar {
       height: 2em;
       width: 2em;
+
+      object-fit: cover;
 
       border-radius: 0.4em;
     }
