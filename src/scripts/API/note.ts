@@ -81,3 +81,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     renoter,
   };
 };
+
+export const postNote = () => {
+
+}

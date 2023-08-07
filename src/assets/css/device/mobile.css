@@ -1,4 +1,13 @@
 :root {
   /*text*/
   font-size: 150%;
+
+  --avater-style: {
+    height: 2em;
+    width: 2em;
+    
+    object-fit: cover;
+    
+    border-radius: 0.4em;
+  }
 }
