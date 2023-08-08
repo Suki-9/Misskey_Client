@@ -2,17 +2,77 @@
 //Type
 import { ModifiedNote } from "../../scripts/types";
 
-defineProps<{
+//TS Module
+import { onMounted, ref } from "vue";
+import { readCookie } from "../../scripts/cookie";
+import { getUserData } from "../../scripts/API/userdata";
+
+//vue component
+import PopUpMenuList from "./PopUpMenuList.vue";
+
+
+const props = defineProps<{
   note: ModifiedNote;
 }>();
+
+const onAndMoreMenu = ref<boolean>(false)
+const Listcontent = [
+  {
+    text: "内容をコピー",
+    action: "",
+  },
+  {
+    text: "リンクをコピー",
+    action: "",
+  },
+  {
+    text: "",
+    action: "",
+  },
+  {
+    text: "クリップに追加",
+    action: "",
+  },
+  {
+    text: "ピン留め",
+    action: "",
+  },
+]
+const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
+
+if (props.note.user.id == userData.id) Listcontent.push({
+  text: "削除",
+  action: "",
+}, {
+  text: "削除して編集",
+  action: "",
+})
+
+const AndMoreMenu = (e: PointerEvent) => {
+  const x = e.pageX
+  const y = e.pageY
+  onAndMoreMenu.value = !onAndMoreMenu.value
+  const target = document.getElementById(`${props.note.id}_PopUp`)
+  if (target) {
+    target.style.top = `${y}px`
+    target.style.left = `${x}px`
+  }
+  console.log(x, y, e)
+}
 </script>
 
 <template>
+  <div 
+    :class="$style.PopUpAndMoreMenu"
+    :id="`${note.id}_PopUp`" 
+    v-show="onAndMoreMenu">
+    <PopUpMenuList :Listcontent="Listcontent"/>
+  </div>
   <div :class="$style.root">
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
       <p :class="$style.renoterName">
-        <span v-html="note.renoter.name"></span>さんがリノート
+        <span v-html="note.renoter.name"></span>さんがリノート<i class="icon-retweet"></i>
       </p>
     </div>
     <div :class="$style.note">
@@ -43,11 +103,12 @@ defineProps<{
           <i class="icon-comment"></i>
           <i class="icon-retweet"></i>
           <i class="icon-plus"></i>
-          <i class="icon-dot-3"></i>
+          <i class="icon-dot-3" @click="AndMoreMenu"></i>
         </footer>
       </article>
     </div>
   </div>
+
 </template>
 
 <style module lang="scss">
@@ -202,5 +263,8 @@ defineProps<{
       }
     }
   }
+}
+.PopUpAndMoreMenu {
+  position: fixed;
 }
 </style>
