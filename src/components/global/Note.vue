@@ -3,61 +3,32 @@
 import { ModifiedNote } from "../../scripts/types";
 
 //TS Module
-import { onMounted, ref } from "vue";
 import { readCookie } from "../../scripts/cookie";
 import { getUserData } from "../../scripts/API/userdata";
-
-//vue component
-import PopUpMenuList from "./PopUpMenuList.vue";
-
 
 const props = defineProps<{
   note: ModifiedNote;
 }>();
-
-const onAndMoreMenu = ref<boolean>(false)
-const Listcontent = [
-  {
-    text: "内容をコピー",
-    action: "",
-  },
-  {
-    text: "リンクをコピー",
-    action: "",
-  },
-  {
-    text: "",
-    action: "",
-  },
-  {
-    text: "クリップに追加",
-    action: "",
-  },
-  {
-    text: "ピン留め",
-    action: "",
-  },
-]
 const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
 
-if (props.note.user.id == userData.id) Listcontent.push({
-  text: "削除",
-  action: "",
-}, {
-  text: "削除して編集",
-  action: "",
-})
 
-const AndMoreMenu = (e: PointerEvent) => {
-  const x = e.pageX
-  const y = e.pageY
-  onAndMoreMenu.value = !onAndMoreMenu.value
+const AndMoreMenu = (e: MouseEvent) => {
   const target = document.getElementById(`${props.note.id}_PopUp`)
   if (target) {
-    target.style.top = `${y}px`
-    target.style.left = `${x}px`
+    target.style.left = `${e.pageX}px`
+    target.style.top = `${e.pageY}px`
   }
-  console.log(x, y, e)
+  const Listcontent = [
+    { text: "内容をコピー",   action: "", },
+    { text: "リンクをコピー", action: "", },
+    { text: "",               action: "", },
+    { text: "クリップに追加", action: "", },
+    { text: "ピン留め",       action: "", },
+  ]
+
+  if (props.note.user.id == userData.id) Listcontent.push(
+    { text: "削除",         action: "", },
+    { text: "削除して編集", action: "", })
 }
 </script>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-    Listcontent: {
+    Listcontent?: {
         text: string,
         action: string,
     }[]
