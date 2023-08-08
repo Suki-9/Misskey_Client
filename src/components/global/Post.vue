@@ -9,7 +9,7 @@ const Active = ref<boolean>(false)
 const postText = ref<string>("")
 const visibility = ref<string>("")
 
-const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).unwrap_or(await getUserData(readCookie("loginHost").unwrap())))
+const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
 
 const post = () => {
   if (postText.value !== "") postNote(undefined, undefined, (visibility.value == "") ? "public" : visibility.value, postText.value)
