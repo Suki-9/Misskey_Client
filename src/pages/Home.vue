@@ -3,6 +3,7 @@
 import TimeLine from "../components/global/TimeLine.vue";
 import Post from "../components/global/Post.vue";
 import BottomBar from "../components/global/BottomBar.vue";
+import PopUpUIs from "./Home/PopUpUIs.vue"
 
 //TS module
 import { readCookie } from "../scripts/cookie";
@@ -28,6 +29,7 @@ if (loginHost.isErr()) {
   <TimeLine v-if="loginHost.isOk()" :hostName="loginHost.value"/>
   <Post />
   <BottomBar />
+  <PopUpUIs />
 </template>
 
 <style module lang="scss"></style>

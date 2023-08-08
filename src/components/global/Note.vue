@@ -62,12 +62,6 @@ const AndMoreMenu = (e: PointerEvent) => {
 </script>
 
 <template>
-  <div 
-    :class="$style.PopUpAndMoreMenu"
-    :id="`${note.id}_PopUp`" 
-    v-show="onAndMoreMenu">
-    <PopUpMenuList :Listcontent="Listcontent"/>
-  </div>
   <div :class="$style.root">
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
