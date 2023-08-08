@@ -22,6 +22,5 @@ export const getUserData = async (
       .then(data => data);
     localStorage.setItem(`${host}_userData`, JSON.stringify(res));
   }
-
-  return JSON.stringify(localStorage.getItem(`${host}_userData`))
+  return localStorage.getItem(`${host}_userData`) ?? "error!"
 };
