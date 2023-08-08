@@ -12,7 +12,7 @@ const visibility = ref<string>("")
 const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).unwrap_or(await getUserData(readCookie("loginHost").unwrap())))
 
 const post = () => {
-  postNote(undefined, undefined, (visibility.value == "") ? "public" : visibility.value, postText.value)
+  if (postText.value = "") postNote(undefined, undefined, (visibility.value == "") ? "public" : visibility.value, postText.value)
   Active.value = !Active.value
   postText.value = ""
 }
