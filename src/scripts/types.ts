@@ -30,6 +30,7 @@ export type Reaction = {
 };
 
 export type User = {
+  id: string,
   name: string | null;
   username: string;
   avatarUrl: string;

@@ -60,6 +60,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
 
   if (noteData.renote) {
     renoter = {
+      id: noteData.user.id,
       name: parseEmoji(noteData.user.name),
       username: noteData.user.username,
       avatarUrl: noteData.user.avatarUrl,
@@ -72,6 +73,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     text: note.text && parseEmoji(note.text),
     cw: note.cw,
     user: {
+      id: note.user.id,
       name: parseEmoji(note.user.name),
       username: note.user.username,
       avatarUrl: note.user.avatarUrl,
