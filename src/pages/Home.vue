@@ -1,7 +1,6 @@
 <script setup lang="ts">
 //vue component
 import TimeLine from "../components/global/TimeLine.vue";
-import Post from "../components/global/Post.vue";
 import BottomBar from "../components/global/BottomBar.vue";
 import PopUpUIs from "./Home/PopUpUIs.vue"
 
@@ -27,7 +26,6 @@ if (loginHost.isErr()) {
 
 <template>
   <TimeLine v-if="loginHost.isOk()" :hostName="loginHost.value"/>
-  <Post />
   <BottomBar />
   <PopUpUIs />
 </template>
