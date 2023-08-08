@@ -3,10 +3,19 @@
 import { ref } from 'vue';
 import { readCookie } from '../../scripts/cookie';
 import { getUserData } from '../../scripts/API/userdata';
+import { postNote } from '../../scripts/API/note'
 
 const Active = ref<boolean>(false)
+const postText = ref<string>("")
+const visibility = ref<string>("")
 
 const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).unwrap_or(await getUserData(readCookie("loginHost").unwrap())))
+
+const post = () => {
+  postNote(undefined, undefined, (visibility.value == "") ? "public" : visibility.value, postText.value)
+  Active.value = !Active.value
+  postText.value = ""
+}
 </script>
 
 
@@ -14,24 +23,21 @@ const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).un
   <i class="icon-pencil" :class="$style.postButton" @click="Active = !Active"></i>
   <div v-show="Active" :class="$style.root">
     <div :class="$style.header">
-        <i class="icon-cancel" :class="$style.closeButton" @click="Active = !Active"></i>
+      <i class="icon-cancel" :class="$style.closeButton" @click="Active = !Active"></i>
       <div :class="$style.submitButtons">
-        <a >ノート</a>
+        <a @click="post">ノート</a>
         <a >下書き</a>
       </div>
     </div>
     <div :class="$style.content">
       <img :class="$style.avater" :src="userData.avatarUrl">
       <div :class="$style.text">
-        <select>
-          <option>パブリック</option>
-          <option>ホーム</option>
-          <option>フォロワー</option>
-          <option>ダイレクト</option>
+        <select v-model="visibility">
+          <option value="public">パブリック</option>
+          <option value="home">ホーム</option>
+          <option value="followers">フォロワー</option>
         </select>
-        <textarea>
-
-        </textarea>
+        <textarea v-model="postText"></textarea>
       </div>
     </div>
     <div :class="$style.footer">
@@ -63,7 +69,7 @@ const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).un
   flex-direction: column;
 
   position: fixed;
-  top: 2%;
+  top: 5%;
 
   width: 94vw;
 
@@ -73,7 +79,7 @@ const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).un
 
   background-color: var(--primary-bg-color);
 
-  font-size: 60%;
+  font-size: 70%;
 
   animation-name: moveIn;
   animation-duration: 0.2s;
@@ -90,8 +96,10 @@ const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).un
 
     width: 100%;
 
-    .closeButton {
+    margin-bottom: 3%;
 
+    .closeButton::before {
+      font-size: 150%;
     }
 
     .submitButtons {
@@ -142,6 +150,8 @@ const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).un
         border-radius: var(--default-border-radius);
 
         color: var(--secondary-text-color);
+        font-size: 95%;
+
         background-color: var(--secondary-bg-color);
       }
 
@@ -155,6 +165,8 @@ const userData = JSON.parse(readCookie(`${readCookie("loginHost")}_userData`).un
         border-radius: var(--default-border-radius);
 
         color: var(--secondary-text-color);
+        font-size: 120%;
+
         background-color: var(--secondary-bg-color);
 
         resize: none;
