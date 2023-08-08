@@ -20,6 +20,6 @@ export const getUserData = async (
     .then(response => response.json())
 		.then(data => data);
 
-  document.cookie = `${host}_userData=${JSON.stringify(res)}; path=/`
+  localStorage.setItem(`${host}_userData`, JSON.stringify(res));
   return JSON.stringify(res)
 };
