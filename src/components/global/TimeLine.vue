@@ -30,9 +30,8 @@ window.addEventListener("scroll", () => {
     });
     noteKeep.value = [];
   }
-  if (scrollY == document.documentElement.scrollHeight - window.innerHeight) {
+  if (document.documentElement.scrollHeight - window.innerHeight - scrollY < 50) {
     getNote(props.hostName, props.channel, maxIndexSize, notes.value[notes.value.length-1].id)
-    console.log("OK!")
   }
 });
 

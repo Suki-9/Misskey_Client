@@ -71,7 +71,6 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
     }
 
     case "reply": {
-      console.log(notification)
       ModifiedNotification.text = notification.note.reply?.text && parseEmoji(notification.note.reply.text)
       ModifiedNotification.note = noteGen(notification.note)
       break;

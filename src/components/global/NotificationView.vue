@@ -16,17 +16,20 @@ import Notification from "./Notification.vue";
 
 const host = readCookie("loginHost").unwrap();
 const autoReConnection = true;
+let scrollY = 0;
 
 //Entry point
 if (host) {
-  //getNotifications(host);
+  getNotifications(host);
   //streamMain(host, autoReConnection)
 }
 
 onMounted(() => {
   document.getElementById("NotificationView")?.addEventListener("scroll", (event) => {
     // @ts-ignore
-    if (event.target.scrollTop == event.target.scrollHeight - event.target.clientHeight) { 
+    scrollY = event?.target?.scrollTop
+    // @ts-ignore
+    if (event?.target?.scrollHeight - event?.target?.clientHeight == scrollY ) {
       getNotifications(host, notifications.value[notifications.value.length - 1].id)
     }
   });
