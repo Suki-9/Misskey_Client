@@ -77,6 +77,7 @@ const AndMoreMenu = (e: MouseEvent) => {
 </template>
 
 <style module lang="scss">
+@import "../../assets/css/globalComponent.css";
 .root {
   display: flex;
   flex-direction: column;
@@ -131,14 +132,6 @@ const AndMoreMenu = (e: MouseEvent) => {
     display: flex;
     flex-direction: row;
 
-    .avatar {
-      height: 2em;
-      width: 2em;
-
-      object-fit: cover;
-
-      border-radius: 0.4em;
-    }
     article {
       display: flex;
       flex-direction: column;
@@ -193,27 +186,6 @@ const AndMoreMenu = (e: MouseEvent) => {
         flex-direction: row;
 
         font-size: 60%;
-
-        .reaction {
-          display: flex;
-
-          margin: 3px;
-          padding: 4px;
-
-          height: 1.3em;
-
-          overflow: hidden;
-          white-space: nowrap;
-
-          background-color: var(--primary-bg-color);
-
-          border-radius: var(--default-border-radius);
-          .emoji {
-            height: 1.3em;
-
-            margin-right: 5px;
-          }
-        }
       }
       footer {
         display: flex;

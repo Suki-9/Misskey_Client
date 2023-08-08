@@ -1,0 +1,27 @@
+.avatar {
+  height: 2em;
+  width: 2em;
+
+  object-fit: cover;
+
+  border-radius: 0.4em;
+}
+
+.reaction {
+  display: flex;
+
+  margin: 3px 3px 3px 0;
+  padding: 4px;
+
+  height: 1.3em;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  background-color: var(--primary-bg-color);
+  border-radius: var(--default-border-radius);
+}
+.emoji {
+  height: 1.3em;
+  margin-right: 5px;
+}

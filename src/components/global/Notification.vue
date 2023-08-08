@@ -39,6 +39,7 @@ defineProps<{
 </template>
 
 <style module lang="scss">
+@import "../../assets/css/globalComponent.css";
 .root {
   display: flex;
   flex-direction: column;
@@ -51,21 +52,7 @@ defineProps<{
   border-radius: var(--default-border-radius);
 
   .head {
-    margin-bottom: 2%;
-    .reaction {
-      display: flex;
-
-      padding: 4px;
-
-      height: 1.4em;
-      width: fit-content;
-
-      font-size: 70%;
-
-      background-color: var(--primary-bg-color);
-
-      border-radius: var(--default-border-radius);
-    }
+    font-size: 80%;
   }
 
   .content {
@@ -75,17 +62,13 @@ defineProps<{
     background-color: var(--tertiary-bg-color);
 
     .avatar {
-      height: 1.5em;
-      width: 1.5em;
-
-      margin-right: 1%;
-
-      border-radius: var(--default-border-radius);
+      font-size: 80%;
     }
 
     div {
       overflow: hidden;
 
+      margin-left: 2%;
       .username,.action {
         display: flex;
         flex-direction: row;
@@ -99,8 +82,6 @@ defineProps<{
       }
     
       .text {
-        margin-top: 2%;
-
         font-size: 50%;
         overflow: hidden;
         white-space: nowrap;

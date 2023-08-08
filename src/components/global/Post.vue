@@ -30,7 +30,7 @@ const post = () => {
       </div>
     </div>
     <div :class="$style.content">
-      <img :class="$style.avater" :src="userData.avatarUrl">
+      <img :class="$style.avatar" :src="userData.avatarUrl">
       <div :class="$style.text">
         <select v-model="visibility">
           <option value="public">パブリック</option>
@@ -46,6 +46,8 @@ const post = () => {
 </template>
 
 <style module lang="scss">
+@import "../../assets/css/globalComponent.css";
+@import "../../assets/css/animation.css";
 .postButton {
   position: fixed;
   bottom: 10%;
@@ -79,7 +81,7 @@ const post = () => {
 
   background-color: var(--primary-bg-color);
 
-  font-size: 70%;
+  font-size: 80%;
 
   animation-name: moveIn;
   animation-duration: 0.2s;
@@ -95,6 +97,8 @@ const post = () => {
     align-items: center;
 
     width: 100%;
+
+    font-size: 80%;
 
     margin-bottom: 3%;
 
@@ -124,14 +128,6 @@ const post = () => {
     flex-direction: row;
 
     width: 100%;
-    .avater {
-      height: 2em;
-      width: 2em;
-
-      object-fit: cover;
-
-      border-radius: 0.4em;
-    }
 
     .text {
       display: flex;
@@ -177,20 +173,6 @@ const post = () => {
   .footer {
     display: flex;
     flex-direction: row;
-  }
-}
-
-@keyframes moveIn {
-  0% {
-    transform: translateY(20%);
-    opacity: 0;
-  }
-  70% {
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 </style>

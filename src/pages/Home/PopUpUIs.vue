@@ -33,12 +33,13 @@ export const popUpMenuList = (
 
 
 <template>
-    <NotificationView v-show="show.NotificationView" :class="$style.notices"/>
-    <Post />
     <PopUpMenuList :Listcontent="PopUpMenuList_Listcontent"/>
+    <Post />
+    <NotificationView v-show="show.NotificationView" :class="$style.notices"/>
 </template>
 
 <style module lang="scss">
+@import "../../assets/css/animation.css";
 .notices {
   position: fixed;
   top: 2%;
@@ -51,19 +52,5 @@ export const popUpMenuList = (
 
   transform: translateY(-100%);
   opacity: 0;
-}
-
-@keyframes moveIn {
-  0% {
-    transform: translateY(-20%);
-    opacity: 0;
-  }
-  70% {
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
