@@ -54,6 +54,7 @@ form {
   width: 100%;
 
   font-size: 120%;
+  color: var(--primary-bg-color);
 
   border-radius: var(--default-border-radius);
 
@@ -79,6 +80,7 @@ form {
     }
     p {
       animation-name: unfocus;
+
       font-size: 40%;
       left: 7px;
     }
@@ -98,6 +100,7 @@ form {
     text-align: center;
     font-weight: 600;
     font-size: 70%;
+
 
     user-select: none;
   }
