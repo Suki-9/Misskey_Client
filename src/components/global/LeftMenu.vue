@@ -25,12 +25,23 @@
 
 <style module lang="scss">
 .root {
+    display: flex;
+    flex-direction: column;
+
     max-width: 80%;
 
-    background-color: var(--primary-bg-color);
+    padding: 2%;
+
+    font-size: 80%;
+
+    background-color: var(--secondary-bg-color);
     .bio {
     }
     .list {
+        display: flex;
+        flex-direction: column;
+
+        border-bottom: solid 1px var(--primary-border-color);
     }
 }
 

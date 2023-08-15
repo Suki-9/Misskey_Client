@@ -64,7 +64,7 @@ export const popUpMenuList = (
   top: 0;
   left: 0;
 
-  height: 95vh;
+  height: 100vh;
 
   animation-name: moveIn_L;
   animation-duration: 0.3s;

@@ -26,8 +26,8 @@ if (loginHost.isErr()) {
 
 <template>
   <TimeLine v-if="loginHost.isOk()" :hostName="loginHost.value"/>
-  <BottomBar />
   <PopUpUIs />
+  <BottomBar />
 </template>
 
 <style module lang="scss"></style>
