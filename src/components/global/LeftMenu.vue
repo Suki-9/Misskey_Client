@@ -41,8 +41,11 @@
         display: flex;
         flex-direction: column;
 
-        border-bottom: solid 1px var(--primary-border-color);
+        border-bottom: solid 1px var(--secondary-border-color);
+
+        a::before {
+            content: "・";
+        }
     }
 }
-
 </style>
