@@ -186,6 +186,10 @@ const AndMoreMenu = (e: MouseEvent) => {
         flex-direction: row;
 
         font-size: 60%;
+
+        .reaction {
+          margin: 3px 3px 3px 0;
+        }
       }
       footer {
         display: flex;

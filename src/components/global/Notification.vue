@@ -53,6 +53,10 @@ defineProps<{
 
   .head {
     font-size: 80%;
+
+    .reaction {
+      margin: 0 0 2% 0;
+    }
   }
 
   .content {
