@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 //Vue Component function
-import { Show_NotificationView } from "../../pages/Home/PopUpUIs.vue";
+import { Show_NotificationView , Show_LeftMenu } from "../../pages/Home/PopUpUIs.vue";
 
 
 const goHome = () => {
@@ -18,10 +18,10 @@ const reload = () => {
 
 <template>
   <div :class="$style.root">
-    <i class="icon-dot-3"></i>
-    <i class="icon-home" @click="goHome"></i>
-    <i class="icon-bell-alt" @click="Show_NotificationView"></i>
-    <i class="icon-cw" @click="reload"></i>
+    <i class="icon-dot-3" @click="Show_LeftMenu()"></i>
+    <i class="icon-home" @click="goHome()"></i>
+    <i class="icon-bell-alt" @click="Show_NotificationView()"></i>
+    <i class="icon-cw" @click="reload()"></i>
     <i class="icon-mail-alt"></i>
   </div>
 </template>

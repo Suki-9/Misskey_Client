@@ -6,7 +6,7 @@ import { ref } from "vue";
 import PopUpMenuList from "../../components/global/PopUpMenuList.vue"
 import Post from "../../components/global/Post.vue";
 import NotificationView from "../../components/global/NotificationView.vue";
-
+import LeftMenu from "../../components/global/LeftMenu.vue";
 
 </script>
 
@@ -14,11 +14,15 @@ import NotificationView from "../../components/global/NotificationView.vue";
 const PopUpMenuList_Listcontent = ref()
 const show = ref<Record<string, boolean>>({
     NotificationView: false,
+    LeftMenu: false,
 })
 
 export const Show_NotificationView = () => { 
     show.value.NotificationView = !show.value.NotificationView
-    console.log(show.value.NotificationView)
+}
+
+export const Show_LeftMenu = () => { 
+    show.value.LeftMenu = !show.value.LeftMenu
 }
 
 export const popUpMenuList = (
@@ -33,6 +37,7 @@ export const popUpMenuList = (
 
 
 <template>
+    <LeftMenu v-show="show.LeftMenu" :class="$style.LeftMenu"/>
     <PopUpMenuList :Listcontent="PopUpMenuList_Listcontent"/>
     <Post />
     <NotificationView v-show="show.NotificationView" :class="$style.notices"/>
@@ -51,6 +56,21 @@ export const popUpMenuList = (
   animation-fill-mode: forwards;
 
   transform: translateY(-100%);
+  opacity: 0;
+}
+
+.LeftMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 95vh;
+
+  animation-name: moveIn_L;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+
+  transform: translateX(-100%);
   opacity: 0;
 }
 </style>

@@ -13,3 +13,19 @@
         transform: translateY(0);
     }
 }
+
+@keyframes moveIn_L {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    70% {
+        transform: translateX(10%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
