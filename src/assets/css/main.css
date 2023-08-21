@@ -50,10 +50,6 @@ h6 {
   font-size: calc(var(--primary-font-size) * 0.625);
 }
 
-.emoji {
-  height: 1.3em;
-}
-
 /*form*/
 input {
   margin: 0;
