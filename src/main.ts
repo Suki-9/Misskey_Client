@@ -1,8 +1,12 @@
-import { createApp } from "vue";
-
+//css
 import "./assets/css/main.css";
-import "../src/scripts/global/result";
 
+//js
+import "../src/scripts/global/result";
+import "../src/assets/css/device/styleSwitch"
+
+//ts module
+import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
