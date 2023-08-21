@@ -3,11 +3,10 @@
 import { ref } from "vue";
 
 //vue Component
-import PopUpMenuList from "../../components/global/PopUpMenuList.vue"
-import Post from "../../components/global/Post.vue";
-import NotificationView from "../../components/global/NotificationView.vue";
-import LeftMenu from "../../components/global/LeftMenu.vue";
-
+import PopUpMenuList from "../global/PopUpMenuList.vue";
+import Post from "../global/Post.vue";
+import NotificationView from "../global/NotificationView.vue";
+import LeftMenu from "../global/LeftMenu.vue";
 </script>
 
 <script lang="ts">

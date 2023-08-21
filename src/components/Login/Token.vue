@@ -6,7 +6,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 //vue Component
-import FormInput from "../../components/global/FormInput.vue";
+import FormInput from "../global/FormInput.vue";
 
 
 const host = ref("");

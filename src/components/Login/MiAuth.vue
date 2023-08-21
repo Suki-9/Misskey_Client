@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { genUuid } from "../../scripts/UUID";
 
-import FormInput from "../../components/global/FormInput.vue";
+import FormInput from "../global/FormInput.vue";
 
 const login = (host: string) => {
   const callback = "http:/localhost:4000/login";

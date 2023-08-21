@@ -2,7 +2,7 @@
 //vue component
 import TimeLine from "../components/global/TimeLine.vue";
 import BottomBar from "../components/global/BottomBar.vue";
-import PopUpUIs from "./Home/PopUpUIs.vue"
+import PopUpUIs from "../components/Home/PopUpUIs.vue";
 
 //TS module
 import { readCookie } from "../scripts/cookie";

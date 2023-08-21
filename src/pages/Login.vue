@@ -1,6 +1,8 @@
 <script setup lang="ts">
+//TS Module
 import { HamburgerMenuList } from "../scripts/types";
 
+//Vue Component
 import HeadBar from "../components/HeadBar.vue";
 
 const listData: HamburgerMenuList = [
