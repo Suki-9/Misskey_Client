@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 //Vue Component function
-import { Show_NotificationView , Show_LeftMenu } from "../../pages/Home/PopUpUIs.vue";
+import { Show_NotificationView , Show_LeftMenu } from "../Home/PopUpUIs.vue";
 
 
 const goHome = () => {

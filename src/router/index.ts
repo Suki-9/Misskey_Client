@@ -5,14 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      component: () => import("../pages/Home.vue") /*
-      children: [
-        {
-          path: '',
-          name: 'Home',
-          component: () => import('../components/module/Home/Bio.vue'),
-        },
-      ],*/,
+      component: () => import("../pages/Home.vue"),
     },
     {
       path: "/login",
@@ -21,17 +14,17 @@ const router = createRouter({
         {
           path: "",
           name: "MiAuth",
-          component: () => import("../pages/Login/MiAuth.vue"),
+          component: () => import("../components/Login/MiAuth.vue"),
         },
         {
           path: "token",
           name: "Token",
-          component: () => import("../pages/Login/Token.vue"),
+          component: () => import("../components/Login/Token.vue"),
         },
         {
           path: "callback",
           name: "Callback",
-          component: () => import("../pages/Login/Callback.vue"),
+          component: () => import("../components/Login/Callback.vue"),
         },
       ],
     },
