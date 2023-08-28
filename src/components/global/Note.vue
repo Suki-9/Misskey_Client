@@ -6,6 +6,9 @@ import { ModifiedNote } from "../../scripts/types";
 import { readCookie } from "../../scripts/cookie";
 import { getUserData } from "../../scripts/API/userdata";
 
+//Vue Component function
+import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
+
 const props = defineProps<{
   note: ModifiedNote;
 }>();
@@ -67,7 +70,7 @@ const AndMoreMenu = (e: MouseEvent) => {
         <footer>
           <i class="icon-comment"></i>
           <i class="icon-retweet"></i>
-          <i class="icon-plus"></i>
+          <i class="icon-plus"  @click="Show_emojiPalette"></i>
           <i class="icon-dot-3" @click="AndMoreMenu"></i>
         </footer>
       </article>
