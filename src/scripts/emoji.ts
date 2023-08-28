@@ -4,12 +4,6 @@ import { readCookie } from "./cookie";
 //Type
 import { Emoji } from "./types";
 
-type Emojis = {
-  aliases: string[];
-  name: string;
-  category: string;
-  url: string;
-}[];
 
 export const fetchEmojiIndex = async (
   host = readCookie("loginHost").unwrap()
@@ -28,21 +22,20 @@ export const createEmojiIndex = async (
   localStorage.setItem(`${host}_emojis`, JSON.stringify(emojis));
 
   //TODO ここ全て毎回評価が発生するので賢く死体
-
-  //Key名のみのindexを生成
-  if (type.indexOf("Key") !== -1)
-    localStorage.setItem(
-      `${host}_emojis_key`,
-      JSON.stringify(emojis.map(emoji => emoji.name))
-    );
+  if (type.indexOf("Key") !== -1) { 
+    localStorage.setItem(`${host}_emojis_key`, JSON.stringify(
+      emojis.map(emoji => emoji.name)
+    ));
+  }
 
   if (type.indexOf("category") !== -1) {
-    const categorys: Record<string, string[]> = {}
+    let categorys: Record<string, string[]> = {}
   
     emojis.forEach(emoji => {
-      if (!categorys.hasOwnProperty(emoji.category)) categorys[emoji.category].push(emoji.name)
+      if (!categorys.hasOwnProperty(emoji.category)) categorys[emoji.category] = []
+      categorys[emoji.category].push(emoji.name)
     })
-    localStorage.setItem(`${host}_emojis_category`,JSON.stringify(categorys));
+    localStorage.setItem(`${host}_emojis_category`, JSON.stringify(categorys));
   }
 };
 
@@ -55,7 +48,7 @@ export const searchEmoji = (
 
   if (!localEmojis) createEmojiIndex(["Key"], host);
 
-  const emojis: Emojis = JSON.parse(localEmojis!);
+  const emojis: Emoji[] = JSON.parse(localEmojis!);
   const index: string = JSON.parse(localStorage.getItem(`${host}_emojis_key`)!);
 
   if (index.indexOf(name) === -1) return new Err(new Error(name));
@@ -79,10 +72,6 @@ export const readEmojiIndex = (
   host = readCookie("loginHost").unwrap()
 ) => {
   const localEmojis = localStorage.getItem(`${host}_emojis_${type}`);
-  if (!localEmojis) {
-    return JSON.parse(localStorage.getItem(`${host}_emojis_${type}`) ?? "{}");
-  } else { 
-    createEmojiIndex([type], host);
-    readEmojiIndex(type, host);
-  }
+  if (!localEmojis) createEmojiIndex([type], host);
+  return JSON.parse(localEmojis ?? "");
 }
