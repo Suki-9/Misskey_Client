@@ -69,7 +69,6 @@ export const addNotificationsAfter = (notification: ModifiedNotification) => {
 
   border-radius: var(--default-border-radius);
 
-  position: relative;
   overflow: scroll;
 
   background-color: var(--primary-bg-color);
