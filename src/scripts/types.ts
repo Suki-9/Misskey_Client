@@ -29,6 +29,13 @@ export type Reaction = {
   link: string;
 };
 
+export type Emoji = {
+  aliases: string[];
+  category: string;
+  name: string;
+  url: string;
+};
+
 export type User = {
   id: string,
   name: string | null;
