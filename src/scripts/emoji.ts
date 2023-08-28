@@ -73,3 +73,16 @@ export const parseEmoji = (text: string) => {
   });
   return text;
 };
+
+export const readEmojiIndex = (
+  type: string,
+  host = readCookie("loginHost").unwrap()
+) => {
+  const localEmojis = localStorage.getItem(`${host}_emojis_${type}`);
+  if (!localEmojis) {
+    return JSON.parse(localStorage.getItem(`${host}_emojis_${type}`) ?? "{}");
+  } else { 
+    createEmojiIndex([type], host);
+    readEmojiIndex(type, host);
+  }
+}
