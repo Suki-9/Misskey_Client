@@ -7,6 +7,7 @@ import PopUpMenuList from "../global/PopUpMenuList.vue";
 import Post from "../global/Post.vue";
 import NotificationView from "../global/NotificationView.vue";
 import LeftMenu from "../global/LeftMenu.vue";
+import EmojiPalette from "../global/EmojiPalette.vue";
 </script>
 
 <script lang="ts">
@@ -14,14 +15,20 @@ const PopUpMenuList_Listcontent = ref()
 const show = ref<Record<string, boolean>>({
     NotificationView: false,
     LeftMenu: false,
+    emojiPalette: false,
 })
 
-export const Show_NotificationView = () => { 
+export const Show_NotificationView = () => {
+    console.log("!")
     show.value.NotificationView = !show.value.NotificationView
 }
 
 export const Show_LeftMenu = () => { 
     show.value.LeftMenu = !show.value.LeftMenu
+}
+
+export const Show_emojiPalette = () => {
+    show.value.emojiPalette = !show.value.emojiPalette;
 }
 
 export const popUpMenuList = (
@@ -40,6 +47,7 @@ export const popUpMenuList = (
     <PopUpMenuList :Listcontent="PopUpMenuList_Listcontent"/>
     <Post />
     <NotificationView v-show="show.NotificationView" :class="$style.notices"/>
+    <EmojiPalette v-show="show.emojiPalette" :class="$style.emojiPalette"/>
 </template>
 
 <style module lang="scss">
@@ -70,6 +78,20 @@ export const popUpMenuList = (
   animation-fill-mode: forwards;
 
   transform: translateX(-100%);
+  opacity: 0;
+}
+
+.emojiPalette {
+  position: fixed;
+  bottom: 0;
+
+  height: 40vh;
+
+  animation-name: moveIn;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+
+  transform: translateY(-100%);
   opacity: 0;
 }
 </style>
