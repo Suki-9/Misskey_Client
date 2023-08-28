@@ -5,7 +5,7 @@ import { ModifiedNotification } from "../../scripts/types";
 //TS Module
 import { ref, onMounted } from "vue";
 import { getNotifications } from "../../scripts/API/notification";
-import { streamMain } from "../../scripts/API/stream";
+//import { streamMain } from "../../scripts/API/stream";
 import { readCookie } from "../../scripts/cookie";
 
 
@@ -15,7 +15,7 @@ import Notification from "./Notification.vue";
 
 
 const host = readCookie("loginHost").unwrap();
-const autoReConnection = true;
+//const autoReConnection = true;
 let scrollY = 0;
 
 //Entry point
