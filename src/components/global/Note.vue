@@ -73,7 +73,6 @@ const AndMoreMenu = (e: MouseEvent) => {
       </article>
     </div>
   </div>
-
 </template>
 
 <style module lang="scss">

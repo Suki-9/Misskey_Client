@@ -5,7 +5,8 @@
 /*@import "./theme/light.css";*/
 @import "./theme/dark.css";
 @import "./device/mobile.css";
-/**/
+
+@import "./globalComponent.css";
 
 :root {
   /*color*/
