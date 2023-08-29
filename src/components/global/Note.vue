@@ -88,12 +88,9 @@ const AndMoreMenu = (e: MouseEvent) => {
   max-width: 600px;
 
   padding: 2%;
-  margin: 10px 0 0 0;
 
   border-radius: var(--default-border-radius);
-
-  background-color: var(--secondary-bg-color);
-
+  border: solid 1px var(--primary-border-color);
   .renote {
     display: flex;
     flex-direction: row;
@@ -102,7 +99,7 @@ const AndMoreMenu = (e: MouseEvent) => {
 
     margin: 0 0 2% 0;
 
-    border-bottom: solid 1px var(--secondary-border-color);
+    border-bottom: solid 1px var(--primary-border-color);
     .renoterAvatar {
       height: 0.8em;
       width: 0.8em;
