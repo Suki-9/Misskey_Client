@@ -5,24 +5,23 @@ import { readCookie } from "./cookie";
 import { Emoji } from "./types";
 
 
-export const fetchEmojiIndex = async (
-  host = readCookie("loginHost").unwrap()
+const fetchEmojiIndex = async (
+  host: string,
 ): Promise<Emoji[]> => {
   return await fetch(`https://${host}/api/emojis`)
     .then(response => response.json())
     .then(data => data.emojis);
 };
 
-export const createEmojiIndex = async (
+const createEmojiIndex = async (
   type: string[],
-  host = readCookie("loginHost").unwrap(),
+  host: string,
 ) => {
   const emojis = await fetchEmojiIndex(host);
-
   localStorage.setItem(`${host}_emojis`, JSON.stringify(emojis));
 
   //TODO ここ全て毎回評価が発生するので賢く死体
-  if (type.indexOf("Key") !== -1) { 
+  if (type.indexOf("key") !== -1) {
     localStorage.setItem(`${host}_emojis_key`, JSON.stringify(
       emojis.map(emoji => emoji.name)
     ));
@@ -44,15 +43,10 @@ export const searchEmoji = (
   host = readCookie("loginHost").unwrap()
 ): Result<string, Error> => {
 
-  const localEmojis = localStorage.getItem(`${host}_emojis`);
-
-  if (!localEmojis) createEmojiIndex(["Key"], host);
-
-  const emojis: Emoji[] = JSON.parse(localEmojis!);
-  const index: string = JSON.parse(localStorage.getItem(`${host}_emojis_key`)!);
-
+  const index = readEmojiIndex("key", host);
+  const emojis: Emoji[] = readEmojiIndex(undefined, host);
   if (index.indexOf(name) === -1) return new Err(new Error(name));
-
+  
   return new Ok(emojis[index.indexOf(name)].url);
 };
 
@@ -68,10 +62,14 @@ export const parseEmoji = (text: string) => {
 };
 
 export const readEmojiIndex = (
-  type: string,
+  type?: string,
   host = readCookie("loginHost").unwrap()
 ) => {
-  const localEmojis = localStorage.getItem(`${host}_emojis_${type}`);
-  if (!localEmojis) createEmojiIndex([type], host);
-  return JSON.parse(localEmojis ?? "");
+  let localEmojis = localStorage.getItem(`${host}_emojis${type ? "_" : ""}${type ?? ""}`);
+
+  if (!localEmojis) {
+    createEmojiIndex([type ?? ""], host);
+    localEmojis = localStorage.getItem(`${host}_emojis${type ? "_" : ""}${type ?? ""}`);
+  }
+  return JSON.parse(localEmojis ?? "{}");
 }
