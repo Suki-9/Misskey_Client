@@ -14,7 +14,7 @@ export const fetchEmojiIndex = async (
 };
 
 export const createEmojiIndex = async (
-  type: string[],
+  type: string[] = [],
   host = readCookie("loginHost").unwrap(),
 ) => {
   const emojis = await fetchEmojiIndex(host);
@@ -66,10 +66,10 @@ export const parseEmoji = (text: string) => {
 };
 
 export const readEmojiIndex = (
-  type: string,
+  type?: string,
   host = readCookie("loginHost").unwrap()
 ) => {
-  const localEmojis = localStorage.getItem(`${host}_emojis_${type}`);
+  const localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
   if (!localEmojis) createEmojiIndex([type], host);
   return JSON.parse(localEmojis ?? "");
 }

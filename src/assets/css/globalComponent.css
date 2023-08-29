@@ -20,6 +20,7 @@
   background-color: var(--primary-bg-color);
   border-radius: var(--default-border-radius);
 }
+
 .emoji {
   height: 1.3em;
   margin-right: 5px;
