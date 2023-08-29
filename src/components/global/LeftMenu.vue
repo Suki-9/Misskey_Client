@@ -6,8 +6,6 @@ import { parseEmoji } from "../../scripts/emoji";
 
 
 const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
-console.log(userData)
-
 </script>
 
 
