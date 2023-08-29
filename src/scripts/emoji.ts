@@ -44,12 +44,10 @@ export const searchEmoji = (
   host = readCookie("loginHost").unwrap()
 ): Result<string, Error> => {
 
-  const localEmojis = localStorage.getItem(`${host}_emojis`);
-
-  if (!localEmojis) createEmojiIndex(["Key"], host);
-
-  const emojis: Emoji[] = JSON.parse(localEmojis!);
+  const emojis: Emoji[] = JSON.parse(localStorage.getItem(`${host}_emojis`)!);
   const index: string = JSON.parse(localStorage.getItem(`${host}_emojis_key`)!);
+
+  if (!emojis || !index) createEmojiIndex(["Key"], host);
 
   if (index.indexOf(name) === -1) return new Err(new Error(name));
 
