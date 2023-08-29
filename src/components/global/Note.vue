@@ -84,20 +84,14 @@ const AndMoreMenu = (e: MouseEvent) => {
   display: flex;
   flex-direction: column;
 
-  min-width: 300px;
-  max-width: 600px;
-
-  padding: 2%;
-
-  border-radius: var(--default-border-radius);
   border: solid 1px var(--primary-border-color);
   .renote {
     display: flex;
     flex-direction: row;
 
-    width: 100%;
+    width: 96%;
 
-    margin: 0 0 2% 0;
+    padding: 1% 2%;
 
     border-bottom: solid 1px var(--primary-border-color);
     .renoterAvatar {
@@ -111,10 +105,11 @@ const AndMoreMenu = (e: MouseEvent) => {
     .renoterName {
       display: flex;
       flex-direction: row;
+      align-items: center;
 
       width: 90%;
 
-      margin: 0 2% 0 2%;
+      margin: 0 2%;
 
       font-size: 60%;
 
@@ -131,17 +126,20 @@ const AndMoreMenu = (e: MouseEvent) => {
     display: flex;
     flex-direction: row;
 
+    .avatar { margin: 2%; }
     article {
       display: flex;
       flex-direction: column;
 
       width: calc(96% - 2em);
 
-      padding: 0 2% 2% 2%;
+      padding: 2% 2% 2% 0;
 
       header {
         display: flex;
         flex-direction: row;
+
+        margin-bottom: 2%;
         .userName {
           display: flex;
           flex-direction: row;

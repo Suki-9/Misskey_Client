@@ -50,8 +50,8 @@ const post = () => {
 @import "../../assets/css/animation.css";
 .postButton {
   position: fixed;
-  bottom: 10%;
-  right: 5%;
+  bottom: 12.5vh;
+  right: 7.5vw;
 
   border-radius: var(--default-border-radius);
 

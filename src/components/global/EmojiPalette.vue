@@ -24,7 +24,11 @@ Object.keys(emojiCategorys).forEach(category => {
       </a>
       <div v-if="showCategorys[category]" :class="$style.emojiBox">
         <a v-for="emoji in emojiCategorys[category]">
-          <img :src="searchEmoji(emoji).value" :class="$style.emoji"/>
+          <img 
+            :src="
+              //@ts-ignore
+              searchEmoji(emoji).value" 
+            :class="$style.emoji"/>
         </a>
       </div>
     </div>
