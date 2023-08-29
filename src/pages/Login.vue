@@ -1,6 +1,7 @@
 <script setup lang="ts">
 //TS Module
 //Vue Component
+import TextInput from "../components/Login/TextInput.vue";
 </script>
 
 <template>
@@ -11,10 +12,10 @@
       <div :class="$style.tileContainer">
         <img :class="$style.avatar"/>
         <a :class="$style.button">Use MiAuth</a>
-        <a :class="$style.button">Password</a>
+        <a :class="$style.button">Use Token</a>
       </div>
-      <input :class="$style.form" placeholder="UserName"/>
-      <input :class="$style.form" placeholder="UserName"/>
+      <TextInput :placeholder="'UserName'"/>
+      <TextInput :placeholder="'Password'"/>
       <p :class="$style.attentionText">パスワードを忘れた場合</p>
       <div :class="$style.submitButtonBox">
         <a :class="$style.submitButton">Login</a>
@@ -22,12 +23,12 @@
     </div>
     <div :class="$style.tile">
       <p :class="$style.tileHead">他のサーバーにログインする<span></span></p>
-      <input :class="$style.form" placeholder="Host Name"/>
+      <TextInput :placeholder="'Host Name'"/>
     </div>
     <div :class="$style.tile">
       <p :class="$style.tileHead">新規登録<span></span></p>
-      <input :class="$style.form" placeholder="UserName"/>
-      <input :class="$style.form" placeholder="UserName"/>
+      <TextInput :placeholder="'UserName'"/>
+      <TextInput :placeholder="'Password'"/>
     </div>
   </div>
 </template>
@@ -106,21 +107,6 @@
         border-radius: var(--default-border-radius);
         border: solid 1px var(--primary-border-color);
       }
-    }
-    .form {
-      width: calc(100% - 6.25vh);
-      height: 6.25vh;
-
-      margin: 0 0 1.25vh 0;
-      padding: 0 3.125vh;
-  
-      background-color: var(--primary-bg-color);
-
-      color: var(--primary-text-color);
-      font-size: 70%;
-
-      border-radius: 3.125vh;
-      border: solid 1px var(--primary-border-color);
     }
     .attentionText {
       margin: 0 0 1.25vh 0;
