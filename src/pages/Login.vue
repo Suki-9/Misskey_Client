@@ -72,7 +72,7 @@ const MiAuth = () => {
 </template>
 
 <style module lang="scss">
-.root {//1.25 //2.5
+.root {
   display: flex;
   flex-direction: column;
 
