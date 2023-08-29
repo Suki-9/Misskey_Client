@@ -24,8 +24,6 @@ const emit = defineEmits<{ (e: "switch"): void }>();
   width: calc(var(--component-size) * 0.6);
   height: calc(var(--component-size) * 0.6);
 
-  margin: calc(var(--component-size) * 0.2);
-
   border-radius: 50%;
 
   & span {
