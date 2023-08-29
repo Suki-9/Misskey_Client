@@ -1,8 +1,12 @@
 :root {
   /*background color*/
-  --primary-bg-color: rgb(10, 10, 10);
-  --secondary-bg-color: rgb(20, 20, 20);
-  --tertiary-bg-color: rgb(26, 26, 26);
+  --primary-bg-color: #212121;
+
+  --secondary-bg-color: #616161;
+  --secondary-bg-color-invalid: #424242;
+
+  --tertiary-bg-color: #9e9e9e;
+  --tertiary-bg-color-invalid: #757575;
 
   /*button color*/
   --true-button-color: rgb(230, 230, 230);
