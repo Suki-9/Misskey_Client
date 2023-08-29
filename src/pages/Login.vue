@@ -3,7 +3,7 @@
 import { HamburgerMenuList } from "../scripts/types";
 
 //Vue Component
-import HeadBar from "../components/HeadBar.vue";
+import HeadBar from "../components/Login/HeadBar.vue";
 
 const listData: HamburgerMenuList = [
   {
@@ -25,5 +25,5 @@ const listData: HamburgerMenuList = [
     }でログイン`"
     :listData="listData"
   />
-  <router-view />
+<router-view />
 </template>

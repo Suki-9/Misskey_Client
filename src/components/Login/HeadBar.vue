@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import { HamburgerMenuList } from "../scripts/types";
+import { HamburgerMenuList } from "../../scripts/types";
 
-import HamburgerMenuButton from "./HamburgerMenuButton.vue";
-import XHamburgerMenuList from "./HamburgerMenuList.vue";
+import HamburgerMenuButton from "../HamburgerMenuButton.vue";
+import XHamburgerMenuList from "../HamburgerMenuList.vue";
 
 defineProps<{ title?: string; listData: HamburgerMenuList }>();
 
