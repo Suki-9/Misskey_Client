@@ -37,9 +37,8 @@ const reload = () => {
   bottom: 0;
   left: 0;
 
-  width: 96vw;
-
-  padding: 2%;
+  width: 100vw;
+  height: 8.75vh;
 
   border-top: solid 1px;
 
