@@ -34,18 +34,6 @@ window.addEventListener("scroll", () => {
     getNote(props.hostName, props.channel, maxIndexSize, notes.value[notes.value.length-1].id)
   }
 });
-
-//VirtualScroller
-//const BeforeNote = ref<ModifiedNote>()
-//const NoteIndexSize = ref<number>(0)
-
-//let onAddNote: boolean = false
-//onUpdated(() => {
-//  if (onAddNote) {
-//    NoteIndexSize.value += document.getElementById("BeforeNote")?.getBoundingClientRect().height ?? 0
-//    onAddNote = !onAddNote
-//  }
-//})
 </script>
 
 <script lang="ts">
@@ -58,7 +46,7 @@ let maxIndexSize = 10;
 let scrollY = 0
 
 
-export const addNoteAfter = (note: ModifiedNote) => { 
+export const addNoteAfter = (note: ModifiedNote) => {
   if (maxIndexSize < notes.value.length) notes.value.pop();
   scrollY < 100
     ? notes.value.unshift(note)
@@ -73,7 +61,7 @@ export const addNoteBefore = (note: ModifiedNote) => {
 
 <template>
   <div :class="$style.root">
-    <Note v-for="note in notes" :note="note" />
+    <Note :class="$style.note" v-for="note in notes" :note="note" />
   </div>
 </template>
 
@@ -83,7 +71,9 @@ export const addNoteBefore = (note: ModifiedNote) => {
   display: flex;
   flex-direction: column;
 
-  min-width: 300px;
-  max-width: 600px;
+  margin: 0 2.5vw 0 2.5vw;
+  .note {
+    margin: 1vh 0;
+  }
 }
 </style>
