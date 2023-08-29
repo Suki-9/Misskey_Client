@@ -1,6 +1,6 @@
 :root {
   /*background color*/
-  --primary-bg-color: rgb(0, 0, 0);
+  --primary-bg-color: rgb(18, 18, 18);
 
   --secondary-bg-color: rgb(15, 15, 30);
   --secondary-bg-color-invalid: rgb(15, 15, 15);
@@ -9,14 +9,13 @@
   --tertiary-bg-color-invalid: rgb(30, 30, 30);
 
   /*button color*/
-  --true-button-color: rgb(230, 230, 230);
+  --true-button-color: rgb(255, 255, 255);
 
   /*border color*/
-  --primary-border-color: rgb(160, 160, 160);
-  --secondary-border-color: rgb(150, 150, 150);
+  --primary-border-color: rgb(255, 255, 255);
 
   /*text color*/
-  --primary-text-color: rgb(230, 230, 230);
+  --primary-text-color: rgb(255, 255, 255);
   --secondary-text-color: rgb(165, 165, 165);
 
   /*shadow color*/
