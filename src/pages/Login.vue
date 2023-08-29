@@ -107,9 +107,6 @@ const MiAuth = () => {
       font-size: 70%;
 
       white-space: nowrap;
-
-      background-clip: var(--primary-bg-color);
-
       span {
         padding: 1px 0 0 0;
 
