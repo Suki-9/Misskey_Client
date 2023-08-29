@@ -25,5 +25,8 @@ const login = (host: string) => {
 <style module lang="scss">
 .input {
   margin-top: 5%;
+  width: 90%;
+
+  margin: 5%;
 }
 </style>

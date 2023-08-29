@@ -3,7 +3,6 @@
 import { ref } from "vue";
 import { getUserData } from "../../scripts/API/userdata"
 import { useRouter } from "vue-router";
-const router = useRouter();
 
 //vue Component
 import FormInput from "../global/FormInput.vue";
@@ -18,8 +17,9 @@ const input = (text: string) => {
 const login = (text: string) => {
   document.cookie = `${host.value}_token=${text}; path=/`;
   document.cookie = `loginHost=${host.value}; path=/`;
-  getUserData(host.value)
-  router.push("/");
+
+  getUserData(host.value);
+  useRouter().push("/");
 };
 </script>
 
@@ -36,5 +36,10 @@ const login = (text: string) => {
 <style module lang="scss">
 .input {
   margin-top: 5%;
+
+  margin-top: 5%;
+  width: 90%;
+
+  margin: 5%;
 }
 </style>
