@@ -1,6 +1,11 @@
 <script setup lang="ts">
 //TS Module
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { genUuid } from "../scripts/UUID";
+import { getUserData } from "../scripts/API/userdata";
+const router = useRouter()
+
 
 //Vue Component
 import TextInput from "../components/Login/TextInput.vue";
@@ -8,10 +13,31 @@ import TextInput from "../components/Login/TextInput.vue";
 
 const userName = ref<string>("");
 const password = ref<string>("");
+
 const hostName = ref<string>("");
 
-const Login = () => {
+const token = ref<string>("");
+const avatarUrl = ref<string>("");
 
+const useToken = ref<boolean>(false)
+
+const Login = () => { 
+  if (useToken.value) {
+    document.cookie = `${hostName.value}_token=${token.value}; path=/`;
+    document.cookie = `loginHost=${hostName.value}; path=/`;
+
+    getUserData(hostName.value);
+    router.push("/");
+  }
+}
+
+const MiAuth = () => {
+  const callback = "http:/localhost:4000/callback";
+  const sessionId = genUuid();
+  const miAuthUrl = `https://${hostName.value}/miauth/${sessionId}?name=Mive&callback=${callback}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
+
+  document.cookie = `loginHost=${hostName.value}; path=/`;
+  window.location.href = miAuthUrl;
 }
 </script>
 
@@ -21,13 +47,14 @@ const Login = () => {
     <div :class="$style.tile">
       <p :class="$style.tileHead">ログイン<span></span></p>
       <div :class="$style.tileContainer">
-        <img :class="$style.avatar" alt="avatar" />
-        <a :class="$style.button">Use MiAuth</a>
-        <a :class="$style.button">Use Token</a>
+        <img :class="$style.avatar" :src="avatarUrl"/>
+        <a :class="$style.button" @click="MiAuth">Use MiAuth</a>
+        <a :class="$style.button" @click="useToken = !useToken">{{ useToken ? "Use PassWord" : "Use Token" }}</a>
       </div>
-      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e}"/>
-      <TextInput :placeholder="'PassWord'" @receive="(e) => { password = e}"/>
-      <p :class="$style.attentionText">パスワードを忘れた場合</p>
+      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e }" v-show="!useToken"/>
+      <TextInput :placeholder="'PassWord'" @receive="(e) => { password = e }" v-show="!useToken"/>
+      <TextInput :placeholder="'Your Token'" @receive="(e) => { token = e }"  v-show="useToken"/>
+      <p :class="$style.attentionText" v-show="!useToken">パスワードを忘れた場合</p>
       <div :class="$style.submitButtonBox">
         <a :class="$style.submitButton" @click="Login">Login</a>
       </div>
@@ -36,10 +63,10 @@ const Login = () => {
       <p :class="$style.tileHead">他のサーバーにログインする<span></span></p>
       <TextInput :placeholder="'Host Name'" @receive="(e) => { hostName = e }"/>
     </div>
-    <div :class="$style.tile">
+    <div :class="$style.tile" v-if="false">
       <p :class="$style.tileHead">新規登録<span></span></p>
-      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e}"/>
-      <TextInput :placeholder="'Password'" @receive="(e) => { password = e}"/>
+      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e }"/>
+      <TextInput :placeholder="'Password'" @receive="(e) => { password = e }"/>
     </div>
   </div>
 </template>
@@ -103,6 +130,8 @@ const Login = () => {
       .avatar {
         height: 7.5vh;
         width: 7.5vh;
+
+        font-size: 70%;
 
         border-radius: 50%;
         border: solid 1px var(--primary-border-color);
