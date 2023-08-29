@@ -1,7 +1,18 @@
 <script setup lang="ts">
 //TS Module
+import { ref } from "vue";
+
 //Vue Component
 import TextInput from "../components/Login/TextInput.vue";
+
+
+const userName = ref<string>("");
+const password = ref<string>("");
+const hostName = ref<string>("");
+
+const Login = () => {
+
+}
 </script>
 
 <template>
@@ -10,25 +21,25 @@ import TextInput from "../components/Login/TextInput.vue";
     <div :class="$style.tile">
       <p :class="$style.tileHead">ログイン<span></span></p>
       <div :class="$style.tileContainer">
-        <img :class="$style.avatar"/>
+        <img :class="$style.avatar" alt="avatar" />
         <a :class="$style.button">Use MiAuth</a>
         <a :class="$style.button">Use Token</a>
       </div>
-      <TextInput :placeholder="'UserName'"/>
-      <TextInput :placeholder="'Password'"/>
+      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e}"/>
+      <TextInput :placeholder="'PassWord'" @receive="(e) => { password = e}"/>
       <p :class="$style.attentionText">パスワードを忘れた場合</p>
       <div :class="$style.submitButtonBox">
-        <a :class="$style.submitButton">Login</a>
+        <a :class="$style.submitButton" @click="Login">Login</a>
       </div>
     </div>
     <div :class="$style.tile">
       <p :class="$style.tileHead">他のサーバーにログインする<span></span></p>
-      <TextInput :placeholder="'Host Name'"/>
+      <TextInput :placeholder="'Host Name'" @receive="(e) => { hostName = e }"/>
     </div>
     <div :class="$style.tile">
       <p :class="$style.tileHead">新規登録<span></span></p>
-      <TextInput :placeholder="'UserName'"/>
-      <TextInput :placeholder="'Password'"/>
+      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e}"/>
+      <TextInput :placeholder="'Password'" @receive="(e) => { password = e}"/>
     </div>
   </div>
 </template>
