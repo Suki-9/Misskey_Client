@@ -5,8 +5,6 @@ import { ModifiedNote, Note, Reaction, User } from "../types";
 import { parseEmoji, searchEmoji } from "../emoji";
 import { readCookie } from "../cookie";
 
-//vue Component function
-import { addNoteBefore } from "../../components/global/TimeLine.vue";
 
 const htmlTextEscape = (text: string): string => {
   return text
@@ -41,7 +39,7 @@ export const getNote = async (
     .then(response => response.json())
     .then(data => data);
 
-  res.map(note => addNoteBefore(noteGen(note)));
+  return res.map(note => noteGen(note));
 };
 
 export const noteGen = (noteData: Note): ModifiedNote => {

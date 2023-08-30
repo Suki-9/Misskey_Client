@@ -1,26 +1,17 @@
 //TS module
 import { genUuid } from "../UUID";
 import { readCookie } from "../cookie";
-import { noteGen } from "./note";
-//import { notificationGen } from "./notification";
-
-//vue Component functions
-import { addNoteAfter } from "../../components/global/TimeLine.vue";
-//import { addNotificationsAfter } from  "../../pages/Notification.vue";
 
 
 export const streamTimeLine = (
     host: string,
     channel: string = "home",
-    autoReConnection: boolean = false
 ) => {
   const token = readCookie(`${host}_token`).unwrap();
   const uuid = genUuid();
   channel = channel  ?? "home"
 
-  const timeLine = new WebSocket(
-    `wss://${host}/streaming?i=${token}`
-  );
+  const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
 
   timeLine.addEventListener("open", () => {
     timeLine.send(
@@ -36,16 +27,7 @@ export const streamTimeLine = (
     console.log("Connection to the TL was successful!");
   });
 
-  timeLine.addEventListener("message", event => {
-    console.log("GetNote!");
-    addNoteAfter(noteGen(JSON.parse(event.data).body.body))
-  });
-
-  timeLine.addEventListener("close", () => {
-    console.log("Connection to TL has been disconnected...");
-    streamTimeLine(host, channel, autoReConnection);
-    return;
-  });
+  return timeLine;
 }
 
 export const streamMain = (

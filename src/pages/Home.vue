@@ -25,7 +25,10 @@ if (loginHost.isErr()) {
 </script>
 
 <template>
-  <TimeLine v-if="loginHost.isOk()" :hostName="loginHost.value"/>
+  <TimeLine 
+    v-if="loginHost.isOk()" 
+    :hostName="loginHost.value"
+    :autoReConnection="true"/>
   <PopUpUIs />
   <BottomBar />
 </template>
