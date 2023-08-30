@@ -37,7 +37,7 @@ window.addEventListener("scroll", () => {
 </script>
 
 <script lang="ts">
-const notes = ref < ModifiedNote[] > ([]);
+const notes = ref <ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
 
 const autoReConnection = true;

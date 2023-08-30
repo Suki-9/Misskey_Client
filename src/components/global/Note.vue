@@ -53,25 +53,34 @@ const AndMoreMenu = (e: MouseEvent) => {
           </p>
         </header>
         <div :class="$style.text" v-html="note.text"></div>
-        <div :class="$style.media">
-          <img v-for="file in note.files" :src="file.thumbnailUrl" />
+        <div :class="$style.files">
+          <div 
+            v-for="file in note.files"
+            :class="$style.media_img">
+            <img :src="file.thumbnailUrl" v-show="!file.isSensitive"/>
+            <div 
+              :class="$style.sensitiveAlert" 
+              v-show="file.isSensitive"
+              @click="file.isSensitive = !file.isSensitive">
+              <p>センシティブな画像</p>
+            </div>
+          </div>
         </div>
         <div :class="$style.reactions">
           <p v-for="reaction in note.reactions" :class="$style.reaction">
             <span
               :style="reaction.link && `content: url(${reaction.link})`"
-              :class="$style.emoji"
-            >
+              :class="$style.emoji">
               {{ reaction.name }}
             </span>
             <span> {{ reaction.count }}</span>
           </p>
         </div>
         <footer>
-          <i class="icon-comment"></i>
-          <i class="icon-retweet"></i>
-          <i class="icon-plus"  @click="Show_emojiPalette"></i>
-          <i class="icon-dot-3" @click="AndMoreMenu"></i>
+          <i class="icon-comment" alt=""></i>
+          <i class="icon-retweet" alt="renote"></i>
+          <i class="icon-plus"    alr="reaction" @click="Show_emojiPalette"></i>
+          <i class="icon-dot-3"   alt="more"     @click="AndMoreMenu"></i>
         </footer>
       </article>
     </div>
@@ -154,27 +163,37 @@ const AndMoreMenu = (e: MouseEvent) => {
           }
         }
       }
-
       .text {
         overflow: hidden;
         font-size: 60%;
       }
-      .media {
+      .files {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
 
         width: 100%;
 
-        img {
+        .media_img {
           width: 98%;
 
           margin: 1%;
 
-          object-fit: cover;
-          aspect-ratio: 16 / 9;
+          img,.sensitiveAlert {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-          border-radius: var(--default-border-radius);
+            width: 100%;
+
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
+
+            font-size: 70%;
+
+            border: solid 1px var(--primary-border-color);
+            border-radius: var(--default-border-radius);
+          }
         }
       }
       .reactions {

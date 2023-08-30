@@ -42,6 +42,7 @@ export type File = {
   thumbnailUrl: string;
   createdAt: string;
   url: string;
+  isSensitive: boolean;
 };
 
 export type NotificationType =
