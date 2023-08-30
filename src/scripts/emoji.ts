@@ -41,16 +41,8 @@ export const searchEmoji = (
   host = readCookie("loginHost").unwrap()
 ): Result<string, Error> => {
 
-<<<<<<< HEAD
   const index = readEmojiIndex("key", host);
   const emojis: Emoji[] = readEmojiIndex(undefined, host);
-=======
-  const emojis: Emoji[] = JSON.parse(localStorage.getItem(`${host}_emojis`)!);
-  const index: string = JSON.parse(localStorage.getItem(`${host}_emojis_key`)!);
-
-  if (!emojis || !index) createEmojiIndex(["Key"], host);
-
->>>>>>> 8214e70383381e97ec256e1c2bcf3545abc8407f
   if (index.indexOf(name) === -1) return new Err(new Error(name));
   
   return new Ok(emojis[index.indexOf(name)].url);
@@ -71,7 +63,6 @@ export const readEmojiIndex = (
   type?: string,
   host = readCookie("loginHost").unwrap()
 ) => {
-<<<<<<< HEAD
   let localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
 
   if (!localEmojis) {
@@ -79,9 +70,4 @@ export const readEmojiIndex = (
     localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
   }
   return JSON.parse(localEmojis ?? "{}");
-=======
-  const localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
-  if (!localEmojis) createEmojiIndex([type], host);
-  return JSON.parse(localEmojis ?? "");
->>>>>>> 8214e70383381e97ec256e1c2bcf3545abc8407f
 }
