@@ -17,25 +17,6 @@ const props = defineProps<{
 }>();
 
 const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
-
-const AndMoreMenu = (e: MouseEvent) => {
-  const target = document.getElementById(`${props.note.id}_PopUp`)
-  if (target) {
-    target.style.left = `${e.pageX}px`
-    target.style.top = `${e.pageY}px`
-  }
-  const Listcontent = [
-    { text: "内容をコピー",   action: "", },
-    { text: "リンクをコピー", action: "", },
-    { text: "",               action: "", },
-    { text: "クリップに追加", action: "", },
-    { text: "ピン留め",       action: "", },
-  ]
-
-  if (props.note.user.id == userData.id) Listcontent.push(
-    { text: "削除",         action: "", },
-    { text: "削除して編集", action: "", })
-}
 </script>
 
 <template>
@@ -79,7 +60,7 @@ const AndMoreMenu = (e: MouseEvent) => {
           <i class="icon-comment" alt=""></i>
           <i class="icon-retweet" alt="renote"></i>
           <i class="icon-plus"    alr="reaction" @click="Show_emojiPalette"></i>
-          <i class="icon-dot-3"   alt="more"     @click="AndMoreMenu"></i>
+          <i class="icon-dot-3"   alt="more"     @click=""></i>
         </footer>
       </article>
     </div>
@@ -197,8 +178,5 @@ const AndMoreMenu = (e: MouseEvent) => {
       }
     }
   }
-}
-.PopUpAndMoreMenu {
-  position: fixed;
 }
 </style>

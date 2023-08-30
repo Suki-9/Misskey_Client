@@ -3,7 +3,6 @@
 import { ref } from "vue";
 
 //vue Component
-import PopUpMenuList from "../global/PopUpMenuList.vue";
 import Post from "../global/Post.vue";
 import LeftMenu from "../global/LeftMenu.vue";
 import EmojiPalette from "../global/EmojiPalette.vue";
@@ -38,7 +37,6 @@ export const popUpMenuList = (
 
 <template>
     <LeftMenu v-show="show.LeftMenu" :class="$style.LeftMenu"/>
-    <PopUpMenuList :Listcontent="PopUpMenuList_Listcontent"/>
     <Post />
     <EmojiPalette v-show="show.emojiPalette" :class="$style.emojiPalette"/>
 </template>
