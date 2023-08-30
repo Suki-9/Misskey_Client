@@ -1,8 +1,4 @@
 <script setup lang="ts">
-//TS Module
-import { readCookie } from "../../scripts/cookie";
-import { getUserData } from "../../scripts/API/userdata";
-
 //Type
 import { ModifiedNote } from "../../scripts/types";
 
@@ -12,12 +8,12 @@ import NoteImage from "./NoteImage.vue";
 //Vue Component function
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
 
-const props = defineProps<{
+
+defineProps<{
   note: ModifiedNote;
 }>();
-
-const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
 </script>
+
 
 <template>
   <div :class="$style.root">
@@ -67,6 +63,7 @@ const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
   </div>
 </template>
 
+
 <style module lang="scss">
 @import "../../assets/css/globalComponent.css";
 .root {
@@ -101,7 +98,6 @@ const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
       margin: 0 2%;
 
       font-size: 60%;
-
       overflow: hidden;
       white-space: nowrap;
 
@@ -163,6 +159,8 @@ const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
 
         .reaction {
           margin: 3px 3px 3px 0;
+
+          background-color: var(--secondary-bg-color);
         }
       }
       footer {
@@ -173,7 +171,6 @@ const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
 
         width: 60%;
 
-        font-weight: 300;
         font-size: 70%;
       }
     }
