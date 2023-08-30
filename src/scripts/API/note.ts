@@ -89,10 +89,19 @@ export const noteGen = (noteData: Note): ModifiedNote => {
   };
 };
 
+export const postReNote = (
+  noteId: string,
+  host: string = readCookie("loginHost").unwrap(),
+  token: string = readCookie(`${host}_token`).unwrap(),
+) => {
+  postNote(host, token, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, noteId);
+};
+
 export const postNote = async (
   host: string = readCookie("loginHost").unwrap(),
   token: string = readCookie(`${host}_token`).unwrap(),
   visibility: string = "public",
+  visibleUserIds?: string[],
   text?: string,
   cw?: string,
   localOnly: boolean = false,
@@ -114,6 +123,7 @@ export const postNote = async (
       body: JSON.stringify({
         i: token,
         visibility: visibility,
+        //visibleUserIds: (visibility == "specified") ? visibleUserIds : null,
         text: text,
         cw: cw,
         localOnly: localOnly,
@@ -129,5 +139,4 @@ export const postNote = async (
   )
     .then(response => response.json())
     .then(data => data);
-  console.log(await res)
 };

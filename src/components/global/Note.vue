@@ -6,7 +6,8 @@ import { ModifiedNote } from "../../scripts/types";
 import NoteImage from "./NoteImage.vue";
 
 //Vue Component function
-import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
+import { Show_emojiPalette, Show_reNoteMenu } from "../Home/PopUpUIs.vue";
+
 
 
 defineProps<{
@@ -54,7 +55,7 @@ defineProps<{
         </div>
         <footer>
           <i class="icon-comment" alt=""></i>
-          <i class="icon-retweet" alt="renote"></i>
+          <i class="icon-retweet" alt="renote"   @click="Show_reNoteMenu(note.id)"></i>
           <i class="icon-plus"    alr="reaction" @click="Show_emojiPalette"></i>
           <i class="icon-dot-3"   alt="more"     @click=""></i>
         </footer>
