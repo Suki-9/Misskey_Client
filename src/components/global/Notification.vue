@@ -47,15 +47,15 @@ defineProps<{
   padding: 2%;
   margin: 2%;
 
-  background-color: var(--tertiary-bg-color);
-
   border-radius: var(--default-border-radius);
+  border: solid 1px var(--primary-border-color);
 
   .head {
     font-size: 80%;
 
     .reaction {
       margin: 0 0 2% 0;
+      border: solid 1px var(--primary-border-color);
     }
   }
 
@@ -63,10 +63,9 @@ defineProps<{
     display: flex;
     flex-direction: row;
 
-    background-color: var(--tertiary-bg-color);
-
     .avatar {
       font-size: 80%;
+      border: solid 1px var(--primary-border-color);
     }
 
     div {
@@ -95,7 +94,6 @@ defineProps<{
 
       .text::before,.text::after { 
         content: "”" ;
-        font-size: 20%;
       }
     }
   }
