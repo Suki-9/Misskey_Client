@@ -21,11 +21,11 @@ const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
             <p :class="$style.userName">@{{ userData.username }}</p>
             <div :class="$style.followCounter">
                 <p>
-                    <span>{{ userData.followersCount }}</span>
+                    <span>{{ userData.followingCount }}</span>
                     <span>フォロー</span>
                 </p>
                 <p>
-                    <span>{{ userData.followingCount }}</span>
+                    <span>{{ userData.followersCount }}</span>
                     <span>フォロワー</span>
                 </p>
             </div>
