@@ -3,6 +3,7 @@
 import { ModifiedNote } from "../../scripts/types";
 
 //TS Module
+import { ref } from "vue";
 import { readCookie } from "../../scripts/cookie";
 import { getUserData } from "../../scripts/API/userdata";
 
@@ -12,7 +13,9 @@ import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
 const props = defineProps<{
   note: ModifiedNote;
 }>();
+
 const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
+const isPopUpImage = ref<boolean>(false)
 
 
 const AndMoreMenu = (e: MouseEvent) => {
@@ -57,8 +60,17 @@ const AndMoreMenu = (e: MouseEvent) => {
           <div 
             v-for="file in note.files"
             :class="$style.media_img">
-            <img :src="file.thumbnailUrl" v-show="!file.isSensitive"/>
-            <div 
+            <img 
+              :src="file.thumbnailUrl" 
+              v-show="!file.isSensitive"
+              @click="isPopUpImage = true"/>
+            <div
+              v-if="isPopUpImage"
+              :class="$style.popUpImage"
+              @click="isPopUpImage = false">
+              <img :src="file.url"/>
+            </div>
+            <div
               :class="$style.sensitiveAlert" 
               v-show="file.isSensitive"
               @click="file.isSensitive = !file.isSensitive">
@@ -193,6 +205,25 @@ const AndMoreMenu = (e: MouseEvent) => {
 
             border: solid 1px var(--primary-border-color);
             border-radius: var(--default-border-radius);
+          }
+          .popUpImage {
+            position: fixed;
+            top: 0;
+            right: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            background-color: rgba(0, 0, 0, 0.5);
+            img {
+              position: fixed;
+              top: 50%;
+              right: 0;
+
+              transform: translate(0, -50%);
+
+              width: 100%;
+            }
           }
         }
       }
