@@ -22,6 +22,11 @@ const router = createRouter({
       name: "Notification",
       component: () => import("../pages/Notifications.vue"),
     },
+    {
+      path: "/directmessage",
+      name: "DirectMessage",
+      component: () => import("../pages/DirectMessage.vue"),
+    },
   ],
 });
 
