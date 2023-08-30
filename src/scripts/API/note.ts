@@ -8,6 +8,13 @@ import { readCookie } from "../cookie";
 //vue Component function
 import { addNoteBefore } from "../../components/global/TimeLine.vue";
 
+const htmlTextEscape = (text: string): string => {
+  return text
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("&", "&amp;")
+}
 
 export const getNote = async (
   host: string,
@@ -72,11 +79,11 @@ export const noteGen = (noteData: Note): ModifiedNote => {
   return {
     id: note.id,
     createdAt: note.createdAt,
-    text: note.text && parseEmoji(note.text),
+    text: note.text && parseEmoji(htmlTextEscape(note.text)),
     cw: note.cw,
     user: {
       id: note.user.id,
-      name: parseEmoji(note.user.name),
+      name: parseEmoji(htmlTextEscape(note.user.name)),
       username: note.user.username,
       avatarUrl: note.user.avatarUrl,
     },
