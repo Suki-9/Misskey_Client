@@ -1,11 +1,13 @@
 <script setup lang="ts">
+//TS Module
+import { readCookie } from "../../scripts/cookie";
+import { getUserData } from "../../scripts/API/userdata";
+
 //Type
 import { ModifiedNote } from "../../scripts/types";
 
-//TS Module
-import { ref } from "vue";
-import { readCookie } from "../../scripts/cookie";
-import { getUserData } from "../../scripts/API/userdata";
+//Vue Component
+import NoteImage from "./NoteImage.vue";
 
 //Vue Component function
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
@@ -15,8 +17,6 @@ const props = defineProps<{
 }>();
 
 const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
-const isPopUpImage = ref<boolean>(false)
-
 
 const AndMoreMenu = (e: MouseEvent) => {
   const target = document.getElementById(`${props.note.id}_PopUp`)
@@ -57,26 +57,13 @@ const AndMoreMenu = (e: MouseEvent) => {
         </header>
         <div :class="$style.text" v-html="note.text"></div>
         <div :class="$style.files">
-          <div 
+          <NoteImage
             v-for="file in note.files"
-            :class="$style.media_img">
-            <img 
-              :src="file.thumbnailUrl" 
-              v-show="!file.isSensitive"
-              @click="isPopUpImage = true"/>
-            <div
-              v-if="isPopUpImage"
-              :class="$style.popUpImage"
-              @click="isPopUpImage = false">
-              <img :src="file.url"/>
-            </div>
-            <div
-              :class="$style.sensitiveAlert" 
-              v-show="file.isSensitive"
-              @click="file.isSensitive = !file.isSensitive">
-              <p>センシティブな画像</p>
-            </div>
-          </div>
+            :thumbnailUrl="file.thumbnailUrl"
+            :url="file.url"
+            :isSensitive="file.isSensitive"
+            :isActive="false"
+          />
         </div>
         <div :class="$style.reactions">
           <p v-for="reaction in note.reactions" :class="$style.reaction">
@@ -185,47 +172,6 @@ const AndMoreMenu = (e: MouseEvent) => {
         flex-direction: row;
 
         width: 100%;
-
-        .media_img {
-          width: 98%;
-
-          margin: 1%;
-
-          img,.sensitiveAlert {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            width: 100%;
-
-            object-fit: cover;
-            aspect-ratio: 16 / 9;
-
-            font-size: 70%;
-
-            border: solid 1px var(--primary-border-color);
-            border-radius: var(--default-border-radius);
-          }
-          .popUpImage {
-            position: fixed;
-            top: 0;
-            right: 0;
-
-            width: 100vw;
-            height: 100vh;
-
-            background-color: rgba(0, 0, 0, 0.5);
-            img {
-              position: fixed;
-              top: 50%;
-              right: 0;
-
-              transform: translate(0, -50%);
-
-              width: 100%;
-            }
-          }
-        }
       }
       .reactions {
         display: flex;
