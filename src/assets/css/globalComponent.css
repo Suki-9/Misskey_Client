@@ -1,10 +1,11 @@
 .avatar {
-  height: 6.25vh;
-  width: 6.25vh;
+  height: calc(6.25vh - 2px);
+  width: calc(6.25vh - 2px);
 
   object-fit: cover;
 
   border-radius: 0.4em;
+  border: solid 1px var(--primary-border-color);
 }
 
 .reaction {
