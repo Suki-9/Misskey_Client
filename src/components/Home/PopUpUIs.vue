@@ -83,7 +83,7 @@ export const popUpMenuList = (
 
 .emojiPalette {
   position: fixed;
-  bottom: 0;
+  bottom: 8.75vh;
 
   height: 40vh;
 

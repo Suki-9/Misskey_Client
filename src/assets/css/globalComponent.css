@@ -1,6 +1,6 @@
 .avatar {
-  height: 2em;
-  width: 2em;
+  height: 6.25vh;
+  width: 6.25vh;
 
   object-fit: cover;
 
@@ -20,7 +20,7 @@
   background-color: var(--primary-bg-color);
   border-radius: var(--default-border-radius);
 }
+
 .emoji {
   height: 1.3em;
-  margin-right: 5px;
 }

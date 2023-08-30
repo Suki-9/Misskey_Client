@@ -1,5 +1,6 @@
 //css
 import "./assets/css/main.css";
+import "./assets/icon/fontello/css/fontello.css";
 
 //js
 import "../src/scripts/global/result";

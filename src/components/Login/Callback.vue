@@ -1,14 +1,13 @@
 <script setup lang="ts">
 //TS Module
 import { readCookie } from "../../scripts/cookie";
+import { getUserData } from "../../scripts/API/userdata";
 import { useRoute, useRouter } from "vue-router";
-import { getUserData } from "../../scripts/API/userdata"
-const router = useRouter();
-const route = useRoute();
 
 
-const session = route.query["session"];
+const session = useRoute().query["session"];
 const host = readCookie("loginHost").unwrap();
+
 const res = await fetch(`https://${host}/api/miauth/${session}/check`, {
   method: "POST",
 })
@@ -17,7 +16,7 @@ const res = await fetch(`https://${host}/api/miauth/${session}/check`, {
 
 document.cookie = `${host}_token=${res.token}; path=/`;
 getUserData(host)
-router.push("/");
+useRouter().push("/");
 </script>
 
 <template>

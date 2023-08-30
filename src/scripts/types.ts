@@ -1,8 +1,3 @@
-export type HamburgerMenuList = {
-  title: string;
-  link: string;
-}[];
-
 export type ModifiedNote = Pick<
   Note,
   "id" | "createdAt" | "text" | "cw" | "user" | "files"

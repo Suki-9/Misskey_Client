@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@200&display=swap");
-@import "../icon/fontello/css/fontello.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 /*仮*/
 /*@import "./theme/light.css";*/
@@ -11,19 +10,18 @@
 :root {
   /*color*/
   background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
 
   /*font text*/
   --primary-font-size: 2em;
+  font-family: 'Roboto', sans-serif;
 
   /*border*/
   --default-border-radius: 7px;
-
-  color: var(--primary-text-color);
-  font-family: "M PLUS 1", sans-serif;
 }
 
 body {
-  margin: 1%;
+ margin: 0;
 }
 
 /*text*/
@@ -36,20 +34,14 @@ h4,
 h5,
 h6 {
   margin: 0;
+  color: var(--primary-text-color);
+  text-decoration: none;
 }
 
-.h1 {
-  font-size: var(--primary-font-size);
-}
-.h2 {
-  font-size: calc(var(--primary-font-size) * 0.875);
-}
-.h3 {
-  font-size: calc(var(--primary-font-size) * 0.75);
-}
-.h4 {
-  font-size: calc(var(--primary-font-size) * 0.625);
-}
+.h1 { font-size: var(--primary-font-size);               }
+.h2 { font-size: calc(var(--primary-font-size) * 0.875); }
+.h3 { font-size: calc(var(--primary-font-size) * 0.75);  }
+.h4 { font-size: calc(var(--primary-font-size) * 0.625); }
 
 /*form*/
 input {

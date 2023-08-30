@@ -50,8 +50,8 @@ const post = () => {
 @import "../../assets/css/animation.css";
 .postButton {
   position: fixed;
-  bottom: 10%;
-  right: 5%;
+  bottom: 12.5vh;
+  right: 7.5vw;
 
   border-radius: var(--default-border-radius);
 
@@ -71,13 +71,13 @@ const post = () => {
   flex-direction: column;
 
   position: fixed;
-  top: 5%;
+  top: 6.35vh;
 
-  width: 94vw;
+  width: calc(95vw - 2px);
 
-  padding: 2%;
+  margin: 0 2.5vw 0 2.5vw;
 
-  border-radius: var(--default-border-radius);
+  border: solid 1px var(--primary-border-color);
 
   background-color: var(--primary-bg-color);
 
@@ -97,10 +97,11 @@ const post = () => {
     align-items: center;
 
     width: 100%;
+    height: 6.35vh;
 
     font-size: 80%;
 
-    margin-bottom: 3%;
+    border-bottom: solid 1px var(--primary-border-color);
 
     .closeButton::before {
       font-size: 150%;
@@ -110,15 +111,12 @@ const post = () => {
       display: flex;
       flex-direction: row-reverse;
 
-      width: 50%;
-
       white-space: nowrap;
       a {
-        padding: 2% 4% 2% 4%;
-        margin-left: 4%;
+        padding: 1% 4%;
+        margin-right: 3.125vw;
 
-        background-color: var(--secondary-bg-color);
-
+        border: solid 1px var(--primary-border-color);
         border-radius: var(--default-border-radius);
       }
     }
@@ -127,52 +125,59 @@ const post = () => {
     display: flex;
     flex-direction: row;
 
-    width: 100%;
+    width: calc(100% - 6.25vw);
+
+    padding: 3.125vw;
 
     .text {
       display: flex;
       flex-direction: column;
 
-      width: calc(96% - 2em);
+      width: 100%;
+      height: 25vh;
 
-      padding: 0 2% 0 2%;
+      padding-left: 3.125vw;
 
       select {
         width: fit-content;
+        height: 3.125vh;
 
-        padding: 1%;
+        margin-bottom: 1vh;
 
         border: none;
         border-radius: var(--default-border-radius);
+        border: solid 1px var(--primary-border-color);
 
         color: var(--secondary-text-color);
-        font-size: 95%;
+        font-size: 90%;
 
-        background-color: var(--secondary-bg-color);
+        background-color: var(--primary-bg-color);
       }
 
       textarea {
         height: 10em;
 
         padding: 1%;
-        margin-top: 1%;
 
         border: none;
         border-radius: var(--default-border-radius);
+        border: solid 1px var(--primary-border-color);
 
         color: var(--secondary-text-color);
-        font-size: 120%;
+        font-size: 100%;
 
-        background-color: var(--secondary-bg-color);
+        background-color: var(--primary-bg-color);
 
         resize: none;
       }
     }
   }
-
   .footer {
     display: flex;
     flex-direction: row;
+
+    width: 100%;
+    height: 6.35vh;
   }
 }
 </style>

@@ -31,23 +31,23 @@ const reload = () => {
 .root {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
 
   position: fixed;
   bottom: 0;
   left: 0;
 
-  width: 96vw;
-
-  padding: 2%;
+  width: 100vw;
+  height: 8.75vh;
 
   border-top: solid 1px;
 
   background-color: var(--primary-bg-color);
 
   i {
-    padding: 2% 3%;
+    width: 12.5vw;
 
+    text-align: center;
     line-height: 0;
   }
   i::before {
