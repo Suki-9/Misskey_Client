@@ -51,9 +51,6 @@ const showSensitive = ref<boolean>(!prprs.isSensitive)
   border-radius: var(--default-border-radius);
 }
 .popUpImage {
-  display: flex;
-
-
   position: fixed;
   top: 0;
   right: 0;
@@ -68,12 +65,12 @@ const showSensitive = ref<boolean>(!prprs.isSensitive)
     top: 50%;
     right: 50%;
 
+    transform: translate(51%, -49%);
+
     margin: 1%;
 
     max-width:98%;
     max-height: 98%;
-
-    transform: translate(51%, -49%);
   }
 }
 </style>
