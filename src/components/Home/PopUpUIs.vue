@@ -5,7 +5,6 @@ import { ref } from "vue";
 //vue Component
 import PopUpMenuList from "../global/PopUpMenuList.vue";
 import Post from "../global/Post.vue";
-import NotificationView from "../global/NotificationView.vue";
 import LeftMenu from "../global/LeftMenu.vue";
 import EmojiPalette from "../global/EmojiPalette.vue";
 </script>
@@ -17,11 +16,6 @@ const show = ref<Record<string, boolean>>({
     LeftMenu: false,
     emojiPalette: false,
 })
-
-export const Show_NotificationView = () => {
-    console.log("!")
-    show.value.NotificationView = !show.value.NotificationView
-}
 
 export const Show_LeftMenu = () => { 
     show.value.LeftMenu = !show.value.LeftMenu
@@ -46,7 +40,6 @@ export const popUpMenuList = (
     <LeftMenu v-show="show.LeftMenu" :class="$style.LeftMenu"/>
     <PopUpMenuList :Listcontent="PopUpMenuList_Listcontent"/>
     <Post />
-    <NotificationView v-show="show.NotificationView" :class="$style.notices"/>
     <EmojiPalette v-show="show.emojiPalette" :class="$style.emojiPalette"/>
 </template>
 

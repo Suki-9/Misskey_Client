@@ -2,11 +2,11 @@
 import { genUuid } from "../UUID";
 import { readCookie } from "../cookie";
 import { noteGen } from "./note";
-import { notificationGen } from "./notification";
+//import { notificationGen } from "./notification";
 
 //vue Component functions
 import { addNoteAfter } from "../../components/global/TimeLine.vue";
-import { addNotificationsAfter } from  "../../components/global/NotificationView.vue";
+//import { addNotificationsAfter } from  "../../pages/Notification.vue";
 
 
 export const streamTimeLine = (
@@ -79,7 +79,7 @@ export const streamMain = (
 
     switch (gentEvent.type) {
       case "notification":
-        addNotificationsAfter(notificationGen(JSON.parse(event.data).body.body))
+        //addNotificationsAfter(notificationGen(JSON.parse(event.data).body.body))
         break;
 
       default:

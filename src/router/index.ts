@@ -17,6 +17,11 @@ const router = createRouter({
       name: "Callback",
       component: () => import("../components/Login/Callback.vue"),
     },
+    {
+      path: "/notification",
+      name: "Notification",
+      component: () => import("../pages/Notifications.vue"),
+    },
   ],
 });
 

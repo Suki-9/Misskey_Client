@@ -1,39 +1,26 @@
 <script setup lang="ts">
 //Type
-import { ModifiedNotification } from "../../scripts/types";
+import { ModifiedNotification } from "../scripts/types";
 
 //TS Module
-import { ref, onMounted } from "vue";
-import { getNotifications } from "../../scripts/API/notification";
-//import { streamMain } from "../../scripts/API/stream";
-import { readCookie } from "../../scripts/cookie";
-
-
+import { ref } from "vue";
+import { getNotifications } from "../scripts/API/notification";
+//import { streamMain } from "../scripts/API/stream";
+import { readCookie } from "../scripts/cookie";
 
 //Vue Component
-import Notification from "./Notification.vue";
+import Notification from "../components/global/Notification.vue";
+import BottomBar from "../components/global/BottomBar.vue";
 
 
 const host = readCookie("loginHost").unwrap();
 //const autoReConnection = true;
-let scrollY = 0;
 
 //Entry point
 if (host) {
   getNotifications(host);
   //streamMain(host, autoReConnection)
 }
-
-onMounted(() => {
-  document.getElementById("NotificationView")?.addEventListener("scroll", (event) => {
-    // @ts-ignore
-    scrollY = event?.target?.scrollTop
-    // @ts-ignore
-    if (event?.target?.scrollHeight - event?.target?.clientHeight == scrollY ) {
-      getNotifications(host, notifications.value[notifications.value.length - 1].id)
-    }
-  });
-})
 </script>
 
 <script lang="ts">
@@ -61,24 +48,18 @@ export const addNotificationsAfter = (notification: ModifiedNotification) => {
       :notification="notification"
     />
   </div>
+  <BottomBar />
 </template>
 
 <style module lang="scss">
 .root {
-  width: 98vw;
-
-  border-radius: var(--default-border-radius);
-
-  overflow: scroll;
-
-  background-color: var(--primary-bg-color);
-
+  width: 100vw;
   .head {
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: center;
 
-    margin: 1%;
+    height: 6.25vh;
 
     font-size: 80%;
 

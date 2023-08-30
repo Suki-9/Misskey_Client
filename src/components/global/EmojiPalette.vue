@@ -27,7 +27,7 @@ Object.keys(emojiCategorys).forEach(category => {
           <img 
             :src="
               //@ts-ignore
-              searchEmoji(emoji).value" 
+              searchEmoji(emoji).value"
             :class="$style.emoji"/>
         </a>
       </div>
@@ -71,6 +71,15 @@ Object.keys(emojiCategorys).forEach(category => {
     flex-direction: row;
 
     margin: 0 2.5vw;
+
+    .emoji {
+      width: 10vw;
+
+      object-fit: cover;
+      object-position: left;
+
+      overflow: hidden;
+    }
   }
 }
 

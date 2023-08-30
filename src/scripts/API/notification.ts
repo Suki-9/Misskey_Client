@@ -7,7 +7,7 @@ import { parseEmoji, searchEmoji } from "../emoji";
 import { noteGen } from "./note";
 
 //vue Component functions
-import { addNotificationsBefore } from "../../components/global/NotificationView.vue";
+import { addNotificationsBefore } from "../../pages/Notifications.vue";
 
 
 export const getNotifications = async (
