@@ -5,6 +5,7 @@ import { readCookie } from '../../scripts/cookie';
 import { getUserData } from '../../scripts/API/userdata';
 import { postNote } from '../../scripts/API/note';
 
+
 const isActive = ref<boolean>(false)
 const postText = ref<string>("")
 const visibility = ref<string>("")
@@ -27,6 +28,7 @@ const showPostWindow = () => {
 
 <template>
   <i class="icon-pencil" :class="$style.postButton" @click="showPostWindow"></i>
+  <div :class="$style.bg" v-show="isActive" @click="isActive = false"></div>
   <div v-show="isActive" :class="$style.root">
     <div :class="$style.header">
       <i class="icon-cancel" :class="$style.closeButton" @click="isActive = false"></i>
@@ -50,6 +52,7 @@ const showPostWindow = () => {
     </div>
   </div>
 </template>
+
 
 <style module lang="scss">
 @import "../../assets/css/globalComponent.css";
@@ -79,7 +82,7 @@ const showPostWindow = () => {
   position: fixed;
   top: 6.35vh;
 
-  width: calc(95vw - 2px);
+  width: calc(100vw - var(--primary-margin-w) * 2 - 2px);
 
   margin: 0 var(--primary-margin-w);
 
@@ -185,5 +188,15 @@ const showPostWindow = () => {
     width: 100%;
     height: 6.35vh;
   }
+}
+.bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: color-mix(in srgb, var(--primary-bg-color), rgba(0,0,0,0) 20%);
 }
 </style>
