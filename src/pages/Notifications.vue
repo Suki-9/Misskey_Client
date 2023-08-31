@@ -54,6 +54,7 @@ export const addNotificationsAfter = (notification: ModifiedNotification) => {
 <style module lang="scss">
 .root {
   width: 100vw;
+  padding-bottom: 8.75vh;
   .head {
     display: flex;
     align-items: center;

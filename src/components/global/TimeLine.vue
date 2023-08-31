@@ -85,6 +85,7 @@ window.addEventListener("scroll", () => {
   flex-direction: column;
 
   margin: 0 2.5vw 0 2.5vw;
+  padding-bottom: 8.75vh;
   .note {
     margin: 1vh 0;
   }

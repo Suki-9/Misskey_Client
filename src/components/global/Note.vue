@@ -9,7 +9,6 @@ import NoteImage from "./NoteImage.vue";
 import { Show_emojiPalette, Show_reNoteMenu } from "../Home/PopUpUIs.vue";
 
 
-
 defineProps<{
   note: ModifiedNote;
 }>();
