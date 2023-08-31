@@ -1,4 +1,17 @@
 :root {
-  /*text*/
+  /*text size*/
   font-size: 150%;
+
+  /* height */
+  --bottom-bar-height: 8.75vh;
+  
+
+
+  /* margin */
+  --primary-margin-w: 2.5vh;
+  --primary-margin-h: 1vw;
+
+  /* paddings */
+  --primary-padding-w: var(--primary-margin-w);
+  --primary-padding-h: var(--primary-margin-h);
 }

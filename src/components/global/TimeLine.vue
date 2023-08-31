@@ -84,8 +84,8 @@ window.addEventListener("scroll", () => {
   display: flex;
   flex-direction: column;
 
-  margin: 0 2.5vw 0 2.5vw;
-  padding-bottom: 8.75vh;
+  margin: 0 var(--primary-margin-w);
+  padding-bottom: var(--bottom-bar-height);
   .note {
     margin: 1vh 0;
   }

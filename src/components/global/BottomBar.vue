@@ -34,7 +34,7 @@ const reload = () => {
   left: 0;
 
   width: 100vw;
-  height: 8.75vh;
+  height: var(--bottom-bar-height);
 
   border-top: solid 1px;
 

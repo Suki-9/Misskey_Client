@@ -75,7 +75,7 @@ const post = () => {
 
   width: calc(95vw - 2px);
 
-  margin: 0 2.5vw 0 2.5vw;
+  margin: 0 var(--primary-margin-w);
 
   border: solid 1px var(--primary-border-color);
 
