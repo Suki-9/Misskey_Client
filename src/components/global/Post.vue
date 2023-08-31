@@ -1,43 +1,49 @@
 <script setup lang="ts">
 //TS Module
-import { ref } from 'vue';
+import { ref, nextTick } from 'vue';
 import { readCookie } from '../../scripts/cookie';
 import { getUserData } from '../../scripts/API/userdata';
-import { postNote } from '../../scripts/API/note'
+import { postNote } from '../../scripts/API/note';
 
-const Active = ref<boolean>(false)
+const isActive = ref<boolean>(false)
 const postText = ref<string>("")
 const visibility = ref<string>("")
-
 const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
 
 const post = () => {
   if (postText.value !== "") postNote(undefined, undefined, (visibility.value == "") ? "public" : visibility.value, undefined, postText.value)
-  Active.value = !Active.value
+  isActive.value = false
   postText.value = ""
+}
+
+const showPostWindow = () => {
+  isActive.value = !isActive.value
+  nextTick(() => {
+    document.getElementById("inputText")?.focus()
+  })
 }
 </script>
 
 
 <template>
-  <i class="icon-pencil" :class="$style.postButton" @click="Active = !Active"></i>
-  <div v-show="Active" :class="$style.root">
+  <i class="icon-pencil" :class="$style.postButton" @click="showPostWindow"></i>
+  <div v-show="isActive" :class="$style.root">
     <div :class="$style.header">
-      <i class="icon-cancel" :class="$style.closeButton" @click="Active = !Active"></i>
+      <i class="icon-cancel" :class="$style.closeButton" @click="isActive = false"></i>
       <div :class="$style.submitButtons">
         <a @click="post">ノート</a>
         <a >下書き</a>
       </div>
     </div>
     <div :class="$style.content">
-      <img :class="$style.avatar" :src="userData.avatarUrl">
+      <img :class="$style.avatar" :src="userData.avatarUrl ?? ''">
       <div :class="$style.text">
         <select v-model="visibility">
           <option value="public">パブリック</option>
           <option value="home">ホーム</option>
           <option value="followers">フォロワー</option>
         </select>
-        <textarea v-model="postText"></textarea>
+        <textarea v-model="postText" id="inputText"></textarea>
       </div>
     </div>
     <div :class="$style.footer">
