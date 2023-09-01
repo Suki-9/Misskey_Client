@@ -34,7 +34,10 @@ defineProps<{
         <div v-if="notification.text" :class="$style.text" v-html="notification.text"></div>
       </div>
     </div>
-    <Note v-if="notification.note" :note="notification.note" />
+    <Note 
+      v-if="notification.note" 
+      :class="$style.quote"
+      :note="notification.note" />
   </div>
 </template>
 
@@ -47,7 +50,6 @@ defineProps<{
   padding: 2%;
   margin: 2%;
 
-  border-radius: var(--default-border-radius);
   border: solid 1px var(--primary-border-color);
 
   .head {
@@ -99,6 +101,10 @@ defineProps<{
         content: "”" ;
       }
     }
+  }
+
+  .quote {
+    margin-top: 2%;
   }
 }
 </style>
