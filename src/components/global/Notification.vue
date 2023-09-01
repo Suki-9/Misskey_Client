@@ -54,7 +54,10 @@ defineProps<{
     font-size: 80%;
 
     .reaction {
+      width: fit-content;
+
       margin: 0 0 2% 0;
+
       border: solid 1px var(--primary-border-color);
     }
   }
