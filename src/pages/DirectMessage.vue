@@ -5,5 +5,6 @@ import BottomBar from "../components/global/BottomBar.vue";
 </script>
 
 <template>
+  <RouterView />
   <BottomBar />
 </template>

@@ -11,7 +11,7 @@ import { addNotificationsBefore } from "../../pages/Notifications.vue";
 
 
 export const getNotifications = async (
-  host: string,
+  host: string = readCookie("loginHost").unwrap(),
   untilId?: string,
   token = readCookie(`${host}_token`).unwrap(),
   maxSize = 20,
@@ -43,6 +43,7 @@ export const getNotifications = async (
     .then(response => response.json())
     .then(data => data);
   res.map(notification => addNotificationsBefore(notificationGen(notification)));
+  return res
 };
 
 export const notificationGen = (notification: Notification): ModifiedNotification => {
