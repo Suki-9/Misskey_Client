@@ -3,11 +3,11 @@ import "./api.d";
 export const fetchAPI = async <E extends keyof Endpoints>(
   host: string,
   endpoint: keyof Endpoints,
-  method: "POST" | "GET",
-  body: Endpoints[E]["req"]
+  body: Endpoints[E]["req"],
+  method: keyof Endpoints[E]["method"],
 ): Promise<Endpoints[E]["res"] | undefined> => {
   return fetch(`https://${host}/api/${endpoint}`, {
-    method: method,
+    method: typeof method,
     headers: {
       "Content-Type": "application/json",
     },

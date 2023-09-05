@@ -2,6 +2,7 @@ type channels = "Home" | "Hybrid" | "local" | "global";
 
 type Endpoints = {
   "notes/timeline": {
+    method: "POST";
     req: {
       i: string;
       limit?: number;
