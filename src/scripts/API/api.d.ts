@@ -78,5 +78,22 @@ export type Endpoints = {
       channelId?: string
     },
     res: Note,
-  }
+  };
+  "notes/reactions/create": {
+    method: "POST";
+    req: {
+      i: string;
+      noteId: string;
+      reaction: string;
+    }
+    res: undefined;
+  };
+  "notes/reactions/delete": {
+    method: "POST";
+    req: {
+      i: string;
+      noteId: string;
+    };
+    res: undefined;
+  };
 };

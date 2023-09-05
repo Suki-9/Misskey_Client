@@ -2,15 +2,28 @@
 //Type
 import { ModifiedNote } from "../../scripts/types";
 
+//TS Module
+import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+
 //Vue Component
 import NoteImage from "./NoteImage.vue";
 
 //Vue Component function
 import { Show_emojiPalette, Show_reNoteMenu } from "../Home/PopUpUIs.vue";
+import { readCookie } from "../../scripts/cookie";
 
-defineProps<{
+
+const props = defineProps<{
   note: ModifiedNote;
 }>();
+
+const createReaction = async (reactionName: string) => {
+  fetchMisskeyAPI("notes/reactions/create", {
+    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+    noteId: props.note.id,
+    reaction: reactionName,
+  })
+}
 </script>
 
 <template>
@@ -43,7 +56,7 @@ defineProps<{
           />
         </div>
         <div :class="$style.reactions">
-          <p v-for="reaction in note.reactions" :class="$style.reaction">
+          <p v-for="reaction in note.reactions" :class="$style.reaction" @click="createReaction(reaction.name)">
             <span
               :style="reaction.link && `content: url(${reaction.link})`"
               :class="$style.emoji"
