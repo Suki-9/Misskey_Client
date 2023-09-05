@@ -2,14 +2,10 @@
 import { genUuid } from "../UUID";
 import { readCookie } from "../cookie";
 
-
-export const streamTimeLine = (
-    host: string,
-    channel: string = "home",
-) => {
+export const streamTimeLine = (host: string, channel: string = "home") => {
   const token = readCookie(`${host}_token`).unwrap();
   const uuid = genUuid();
-  channel = channel  ?? "home"
+  channel = channel ?? "home";
 
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
 
@@ -28,18 +24,13 @@ export const streamTimeLine = (
   });
 
   return timeLine;
-}
+};
 
-export const streamMain = (
-    host: string,
-    autoReConnection: boolean = false,
-) => {
+export const streamMain = (host: string, autoReConnection: boolean = false) => {
   const token = readCookie(`${host}_token`).unwrap();
   const uuid = genUuid();
 
-  const timeLine = new WebSocket(
-    `wss://${host}/streaming?i=${token}`
-  );
+  const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
 
   timeLine.addEventListener("open", () => {
     timeLine.send(
@@ -57,7 +48,7 @@ export const streamMain = (
 
   timeLine.addEventListener("message", event => {
     console.log("GetEvent!");
-    const gentEvent = JSON.parse(event.data).body
+    const gentEvent = JSON.parse(event.data).body;
 
     switch (gentEvent.type) {
       case "notification":
@@ -74,4 +65,4 @@ export const streamMain = (
     streamMain(host, autoReConnection);
     return;
   });
-}
+};

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 //TS Module
-import { postReNote } from '../../scripts/API/note';
+import { postReNote } from "../../scripts/API/note";
 
 defineProps<{
   noteId: string;
   replyText: string;
 }>();
-
 </script>
-
 
 <template>
   <div :class="$style.root">
@@ -16,7 +14,6 @@ defineProps<{
     <a>引用</a>
   </div>
 </template>
-
 
 <style module lang="scss">
 .root {
@@ -33,7 +30,11 @@ defineProps<{
   border: solid 1px var(--primary-border-color);
   background-color: var(--primary-bg-color);
 
-  p { font-size: 80% }
-  p::Before { content: "・"; }
+  p {
+    font-size: 80%;
+  }
+  p::before {
+    content: "・";
+  }
 }
 </style>

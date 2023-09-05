@@ -1,27 +1,25 @@
 <script setup lang="ts">
 //TS Module
-import { ref } from 'vue'; 
+import { ref } from "vue";
 
 const emit = defineEmits<{ (e: "receive", text: string): string }>();
 defineProps<{
   placeholder: string;
 }>();
-const inputText = ref<string>("")
-
+const inputText = ref<string>("");
 </script>
 
-
 <template>
-    <div :class="$style.root">
-        <input 
-          :class="$style.form" 
-          :placeholder="placeholder"
-          v-model="inputText"
-          @input="emit('receive', inputText)">
-        <i class="icon-cancel" @click="inputText = ''"></i>
-    </div>
+  <div :class="$style.root">
+    <input
+      :class="$style.form"
+      :placeholder="placeholder"
+      v-model="inputText"
+      @input="emit('receive', inputText)"
+    />
+    <i class="icon-cancel" @click="inputText = ''"></i>
+  </div>
 </template>
-
 
 <style module lang="scss">
 .root {

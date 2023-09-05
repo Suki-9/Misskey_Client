@@ -4,12 +4,10 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { genUuid } from "../scripts/UUID";
 import { getUserData } from "../scripts/API/userdata";
-const router = useRouter()
-
+const router = useRouter();
 
 //Vue Component
 import TextInput from "../components/Login/TextInput.vue";
-
 
 const userName = ref<string>("");
 const password = ref<string>("");
@@ -19,9 +17,9 @@ const hostName = ref<string>("");
 const token = ref<string>("");
 const avatarUrl = ref<string>("");
 
-const useToken = ref<boolean>(false)
+const useToken = ref<boolean>(false);
 
-const Login = () => { 
+const Login = () => {
   if (useToken.value) {
     document.cookie = `${hostName.value}_token=${token.value}; path=/`;
     document.cookie = `loginHost=${hostName.value}; path=/`;
@@ -29,7 +27,7 @@ const Login = () => {
     getUserData(hostName.value);
     router.push("/");
   }
-}
+};
 
 const MiAuth = () => {
   const callback = "http:/localhost:4000/callback";
@@ -38,7 +36,7 @@ const MiAuth = () => {
 
   document.cookie = `loginHost=${hostName.value}; path=/`;
   window.location.href = miAuthUrl;
-}
+};
 </script>
 
 <template>
@@ -47,26 +45,75 @@ const MiAuth = () => {
     <div :class="$style.tile">
       <p :class="$style.tileHead">ログイン<span></span></p>
       <div :class="$style.tileContainer">
-        <img :class="$style.avatar" :src="avatarUrl"/>
+        <img :class="$style.avatar" :src="avatarUrl" />
         <a :class="$style.button" @click="MiAuth">Use MiAuth</a>
-        <a :class="$style.button" @click="useToken = !useToken">{{ useToken ? "Use PassWord" : "Use Token" }}</a>
+        <a :class="$style.button" @click="useToken = !useToken">{{
+          useToken ? "Use PassWord" : "Use Token"
+        }}</a>
       </div>
-      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e }" v-show="!useToken"/>
-      <TextInput :placeholder="'PassWord'" @receive="(e) => { password = e }" v-show="!useToken"/>
-      <TextInput :placeholder="'Your Token'" @receive="(e) => { token = e }"  v-show="useToken"/>
-      <p :class="$style.attentionText" v-show="!useToken">パスワードを忘れた場合</p>
+      <TextInput
+        :placeholder="'UserName'"
+        @receive="
+          e => {
+            userName = e;
+          }
+        "
+        v-show="!useToken"
+      />
+      <TextInput
+        :placeholder="'PassWord'"
+        @receive="
+          e => {
+            password = e;
+          }
+        "
+        v-show="!useToken"
+      />
+      <TextInput
+        :placeholder="'Your Token'"
+        @receive="
+          e => {
+            token = e;
+          }
+        "
+        v-show="useToken"
+      />
+      <p :class="$style.attentionText" v-show="!useToken">
+        パスワードを忘れた場合
+      </p>
       <div :class="$style.submitButtonBox">
         <a :class="$style.submitButton" @click="Login">Login</a>
       </div>
     </div>
     <div :class="$style.tile">
       <p :class="$style.tileHead">他のサーバーにログインする<span></span></p>
-      <TextInput :placeholder="'Host Name'" @receive="(e) => { hostName = e }"/>
+      <TextInput
+        :placeholder="'Host Name'"
+        @receive="
+          e => {
+            hostName = e;
+          }
+        "
+      />
     </div>
     <div :class="$style.tile" v-if="false">
       <p :class="$style.tileHead">新規登録<span></span></p>
-      <TextInput :placeholder="'UserName'" @receive="(e) => { userName = e }"/>
-      <TextInput :placeholder="'Password'" @receive="(e) => { password = e }"/>
+      <TextInput
+        :placeholder="'UserName'"
+        @receive="
+          e => {
+            userName = e;
+          }
+        "
+      />
+      <TextInput
+        :placeholder="'Password'"
+        @receive="
+          e => {
+            password = e;
+          }
+        "
+      />
     </div>
   </div>
 </template>

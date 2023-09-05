@@ -11,17 +11,15 @@ const reload = () => {
 };
 </script>
 
-
 <template>
   <div :class="$style.root">
-    <i class="icon-dot-3"    @click="Show_LeftMenu()"></i>
-    <i class="icon-home"     @click="router.push('/')"></i>
+    <i class="icon-dot-3" @click="Show_LeftMenu()"></i>
+    <i class="icon-home" @click="router.push('/')"></i>
     <i class="icon-bell-alt" @click="router.push('/notification')"></i>
-    <i class="icon-cw"       @click="reload()"></i>
+    <i class="icon-cw" @click="reload()"></i>
     <i class="icon-mail-alt" @click="router.push('/directmessage')"></i>
   </div>
 </template>
-
 
 <style module lang="scss">
 .root {

@@ -8,19 +8,19 @@ import NoteImage from "./NoteImage.vue";
 //Vue Component function
 import { Show_emojiPalette, Show_reNoteMenu } from "../Home/PopUpUIs.vue";
 
-
 defineProps<{
   note: ModifiedNote;
 }>();
 </script>
-
 
 <template>
   <div :class="$style.root">
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
       <p :class="$style.renoterName">
-        <span v-html="note.renoter.name"></span>さんがリノート<i class="icon-retweet"></i>
+        <span v-html="note.renoter.name"></span>さんがリノート<i
+          class="icon-retweet"
+        ></i>
       </p>
     </div>
     <div :class="$style.note">
@@ -46,7 +46,8 @@ defineProps<{
           <p v-for="reaction in note.reactions" :class="$style.reaction">
             <span
               :style="reaction.link && `content: url(${reaction.link})`"
-              :class="$style.emoji">
+              :class="$style.emoji"
+            >
               {{ reaction.name }}
             </span>
             <span> {{ reaction.count }}</span>
@@ -54,15 +55,18 @@ defineProps<{
         </div>
         <footer>
           <i class="icon-comment" alt=""></i>
-          <i class="icon-retweet" alt="renote"   @click="Show_reNoteMenu(note.id)"></i>
-          <i class="icon-plus"    alr="reaction" @click="Show_emojiPalette"></i>
-          <i class="icon-dot-3"   alt="more"     @click=""></i>
+          <i
+            class="icon-retweet"
+            alt="renote"
+            @click="Show_reNoteMenu(note.id)"
+          ></i>
+          <i class="icon-plus" alr="reaction" @click="Show_emojiPalette"></i>
+          <i class="icon-dot-3" alt="more" @click=""></i>
         </footer>
       </article>
     </div>
   </div>
 </template>
-
 
 <style module lang="scss">
 @import "../../assets/css/globalComponent.css";
@@ -111,7 +115,9 @@ defineProps<{
     display: flex;
     flex-direction: row;
 
-    .avatar { margin: 2%; }
+    .avatar {
+      margin: 2%;
+    }
     article {
       display: flex;
       flex-direction: column;

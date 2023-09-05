@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //TS Module
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const prprs = defineProps<{
   thumbnailUrl: string;
@@ -9,8 +9,8 @@ const prprs = defineProps<{
   isActive: boolean;
 }>();
 
-const isPopUpImage = ref<boolean>(prprs.isActive)
-const showSensitive = ref<boolean>(!prprs.isSensitive)
+const isPopUpImage = ref<boolean>(prprs.isActive);
+const showSensitive = ref<boolean>(!prprs.isSensitive);
 </script>
 
 <template>
@@ -18,23 +18,27 @@ const showSensitive = ref<boolean>(!prprs.isSensitive)
     :src="thumbnailUrl"
     :class="$style.media"
     v-show="showSensitive"
-    @click="isPopUpImage = true"/>
+    @click="isPopUpImage = true"
+  />
   <div
     :class="$style.sensitiveAlert"
     v-show="!showSensitive"
-    @click="showSensitive = !showSensitive">
+    @click="showSensitive = !showSensitive"
+  >
     <p>センシティブな画像</p>
   </div>
   <div
     v-if="isPopUpImage"
     :class="$style.popUpImage"
-    @click="isPopUpImage = false">
-    <img :src="url"/>
+    @click="isPopUpImage = false"
+  >
+    <img :src="url" />
   </div>
 </template>
 
 <style module lang="scss">
-.media,.sensitiveAlert {
+.media,
+.sensitiveAlert {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +62,11 @@ const showSensitive = ref<boolean>(!prprs.isSensitive)
   height: 100%;
   width: 100%;
 
-  background-color: color-mix(in srgb, var(--primary-bg-color), rgba(0,0,0,0) 20%);
+  background-color: color-mix(
+    in srgb,
+    var(--primary-bg-color),
+    rgba(0, 0, 0, 0) 20%
+  );
 
   img {
     position: fixed;
@@ -69,7 +77,7 @@ const showSensitive = ref<boolean>(!prprs.isSensitive)
 
     margin: 1%;
 
-    max-width:98%;
+    max-width: 98%;
     max-height: 98%;
   }
 }

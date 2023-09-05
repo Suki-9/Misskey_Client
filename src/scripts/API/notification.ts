@@ -9,7 +9,6 @@ import { noteGen } from "./note";
 //vue Component functions
 import { addNotificationsBefore } from "../../pages/Notifications.vue";
 
-
 export const getNotifications = async (
   host: string = readCookie("loginHost").unwrap(),
   untilId?: string,
@@ -42,16 +41,20 @@ export const getNotifications = async (
   )
     .then(response => response.json())
     .then(data => data);
-  res.map(notification => addNotificationsBefore(notificationGen(notification)));
-  return res
+  res.map(notification =>
+    addNotificationsBefore(notificationGen(notification))
+  );
+  return res;
 };
 
-export const notificationGen = (notification: Notification): ModifiedNotification => {
+export const notificationGen = (
+  notification: Notification
+): ModifiedNotification => {
   notification.user ??= {
     name: null,
     avatarUrl: "",
     username: "",
-  }
+  };
   notification.user.name ??= notification.user.username;
 
   const ModifiedNotification: ModifiedNotification = {
@@ -61,42 +64,46 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
       name: parseEmoji(notification.user.name),
       username: notification.user.username,
       avatarUrl: notification.user.avatarUrl,
-    }
-  }
+    },
+  };
 
   switch (notification.type) {
     // @ts-ignore
     case "renote": {
-      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text)
+      ModifiedNotification.text =
+        notification.note.text && parseEmoji(notification.note.text);
       break;
     }
 
     case "reply": {
-      ModifiedNotification.text = notification.note.reply?.text && parseEmoji(notification.note.reply.text)
-      ModifiedNotification.note = noteGen(notification.note)
+      ModifiedNotification.text =
+        notification.note.reply?.text &&
+        parseEmoji(notification.note.reply.text);
+      ModifiedNotification.note = noteGen(notification.note);
       break;
     }
 
     case "quote": {
-      ModifiedNotification.note = noteGen(notification.note)
+      ModifiedNotification.note = noteGen(notification.note);
       break;
     }
 
-    case "reaction": { 
-      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text)
-      ModifiedNotification.reaction =
-        notification.reaction ? {
-          name: notification.reaction,
-          link: searchEmoji(
-            notification.reaction.slice(1, notification.reaction.indexOf("@"))
-          ).unwrap_or(""),
-        } : undefined
+    case "reaction": {
+      ModifiedNotification.text =
+        notification.note.text && parseEmoji(notification.note.text);
+      ModifiedNotification.reaction = notification.reaction
+        ? {
+            name: notification.reaction,
+            link: searchEmoji(
+              notification.reaction.slice(1, notification.reaction.indexOf("@"))
+            ).unwrap_or(""),
+          }
+        : undefined;
       break;
     }
     default:
       break;
   }
-  
 
-  return ModifiedNotification
+  return ModifiedNotification;
 };

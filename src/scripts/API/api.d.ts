@@ -1,10 +1,6 @@
-type channels = 
-  | "Home"
-  | "Hybrid"
-  | "local"
-  | "global"
+type channels = "Home" | "Hybrid" | "local" | "global";
 
-type Endpoints ={ 
+type Endpoints = {
   "notes/timeline": {
     req: {
       i: string;
@@ -17,8 +13,7 @@ type Endpoints ={
       includeRenotedMyNotes: boolean;
       includeLocalRenotes: boolean;
       withFiles: boolean;
-    }
-    res: { b: string }
-  },
-
-}
+    };
+    res: { b: string };
+  };
+};

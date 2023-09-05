@@ -10,7 +10,6 @@ import { ModifiedNote } from "../../scripts/types";
 //vue Component
 import Note from "./Note.vue";
 
-
 const props = defineProps<{
   hostName: string;
   channel?: string;
@@ -21,40 +20,38 @@ const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
 
 let maxIndexSize = 10;
-let scrollY = 0
+let scrollY = 0;
 
 const firstFetchNote = async () => {
   (await getNote(props.hostName, props.channel, maxIndexSize)).forEach(note => {
-    notes.value.push(note)
-  })
-}
+    notes.value.push(note);
+  });
+};
 
 const addNoteAfter = (note: ModifiedNote) => {
   if (maxIndexSize < notes.value.length) notes.value.pop();
-  scrollY < 100
-    ? notes.value.unshift(note)
-    : noteKeep.value.unshift(note)
-}
+  scrollY < 100 ? notes.value.unshift(note) : noteKeep.value.unshift(note);
+};
 
 const stream = () => {
   const TimeLine = streamTimeLine(props.hostName, props.channel);
 
   TimeLine.addEventListener("message", event => {
     console.log("GetNote!");
-    addNoteAfter(noteGen(JSON.parse(event.data).body.body))
+    addNoteAfter(noteGen(JSON.parse(event.data).body.body));
   });
 
   TimeLine.addEventListener("close", () => {
     console.log("Connection to TL has been disconnected...");
-    if (props.autoReConnection) stream()
+    if (props.autoReConnection) stream();
     return;
   });
-}
+};
 
 //EntryPoint
 if (props.hostName) {
-  firstFetchNote()
-  stream()
+  firstFetchNote();
+  stream();
 }
 
 window.addEventListener("scroll", () => {
@@ -65,19 +62,25 @@ window.addEventListener("scroll", () => {
     });
     noteKeep.value = [];
   }
-  if (document.documentElement.scrollHeight - window.innerHeight - scrollY < 50) {
-    getNote(props.hostName, props.channel, maxIndexSize, notes.value[notes.value.length-1].id)
+  if (
+    document.documentElement.scrollHeight - window.innerHeight - scrollY <
+    50
+  ) {
+    getNote(
+      props.hostName,
+      props.channel,
+      maxIndexSize,
+      notes.value[notes.value.length - 1].id
+    );
   }
 });
 </script>
-
 
 <template>
   <div :class="$style.root">
     <Note :class="$style.note" v-for="note in notes" :note="note" />
   </div>
 </template>
-
 
 <style module lang="scss">
 .root {

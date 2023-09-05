@@ -5,14 +5,13 @@ import { ModifiedNote, Note, Reaction, User } from "../types";
 import { parseEmoji, searchEmoji } from "../emoji";
 import { readCookie } from "../cookie";
 
-
 const htmlTextEscape = (text: string): string => {
   return text
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
-    .replaceAll("&", "&amp;")
-}
+    .replaceAll("&", "&amp;");
+};
 
 export const getNote = async (
   host: string,
@@ -92,9 +91,23 @@ export const noteGen = (noteData: Note): ModifiedNote => {
 export const postReNote = (
   noteId: string,
   host: string = readCookie("loginHost").unwrap(),
-  token: string = readCookie(`${host}_token`).unwrap(),
+  token: string = readCookie(`${host}_token`).unwrap()
 ) => {
-  postNote(host, token, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, noteId);
+  postNote(
+    host,
+    token,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    noteId
+  );
 };
 
 export const postNote = async (
@@ -111,32 +124,29 @@ export const postNote = async (
   fileIds?: string[],
   replyId?: string,
   renoteId?: string,
-  channelId?: string,
+  channelId?: string
 ) => {
-  const res = await fetch(
-    `https://${host}/api/notes/create`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        i: token,
-        visibility: visibility,
-        //visibleUserIds: (visibility == "specified") ? visibleUserIds : null,
-        text: text,
-        cw: cw,
-        localOnly: localOnly,
-        noExtractMentions: noExtractMentions,
-        noExtractHashtags: noExtractHashtags,
-        noExtractEmojis: noExtractEmojis,
-        fileIds: fileIds,
-        replyId: replyId,
-        renoteId: renoteId,
-        channelId: channelId,
-      }),
-    }
-  )
+  const res = await fetch(`https://${host}/api/notes/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      i: token,
+      visibility: visibility,
+      //visibleUserIds: (visibility == "specified") ? visibleUserIds : null,
+      text: text,
+      cw: cw,
+      localOnly: localOnly,
+      noExtractMentions: noExtractMentions,
+      noExtractHashtags: noExtractHashtags,
+      noExtractEmojis: noExtractEmojis,
+      fileIds: fileIds,
+      replyId: replyId,
+      renoteId: renoteId,
+      channelId: channelId,
+    }),
+  })
     .then(response => response.json())
     .then(data => data);
 };

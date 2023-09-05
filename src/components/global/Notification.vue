@@ -16,7 +16,10 @@ defineProps<{
       <p
         v-if="notification.reaction"
         :class="$style.reaction"
-        :style="notification.reaction.link && `content: url(${notification.reaction.link})`"
+        :style="
+          notification.reaction.link &&
+          `content: url(${notification.reaction.link})`
+        "
       >
         {{ notification.reaction?.name }}
       </p>
@@ -31,13 +34,18 @@ defineProps<{
         <p :class="$style.action">
           あなたの投稿に{{ notification.type }}しました。
         </p>
-        <div v-if="notification.text" :class="$style.text" v-html="notification.text"></div>
+        <div
+          v-if="notification.text"
+          :class="$style.text"
+          v-html="notification.text"
+        ></div>
       </div>
     </div>
-    <Note 
-      v-if="notification.note" 
+    <Note
+      v-if="notification.note"
       :class="$style.quote"
-      :note="notification.note" />
+      :note="notification.note"
+    />
   </div>
 </template>
 
@@ -77,7 +85,8 @@ defineProps<{
       overflow: hidden;
 
       margin-left: 2%;
-      .username,.action {
+      .username,
+      .action {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -88,7 +97,7 @@ defineProps<{
         white-space: nowrap;
         text-overflow: ellipsis;
       }
-    
+
       .text {
         font-size: 50%;
         overflow: hidden;
@@ -97,8 +106,9 @@ defineProps<{
         color: var(--secondary-text-color);
       }
 
-      .text::before,.text::after { 
-        content: "”" ;
+      .text::before,
+      .text::after {
+        content: "”";
       }
     }
   }

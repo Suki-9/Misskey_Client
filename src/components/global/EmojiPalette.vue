@@ -3,32 +3,33 @@
 import { readEmojiIndex, searchEmoji } from "../../scripts/emoji";
 import { ref } from "vue";
 
-
-const emojiCategorys = readEmojiIndex("category")
-const showCategorys = ref<Record<string, boolean>>({})
+const emojiCategorys = readEmojiIndex("category");
+const showCategorys = ref<Record<string, boolean>>({});
 
 Object.keys(emojiCategorys).forEach(category => {
- showCategorys.value[category] = false
-})
+  showCategorys.value[category] = false;
+});
 </script>
 
 <template>
   <div :class="$style.root">
-    <div
-      v-for="category in Object.keys(emojiCategorys)" >
-      <a 
-        :class="$style.category" 
-        @click="showCategorys[category] = !showCategorys[category]">
+    <div v-for="category in Object.keys(emojiCategorys)">
+      <a
+        :class="$style.category"
+        @click="showCategorys[category] = !showCategorys[category]"
+      >
         {{ category }}
         <span></span>
       </a>
       <div v-if="showCategorys[category]" :class="$style.emojiBox">
         <a v-for="emoji in emojiCategorys[category]">
-          <img 
+          <img
             :src="
               //@ts-ignore
-              searchEmoji(emoji).value"
-            :class="$style.emoji"/>
+              searchEmoji(emoji).value
+            "
+            :class="$style.emoji"
+          />
         </a>
       </div>
     </div>
@@ -82,5 +83,4 @@ Object.keys(emojiCategorys).forEach(category => {
     }
   }
 }
-
 </style>

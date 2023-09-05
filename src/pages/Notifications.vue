@@ -12,7 +12,6 @@ import { readCookie } from "../scripts/cookie";
 import Notification from "../components/global/Notification.vue";
 import BottomBar from "../components/global/BottomBar.vue";
 
-
 const host = readCookie("loginHost").unwrap();
 //const autoReConnection = true;
 
@@ -27,15 +26,13 @@ if (host) {
 const notifications = ref<ModifiedNotification[]>([]);
 
 export const addNotificationsBefore = (notification: ModifiedNotification) => {
-  notifications.value.push(notification)
-
-}
+  notifications.value.push(notification);
+};
 
 export const addNotificationsAfter = (notification: ModifiedNotification) => {
-  notifications.value.unshift(notification)
-}
+  notifications.value.unshift(notification);
+};
 </script>
-
 
 <template>
   <div :class="$style.root" id="NotificationView">
