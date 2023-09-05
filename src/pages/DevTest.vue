@@ -15,7 +15,6 @@ const test = async () => {
     .replaceAll("\n", "")
     .split(";");
   body.value = JSON.parse((body.value = "{}"));
-  body.value["i"] = "DHQbc8pZ6q2998czJBs8x4Lm8fijYVkN";
   options.forEach(option => {
     if (option !== "") {
       const kv = option.replaceAll(" ", "").replaceAll('"', "").split(":");
