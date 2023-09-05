@@ -8,7 +8,7 @@ import { readCookie } from "../../scripts/cookie";
 
 //type
 import { ModifiedNote } from "../../scripts/types";
-import { Endpoints } from "../../scripts/API/api";
+import { Endpoints, channels, ElementOf } from "../../scripts/API/api";
 
 //vue Component
 import Note from "./Note.vue";
@@ -21,7 +21,7 @@ let maxIndexSize = 10
 
 const props = defineProps<{
   hostName: string;
-  channel?: "Home" | "Hybrid" | "local" | "global" | undefined;
+  channel?: ElementOf<typeof channels>;
   autoReConnection: boolean;
 }>();
 

@@ -1,6 +1,6 @@
 import { Note } from "../types"
 
-type channels = "Home" | "Hybrid" | "local" | "global";
+const channels = ["Home" , "Hybrid" , "local" , "global"] as const;
 
 
 type ElementOf<T> = T extends readonly Array<infer E>
