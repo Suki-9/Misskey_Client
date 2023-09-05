@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchAPI } from "../scripts/API/fetchAPI";
+import { fetchAPI } from "../scripts/API/fetchMisskeyAPI";
 import "../scripts/API/api.d";
 import { ref } from "vue";
 
@@ -79,3 +79,4 @@ textarea {
   height: 7em;
 }
 </style>
+../scripts/API/fetchMisskeyAPI
