@@ -3,24 +3,26 @@
 import { ref, nextTick } from "vue";
 import { readCookie } from "../../scripts/cookie";
 import { getUserData } from "../../scripts/API/userdata";
-import { postNote } from "../../scripts/API/note";
+import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+import { Endpoints } from "../../scripts/API/api";
+
 
 const isActive = ref<boolean>(false);
 const postText = ref<string>("");
-const visibility = ref<string>("");
+const visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home");
 const userData = JSON.parse(
   await getUserData(readCookie("loginHost").unwrap())
 );
 
 const post = () => {
   if (postText.value !== "")
-    postNote(
-      undefined,
-      undefined,
-      visibility.value == "" ? "public" : visibility.value,
-      undefined,
-      postText.value
-    );
+  fetchMisskeyAPI("notes/create",
+    {
+      i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+      text: postText.value,
+      visibility: visibility.value,
+    },
+  )
   isActive.value = false;
   postText.value = "";
 };

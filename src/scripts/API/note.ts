@@ -65,60 +65,7 @@ export const postReNote = (
   host: string = readCookie("loginHost").unwrap(),
   token: string = readCookie(`${host}_token`).unwrap()
 ) => {
-  postNote(
-    host,
-    token,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    noteId
-  );
-};
-
-export const postNote = async (
-  host: string = readCookie("loginHost").unwrap(),
-  token: string = readCookie(`${host}_token`).unwrap(),
-  visibility: string = "public",
-  visibleUserIds?: string[],
-  text?: string,
-  cw?: string,
-  localOnly: boolean = false,
-  noExtractMentions: boolean = false,
-  noExtractHashtags: boolean = false,
-  noExtractEmojis: boolean = false,
-  fileIds?: string[],
-  replyId?: string,
-  renoteId?: string,
-  channelId?: string
-) => {
-  const res = await fetch(`https://${host}/api/notes/create`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      i: token,
-      visibility: visibility,
-      //visibleUserIds: (visibility == "specified") ? visibleUserIds : null,
-      text: text,
-      cw: cw,
-      localOnly: localOnly,
-      noExtractMentions: noExtractMentions,
-      noExtractHashtags: noExtractHashtags,
-      noExtractEmojis: noExtractEmojis,
-      fileIds: fileIds,
-      replyId: replyId,
-      renoteId: renoteId,
-      channelId: channelId,
-    }),
-  })
-    .then(response => response.json())
-    .then(data => data);
+  postNote(host, token, {
+    renoteId: noteId,
+  });
 };

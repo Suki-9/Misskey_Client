@@ -53,4 +53,23 @@ export type Endpoints = {
     };
     res: Note[];
   };
+  "notes/create": {
+    method: "POST",
+    req: {
+      i?: string;
+      visibility: "public" | "home" | "followers";
+      visibleUserIds?: string[];
+      text?: string;
+      cw?: string;
+      localOnly: boolean;
+      noExtractMentions: boolean = false,
+      noExtractHashtags: boolean = false,
+      noExtractEmojis: boolean = false,
+      fileIds?: string[],
+      replyId?: string,
+      renoteId?: string,
+      channelId?: string
+    },
+    res: Note,
+  }
 };

@@ -6,23 +6,19 @@ const router = createRouter({
     {
       path: "/",
       component: () => import("../pages/Home.vue"),
-    },
-    {
+    }, {
       path: "/login",
       name: "Login",
       component: () => import("../pages/Login.vue"),
-    },
-    {
+    }, {
       path: "/callback",
       name: "Callback",
       component: () => import("../components/Login/Callback.vue"),
-    },
-    {
+    }, {
       path: "/notification",
       name: "Notification",
       component: () => import("../pages/Notifications.vue"),
-    },
-    {
+    }, {
       path: "/directmessage",
       component: () => import("../pages/DirectMessage.vue"),
       children: [
@@ -37,8 +33,7 @@ const router = createRouter({
           component: () => import("../pages/DirectMessage/Message.vue"),
         },
       ],
-    },
-    {
+    }, {
       path: "/dev",
       name: "DevTest",
       component: () => import("../pages/DevTest.vue"),
