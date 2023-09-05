@@ -23,11 +23,8 @@ const test = async () => {
   });
   console.log(body.value);
   response.value = "";
-  response.value = await fetchAPI(
-    endpoint.value,
-    body.value,
-  );
-  console.log(response.value)
+  response.value = await fetchAPI(endpoint.value, body.value);
+  console.log(response.value);
   response.value = JSON.stringify(response.value);
   body.value = "";
 };

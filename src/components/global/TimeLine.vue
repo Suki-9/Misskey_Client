@@ -13,11 +13,10 @@ import { Endpoints, channels, ElementOf } from "../../scripts/API/api";
 //vue Component
 import Note from "./Note.vue";
 
-
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
 
-let maxIndexSize = 10
+let maxIndexSize = 10;
 
 const props = defineProps<{
   hostName: string;
@@ -26,18 +25,20 @@ const props = defineProps<{
 }>();
 
 const firstFetchNote = async () => {
-  const endpoint = `notes/${(props.channel ?? "Home") == "Home" ? "" : props.channel + "-"}timeline` as keyof Endpoints
+  const endpoint = `notes/${
+    (props.channel ?? "Home") == "Home" ? "" : props.channel + "-"
+  }timeline` as keyof Endpoints;
   const fetchNote = await fetchMisskeyAPI(
     endpoint,
     {
       i: readCookie(`${props.hostName}_token`).unwrap(),
       limit: 10,
     },
-    props.hostName,
-  )
-  fetchNote?.forEach(note => { 
+    props.hostName
+  );
+  fetchNote?.forEach(note => {
     notes.value.push(noteGen(note));
-  })
+  });
 };
 
 const addNoteAfter = (note: ModifiedNote) => {

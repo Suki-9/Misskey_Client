@@ -4,7 +4,6 @@ import { Endpoints } from "./api";
 //TS Module
 import { readCookie } from "../cookie";
 
-
 export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
   endpoint: keyof Endpoints,
   body: Endpoints[E]["req"],

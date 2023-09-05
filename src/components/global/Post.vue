@@ -6,7 +6,6 @@ import { getUserData } from "../../scripts/API/userdata";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 import { Endpoints } from "../../scripts/API/api";
 
-
 const isActive = ref<boolean>(false);
 const postText = ref<string>("");
 const visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home");
@@ -16,13 +15,11 @@ const userData = JSON.parse(
 
 const post = () => {
   if (postText.value !== "")
-  fetchMisskeyAPI("notes/create",
-    {
+    fetchMisskeyAPI("notes/create", {
       i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
       text: postText.value,
       visibility: visibility.value,
-    },
-  )
+    });
   isActive.value = false;
   postText.value = "";
 };
