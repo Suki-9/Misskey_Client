@@ -10,6 +10,13 @@ type ElementOf<T> = T extends readonly Array<infer E>
   : never;
 
 export type Endpoints = {
+  "i": { 
+    method: "POST",
+    req: { 
+      i: string;
+    },
+    res: {}
+  },
   "notes/timeline": {
     method: "POST";
     req: {

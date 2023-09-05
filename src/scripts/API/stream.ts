@@ -52,7 +52,6 @@ export const streamMain = (host: string, autoReConnection: boolean = false) => {
 
     switch (gentEvent.type) {
       case "notification":
-        //addNotificationsAfter(notificationGen(JSON.parse(event.data).body.body))
         break;
 
       default:
