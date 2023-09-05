@@ -24,7 +24,6 @@ const test = async () => {
   console.log(body.value);
   response.value = "";
   response.value = await fetchAPI(
-    "Misskey.io",
     endpoint.value,
     body.value,
   );
