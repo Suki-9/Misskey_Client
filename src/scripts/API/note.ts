@@ -13,34 +13,6 @@ const htmlTextEscape = (text: string): string => {
     .replaceAll("&", "&amp;");
 };
 
-export const getNote = async (
-  host: string,
-  channel = "",
-  maxIndexSize = 10,
-  untilId?: string,
-  token = readCookie(`${host}_token`).unwrap()
-) => {
-  channel &&= `${channel}-`;
-  const res: Note[] = await fetch(
-    `https://${host}/api/notes/${channel}timeline`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        i: token,
-        limit: maxIndexSize,
-        untilId: untilId,
-      }),
-    }
-  )
-    .then(response => response.json())
-    .then(data => data);
-
-  return res.map(note => noteGen(note));
-};
-
 export const noteGen = (noteData: Note): ModifiedNote => {
   const note: Note = noteData.renote ?? noteData;
 

@@ -1,3 +1,5 @@
+import { Note } from "../types"
+
 type channels = "Home" | "Hybrid" | "local" | "global";
 
 
@@ -17,12 +19,12 @@ export type Endpoints = {
       untilId?: string;
       sinceDate?: string;
       untilDate?: string;
-      includeMyRenotes: boolean;
-      includeRenotedMyNotes: boolean;
-      includeLocalRenotes: boolean;
-      withFiles: boolean;
+      includeMyRenotes?: boolean;
+      includeRenotedMyNotes?: boolean;
+      includeLocalRenotes?: boolean;
+      withFiles?: boolean;
     };
-    res: { b: string; };
+    res: Note[];
   };
   "notes/hybrid-timeline": Endpoints["notes/timeline"];
   "notes/global-timeline": {
@@ -35,7 +37,7 @@ export type Endpoints = {
       sinceDate?: string;
       untilDate?: string;
     };
-    res: { b: string };
+    res: Note[];
   };
   "notes/local-timeline": {
     method: "POST";
@@ -49,6 +51,6 @@ export type Endpoints = {
       sinceDate?: string;
       untilDate?: string;
     };
-    res: { b: string };
+    res: Note[];
   };
 };

@@ -1,31 +1,43 @@
 <script setup lang="ts">
 //TS Module
 import { ref } from "vue";
-import { getNote, noteGen } from "../../scripts/API/note";
+import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+import { noteGen } from "../../scripts/API/note";
 import { streamTimeLine } from "../../scripts/API/stream";
+import { readCookie } from "../../scripts/cookie";
 
 //type
 import { ModifiedNote } from "../../scripts/types";
+import { Endpoints } from "../../scripts/API/api";
 
 //vue Component
 import Note from "./Note.vue";
 
-const props = defineProps<{
-  hostName: string;
-  channel?: string;
-  autoReConnection: boolean;
-}>();
 
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
 
-let maxIndexSize = 10;
-let scrollY = 0;
+let maxIndexSize = 10
+
+const props = defineProps<{
+  hostName: string;
+  channel?: "Home" | "Hybrid" | "local" | "global" | undefined;
+  autoReConnection: boolean;
+}>();
 
 const firstFetchNote = async () => {
-  (await getNote(props.hostName, props.channel, maxIndexSize)).forEach(note => {
-    notes.value.push(note);
-  });
+  const endpoint = `notes/${(props.channel ?? "Home") == "Home" ? "" : props.channel + "-"}timeline` as keyof Endpoints
+  const fetchNote = await fetchMisskeyAPI(
+    endpoint,
+    {
+      i: readCookie(`${props.hostName}_token`).unwrap(),
+      limit: 10,
+    },
+    props.hostName,
+  )
+  fetchNote?.forEach(note => { 
+    notes.value.push(noteGen(note));
+  })
 };
 
 const addNoteAfter = (note: ModifiedNote) => {
@@ -53,27 +65,6 @@ if (props.hostName) {
   firstFetchNote();
   stream();
 }
-
-window.addEventListener("scroll", () => {
-  scrollY = window.scrollY;
-  if (scrollY < 100) {
-    noteKeep.value.forEach(note => {
-      notes.value.push(note);
-    });
-    noteKeep.value = [];
-  }
-  if (
-    document.documentElement.scrollHeight - window.innerHeight - scrollY <
-    50
-  ) {
-    getNote(
-      props.hostName,
-      props.channel,
-      maxIndexSize,
-      notes.value[notes.value.length - 1].id
-    );
-  }
-});
 </script>
 
 <template>
