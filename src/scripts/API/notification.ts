@@ -51,6 +51,7 @@ export const notificationGen = (
   notification: Notification
 ): ModifiedNotification => {
   notification.user ??= {
+    id: "",
     name: null,
     avatarUrl: "",
     username: "",
