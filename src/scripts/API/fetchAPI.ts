@@ -1,11 +1,11 @@
 //Type
-import "./api.d";
+import { Endpoints } from "./api";
 
 //TS Module
 import { readCookie } from "../cookie";
 
 
-export const fetchAPI = async <E extends keyof Endpoints>(
+export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
   endpoint: keyof Endpoints,
   body: Endpoints[E]["req"],
   host: string = readCookie("loginHost").unwrap(),
