@@ -1,5 +1,12 @@
 type channels = "Home" | "Hybrid" | "local" | "global";
 
+
+type ElementOf<T> = T extends readonly Array<infer E>
+  ? E
+  : T extends readonly Iterable<infer E>
+  ? E
+  : never;
+
 type Endpoints = {
   "notes/timeline": {
     method: "POST";
