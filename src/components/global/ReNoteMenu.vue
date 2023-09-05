@@ -1,16 +1,26 @@
 <script setup lang="ts">
 //TS Module
-import { postReNote } from "../../scripts/API/note";
+import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+import { readCookie } from "../../scripts/cookie";
 
-defineProps<{
+const props = defineProps<{
   noteId: string;
   replyText: string;
 }>();
+
+const renote = () => {
+  fetchMisskeyAPI("notes/create",
+    {
+      i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+      renoteId: props.noteId,
+    }
+  )
+}
 </script>
 
 <template>
   <div :class="$style.root">
-    <a @click="postReNote(noteId)">Renote</a>
+    <a @click="renote()">Renote</a>
     <a>引用</a>
   </div>
 </template>

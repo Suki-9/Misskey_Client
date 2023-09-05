@@ -3,7 +3,6 @@ import { ModifiedNote, Note, Reaction, User } from "../types";
 
 //ts module
 import { parseEmoji, searchEmoji } from "../emoji";
-import { readCookie } from "../cookie";
 
 const htmlTextEscape = (text: string): string => {
   return text
@@ -58,14 +57,4 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     reactions,
     renoter,
   };
-};
-
-export const postReNote = (
-  noteId: string,
-  host: string = readCookie("loginHost").unwrap(),
-  token: string = readCookie(`${host}_token`).unwrap()
-) => {
-  postNote(host, token, {
-    renoteId: noteId,
-  });
 };
