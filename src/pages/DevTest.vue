@@ -3,9 +3,9 @@ import { fetchAPI } from "../scripts/API/fetchAPI";
 import "../scripts/API/api.d";
 import { ref } from "vue";
 
-const endpoint = ref<keyof Endpoints>("test/test");
+const endpoint = ref<keyof Endpoints>("notes/timeline");
 const fetchMethod = ref<"POST" | "GET">("POST");
-const body = ref("");
+const body = ref<any | undefined>("");
 const response = ref<any | undefined>("");
 
 const test = async () => {
@@ -27,10 +27,9 @@ const test = async () => {
   response.value = await fetchAPI(
     "Misskey.io",
     endpoint.value,
-    fetchMethod.value,
-    //@ts-ignore
-    body.value
+    body.value,
   );
+  console.log(response.value)
   response.value = JSON.stringify(response.value);
   body.value = "";
 };
