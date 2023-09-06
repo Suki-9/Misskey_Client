@@ -69,9 +69,9 @@ export type Endpoints = {
       text?: string;
       cw?: string;
       localOnly: boolean;
-      noExtractMentions: boolean = false,
-      noExtractHashtags: boolean = false,
-      noExtractEmojis: boolean = false,
+      noExtractMentions: boolean;
+      noExtractHashtags: boolean;
+      noExtractEmojis: boolean;
       fileIds?: string[],
       replyId?: string,
       renoteId?: string,
