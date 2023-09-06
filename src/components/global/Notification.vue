@@ -3,7 +3,7 @@
 import { ModifiedNotification } from "../../scripts/types";
 
 //Vue Component
-import Note from "./Note.vue";
+import "./V-Note.vue";
 
 defineProps<{
   notification: ModifiedNotification;
@@ -41,7 +41,7 @@ defineProps<{
         ></div>
       </div>
     </div>
-    <Note
+    <V-Note
       v-if="notification.note"
       :class="$style.quote"
       :note="notification.note"
