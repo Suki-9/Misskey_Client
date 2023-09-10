@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //TS Module
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 import { noteGen } from "../../scripts/API/note";
 import { streamTimeLine } from "../../scripts/API/stream";
@@ -16,6 +16,8 @@ import Note from "./Note.vue";
 const notes = ref<ModifiedNote[]>([]);
 const noteKeep = ref<ModifiedNote[]>([]);
 
+const timelineBody = ref<HTMLElement | null>();
+
 let maxIndexSize = 10;
 
 const props = defineProps<{
@@ -28,17 +30,14 @@ const firstFetchNote = async () => {
   const endpoint = `notes/${
     (props.channel ?? "Home") == "Home" ? "" : props.channel + "-"
   }timeline` as keyof Endpoints;
-  const fetchNote = await fetchMisskeyAPI(
+  fetchMisskeyAPI<"notes/timeline" | "notes/hybrid-timeline" | "notes/local-timeline" | "notes/global-timeline">(
     endpoint,
     {
       i: readCookie(`${props.hostName}_token`).unwrap(),
       limit: 10,
     },
     props.hostName
-  );
-  fetchNote?.forEach(note => {
-    notes.value.push(noteGen(note));
-  });
+  ).then(fetchNotes => fetchNotes?.forEach(note => notes.value.push(noteGen(note))))
 };
 
 const addNoteAfter = (note: ModifiedNote) => {
@@ -49,9 +48,11 @@ const addNoteAfter = (note: ModifiedNote) => {
 const stream = () => {
   const TimeLine = streamTimeLine(props.hostName, props.channel);
 
-  TimeLine.addEventListener("message", event => {
+  TimeLine.addEventListener("message", (event) => {
     console.log("GetNote!");
+    const nowScrollTop = timelineBody.value?.scrollTop
     addNoteAfter(noteGen(JSON.parse(event.data).body.body));
+    timelineBody.value?.scrollTo(0, (nowScrollTop ?? 0) + (document.getElementById("0")?.clientHeight ?? 0))
   });
 
   TimeLine.addEventListener("close", () => {
@@ -65,12 +66,15 @@ const stream = () => {
 if (props.hostName) {
   firstFetchNote();
   stream();
+  onMounted(() => {
+    timelineBody.value = document.getElementById("timeline")
+  })
 }
 </script>
 
 <template>
-  <div :class="$style.root">
-    <Note :class="$style.note" v-for="note in notes" :note="note" />
+  <div id="timeline" :class="$style.root">
+    <Note :class="$style.note" v-for="(note, index) in notes" :note="note" :id="index"/>
   </div>
 </template>
 
@@ -79,10 +83,22 @@ if (props.hostName) {
   display: flex;
   flex-direction: column;
 
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+
+  height: calc(100vh - var(--bottom-bar-height));
+
   margin: 0 var(--primary-margin-w);
   padding-bottom: var(--bottom-bar-height);
   .note {
     margin: 1vh 0;
+    scroll-margin: 1vh;
+
+    scroll-snap-align: start;
+  }
+  .loading {
+    height: 700px;
+    scroll-snap-align: start;
   }
 }
 </style>
