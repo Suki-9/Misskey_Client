@@ -43,6 +43,17 @@ const router = createRouter({
       name: "noteView",
       component: () => import("../pages/NoteView.vue"),
     },
+    {
+      path: "/settings",
+      component: () => import("../pages/Settings.vue"),
+      children: [
+        {
+          path: "themecreate",
+          name: "ThemeCreate",
+          component: () => import("../pages/Settings/ThemeCreate.vue"),
+        },
+      ],
+    },
   ],
 });
 
