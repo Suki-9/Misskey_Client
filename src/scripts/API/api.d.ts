@@ -10,13 +10,13 @@ type ElementOf<T> = T extends readonly Array<infer E>
   : never;
 
 export type Endpoints = {
-  "i": { 
-    method: "POST",
-    req: { 
+  i: {
+    method: "POST";
+    req: {
       i: string;
-    },
-    res: {}
-  },
+    };
+    res: {};
+  };
   "notes/timeline": {
     method: "POST";
     req: {
@@ -61,7 +61,7 @@ export type Endpoints = {
     res: Note[];
   };
   "notes/create": {
-    method: "POST",
+    method: "POST";
     req: {
       i?: string;
       visibility: "public" | "home" | "followers";
@@ -72,12 +72,12 @@ export type Endpoints = {
       noExtractMentions: boolean;
       noExtractHashtags: boolean;
       noExtractEmojis: boolean;
-      fileIds?: string[],
-      replyId?: string,
-      renoteId?: string,
-      channelId?: string
-    },
-    res: Note,
+      fileIds?: string[];
+      replyId?: string;
+      renoteId?: string;
+      channelId?: string;
+    };
+    res: Note;
   };
   "notes/reactions/create": {
     method: "POST";
@@ -85,7 +85,7 @@ export type Endpoints = {
       i: string;
       noteId: string;
       reaction: string;
-    }
+    };
     res: undefined;
   };
   "notes/reactions/delete": {
@@ -95,5 +95,12 @@ export type Endpoints = {
       noteId: string;
     };
     res: undefined;
+  };
+  "notes/show": {
+    method: "POST";
+    req: {
+      noteId: string;
+    };
+    res: Note;
   };
 };
