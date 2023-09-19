@@ -95,6 +95,12 @@
       "css": "bell-alt",
       "code": 61683,
       "src": "fontawesome"
+    },
+    {
+      "uid": "e99461abfef3923546da8d745372c995",
+      "css": "cog",
+      "code": 59392,
+      "src": "fontawesome"
     }
   ]
 }
