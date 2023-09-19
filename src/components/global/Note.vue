@@ -90,9 +90,12 @@ const createReaction = async (reactionName: string) =>
   flex-direction: column;
 
   border: solid 1px var(--primary-border-color);
+  border-radius: var(--default-border-radius);
+  background-color: var(--tertiary-bg-color);
   .renote {
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     width: 96%;
 
@@ -100,8 +103,8 @@ const createReaction = async (reactionName: string) =>
 
     border-bottom: solid 1px var(--primary-border-color);
     .renoterAvatar {
-      height: 0.8em;
-      width: 0.8em;
+      height: 1.3rem;
+      width: 1.3rem;
 
       object-fit: cover;
 
@@ -110,16 +113,13 @@ const createReaction = async (reactionName: string) =>
     .renoterName {
       display: flex;
       flex-direction: row;
-      align-items: center;
 
       width: 90%;
 
       margin: 0 2%;
 
-      font-size: 60%;
       overflow: hidden;
       white-space: nowrap;
-
       span {
         display: flex;
         align-items: center;
@@ -150,8 +150,6 @@ const createReaction = async (reactionName: string) =>
           display: flex;
           flex-direction: row;
 
-          font-size: 60%;
-
           overflow: hidden;
           white-space: nowrap;
           span {
@@ -161,13 +159,16 @@ const createReaction = async (reactionName: string) =>
         }
       }
       .text {
+        margin-bottom: 1%;
+
         overflow: hidden;
-        font-size: 60%;
       }
       .files {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
+
+        margin-bottom: 1%;
 
         width: 100%;
       }
@@ -176,13 +177,9 @@ const createReaction = async (reactionName: string) =>
         flex-wrap: wrap;
         flex-direction: row;
 
-        font-size: 60%;
+        margin-bottom: 1%;
 
-        .reaction {
-          margin: 3px 3px 3px 0;
-
-          background-color: var(--secondary-bg-color);
-        }
+        font-size: 80%;
       }
       footer {
         display: flex;
@@ -192,7 +189,7 @@ const createReaction = async (reactionName: string) =>
 
         width: 60%;
 
-        font-size: 70%;
+        font-size: 130%;
       }
     }
   }
