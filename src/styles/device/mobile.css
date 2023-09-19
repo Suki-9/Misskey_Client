@@ -1,0 +1,17 @@
+:root {
+  /*text size*/
+  font-size: 90%;
+  line-height: 1.3rem;
+
+  /* height */
+  --bottom-bar-height: 7.5vh;
+  --head-bar-height: 4vh;
+
+  /* margin */
+  --primary-margin-w: 2.5vw;
+  --primary-margin-h: 1vh;
+
+  /* paddings */
+  --primary-padding-w: var(--primary-margin-w);
+  --primary-padding-h: var(--primary-margin-h);
+}

@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+/*仮*/
+/*@import "./theme/light.css";*/
+@import "./theme/dark.css";
+@import "./device/mobile.css";
+
+@import "./globalComponent.css";
+
+:root {
+  /*color*/
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+
+  /*font text*/
+  --primary-font-size: 2em;
+  font-family: "Roboto", sans-serif;
+
+  /*border*/
+  --default-border-radius: 7px;
+}
+
+body {
+  margin: 0;
+}
+
+/*text*/
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--primary-text-color);
+  text-decoration: none;
+}
+
+.h1 {
+  font-size: var(--primary-font-size);
+}
+.h2 {
+  font-size: calc(var(--primary-font-size) * 0.875);
+}
+.h3 {
+  font-size: calc(var(--primary-font-size) * 0.75);
+}
+.h4 {
+  font-size: calc(var(--primary-font-size) * 0.625);
+}
+
+/*form*/
+input {
+  margin: 0;
+  padding: 0;
+
+  font-family: "M PLUS 1", sans-serif;
+
+  border: none;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
