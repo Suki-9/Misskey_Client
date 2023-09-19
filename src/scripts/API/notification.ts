@@ -21,6 +21,7 @@ export const notificationGen = (
     id: notification.id,
     type: notification.type,
     user: {
+      id: notification.user.id,
       name: parseEmoji(notification.user.name),
       username: notification.user.username,
       avatarUrl: notification.user.avatarUrl,
@@ -28,7 +29,6 @@ export const notificationGen = (
   };
 
   switch (notification.type) {
-    // @ts-ignore
     case "renote": {
       ModifiedNotification.text =
         notification.note.text && parseEmoji(notification.note.text);
