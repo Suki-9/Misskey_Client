@@ -1,8 +1,10 @@
-//types
+// Types -----------------------------------------------///
 import { ModifiedNote, Note, Reaction, User } from "../types";
 
-//ts module
+
+//TS Module --------------------------------------------///
 import { parseEmoji, searchEmoji } from "../emoji";
+
 
 const htmlTextEscape = (text: string): string => {
   return text
@@ -14,6 +16,7 @@ const htmlTextEscape = (text: string): string => {
 
 export const noteGen = (noteData: Note): ModifiedNote => {
   const note: Note = noteData.renote ?? noteData;
+  let renoter: User | undefined;
 
   // nameは初期設定だと空の場合があるので空であればidを使う
   note.user.name ??= note.user.username;
@@ -24,14 +27,10 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       return {
         name: reaction,
         count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(
-          ""
-        ),
+        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(""),
       };
     }
   );
-
-  let renoter: User | undefined;
 
   if (noteData.renote) {
     renoter = {
