@@ -4,7 +4,7 @@ import { ModifiedNotification } from "../scripts/types";
 
 //TS Module
 import { ref } from "vue";
-import { getNotifications } from "../scripts/API/notification";
+import { getNotifications } from "../scripts/API/Notification";
 //import { streamMain } from "../scripts/API/stream";
 import { readCookie } from "../scripts/cookie";
 
