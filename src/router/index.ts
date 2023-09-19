@@ -32,11 +32,16 @@ const router = createRouter({
           component: () => import("../pages/DirectMessage/UserList.vue"),
         },
         {
-          path: "message/: userId",
+          path: "message/:userId",
           name: "messageView",
           component: () => import("../pages/DirectMessage/Message.vue"),
         },
       ],
+    },
+    {
+      path: "/notes/:id",
+      name: "noteView",
+      component: () => import("../pages/NoteView.vue"),
     },
     {
       path: "/dev",
