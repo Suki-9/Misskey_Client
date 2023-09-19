@@ -23,7 +23,7 @@ export type Endpoints = {
       includeTypes?: NotificationType[];
       excludeTypes?: NotificationType[];
     };
-    req: Notification[];
+    res: Notification[];
   };
   "notes/timeline": {
     method: "POST";
