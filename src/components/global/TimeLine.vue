@@ -93,12 +93,6 @@ if (props.hostName) {
   .note {
     margin: 1vh 0;
     scroll-margin: 1vh;
-
-    scroll-snap-align: start;
-  }
-  .loading {
-    height: 700px;
-    scroll-snap-align: start;
   }
 }
 </style>
