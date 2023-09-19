@@ -5,7 +5,7 @@ import { ModifiedNotification } from "../scripts/types";
 
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
-import { notificationGen } from "../scripts/API/Notification"
+import { notificationGen } from "../scripts/API/notification"
 //import { streamMain } from "../scripts/API/stream";
 import { readCookie } from "../scripts/cookie";
 import { ref } from "vue";
