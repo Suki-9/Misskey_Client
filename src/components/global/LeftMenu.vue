@@ -1,5 +1,5 @@
 <script setup lang="ts">
-//TS Module
+// TS Module -------------------------------------------///
 import { getUserData } from "../../scripts/API/userdata";
 import { readCookie } from "../../scripts/cookie";
 import { parseEmoji } from "../../scripts/emoji";
@@ -14,23 +14,21 @@ const userData = JSON.parse(
     <div :class="$style.bio">
       <div :class="$style.head">
         <img :class="$style.avatar" :src="userData.avatarUrl" />
-      </div>
-      <p
-        :class="$style.Name"
-        v-html="
-          userData.name == null ? userData.username : parseEmoji(userData.name)
-        "
-      ></p>
-      <p :class="$style.userName">@{{ userData.username }}</p>
-      <div :class="$style.followCounter">
-        <p>
-          <span>{{ userData.followingCount }}</span>
-          <span>フォロー</span>
-        </p>
-        <p>
-          <span>{{ userData.followersCount }}</span>
-          <span>フォロワー</span>
-        </p>
+        <p
+          :class="$style.name"
+          v-html="userData.name == null ? userData.username : parseEmoji(userData.name)"
+        ></p>
+        <p :class="$style.userName">@{{ userData.username }}</p>
+        <div :class="$style.followCounter">
+          <p>
+            <span>{{ userData.followingCount }}</span>
+            <span>フォロー</span>
+          </p>
+          <p>
+            <span>{{ userData.followersCount }}</span>
+            <span>フォロワー</span>
+          </p>
+        </div>
       </div>
     </div>
     <div :class="$style.list">
@@ -53,11 +51,11 @@ const userData = JSON.parse(
   display: flex;
   flex-direction: column;
 
-  min-width: 80%;
+  min-width: 60%;
 
   padding: 2%;
 
-  font-size: 80%;
+  font-size: 120%;
 
   background-color: var(--secondary-bg-color);
   .bio {
@@ -70,17 +68,21 @@ const userData = JSON.parse(
     border-bottom: solid 1px var(--secondary-border-color);
     .head {
       display: flex;
-      flex-direction: row;
-    }
-    .userName {
-      color: var(--secondary-text-color);
-    }
-    .followCounter {
-      display: flex;
-      flex-direction: row;
-      font-size: 70%;
-      p {
-        margin-right: 2%;
+      flex-direction: column;
+      .name {
+        margin-top: 2%;
+      }
+      .userName {
+        color: var(--secondary-text-color);
+      }
+      .followCounter {
+        display: flex;
+        flex-direction: row;
+
+        font-size: 90%;
+        p {
+          margin-right: 2%;
+        }
       }
     }
   }
@@ -88,13 +90,13 @@ const userData = JSON.parse(
     display: flex;
     flex-direction: column;
 
-    margin: 1% 0 1% 0;
+    margin: 1%;
+    line-height: 1.6rem;
+
+    font-size: 140%;
+
 
     border-bottom: solid 1px var(--secondary-border-color);
-
-    a::before {
-      content: "・";
-    }
   }
 }
 </style>
