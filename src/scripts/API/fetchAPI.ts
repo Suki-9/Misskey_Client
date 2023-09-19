@@ -19,6 +19,5 @@ export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
   })
     .then(response => response.json())
     .then(data => data)
-    .catch(error => error);
-  
+    .catch(error => { return undefined });
 };
