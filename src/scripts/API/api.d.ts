@@ -1,6 +1,6 @@
-import { Note } from "../types"
+import { Note } from "../types";
 
-const channels = ["Home" , "Hybrid" , "local" , "global"] as const;
+const channels = ["Home", "Hybrid", "local", "global"] as const;
 
 export type Endpoints = {
   i: {

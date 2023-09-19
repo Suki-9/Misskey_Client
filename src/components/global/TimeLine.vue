@@ -30,14 +30,21 @@ const firstFetchNote = async () => {
   const endpoint = `notes/${
     (props.channel ?? "Home") == "Home" ? "" : props.channel + "-"
   }timeline` as keyof Endpoints;
-  fetchMisskeyAPI<"notes/timeline" | "notes/hybrid-timeline" | "notes/local-timeline" | "notes/global-timeline">(
+  fetchMisskeyAPI<
+    | "notes/timeline"
+    | "notes/hybrid-timeline"
+    | "notes/local-timeline"
+    | "notes/global-timeline"
+  >(
     endpoint,
     {
       i: readCookie(`${props.hostName}_token`).unwrap(),
       limit: 10,
     },
     props.hostName
-  ).then(fetchNotes => fetchNotes?.forEach(note => notes.value.push(noteGen(note))))
+  ).then(
+    fetchNotes => fetchNotes?.forEach(note => notes.value.push(noteGen(note)))
+  );
 };
 
 const addNoteAfter = (note: ModifiedNote) => {
@@ -48,11 +55,14 @@ const addNoteAfter = (note: ModifiedNote) => {
 const stream = () => {
   const TimeLine = streamTimeLine(props.hostName, props.channel);
 
-  TimeLine.addEventListener("message", (event) => {
+  TimeLine.addEventListener("message", event => {
     console.log("GetNote!");
-    const nowScrollTop = timelineBody.value?.scrollTop
+    const nowScrollTop = timelineBody.value?.scrollTop;
     addNoteAfter(noteGen(JSON.parse(event.data).body.body));
-    timelineBody.value?.scrollTo(0, (nowScrollTop ?? 0) + (document.getElementById("0")?.clientHeight ?? 0))
+    timelineBody.value?.scrollTo(
+      0,
+      (nowScrollTop ?? 0) + (document.getElementById("0")?.clientHeight ?? 0)
+    );
   });
 
   TimeLine.addEventListener("close", () => {
@@ -67,14 +77,19 @@ if (props.hostName) {
   firstFetchNote();
   stream();
   onMounted(() => {
-    timelineBody.value = document.getElementById("timeline")
-  })
+    timelineBody.value = document.getElementById("timeline");
+  });
 }
 </script>
 
 <template>
   <div id="timeline" :class="$style.root">
-    <Note :class="$style.note" v-for="(note, index) in notes" :note="note" :id="index"/>
+    <Note
+      :class="$style.note"
+      v-for="(note, index) in notes"
+      :note="note"
+      :id="index"
+    />
   </div>
 </template>
 
