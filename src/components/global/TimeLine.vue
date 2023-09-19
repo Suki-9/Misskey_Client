@@ -1,16 +1,16 @@
 <script setup lang="ts">
-//TS Module
-import { onMounted, ref } from "vue";
+// TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
-import { noteGen } from "../../scripts/API/note";
 import { streamTimeLine } from "../../scripts/API/stream";
+import { noteGen } from "../../scripts/API/note";
 import { readCookie } from "../../scripts/cookie";
+import { onMounted, ref } from "vue";
 
-//type
+// Type ------------------------------------------------///
 import { ModifiedNote } from "../../scripts/types";
-import { Endpoints, channels } from "../../scripts/API/api";
+import { Endpoints } from "../../scripts/API/api";
 
-//vue Component
+// Vue Component ---------------------------------------///
 import Note from "./Note.vue";
 
 const notes = ref<ModifiedNote[]>([]);
