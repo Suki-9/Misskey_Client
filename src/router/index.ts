@@ -43,11 +43,6 @@ const router = createRouter({
       name: "noteView",
       component: () => import("../pages/NoteView.vue"),
     },
-    {
-      path: "/dev",
-      name: "DevTest",
-      component: () => import("../pages/DevTest.vue"),
-    },
   ],
 });
 
