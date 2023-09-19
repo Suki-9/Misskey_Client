@@ -41,11 +41,13 @@ const reload = () => {
   i {
     width: 12.5vw;
 
+    font-size: 150%;
     text-align: center;
     line-height: 0;
-  }
-  i::before {
-    margin: 0;
+
+    &::before {
+      margin: 0;
+    }
   }
 }
 </style>
