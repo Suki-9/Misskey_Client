@@ -106,7 +106,7 @@ if (props.hostName) {
   margin: 0 var(--primary-margin-w);
   padding-bottom: var(--bottom-bar-height);
   .note {
-    margin: var(--primary-margin-h) 0;
+    margin-bottom: var(--primary-margin-w);
   }
 }
 </style>
