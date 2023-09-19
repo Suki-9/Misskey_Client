@@ -1,29 +1,27 @@
 <script setup lang="ts">
-//Type
+// Type ------------------------------------------------///
 import { ModifiedNote } from "../../scripts/types";
 
-//TS Module
+// TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
-
-//Vue Component
-import NoteImage from "./NoteImage.vue";
-
-//Vue Component function
-import { Show_emojiPalette, Show_reNoteMenu } from "../Home/PopUpUIs.vue";
 import { readCookie } from "../../scripts/cookie";
 
+//Vue Component ----------------------------------------///
+import NoteImage from "./NoteImage.vue";
+
+//Vue Component function -------------------------------///
+import { Show_emojiPalette, Show_reNoteMenu } from "../Home/PopUpUIs.vue";
 
 const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-const createReaction = async (reactionName: string) => {
+const createReaction = async (reactionName: string) =>
   fetchMisskeyAPI("notes/reactions/create", {
     i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
     noteId: props.note.id,
     reaction: reactionName,
-  })
-}
+  });
 </script>
 
 <template>
@@ -56,7 +54,11 @@ const createReaction = async (reactionName: string) => {
           />
         </div>
         <div :class="$style.reactions">
-          <p v-for="reaction in note.reactions" :class="$style.reaction" @click="createReaction(reaction.name)">
+          <p
+            v-for="reaction in note.reactions"
+            :class="$style.reaction"
+            @click="createReaction(reaction.name)"
+          >
             <span
               :style="reaction.link && `content: url(${reaction.link})`"
               :class="$style.emoji"
@@ -82,7 +84,7 @@ const createReaction = async (reactionName: string) => {
 </template>
 
 <style module lang="scss">
-@import "../../assets/css/globalComponent.css";
+@import "../../styles/globalComponent.css";
 .root {
   display: flex;
   flex-direction: column;

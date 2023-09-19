@@ -1,12 +1,12 @@
-//css
-import "./assets/css/main.css";
+// css -------------------------------------------------///
+import "./styles/main.css";
 import "./assets/icon/fontello/css/fontello.css";
 
-//js
+// JS Module -------------------------------------------///
 import "../src/scripts/global/result";
-import "../src/assets/css/device/styleSwitch";
+import "../src/styles/device/styleSwitch";
 
-//ts module
+// TS Module -------------------------------------------///
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";

@@ -66,7 +66,7 @@ export const popUpMenuList = (
 </template>
 
 <style module lang="scss">
-@import "../../assets/css/animation.css";
+@import "../../styles/animation.css";
 .LeftMenu {
   position: fixed;
   top: 0;

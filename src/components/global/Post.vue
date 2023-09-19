@@ -63,8 +63,8 @@ const showPostWindow = () => {
 </template>
 
 <style module lang="scss">
-@import "../../assets/css/globalComponent.css";
-@import "../../assets/css/animation.css";
+@import "../../styles/globalComponent.css";
+@import "../../styles/animation.css";
 .postButton {
   position: fixed;
   bottom: 12.5vh;

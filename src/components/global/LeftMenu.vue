@@ -48,7 +48,7 @@ const userData = JSON.parse(
 </template>
 
 <style module lang="scss">
-@import "../../assets//css/globalComponent.css";
+@import "../../styles/globalComponent.css";
 .root {
   display: flex;
   flex-direction: column;

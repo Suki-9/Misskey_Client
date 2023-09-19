@@ -37,7 +37,7 @@ Object.keys(emojiCategorys).forEach(category => {
 </template>
 
 <style module lang="scss">
-@import "../../assets/css/globalComponent.css";
+@import "../../styles/globalComponent.css";
 .root {
   margin: 0 2.5vw;
 
