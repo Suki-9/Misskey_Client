@@ -1,14 +1,29 @@
-import { Note } from "../types";
+// Import Types ----------------------------------------///
+import { Note, Notification } from "../types";
 
 const channels = ["Home", "Hybrid", "local", "global"] as const;
 
 export type Endpoints = {
-  i: {
+  "i": {
     method: "POST";
     req: {
       i: string;
     };
     res: {};
+  };
+  "i/notifications": {
+    method: "POST";
+    req: {
+      i?: string;
+      untilId?: string;
+      maxSize?: number;
+      following?: boolean;
+      unreadOnly?: boolean;
+      markAsRead?: boolean;
+      includeTypes?: NotificationType[];
+      excludeTypes?: NotificationType[];
+    };
+    req: Notification[];
   };
   "notes/timeline": {
     method: "POST";
