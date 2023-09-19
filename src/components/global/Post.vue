@@ -74,31 +74,28 @@ const showPostWindow = () => {
 
   padding: 3%;
 
-  font-size: 1.5em;
+  font-size: 2.5rem;
   line-height: 0;
-  color: var(--tertiary-text-color);
+  color: var(--primary-text-color);
 
   background-color: var(--accent-color);
-}
-.postButton::before {
-  margin: 0;
+
+  &::before {
+    margin: 0;
+  }
 }
 .root {
   display: flex;
   flex-direction: column;
 
   position: fixed;
-  top: 6.35vh;
+  top: 0;
 
-  width: calc(100vw - var(--primary-margin-w) * 2 - 2px);
+  width: 100%;
 
-  margin: 0 var(--primary-margin-w);
-
-  border: solid 1px var(--primary-border-color);
+  margin: 0;
 
   background-color: var(--primary-bg-color);
-
-  font-size: 80%;
 
   animation-name: moveIn;
   animation-duration: 0.2s;
@@ -110,13 +107,11 @@ const showPostWindow = () => {
   .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
     width: 100%;
     height: 6.35vh;
-
-    font-size: 80%;
 
     border-bottom: solid 1px var(--primary-border-color);
 
@@ -130,8 +125,10 @@ const showPostWindow = () => {
 
       white-space: nowrap;
       a {
-        padding: 1% 4%;
-        margin-right: 3.125vw;
+        margin-right: 10%;
+        padding: 3% 6%;
+
+        font-size: 120%;
 
         border: solid 1px var(--primary-border-color);
         border-radius: var(--default-border-radius);
@@ -142,9 +139,7 @@ const showPostWindow = () => {
     display: flex;
     flex-direction: row;
 
-    width: calc(100% - 6.25vw);
-
-    padding: 3.125vw;
+    padding: 2%;
 
     .text {
       display: flex;
@@ -157,7 +152,7 @@ const showPostWindow = () => {
 
       select {
         width: fit-content;
-        height: 3.125vh;
+        height: 2rem;
 
         margin-bottom: 1vh;
 
@@ -165,14 +160,13 @@ const showPostWindow = () => {
         border-radius: var(--default-border-radius);
         border: solid 1px var(--primary-border-color);
 
-        color: var(--secondary-text-color);
-        font-size: 90%;
+        color: var(--primary-text-color);
 
         background-color: var(--primary-bg-color);
       }
 
       textarea {
-        height: 10em;
+        height: 10rem;
 
         padding: 1%;
 
@@ -180,8 +174,8 @@ const showPostWindow = () => {
         border-radius: var(--default-border-radius);
         border: solid 1px var(--primary-border-color);
 
-        color: var(--secondary-text-color);
-        font-size: 100%;
+        color: var(--primary-text-color);
+        font-size: 130%;
 
         background-color: var(--primary-bg-color);
 
@@ -194,7 +188,6 @@ const showPostWindow = () => {
     flex-direction: row;
 
     width: 100%;
-    height: 6.35vh;
   }
 }
 .bg {
@@ -205,10 +198,6 @@ const showPostWindow = () => {
   height: 100%;
   width: 100%;
 
-  background-color: color-mix(
-    in srgb,
-    var(--primary-bg-color),
-    rgba(0, 0, 0, 0) 20%
-  );
+  background-color: color-mix( in srgb, var(--primary-bg-color),rgba(0, 0, 0, 0) 20%);
 }
 </style>
