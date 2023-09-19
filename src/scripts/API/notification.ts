@@ -1,51 +1,10 @@
-//types
-import { NotificationType, ModifiedNotification, Notification } from "../types";
+// Types -----------------------------------------------///
+import { ModifiedNotification, Notification } from "../types";
 
-//TS module
-import { readCookie } from "../cookie";
+//TS module --------------------------------------------///
 import { parseEmoji, searchEmoji } from "../emoji";
 import { noteGen } from "./note";
 
-//vue Component functions
-import { addNotificationsBefore } from "../../pages/Notifications.vue";
-
-export const getNotifications = async (
-  host: string = readCookie("loginHost").unwrap(),
-  untilId?: string,
-  token = readCookie(`${host}_token`).unwrap(),
-  maxSize = 20,
-  following = false,
-  unreadOnly = false,
-  markAsRead = false,
-  includeTypes?: NotificationType[],
-  excludeTypes?: NotificationType[]
-) => {
-  const res: Notification[] = await fetch(
-    `https://${host}/api/i/notifications`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        i: token,
-        limit: maxSize,
-        untilId: untilId,
-        following: following,
-        unreadOnly: unreadOnly,
-        markAsRead: markAsRead,
-        includeTypes: includeTypes,
-        excludeTypes: excludeTypes,
-      }),
-    }
-  )
-    .then(response => response.json())
-    .then(data => data);
-  res.map(notification =>
-    addNotificationsBefore(notificationGen(notification))
-  );
-  return res;
-};
 
 export const notificationGen = (
   notification: Notification

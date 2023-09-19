@@ -1,37 +1,38 @@
 <script setup lang="ts">
-//Type
+// Type ------------------------------------------------///
 import { ModifiedNotification } from "../scripts/types";
 
-//TS Module
-import { ref } from "vue";
-import { getNotifications } from "../scripts/API/Notification";
+
+// TS Module -------------------------------------------///
+import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
+import { notificationGen } from "../scripts/API/Notification"
 //import { streamMain } from "../scripts/API/stream";
 import { readCookie } from "../scripts/cookie";
+import { ref } from "vue";
 
-//Vue Component
+
+//Vue Component ----------------------------------------///
 import Notification from "../components/global/Notification.vue";
 import BottomBar from "../components/global/BottomBar.vue";
 
+
 const host = readCookie("loginHost").unwrap();
+const notifications = ref<ModifiedNotification[]>([]);
 //const autoReConnection = true;
 
 //Entry point
 if (host) {
-  getNotifications(host);
+  fetchMisskeyAPI<"i/notifications">("i/notifications",{
+      i: readCookie(`${host}_token`).unwrap(),
+      maxSize: 20,
+      following: false,
+      unreadOnly: false,
+      markAsRead: false,
+    }).then(fetchNotification => fetchNotification?.forEach(
+      Notification => notifications.value.push(notificationGen(Notification))
+    ))
   //streamMain(host, autoReConnection)
 }
-</script>
-
-<script lang="ts">
-const notifications = ref<ModifiedNotification[]>([]);
-
-export const addNotificationsBefore = (notification: ModifiedNotification) => {
-  notifications.value.push(notification);
-};
-
-export const addNotificationsAfter = (notification: ModifiedNotification) => {
-  notifications.value.unshift(notification);
-};
 </script>
 
 <template>
