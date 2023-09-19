@@ -1,6 +1,5 @@
 
 .icon-plus:before { content: '\e800'; } /* '' */
-.icon-cog:before { content: '\e800'; } /* '' */
 .icon-pencil:before { content: '\e801'; } /* '' */
 .icon-tag:before { content: '\e802'; } /* '' */
 .icon-doc-text:before { content: '\e803'; } /* '' */
@@ -9,6 +8,7 @@
 .icon-retweet:before { content: '\e806'; } /* '' */
 .icon-pencil-neg:before { content: '\e807'; } /* '' */
 .icon-dot-3:before { content: '\e808'; } /* '' */
+.icon-cog-outline:before { content: '\e809'; } /* '' */
 .icon-home-outline:before { content: '\e80a'; } /* '' */
 .icon-cw:before { content: '\e80b'; } /* '' */
 .icon-home:before { content: '\e80c'; } /* '' */
