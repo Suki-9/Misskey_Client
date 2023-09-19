@@ -2,13 +2,6 @@ import { Note } from "../types"
 
 const channels = ["Home" , "Hybrid" , "local" , "global"] as const;
 
-
-type ElementOf<T> = T extends readonly Array<infer E>
-  ? E
-  : T extends readonly Iterable<infer E>
-  ? E
-  : never;
-
 export type Endpoints = {
   i: {
     method: "POST";
