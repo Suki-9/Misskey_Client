@@ -1,19 +1,19 @@
 .avatar {
-  height: calc(6.25vh - 2px);
-  width: calc(6.25vh - 2px);
+  height: 6.25vh;
+  width: 6.25vh;
 
   object-fit: cover;
 
-  border-radius: 0.4em;
-  border: solid 1px var(--primary-border-color);
+  border-radius: 0.4rem;
 }
 
 .reaction {
   display: flex;
 
-  padding: 4px;
+  margin: 0 5px 5px 0;
+  padding: 5px;
 
-  height: 1.3em;
+  height: 1.3rem;
 
   overflow: hidden;
   white-space: nowrap;
@@ -23,5 +23,5 @@
 }
 
 .emoji {
-  height: 1.3em;
+  height: 1.3rem;
 }
