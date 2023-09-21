@@ -9,7 +9,7 @@ import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 import { ModifiedNote } from "../../scripts/types";
 
 // Vue Component ---------------------------------------///
-import Note from "./Note.vue";
+import Note from "../global/Note.vue";
 
 const props = defineProps<{
   selectTimeLine: {

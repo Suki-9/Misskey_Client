@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //vue component ----------------------------------------///
-import TimeLine from "../components/global/TimeLine.vue";
+import TimeLine from "../components/Home/TimeLine.vue";
 import BottomBar from "../components/global/BottomBar.vue";
 import PopUpUIs from "../components/Home/PopUpUIs.vue";
 
@@ -20,7 +20,7 @@ const timeLines: Record<
     channel: "Home" | "hybrid" | "local" | "global";
     autoReConnection: boolean;
     hostName: string;
-  }
+}
 > = {
   Home: { channel: "Home", hostName: loginHost.unwrap(), autoReConnection: true },
   Hybrid: { channel: "hybrid", hostName: loginHost.unwrap(), autoReConnection: true },
@@ -39,17 +39,17 @@ if (loginHost.isErr()) {
 }
 
 onMounted(() => {
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          showTimeLine.value = entry.target.id;
-          selectTimeLine.value = timeLines[showTimeLine.value];
-          resetKey.value++;
-        }
-      });
-    },
-    { threshold: 0.5 }
+  const observer = new IntersectionObserver( entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        showTimeLine.value = entry.target.id;
+        selectTimeLine.value = timeLines[showTimeLine.value];
+        resetKey.value++;
+      }
+    });
+  }, {
+    threshold: 0.5
+  }
   );
   const targetElem = document.querySelectorAll(".timeLine");
   targetElem.forEach(elem => observer.observe(elem));
