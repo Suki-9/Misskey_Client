@@ -23,7 +23,7 @@ const renote = () => {
 </template>
 
 <style module lang="scss">
-@import "../../styles/animation.css";
+@import "../../../styles/animation.css";
 .root {
   display: flex;
   flex-direction: column;
