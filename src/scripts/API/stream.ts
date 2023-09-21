@@ -8,7 +8,6 @@ import { fetchMisskeyAPI } from "./fetchAPI";
 
 // Type ------------------------------------------------///
 import { ModifiedNote } from "../types"
-import { Endpoints } from "./api.d"
 
 
 export const provideTimeLine = ref<Record<symbol, ModifiedNote[]>>({});
