@@ -21,6 +21,7 @@ const props = defineProps<{
 
 const timelineSymbol = Symbol(genUuid());
 const notes = ref<ModifiedNote[]>();
+const loading = ref<boolean>(true)
 
 // EntryPoint ------------------------------------------///
 if (props.selectTimeLine.hostName) {
@@ -35,17 +36,19 @@ if (props.selectTimeLine.hostName) {
     (await fetchFirstNotes(props.selectTimeLine.hostName, props.selectTimeLine.channel)).forEach(note => {
       notes.value?.unshift(note);
     });
+    loading.value = false
   });
 }
 </script>
 
 <template>
-  <div :class="$style.root">
+  <div :class="$style.root" v-if="!loading">
     <Note :class="$style.note" v-for="(note, index) in notes" :note="note" :id="index" />
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
   </div>
+  <div v-else>読み込み中...</div>
 </template>
 
 <style module lang="scss">
