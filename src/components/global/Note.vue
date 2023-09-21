@@ -96,6 +96,8 @@ const createReaction = async (reactionName: string) =>
   display: flex;
   flex-direction: column;
 
+  overflow: hidden;
+
   border: solid 1px var(--primary-border-color);
   border-radius: var(--default-border-radius);
   background-color: var(--tertiary-bg-color);
