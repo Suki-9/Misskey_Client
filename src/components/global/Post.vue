@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { ref, nextTick } from "vue";
+import { ref, nextTick, onMounted } from "vue";
 import { readCookie } from "../../scripts/cookie";
 import { getUserData } from "../../scripts/API/userdata";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
@@ -8,12 +8,18 @@ import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 // Type ------------------------------------------------///
 import { Endpoints } from "../../scripts/API/api";
 
-const props = withDefaults(defineProps(), {
+const emit = defineEmits(['close'])
+const props = withDefaults(defineProps<{
+  isShowWindow?: boolean,
+  postText?: string,
+  noteId?: string,
+}>(), {
   isShowWindow: false,
-})
+  postText: "",
+});
 
-const isActive = ref<boolean>(props.isShowWindow);
-const postText = ref<string>("");
+const isActive = ref<boolean>(!props.isShowWindow);
+const postText = ref<string>(props.postText);
 const visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home");
 const userData = JSON.parse(
   await getUserData(readCookie("loginHost").unwrap())
@@ -25,7 +31,9 @@ const post = () => {
       i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
       text: postText.value,
       visibility: visibility.value,
+      replyId: props.noteId,
     });
+  console.log(props.noteId)
   isActive.value = false;
   postText.value = "";
 };
@@ -36,23 +44,28 @@ const showPostWindow = () => {
     document.getElementById("inputText")?.focus();
   });
 };
+
+onMounted(() => {
+  showPostWindow()
+})
 </script>
 
 <template>
   <i class="icon-pencil" :class="$style.postButton" v-show="!isActive" @click="showPostWindow"></i>
-  <div :class="$style.bg" v-show="isActive" @click="isActive = false"></div>
+  <div :class="$style.bg" v-show="isActive" @click="isActive = false, emit('close')"></div>
   <div v-show="isActive" :class="$style.root">
     <div :class="$style.header">
       <i
         class="icon-cancel"
         :class="$style.closeButton"
-        @click="isActive = false"
+        @click="isActive = false, emit('close')"
       ></i>
       <div :class="$style.submitButtons">
         <a @click="post">ノート</a>
         <a>下書き</a>
       </div>
     </div>
+    <p :class="$style.reply" v-show="noteId">Reply to {{ noteId }}</p>
     <div :class="$style.content">
       <img :class="$style.avatar" :src="userData.avatarUrl ?? ''" />
       <div :class="$style.text">
@@ -96,6 +109,7 @@ const showPostWindow = () => {
 
   position: fixed;
   top: 0;
+  left: 0;
 
   width: 100%;
 
@@ -140,6 +154,9 @@ const showPostWindow = () => {
         border-radius: var(--default-border-radius);
       }
     }
+  }
+  .reply {
+    margin: 2% 2% 0 2%;
   }
   .content {
     display: flex;

@@ -10,6 +10,7 @@ import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 //Vue Component ----------------------------------------///
 import NoteImage from "./NoteImage.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
+import Post from "./Post.vue"
 
 //Vue Component function -------------------------------///
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
@@ -19,6 +20,7 @@ const props = defineProps<{
 }>();
 
 const show_reNoteMenu = ref<boolean>(false)
+const show_replyWindow = ref<boolean>(false)
 
 const createReaction = async (reactionName: string) =>
   fetchMisskeyAPI("notes/reactions/create", {
@@ -73,7 +75,7 @@ const createReaction = async (reactionName: string) =>
           </p>
         </div>
         <footer>
-          <i class="icon-comment" alt=""></i>
+          <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>
           <i
             class="icon-retweet"
             alt="renote"
@@ -88,6 +90,11 @@ const createReaction = async (reactionName: string) =>
       :noteId="note.id"
       v-show="show_reNoteMenu"
     />
+    <Post
+      :isShowWindow="show_replyWindow"
+      :noteId="note.id"
+      @close="show_replyWindow = false" 
+      v-if="show_replyWindow"/>
   </div>
 </template>
 
