@@ -3,18 +3,22 @@
 import { ModifiedNote } from "../../scripts/types";
 
 // TS Module -------------------------------------------///
-import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+import { ref } from "vue";
 import { readCookie } from "../../scripts/cookie";
+import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 
 //Vue Component ----------------------------------------///
 import NoteImage from "./NoteImage.vue";
+import ReNoteMenu from "./ReNoteMenu.vue";
 
 //Vue Component function -------------------------------///
-import { Show_emojiPalette, Show_reNoteMenu } from "../Home/PopUpUIs.vue";
+import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
 
 const props = defineProps<{
   note: ModifiedNote;
 }>();
+
+const show_reNoteMenu = ref<boolean>(false)
 
 const createReaction = async (reactionName: string) =>
   fetchMisskeyAPI("notes/reactions/create", {
@@ -73,13 +77,17 @@ const createReaction = async (reactionName: string) =>
           <i
             class="icon-retweet"
             alt="renote"
-            @click="Show_reNoteMenu(note.id)"
+            @click="show_reNoteMenu = !show_reNoteMenu"
           ></i>
           <i class="icon-plus" alr="reaction" @click="Show_emojiPalette"></i>
           <i class="icon-dot-3" alt="more" @click=""></i>
         </footer>
       </article>
     </div>
+    <ReNoteMenu
+      :noteId="note.id"
+      v-show="show_reNoteMenu"
+    />
   </div>
 </template>
 

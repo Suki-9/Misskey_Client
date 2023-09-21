@@ -6,20 +6,17 @@ import { ref } from "vue";
 import Post from "../global/Post.vue";
 import LeftMenu from "../global/LeftMenu.vue";
 import EmojiPalette from "../global/EmojiPalette.vue";
-import ReNoteMenu from "../global/ReNoteMenu.vue";
 </script>
 
 <script lang="ts">
 const PopUpMenuList_Listcontent = ref();
 
 const reNoteId = ref<string>("");
-const replyText = ref<string>("");
 
 const show = ref<Record<string, boolean>>({
   NotificationView: false,
   LeftMenu: false,
   emojiPalette: false,
-  reNoteMenu: false,
 });
 
 export const Show_LeftMenu = () => {
@@ -56,12 +53,6 @@ export const popUpMenuList = (
   ></div>
   <LeftMenu v-show="show.LeftMenu" :class="$style.LeftMenu" />
   <Post />
-  <ReNoteMenu
-    :noteId="reNoteId"
-    :replyText="replyText"
-    :class="$style.reNoteMenu"
-    v-show="show.reNoteMenu"
-  />
   <EmojiPalette v-show="show.emojiPalette" :class="$style.emojiPalette" />
 </template>
 
@@ -83,17 +74,6 @@ export const popUpMenuList = (
 }
 
 .emojiPalette,
-.reNoteMenu {
-  position: fixed;
-  bottom: 8.75vh;
-
-  animation-name: moveIn;
-  animation-duration: 0.3s;
-  animation-fill-mode: forwards;
-
-  transform: translateY(-100%);
-  opacity: 0;
-}
 .emojiPalette {
   height: 40vh;
 }

@@ -1,11 +1,10 @@
 <script setup lang="ts">
-//TS Module
+// TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 import { readCookie } from "../../scripts/cookie";
 
 const props = defineProps<{
-  noteId: string;
-  replyText: string;
+  noteId: string
 }>();
 
 const renote = () => {
@@ -24,25 +23,30 @@ const renote = () => {
 </template>
 
 <style module lang="scss">
+@import "../../styles/animation.css";
 .root {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 
-  height: 10vh;
-  width: calc(90vw - 2px);
 
-  margin: 0 2.5vw;
-  padding: 2.5vw 2.5vw 0 2.5vw;
+  border-top: solid 1px var(--primary-border-color);
 
-  border: solid 1px var(--primary-border-color);
-  background-color: var(--primary-bg-color);
+  animation-name: moveIn_L;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 
-  p {
-    font-size: 80%;
-  }
-  p::before {
-    content: "・";
+  a {
+    margin: 1% 2%;
+    padding: 2% 2%;
+
+    font-size: 120%;
+
+    border-radius: var(--default-border-radius);
+
+    &:hover {
+      background-color: var(--secondary-bg-color);
+    }
   }
 }
 </style>
