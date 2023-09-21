@@ -18,6 +18,7 @@ export const fetchFirstNotes = async (
   host: string,
   channel: string = "Home"
 ): Promise<ModifiedNote[]> => {
+  console.log(channel);
   return fetchMisskeyAPI(
     `notes/${(channel ?? "Home") == "Home" ? "" : channel + "-"}timeline` as
       | "notes/timeline"
@@ -29,12 +30,10 @@ export const fetchFirstNotes = async (
       limit: 10,
     },
     host
-  ).then(
-    fetchNotes => {
-      //@ts-ignore
-      return fetchNotes?.map(note => noteGen(note));
-    }
-  );
+  ).then(fetchNotes => {
+    //@ts-ignore
+    return fetchNotes?.map(note => noteGen(note));
+  });
 };
 
 export const noteGen = (noteData: Note): ModifiedNote => {
@@ -71,13 +70,14 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     };
   }
 
-
   const reactions: Reaction[] = Object.entries(note.reactions).map(
     ([reaction, count]) => {
       return {
         name: reaction,
         count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(""),
+        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(
+          ""
+        ),
       };
     }
   );

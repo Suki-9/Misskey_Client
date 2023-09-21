@@ -32,7 +32,7 @@ export const streamTimeLine = (
         },
       })
     );
-    console.log("Connection to the TL was successful!");
+    console.log(`Connection to the ${channel} TL was successful!`);
   });
 
   timeLine.addEventListener("message", event => {
@@ -44,7 +44,8 @@ export const streamTimeLine = (
 
   timeLine.addEventListener("close", () => {
     console.log("Connection to TL has been disconnected...");
-    if (autoReConnection) streamTimeLine(host, timeLineSymbol, channel, autoReConnection);
+    if (autoReConnection)
+      streamTimeLine(host, timeLineSymbol, channel, autoReConnection);
     return;
   });
 };

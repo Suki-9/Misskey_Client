@@ -12,30 +12,35 @@ import { ModifiedNote } from "../../scripts/types";
 import Note from "./Note.vue";
 
 const props = defineProps<{
-  hostName: string;
-  channel?: "Home" | "Hybrid" | "local" | "global";
-  autoReConnection: boolean;
+  selectTimeLine: {
+    hostName: string;
+    channel?: "Home" | "hybrid" | "local" | "global";
+    autoReConnection: boolean;
+  }
 }>();
 
-const timelineSymbol = Symbol(genUuid())
+const timelineSymbol = Symbol(genUuid());
 const notes = ref<ModifiedNote[]>();
-const timelineBody = ref<HTMLElement | null>();
 
 // EntryPoint ------------------------------------------///
-if (props.hostName) {
-  streamTimeLine(props.hostName, timelineSymbol, props.channel, props.autoReConnection)
-  notes.value = provideTimeLine.value[timelineSymbol]
+if (props.selectTimeLine.hostName) {
+  streamTimeLine(
+    props.selectTimeLine.hostName,
+    timelineSymbol,
+    props.selectTimeLine.channel,
+    props.selectTimeLine.autoReConnection,
+  );
+  notes.value = provideTimeLine.value[timelineSymbol];
   onMounted(async () => {
-    (await fetchFirstNotes(props.hostName, props.channel)).forEach(note => {
+    (await fetchFirstNotes(props.selectTimeLine.hostName, props.selectTimeLine.channel)).forEach(note => {
       notes.value?.unshift(note);
     });
-    timelineBody.value = document.getElementById("timeline");
   });
 }
 </script>
 
 <template>
-  <div id="timeline" :class="$style.root">
+  <div :class="$style.root">
     <Note
       :class="$style.note"
       v-for="(note, index) in notes"
@@ -50,13 +55,13 @@ if (props.hostName) {
   display: flex;
   flex-direction: column;
 
-  overflow: auto;
-  scroll-snap-type: y mandatory;
-
   height: calc(100vh - var(--bottom-bar-height));
+  width: calc(100vw - (var(--primary-margin-w) * 2));
 
-  margin: 0 var(--primary-margin-w);
+  padding: calc(var(--head-bar-height) + 2%) var(--primary-margin-w);
   padding-bottom: var(--bottom-bar-height);
+
+  scroll-snap-align: start;
   .note {
     margin-bottom: var(--primary-margin-w);
   }
