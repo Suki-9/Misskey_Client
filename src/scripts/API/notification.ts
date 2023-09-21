@@ -5,7 +5,6 @@ import { ModifiedNotification, Notification } from "../types";
 import { parseEmoji, searchEmoji } from "../emoji";
 import { noteGen } from "./note";
 
-
 export const notificationGen = (
   notification: Notification
 ): ModifiedNotification => {

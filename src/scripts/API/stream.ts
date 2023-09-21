@@ -4,17 +4,15 @@ import { genUuid } from "../UUID";
 import { noteGen } from "../API/note";
 import { readCookie } from "../cookie";
 
-
 // Type ------------------------------------------------///
-import { ModifiedNote } from "../types"
-
+import { ModifiedNote } from "../types";
 
 export const provideTimeLine = ref<Record<symbol, ModifiedNote[]>>({});
 
 export const streamTimeLine = (
   host: string,
   channel: string = "home",
-  autoReConnection: boolean = false,
+  autoReConnection: boolean = false
 ) => {
   const token = readCookie(`${host}_token`).unwrap();
   const uuid = genUuid();
@@ -52,8 +50,6 @@ export const streamTimeLine = (
 
   return timeLineSymbol;
 };
-
-
 
 export const streamMain = (host: string, autoReConnection: boolean = false) => {
   const token = readCookie(`${host}_token`).unwrap();

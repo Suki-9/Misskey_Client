@@ -2,16 +2,15 @@
 defineProps<{
   text: string;
   icon: string;
-}>()
+}>();
 </script>
-
 
 <template>
   <div :class="$style.root">
-    <i :class="icon"></i><p>{{ text }}</p>
+    <i :class="icon"></i>
+    <p>{{ text }}</p>
   </div>
 </template>
-
 
 <style module lang="scss">
 .root {

@@ -1,20 +1,23 @@
 <script setup lang="ts">
 // Vue Component ---------------------------------------///
-import HeadBar from "../components/Settings/Head.vue"
+import HeadBar from "../components/Settings/Head.vue";
 
-const headBarData: Record<string, {
-  text: string,
-  icon: string,
-}> = {
+const headBarData: Record<
+  string,
+  {
+    text: string;
+    icon: string;
+  }
+> = {
   "/settings/themecreate": {
     text: "テーマを作成",
     icon: "icon-cog-outline",
   },
-}
+};
 </script>
 
 <template>
-  <HeadBar 
+  <HeadBar
     :text="headBarData[$route.path].text"
     :icon="headBarData[$route.path].icon"
   />

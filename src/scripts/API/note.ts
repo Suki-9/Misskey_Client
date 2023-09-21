@@ -1,12 +1,10 @@
 // Types -----------------------------------------------///
 import { ModifiedNote, Note, Reaction, User } from "../types";
 
-
 //TS Module --------------------------------------------///
 import { parseEmoji, searchEmoji } from "../emoji";
 import { fetchMisskeyAPI } from "./fetchAPI";
 import { readCookie } from "../cookie";
-
 
 const htmlTextEscape = (text: string): string => {
   return text
@@ -22,10 +20,10 @@ export const fetchFirstNotes = async (
 ): Promise<ModifiedNote[]> => {
   return fetchMisskeyAPI(
     `notes/${(channel ?? "Home") == "Home" ? "" : channel + "-"}timeline` as
-    | "notes/timeline"
-    | "notes/hybrid-timeline"
-    | "notes/local-timeline"
-    | "notes/global-timeline",
+      | "notes/timeline"
+      | "notes/hybrid-timeline"
+      | "notes/local-timeline"
+      | "notes/global-timeline",
     {
       i: readCookie(`${host}_token`).unwrap(),
       limit: 10,
@@ -33,7 +31,9 @@ export const fetchFirstNotes = async (
     host
   ).then(
     //@ts-ignore
-    fetchNotes => { return fetchNotes?.map(note => noteGen(note)) }
+    fetchNotes => {
+      return fetchNotes?.map(note => noteGen(note));
+    }
   );
 };
 
@@ -50,7 +50,9 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       return {
         name: reaction,
         count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(""),
+        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(
+          ""
+        ),
       };
     }
   );

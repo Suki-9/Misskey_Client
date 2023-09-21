@@ -16,7 +16,11 @@ const userData = JSON.parse(
         <img :class="$style.avatar" :src="userData.avatarUrl" />
         <p
           :class="$style.name"
-          v-html="userData.name == null ? userData.username : parseEmoji(userData.name)"
+          v-html="
+            userData.name == null
+              ? userData.username
+              : parseEmoji(userData.name)
+          "
         ></p>
         <p :class="$style.userName">@{{ userData.username }}</p>
         <div :class="$style.followCounter">
@@ -94,7 +98,6 @@ const userData = JSON.parse(
     line-height: 1.6rem;
 
     font-size: 140%;
-
 
     border-bottom: solid 1px var(--secondary-border-color);
   }

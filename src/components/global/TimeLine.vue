@@ -16,18 +16,18 @@ const props = defineProps<{
   autoReConnection: boolean;
 }>();
 
-const notes = ref<ModifiedNote[]>(provideTimeLine.value[streamTimeLine(
-  props.hostName,
-  props.channel,
-  props.autoReConnection,
-)]);
+const notes = ref<ModifiedNote[]>(
+  provideTimeLine.value[
+    streamTimeLine(props.hostName, props.channel, props.autoReConnection)
+  ]
+);
 const timelineBody = ref<HTMLElement | null>();
 
 // EntryPoint ------------------------------------------///
 if (props.hostName) {
   onMounted(async () => {
     (await fetchFirstNotes(props.hostName, props.channel)).forEach(note => {
-      notes.value.unshift(note)
+      notes.value.unshift(note);
     });
     timelineBody.value = document.getElementById("timeline");
   });

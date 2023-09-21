@@ -4,7 +4,7 @@ import { Note, Notification } from "../types";
 const channels = ["Home", "Hybrid", "local", "global"] as const;
 
 export type Endpoints = {
-  "i": {
+  i: {
     method: "POST";
     req: {
       i: string;

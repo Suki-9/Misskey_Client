@@ -198,6 +198,10 @@ const showPostWindow = () => {
   height: 100%;
   width: 100%;
 
-  background-color: color-mix( in srgb, var(--primary-bg-color),rgba(0, 0, 0, 0) 20%);
+  background-color: color-mix(
+    in srgb,
+    var(--primary-bg-color),
+    rgba(0, 0, 0, 0) 20%
+  );
 }
 </style>
