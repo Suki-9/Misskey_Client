@@ -47,9 +47,7 @@ const MiAuth = () => {
       <div :class="$style.tileContainer">
         <img :class="$style.avatar" :src="avatarUrl" />
         <a :class="$style.button" @click="MiAuth">Use MiAuth</a>
-        <a :class="$style.button" @click="useToken = !useToken">{{
-          useToken ? "Use PassWord" : "Use Token"
-        }}</a>
+        <a :class="$style.button" @click="useToken = !useToken">{{ useToken ? "Use PassWord" : "Use Token" }}</a>
       </div>
       <TextInput
         :placeholder="'UserName'"
@@ -78,9 +76,7 @@ const MiAuth = () => {
         "
         v-show="useToken"
       />
-      <p :class="$style.attentionText" v-show="!useToken">
-        パスワードを忘れた場合
-      </p>
+      <p :class="$style.attentionText" v-show="!useToken">パスワードを忘れた場合</p>
       <div :class="$style.submitButtonBox">
         <a :class="$style.submitButton" @click="Login">Login</a>
       </div>

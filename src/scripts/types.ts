@@ -1,7 +1,4 @@
-export type ModifiedNote = Pick<
-  Note,
-  "id" | "createdAt" | "text" | "cw" | "user" | "files"
-> & {
+export type ModifiedNote = Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files"> & {
   reactions: Reaction[];
   renoter?: User;
   reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;

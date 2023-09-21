@@ -46,11 +46,7 @@ export const popUpMenuList = (
 </script>
 
 <template>
-  <div
-    :class="$style.bg"
-    v-show="show.reNoteMenu"
-    @click="show.reNoteMenu = !show.reNoteMenu"
-  ></div>
+  <div :class="$style.bg" v-show="show.reNoteMenu" @click="show.reNoteMenu = !show.reNoteMenu"></div>
   <LeftMenu v-show="show.LeftMenu" :class="$style.LeftMenu" />
   <Post />
   <EmojiPalette v-show="show.emojiPalette" :class="$style.emojiPalette" />
@@ -86,10 +82,6 @@ export const popUpMenuList = (
   height: 100%;
   width: 100%;
 
-  background-color: color-mix(
-    in srgb,
-    var(--primary-bg-color),
-    rgba(0, 0, 0, 0) 20%
-  );
+  background-color: color-mix(in srgb, var(--primary-bg-color), rgba(0, 0, 0, 0) 20%);
 }
 </style>

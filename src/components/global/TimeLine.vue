@@ -16,7 +16,7 @@ const props = defineProps<{
     hostName: string;
     channel?: "Home" | "hybrid" | "local" | "global";
     autoReConnection: boolean;
-  }
+  };
 }>();
 
 const timelineSymbol = Symbol(genUuid());
@@ -28,7 +28,7 @@ if (props.selectTimeLine.hostName) {
     props.selectTimeLine.hostName,
     timelineSymbol,
     props.selectTimeLine.channel,
-    props.selectTimeLine.autoReConnection,
+    props.selectTimeLine.autoReConnection
   );
   notes.value = provideTimeLine.value[timelineSymbol];
   onMounted(async () => {
@@ -41,12 +41,7 @@ if (props.selectTimeLine.hostName) {
 
 <template>
   <div :class="$style.root">
-    <Note
-      :class="$style.note"
-      v-for="(note, index) in notes"
-      :note="note"
-      :id="index"
-    />
+    <Note :class="$style.note" v-for="(note, index) in notes" :note="note" :id="index" />
   </div>
 </template>
 

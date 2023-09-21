@@ -8,7 +8,7 @@ defineProps<{
 <template>
   <div :class="$style.root">
     <i :class="icon"></i>
-    <img :class="$style.emoji" :src="icon" v-show="icon"/>
+    <img :class="$style.emoji" :src="icon" v-show="icon" />
     <p>{{ text }}</p>
   </div>
 </template>

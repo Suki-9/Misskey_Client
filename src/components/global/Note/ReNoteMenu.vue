@@ -4,7 +4,7 @@ import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
 import { readCookie } from "../../../scripts/cookie";
 
 const props = defineProps<{
-  noteId: string
+  noteId: string;
 }>();
 
 const renote = () => {
@@ -28,7 +28,6 @@ const renote = () => {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
 
   border-top: solid 1px var(--primary-border-color);
 

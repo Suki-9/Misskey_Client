@@ -14,10 +14,7 @@ Object.keys(emojiCategorys).forEach(category => {
 <template>
   <div :class="$style.root">
     <div v-for="category in Object.keys(emojiCategorys)">
-      <a
-        :class="$style.category"
-        @click="showCategorys[category] = !showCategorys[category]"
-      >
+      <a :class="$style.category" @click="showCategorys[category] = !showCategorys[category]">
         {{ category }}
         <span></span>
       </a>

@@ -37,15 +37,12 @@ export const streamTimeLine = (
 
   timeLine.addEventListener("message", event => {
     console.log("GetNote!");
-    provideTimeLine.value[timeLineSymbol].unshift(
-      noteGen(JSON.parse(event.data).body.body)
-    );
+    provideTimeLine.value[timeLineSymbol].unshift(noteGen(JSON.parse(event.data).body.body));
   });
 
   timeLine.addEventListener("close", () => {
     console.log("Connection to TL has been disconnected...");
-    if (autoReConnection)
-      streamTimeLine(host, timeLineSymbol, channel, autoReConnection);
+    if (autoReConnection) streamTimeLine(host, timeLineSymbol, channel, autoReConnection);
     return;
   });
 };

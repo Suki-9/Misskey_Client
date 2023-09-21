@@ -16,10 +16,7 @@ defineProps<{
       <p
         v-if="notification.reaction"
         :class="$style.reaction"
-        :style="
-          notification.reaction.link &&
-          `content: url(${notification.reaction.link})`
-        "
+        :style="notification.reaction.link && `content: url(${notification.reaction.link})`"
       >
         {{ notification.reaction?.name }}
       </p>
@@ -31,21 +28,11 @@ defineProps<{
           <span v-html="notification.user.name"></span>
           <span>さん</span>
         </p>
-        <p :class="$style.action">
-          あなたの投稿に{{ notification.type }}しました。
-        </p>
-        <div
-          v-if="notification.text"
-          :class="$style.text"
-          v-html="notification.text"
-        ></div>
+        <p :class="$style.action">あなたの投稿に{{ notification.type }}しました。</p>
+        <div v-if="notification.text" :class="$style.text" v-html="notification.text"></div>
       </div>
     </div>
-    <Note
-      v-if="notification.note"
-      :class="$style.quote"
-      :note="notification.note"
-    />
+    <Note v-if="notification.note" :class="$style.quote" :note="notification.note" />
   </div>
 </template>
 

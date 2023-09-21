@@ -5,9 +5,7 @@ import { ModifiedNotification, Notification } from "../types";
 import { parseEmoji, searchEmoji } from "../emoji";
 import { noteGen } from "./note";
 
-export const notificationGen = (
-  notification: Notification
-): ModifiedNotification => {
+export const notificationGen = (notification: Notification): ModifiedNotification => {
   notification.user ??= {
     id: "",
     name: null,
@@ -29,15 +27,12 @@ export const notificationGen = (
 
   switch (notification.type) {
     case "renote": {
-      ModifiedNotification.text =
-        notification.note.text && parseEmoji(notification.note.text);
+      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text);
       break;
     }
 
     case "reply": {
-      ModifiedNotification.text =
-        notification.note.reply?.text &&
-        parseEmoji(notification.note.reply.text);
+      ModifiedNotification.text = notification.note.reply?.text && parseEmoji(notification.note.reply.text);
       ModifiedNotification.note = noteGen(notification.note);
       break;
     }
@@ -48,14 +43,11 @@ export const notificationGen = (
     }
 
     case "reaction": {
-      ModifiedNotification.text =
-        notification.note.text && parseEmoji(notification.note.text);
+      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text);
       ModifiedNotification.reaction = notification.reaction
         ? {
             name: notification.reaction,
-            link: searchEmoji(
-              notification.reaction.slice(1, notification.reaction.indexOf("@"))
-            ).unwrap_or(""),
+            link: searchEmoji(notification.reaction.slice(1, notification.reaction.indexOf("@"))).unwrap_or(""),
           }
         : undefined;
       break;

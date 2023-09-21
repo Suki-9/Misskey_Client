@@ -17,9 +17,6 @@ const headBarData: Record<
 </script>
 
 <template>
-  <HeadBar
-    :text="headBarData[$route.path].text"
-    :icon="headBarData[$route.path].icon"
-  />
+  <HeadBar :text="headBarData[$route.path].text" :icon="headBarData[$route.path].icon" />
   <router-view />
 </template>

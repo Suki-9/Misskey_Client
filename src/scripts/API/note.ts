@@ -7,17 +7,10 @@ import { fetchMisskeyAPI } from "./fetchAPI";
 import { readCookie } from "../cookie";
 
 const htmlTextEscape = (text: string): string => {
-  return text
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("&", "&amp;");
+  return text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("&", "&amp;");
 };
 
-export const fetchFirstNotes = async (
-  host: string,
-  channel: string = "Home"
-): Promise<ModifiedNote[]> => {
+export const fetchFirstNotes = async (host: string, channel: string = "Home"): Promise<ModifiedNote[]> => {
   console.log(channel);
   return fetchMisskeyAPI(
     `notes/${(channel ?? "Home") == "Home" ? "" : channel + "-"}timeline` as
@@ -70,17 +63,13 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     };
   }
 
-  const reactions: Reaction[] = Object.entries(note.reactions).map(
-    ([reaction, count]) => {
-      return {
-        name: reaction,
-        count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(
-          ""
-        ),
-      };
-    }
-  );
+  const reactions: Reaction[] = Object.entries(note.reactions).map(([reaction, count]) => {
+    return {
+      name: reaction,
+      count,
+      link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(""),
+    };
+  });
 
   return {
     id: note.id,

@@ -4,9 +4,7 @@ import { getUserData } from "../../scripts/API/userdata";
 import { readCookie } from "../../scripts/cookie";
 import { parseEmoji } from "../../scripts/emoji";
 
-const userData = JSON.parse(
-  await getUserData(readCookie("loginHost").unwrap())
-);
+const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()));
 </script>
 
 <template>
@@ -14,14 +12,7 @@ const userData = JSON.parse(
     <div :class="$style.bio">
       <div :class="$style.head">
         <img :class="$style.avatar" :src="userData.avatarUrl" />
-        <p
-          :class="$style.name"
-          v-html="
-            userData.name == null
-              ? userData.username
-              : parseEmoji(userData.name)
-          "
-        ></p>
+        <p :class="$style.name" v-html="userData.name == null ? userData.username : parseEmoji(userData.name)"></p>
         <p :class="$style.userName">@{{ userData.username }}</p>
         <div :class="$style.followCounter">
           <p>

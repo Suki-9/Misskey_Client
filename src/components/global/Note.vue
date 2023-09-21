@@ -10,7 +10,7 @@ import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 //Vue Component ----------------------------------------///
 import NoteImage from "./NoteImage.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
-import Post from "./Post.vue"
+import Post from "./Post.vue";
 
 //Vue Component function -------------------------------///
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
@@ -19,8 +19,8 @@ const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-const show_reNoteMenu = ref<boolean>(false)
-const show_replyWindow = ref<boolean>(false)
+const show_reNoteMenu = ref<boolean>(false);
+const show_replyWindow = ref<boolean>(false);
 
 const createReaction = async (reactionName: string) =>
   fetchMisskeyAPI("notes/reactions/create", {
@@ -35,13 +35,11 @@ const createReaction = async (reactionName: string) =>
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
       <p :class="$style.renoterName">
-        <span v-html="note.renoter.name"></span>さんがリノート<i
-          class="icon-retweet"
-        ></i>
+        <span v-html="note.renoter.name"></span>さんがリノート<i class="icon-retweet"></i>
       </p>
     </div>
     <div v-if="note.reply" :class="$style.reply">
-      <img :src="note.reply.user.avatarUrl" :class="$style.avatar"/>
+      <img :src="note.reply.user.avatarUrl" :class="$style.avatar" />
       <article>
         <p v-html="note.reply.user.name" :class="$style.name"></p>
         <p v-html="note.reply.text" :class="$style.userName"></p>
@@ -67,15 +65,8 @@ const createReaction = async (reactionName: string) =>
           />
         </div>
         <div :class="$style.reactions">
-          <p
-            v-for="reaction in note.reactions"
-            :class="$style.reaction"
-            @click="createReaction(reaction.name)"
-          >
-            <span
-              :style="reaction.link && `content: url(${reaction.link})`"
-              :class="$style.emoji"
-            >
+          <p v-for="reaction in note.reactions" :class="$style.reaction" @click="createReaction(reaction.name)">
+            <span :style="reaction.link && `content: url(${reaction.link})`" :class="$style.emoji">
               {{ reaction.name }}
             </span>
             <span> {{ reaction.count }}</span>
@@ -83,25 +74,19 @@ const createReaction = async (reactionName: string) =>
         </div>
         <footer>
           <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>
-          <i
-            class="icon-retweet"
-            alt="renote"
-            @click="show_reNoteMenu = !show_reNoteMenu"
-          ></i>
+          <i class="icon-retweet" alt="renote" @click="show_reNoteMenu = !show_reNoteMenu"></i>
           <i class="icon-plus" alr="reaction" @click="Show_emojiPalette"></i>
           <i class="icon-dot-3" alt="more" @click=""></i>
         </footer>
       </article>
     </div>
-    <ReNoteMenu
-      :noteId="note.id"
-      v-show="show_reNoteMenu"
-    />
+    <ReNoteMenu :noteId="note.id" v-show="show_reNoteMenu" />
     <Post
       :isShowWindow="show_replyWindow"
       :noteId="note.id"
-      @close="show_replyWindow = false" 
-      v-if="show_replyWindow"/>
+      @close="show_replyWindow = false"
+      v-if="show_replyWindow"
+    />
   </div>
 </template>
 
@@ -169,7 +154,6 @@ const createReaction = async (reactionName: string) =>
         overflow: hidden;
       }
     }
-
   }
   .note {
     display: flex;

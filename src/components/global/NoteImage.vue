@@ -14,24 +14,11 @@ const showSensitive = ref<boolean>(!prprs.isSensitive);
 </script>
 
 <template>
-  <img
-    :src="thumbnailUrl"
-    :class="$style.media"
-    v-show="showSensitive"
-    @click="isPopUpImage = true"
-  />
-  <div
-    :class="$style.sensitiveAlert"
-    v-show="!showSensitive"
-    @click="showSensitive = !showSensitive"
-  >
+  <img :src="thumbnailUrl" :class="$style.media" v-show="showSensitive" @click="isPopUpImage = true" />
+  <div :class="$style.sensitiveAlert" v-show="!showSensitive" @click="showSensitive = !showSensitive">
     <p>センシティブな画像</p>
   </div>
-  <div
-    v-if="isPopUpImage"
-    :class="$style.popUpImage"
-    @click="isPopUpImage = false"
-  >
+  <div v-if="isPopUpImage" :class="$style.popUpImage" @click="isPopUpImage = false">
     <img :src="url" />
   </div>
 </template>
@@ -62,11 +49,7 @@ const showSensitive = ref<boolean>(!prprs.isSensitive);
   height: 100%;
   width: 100%;
 
-  background-color: color-mix(
-    in srgb,
-    var(--primary-bg-color),
-    rgba(0, 0, 0, 0) 20%
-  );
+  background-color: color-mix(in srgb, var(--primary-bg-color), rgba(0, 0, 0, 0) 20%);
 
   img {
     position: fixed;

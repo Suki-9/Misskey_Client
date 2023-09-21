@@ -11,12 +11,7 @@ const inputText = ref<string>("");
 
 <template>
   <div :class="$style.root">
-    <input
-      :class="$style.form"
-      :placeholder="placeholder"
-      v-model="inputText"
-      @input="emit('receive', inputText)"
-    />
+    <input :class="$style.form" :placeholder="placeholder" v-model="inputText" @input="emit('receive', inputText)" />
     <i class="icon-cancel" @click="inputText = ''"></i>
   </div>
 </template>

@@ -20,7 +20,8 @@
   --default-border-radius: 7px;
 }
 
-body,#app {
+body,
+#app {
   margin: 0;
 }
 

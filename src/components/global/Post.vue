@@ -8,22 +8,23 @@ import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 // Type ------------------------------------------------///
 import { Endpoints } from "../../scripts/API/api";
 
-const emit = defineEmits(['close'])
-const props = withDefaults(defineProps<{
-  isShowWindow?: boolean,
-  postText?: string,
-  noteId?: string,
-}>(), {
-  isShowWindow: false,
-  postText: "",
-});
+const emit = defineEmits(["close"]);
+const props = withDefaults(
+  defineProps<{
+    isShowWindow?: boolean;
+    postText?: string;
+    noteId?: string;
+  }>(),
+  {
+    isShowWindow: false,
+    postText: "",
+  }
+);
 
 const isActive = ref<boolean>(!props.isShowWindow);
 const postText = ref<string>(props.postText);
 const visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home");
-const userData = JSON.parse(
-  await getUserData(readCookie("loginHost").unwrap())
-);
+const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()));
 
 const post = () => {
   if (postText.value !== "")
@@ -33,7 +34,7 @@ const post = () => {
       visibility: visibility.value,
       replyId: props.noteId,
     });
-  console.log(props.noteId)
+  console.log(props.noteId);
   isActive.value = false;
   postText.value = "";
 };
@@ -46,20 +47,16 @@ const showPostWindow = () => {
 };
 
 onMounted(() => {
-  showPostWindow()
-})
+  showPostWindow();
+});
 </script>
 
 <template>
   <i class="icon-pencil" :class="$style.postButton" v-show="!isActive" @click="showPostWindow"></i>
-  <div :class="$style.bg" v-show="isActive" @click="isActive = false, emit('close')"></div>
+  <div :class="$style.bg" v-show="isActive" @click="(isActive = false), emit('close')"></div>
   <div v-show="isActive" :class="$style.root">
     <div :class="$style.header">
-      <i
-        class="icon-cancel"
-        :class="$style.closeButton"
-        @click="isActive = false, emit('close')"
-      ></i>
+      <i class="icon-cancel" :class="$style.closeButton" @click="(isActive = false), emit('close')"></i>
       <div :class="$style.submitButtons">
         <a @click="post">ノート</a>
         <a>下書き</a>
@@ -221,10 +218,6 @@ onMounted(() => {
   height: 100%;
   width: 100%;
 
-  background-color: color-mix(
-    in srgb,
-    var(--primary-bg-color),
-    rgba(0, 0, 0, 0) 20%
-  );
+  background-color: color-mix(in srgb, var(--primary-bg-color), rgba(0, 0, 0, 0) 20%);
 }
 </style>

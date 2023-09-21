@@ -27,9 +27,7 @@ if (host) {
     markAsRead: false,
   }).then(
     fetchNotification =>
-      fetchNotification?.forEach(Notification =>
-        notifications.value.push(notificationGen(Notification))
-      )
+      fetchNotification?.forEach(Notification => notifications.value.push(notificationGen(Notification)))
   );
   //streamMain(host, autoReConnection)
 }
@@ -41,10 +39,7 @@ if (host) {
       <i class="icon-bell-alt"></i>
       <p>通知</p>
     </div>
-    <Notification
-      v-for="notification in notifications"
-      :notification="notification"
-    />
+    <Notification v-for="notification in notifications" :notification="notification" />
   </div>
   <BottomBar />
 </template>
