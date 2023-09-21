@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { onMounted, ref } from "vue";
+import { genUuid } from "../../scripts/UUID";
 import { fetchFirstNotes } from "../../scripts/API/note";
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 
@@ -16,18 +17,17 @@ const props = defineProps<{
   autoReConnection: boolean;
 }>();
 
-const notes = ref<ModifiedNote[]>(
-  provideTimeLine.value[
-    streamTimeLine(props.hostName, props.channel, props.autoReConnection)
-  ]
-);
+const timelineSymbol = Symbol(genUuid())
+const notes = ref<ModifiedNote[]>();
 const timelineBody = ref<HTMLElement | null>();
 
 // EntryPoint ------------------------------------------///
 if (props.hostName) {
+  streamTimeLine(props.hostName, timelineSymbol, props.channel, props.autoReConnection)
+  notes.value = provideTimeLine.value[timelineSymbol]
   onMounted(async () => {
     (await fetchFirstNotes(props.hostName, props.channel)).forEach(note => {
-      notes.value.unshift(note);
+      notes.value?.unshift(note);
     });
     timelineBody.value = document.getElementById("timeline");
   });

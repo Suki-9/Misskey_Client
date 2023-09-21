@@ -11,12 +11,12 @@ export const provideTimeLine = ref<Record<symbol, ModifiedNote[]>>({});
 
 export const streamTimeLine = (
   host: string,
+  timeLineSymbol: symbol,
   channel: string = "home",
   autoReConnection: boolean = false
 ) => {
   const token = readCookie(`${host}_token`).unwrap();
   const uuid = genUuid();
-  const timeLineSymbol = Symbol(uuid);
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
 
   provideTimeLine.value[timeLineSymbol] = [];
@@ -44,11 +44,9 @@ export const streamTimeLine = (
 
   timeLine.addEventListener("close", () => {
     console.log("Connection to TL has been disconnected...");
-    if (autoReConnection) streamTimeLine(host, channel, autoReConnection);
+    if (autoReConnection) streamTimeLine(host, timeLineSymbol, channel, autoReConnection);
     return;
   });
-
-  return timeLineSymbol;
 };
 
 export const streamMain = (host: string, autoReConnection: boolean = false) => {
