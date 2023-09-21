@@ -1,13 +1,29 @@
-//TS module
+// TS module -------------------------------------------///
+import { ref } from "vue";
 import { genUuid } from "../UUID";
+import { noteGen } from "../API/note";
 import { readCookie } from "../cookie";
+import { fetchMisskeyAPI } from "./fetchAPI";
 
-export const streamTimeLine = (host: string, channel: string = "home") => {
+
+// Type ------------------------------------------------///
+import { ModifiedNote } from "../types"
+import { Endpoints } from "./api.d"
+
+
+export const provideTimeLine = ref<Record<symbol, ModifiedNote[]>>({});
+
+export const streamTimeLine = (
+  host: string,
+  channel: string = "home",
+  autoReConnection: boolean = false,
+) => {
   const token = readCookie(`${host}_token`).unwrap();
   const uuid = genUuid();
-  channel = channel ?? "home";
-
+  const timeLineSymbol = Symbol(uuid);
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
+
+  provideTimeLine.value[timeLineSymbol] = [];
 
   timeLine.addEventListener("open", () => {
     timeLine.send(
@@ -23,8 +39,23 @@ export const streamTimeLine = (host: string, channel: string = "home") => {
     console.log("Connection to the TL was successful!");
   });
 
-  return timeLine;
+  timeLine.addEventListener("message", event => {
+    console.log("GetNote!");
+    provideTimeLine.value[timeLineSymbol].push(
+      noteGen(JSON.parse(event.data).body.body)
+    );
+  });
+
+  timeLine.addEventListener("close", () => {
+    console.log("Connection to TL has been disconnected...");
+    if (autoReConnection) streamTimeLine(host, channel, autoReConnection);
+    return;
+  });
+
+  return timeLineSymbol;
 };
+
+
 
 export const streamMain = (host: string, autoReConnection: boolean = false) => {
   const token = readCookie(`${host}_token`).unwrap();
