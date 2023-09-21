@@ -42,6 +42,9 @@ if (props.selectTimeLine.hostName) {
 <template>
   <div :class="$style.root">
     <Note :class="$style.note" v-for="(note, index) in notes" :note="note" :id="index" />
+    <div :class="$style.fetchButton">
+      <a>更に読み込む</a>
+    </div>
   </div>
 </template>
 
@@ -50,7 +53,6 @@ if (props.selectTimeLine.hostName) {
   display: flex;
   flex-direction: column;
 
-  height: calc(100vh - var(--bottom-bar-height));
   width: calc(100vw - (var(--primary-margin-w) * 2));
 
   padding: calc(var(--head-bar-height) + 2%) var(--primary-margin-w);
@@ -59,6 +61,17 @@ if (props.selectTimeLine.hostName) {
   scroll-snap-align: start;
   .note {
     margin-bottom: var(--primary-margin-w);
+  }
+  .fetchButton {
+    display: flex;
+    justify-content: center;
+    a {
+      padding: 2%;
+      margin-bottom: 2%;
+
+      border-radius: var(--default-border-radius);
+      background-color: var(--accent-color);
+    }
   }
 }
 </style>
