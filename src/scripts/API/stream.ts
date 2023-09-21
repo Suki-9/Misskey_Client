@@ -40,7 +40,7 @@ export const streamTimeLine = (
 
   timeLine.addEventListener("message", event => {
     console.log("GetNote!");
-    provideTimeLine.value[timeLineSymbol].push(
+    provideTimeLine.value[timeLineSymbol].unshift(
       noteGen(JSON.parse(event.data).body.body)
     );
   });
