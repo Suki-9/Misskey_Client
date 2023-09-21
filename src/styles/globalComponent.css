@@ -1,7 +1,4 @@
 .avatar {
-  height: 6.25vh;
-  width: 6.25vh;
-
   object-fit: cover;
 
   border-radius: 0.4rem;

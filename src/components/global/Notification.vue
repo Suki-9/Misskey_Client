@@ -61,8 +61,6 @@ defineProps<{
   border: solid 1px var(--primary-border-color);
 
   .head {
-    font-size: 80%;
-
     .reaction {
       width: fit-content;
 
@@ -77,7 +75,9 @@ defineProps<{
     flex-direction: row;
 
     .avatar {
-      font-size: 80%;
+      height: var(--avater-size-L);
+      width: var(--avater-size-L);
+
       border: solid 1px var(--primary-border-color);
     }
 
@@ -91,15 +91,13 @@ defineProps<{
         flex-direction: row;
         align-items: center;
 
-        font-size: 60%;
-
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
       }
 
       .text {
-        font-size: 50%;
+        font-size: 80%;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;

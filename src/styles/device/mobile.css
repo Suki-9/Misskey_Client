@@ -3,6 +3,10 @@
   font-size: 90%;
   line-height: 1.3rem;
 
+  /* avater size */
+  --avater-size-L: 6.25vh;
+  --avater-size-M: 4.25vh;
+
   /* height */
   --bottom-bar-height: 7.5vh;
   --head-bar-height: 4vh;
