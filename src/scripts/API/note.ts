@@ -30,8 +30,8 @@ export const fetchFirstNotes = async (
     },
     host
   ).then(
-    //@ts-ignore
     fetchNotes => {
+      //@ts-ignore
       return fetchNotes?.map(note => noteGen(note));
     }
   );
@@ -40,22 +40,11 @@ export const fetchFirstNotes = async (
 export const noteGen = (noteData: Note): ModifiedNote => {
   const note: Note = noteData.renote ?? noteData;
   let renoter: User | undefined;
+  let reply: Note["reply"] | undefined;
 
   // nameは初期設定だと空の場合があるので空であればidを使う
   note.user.name ??= note.user.username;
   noteData.user.name ??= noteData.user.username;
-
-  const reactions: Reaction[] = Object.entries(note.reactions).map(
-    ([reaction, count]) => {
-      return {
-        name: reaction,
-        count,
-        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(
-          ""
-        ),
-      };
-    }
-  );
 
   if (noteData.renote) {
     renoter = {
@@ -65,6 +54,33 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       avatarUrl: noteData.user.avatarUrl,
     };
   }
+
+  if (noteData.reply) {
+    reply = {
+      id: note.reply!.id,
+      createdAt: note.reply!.createdAt,
+      text: note.reply!.text,
+      cw: note.reply!.cw,
+      user: {
+        id: note.reply!.user.id,
+        avatarUrl: note.reply!.user.avatarUrl,
+        username: note.reply!.user.username,
+        name: parseEmoji(note.reply!.user.name!),
+      },
+      files: note.reply!.files,
+    };
+  }
+
+
+  const reactions: Reaction[] = Object.entries(note.reactions).map(
+    ([reaction, count]) => {
+      return {
+        name: reaction,
+        count,
+        link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(""),
+      };
+    }
+  );
 
   return {
     id: note.id,
@@ -80,5 +96,6 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     files: note.files,
     reactions,
     renoter,
+    reply,
   };
 };

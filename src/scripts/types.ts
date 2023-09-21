@@ -4,6 +4,7 @@ export type ModifiedNote = Pick<
 > & {
   reactions: Reaction[];
   renoter?: User;
+  reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
 };
 
 export type Note = {
@@ -15,7 +16,7 @@ export type Note = {
   files: File[];
   reactions: Record<string, number>;
   renote?: Omit<Note, "renote">;
-  reply?: Note;
+  reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
 };
 
 export type Reaction = {

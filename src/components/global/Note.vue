@@ -40,6 +40,13 @@ const createReaction = async (reactionName: string) =>
         ></i>
       </p>
     </div>
+    <div v-if="note.reply" :class="$style.reply">
+      <img :src="note.reply.user.avatarUrl" :class="$style.avatar"/>
+      <article>
+        <p v-html="note.reply.user.name" :class="$style.name"></p>
+        <p v-html="note.reply.text" :class="$style.userName"></p>
+      </article>
+    </div>
     <div :class="$style.note">
       <img :class="$style.avatar" :src="note.user.avatarUrl" />
       <article>
@@ -141,11 +148,37 @@ const createReaction = async (reactionName: string) =>
       }
     }
   }
+  .reply {
+    display: flex;
+    align-items: center;
+
+    margin: 0 2%;
+
+    font-size: 90%;
+
+    border-bottom: solid 1px var(--primary-border-color);
+    .avatar {
+      height: var(--avater-size-M);
+      width: var(--avater-size-M);
+
+      margin-right: 2%;
+    }
+    article {
+      p {
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+
+  }
   .note {
     display: flex;
     flex-direction: row;
 
     .avatar {
+      height: var(--avater-size-L);
+      width: var(--avater-size-L);
+
       margin: 2%;
     }
     article {
