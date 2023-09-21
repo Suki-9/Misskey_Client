@@ -19,8 +19,9 @@ export const streamTimeLine = (
   const uuid = genUuid();
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
 
+  channel = channel == "Home" ? "home" : channel;
   provideTimeLine.value[timeLineSymbol] = [];
-
+  
   timeLine.addEventListener("open", () => {
     timeLine.send(
       JSON.stringify({

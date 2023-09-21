@@ -34,7 +34,6 @@ const post = () => {
       visibility: visibility.value,
       replyId: props.noteId,
     });
-  console.log(props.noteId);
   isActive.value = false;
   postText.value = "";
 };
