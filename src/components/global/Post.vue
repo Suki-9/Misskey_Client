@@ -161,6 +161,11 @@ onMounted(() => {
 
     padding: 2%;
 
+    .avatar {
+      height: var(--avater-size-L);
+      width: var(--avater-size-L);
+    }
+
     .text {
       display: flex;
       flex-direction: column;
