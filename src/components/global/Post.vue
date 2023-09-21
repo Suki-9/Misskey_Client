@@ -1,12 +1,18 @@
 <script setup lang="ts">
-//TS Module
+// TS Module -------------------------------------------///
 import { ref, nextTick } from "vue";
 import { readCookie } from "../../scripts/cookie";
 import { getUserData } from "../../scripts/API/userdata";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+
+// Type ------------------------------------------------///
 import { Endpoints } from "../../scripts/API/api";
 
-const isActive = ref<boolean>(false);
+const props = withDefaults(defineProps(), {
+  isShowWindow: false,
+})
+
+const isActive = ref<boolean>(props.isShowWindow);
 const postText = ref<string>("");
 const visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home");
 const userData = JSON.parse(
@@ -33,7 +39,7 @@ const showPostWindow = () => {
 </script>
 
 <template>
-  <i class="icon-pencil" :class="$style.postButton" @click="showPostWindow"></i>
+  <i class="icon-pencil" :class="$style.postButton" v-show="!isActive" @click="showPostWindow"></i>
   <div :class="$style.bg" v-show="isActive" @click="isActive = false"></div>
   <div v-show="isActive" :class="$style.root">
     <div :class="$style.header">
