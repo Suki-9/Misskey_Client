@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { onMounted, ref } from "vue";
+import { fetchFirstNotes } from "../../scripts/API/note";
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 
 // Type ------------------------------------------------///
@@ -22,10 +23,12 @@ const notes = ref<ModifiedNote[]>(provideTimeLine.value[streamTimeLine(
 )]);
 const timelineBody = ref<HTMLElement | null>();
 
-
-//EntryPoint
+// EntryPoint ------------------------------------------///
 if (props.hostName) {
-  onMounted(() => {
+  onMounted(async () => {
+    (await fetchFirstNotes(props.hostName, props.channel)).forEach(note => {
+      notes.value.unshift(note)
+    });
     timelineBody.value = document.getElementById("timeline");
   });
 }

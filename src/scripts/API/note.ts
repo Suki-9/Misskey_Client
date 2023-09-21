@@ -4,6 +4,8 @@ import { ModifiedNote, Note, Reaction, User } from "../types";
 
 //TS Module --------------------------------------------///
 import { parseEmoji, searchEmoji } from "../emoji";
+import { fetchMisskeyAPI } from "./fetchAPI";
+import { readCookie } from "../cookie";
 
 
 const htmlTextEscape = (text: string): string => {
@@ -12,6 +14,27 @@ const htmlTextEscape = (text: string): string => {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("&", "&amp;");
+};
+
+export const fetchFirstNotes = async (
+  host: string,
+  channel: string = "Home"
+): Promise<ModifiedNote[]> => {
+  return fetchMisskeyAPI(
+    `notes/${(channel ?? "Home") == "Home" ? "" : channel + "-"}timeline` as
+    | "notes/timeline"
+    | "notes/hybrid-timeline"
+    | "notes/local-timeline"
+    | "notes/global-timeline",
+    {
+      i: readCookie(`${host}_token`).unwrap(),
+      limit: 10,
+    },
+    host
+  ).then(
+    //@ts-ignore
+    fetchNotes => { return fetchNotes?.map(note => noteGen(note)) }
+  );
 };
 
 export const noteGen = (noteData: Note): ModifiedNote => {
