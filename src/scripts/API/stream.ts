@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { genUuid } from "../UUID";
 import { noteGen } from "../API/note";
 import { readCookie } from "../cookie";
-import { fetchMisskeyAPI } from "./fetchAPI";
 
 
 // Type ------------------------------------------------///
