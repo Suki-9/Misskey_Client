@@ -64,6 +64,10 @@ const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()))
     .head {
       display: flex;
       flex-direction: column;
+      .avatar {
+        height: var(--avater-size-L);
+        width: var(--avater-size-L);
+      }
       .name {
         margin-top: 2%;
       }
