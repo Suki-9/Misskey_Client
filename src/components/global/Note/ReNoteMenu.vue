@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
-import { readCookie } from "../../scripts/cookie";
+import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
+import { readCookie } from "../../../scripts/cookie";
 
 const props = defineProps<{
   noteId: string

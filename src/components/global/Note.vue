@@ -9,7 +9,7 @@ import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 
 //Vue Component ----------------------------------------///
 import NoteImage from "./NoteImage.vue";
-import ReNoteMenu from "./ReNoteMenu.vue";
+import ReNoteMenu from "./Note/ReNoteMenu.vue";
 
 //Vue Component function -------------------------------///
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
