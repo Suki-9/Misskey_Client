@@ -1,26 +1,27 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { getUserData } from "../../scripts/API/userdata";
-import { readCookie } from "../../scripts/cookie";
+import { inject } from "vue";
+import { User } from "../../scripts/types";
 import { parseEmoji } from "../../scripts/emoji";
 
-const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()));
+
+const userData = inject<User>("LoginUserData")
 </script>
 
 <template>
   <div :class="$style.root">
     <div :class="$style.bio">
       <div :class="$style.head">
-        <img :class="$style.avatar" :src="userData.avatarUrl" />
-        <p :class="$style.name" v-html="userData.name == null ? userData.username : parseEmoji(userData.name)"></p>
-        <p :class="$style.userName">@{{ userData.username }}</p>
+        <img :class="$style.avatar" :src="userData?.avatarUrl" />
+        <p :class="$style.name" v-html="userData?.name == null ? userData?.username : parseEmoji(userData.name)"></p>
+        <p :class="$style.userName">@{{ userData?.username }}</p>
         <div :class="$style.followCounter">
           <p>
-            <span>{{ userData.followingCount }}</span>
+            <span>{{ userData?.followingCount }}</span>
             <span>フォロー</span>
           </p>
           <p>
-            <span>{{ userData.followersCount }}</span>
+            <span>{{ userData?.followersCount }}</span>
             <span>フォロワー</span>
           </p>
         </div>

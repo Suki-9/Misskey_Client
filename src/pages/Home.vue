@@ -5,9 +5,10 @@ import BottomBar from "../components/global/BottomBar.vue";
 import PopUpUIs from "../components/Home/PopUpUIs.vue";
 
 // TS module -------------------------------------------///
+import { getUserData } from "../scripts/API/userdata";
 import { readCookie } from "../scripts/cookie";
 import { useRouter } from "vue-router";
-import { onMounted, ref } from "vue";
+import { onMounted, provide, ref } from "vue";
 const router = useRouter();
 
 // トークンの有無を確認 --------------------------------///
@@ -18,6 +19,10 @@ if (loginHost.isErr()) {
 } else if (((hosts = readCookie("Hosts")), hosts.isErr() || hosts.value.split(",").indexOf(loginHost.value) === -1)) {
   document.cookie = `Hosts=${loginHost.value},${hosts.unwrap_or("")}; path=/`;
 }
+
+// provide ---------------------------------------------///
+const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()));
+provide("LoginUserData" ,userData)
 
 const timeLines: Record<
   string,
