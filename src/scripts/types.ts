@@ -19,6 +19,7 @@ export type Note = {
   cw: string | null;
   user: User;
   files: File[];
+  reactionEmojis: Record<string, string>;
   reactions: Record<string, number>;
   renote?: Omit<Note, "renote">;
   reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
