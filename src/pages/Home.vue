@@ -13,6 +13,11 @@ const router = useRouter();
 // トークンの有無を確認 --------------------------------///
 const loginHost = readCookie("loginHost");
 let hosts: Result<string, Error>;
+if (loginHost.isErr()) {
+  router.push("/login");
+} else if (((hosts = readCookie("Hosts")), hosts.isErr() || hosts.value.split(",").indexOf(loginHost.value) === -1)) {
+  document.cookie = `Hosts=${loginHost.value},${hosts.unwrap_or("")}; path=/`;
+}
 
 const timeLines: Record<
   string,
@@ -31,12 +36,6 @@ const timeLines: Record<
 const showTimeLine = ref();
 const selectTimeLine = ref();
 const resetKey = ref<number>(0);
-
-if (loginHost.isErr()) {
-  router.push("/login");
-} else if (((hosts = readCookie("Hosts")), hosts.isErr() || hosts.value.split(",").indexOf(loginHost.value) === -1)) {
-  document.cookie = `Hosts=${loginHost.value},${hosts.unwrap_or("")}; path=/`;
-}
 
 onMounted(() => {
   const observer = new IntersectionObserver( entries => {
