@@ -22,12 +22,11 @@ const props = defineProps<{
 const show_reNoteMenu = ref<boolean>(false);
 const show_replyWindow = ref<boolean>(false);
 
-const createReaction = async (reactionName: string) =>
-  fetchMisskeyAPI("notes/reactions/create", {
-    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
-    noteId: props.note.id,
-    reaction: reactionName,
-  });
+const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/reactions/create", {
+  i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+  noteId: props.note.id,
+  reaction: reactionName,
+});
 </script>
 
 <template>
@@ -65,7 +64,7 @@ const createReaction = async (reactionName: string) =>
           />
         </div>
         <div :class="$style.reactions">
-          <p v-for="reaction in note.reactions" :class="$style.reaction" @click="createReaction(reaction.name)">
+          <p v-for="reaction in note.reactions" :class="[$style.reaction, { [$style.reacted]: note.myReaction == reaction.name }]" @click="createReaction(reaction.name)">
             <span :style="reaction.link && `content: url(${reaction.link})`" :class="$style.emoji">
               {{ reaction.name }}
             </span>
@@ -214,6 +213,10 @@ const createReaction = async (reactionName: string) =>
         margin-bottom: 1%;
 
         font-size: 80%;
+
+        .reacted {
+          background-color: color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0) 40%);
+        }
       }
       footer {
         display: flex;
