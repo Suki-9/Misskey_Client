@@ -67,7 +67,8 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     return {
       name: reaction,
       count,
-      link: searchEmoji(reaction.slice(1, reaction.indexOf("@"))).unwrap_or(""),
+      link: searchEmoji(reaction.slice(1, reaction.indexOf("@")))
+        .unwrap_or(note.reactionEmojis[reaction.replaceAll(":", "")]),
     };
   });
 
@@ -83,6 +84,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       avatarUrl: note.user.avatarUrl,
     },
     files: note.files,
+    myReaction: note.myReaction,
     reactions,
     renoter,
     reply,
