@@ -4,6 +4,14 @@ export type ModifiedNote = Pick<Note, "id" | "createdAt" | "text" | "cw" | "user
   reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
 };
 
+export type NoteReaction = {
+  id: string;
+  createdAt: string;
+  user: User;
+  type: string;
+  note: Note;
+};
+
 export type Note = {
   id: string;
   createdAt: string;
@@ -34,6 +42,8 @@ export type User = {
   name: string | null;
   username: string;
   avatarUrl: string;
+  followingCount: number;
+  followersCount: number;
 };
 
 export type File = {
