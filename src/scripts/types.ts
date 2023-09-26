@@ -42,8 +42,8 @@ export type User = {
   name: string | null;
   username: string;
   avatarUrl: string;
-  followingCount: number;
-  followersCount: number;
+  followingCount?: number;
+  followersCount?: number;
 };
 
 export type File = {
