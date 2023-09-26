@@ -107,6 +107,7 @@ export type Endpoints = {
   "notes/show": {
     method: "POST";
     req: {
+      i: string;
       noteId: string;
     };
     res: Note;
