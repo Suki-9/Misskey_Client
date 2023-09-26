@@ -1,5 +1,5 @@
 // Import Types ----------------------------------------///
-import { Note, Notification } from "../types";
+import { Note, Notification, NoteReaction } from "../types";
 
 const channels = ["Home", "Hybrid", "local", "global"] as const;
 
@@ -110,5 +110,17 @@ export type Endpoints = {
       noteId: string;
     };
     res: Note;
+  };
+  "users/reactions": {
+    req: {
+      i: string;
+      userId: string;
+      limit?: Number;
+      sinceId?: string;
+      untilId?: string;
+      sinceDate?: string;
+      untilDate?: string;
+    };
+    res: NoteReaction[];
   };
 };
