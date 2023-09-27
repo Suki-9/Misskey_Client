@@ -2,7 +2,6 @@
 // TS Module -------------------------------------------///
 import { onMounted, ref } from "vue";
 import { genUuid } from "../../scripts/UUID";
-import { fetchFirstNotes } from "../../scripts/API/note";
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 
 // Type ------------------------------------------------///
