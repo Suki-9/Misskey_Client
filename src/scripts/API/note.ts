@@ -63,8 +63,6 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     };
   }
 
-  console.log(noteData);
-
   return {
     id: note.id,
     createdAt: note.createdAt,
