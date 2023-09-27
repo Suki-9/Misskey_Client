@@ -4,29 +4,22 @@ import { ModifiedNote } from "../../scripts/types";
 
 // TS Module -------------------------------------------///
 import { ref } from "vue";
-import { readCookie } from "../../scripts/cookie";
-import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 
 //Vue Component ----------------------------------------///
 import NoteImage from "./NoteImage.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
+import ReactionButton from "./Note/ReactionButton.vue";
 import Post from "./Post.vue";
 
 //Vue Component function -------------------------------///
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
 
-const props = defineProps<{
+defineProps<{
   note: ModifiedNote;
 }>();
 
 const show_reNoteMenu = ref<boolean>(false);
 const show_replyWindow = ref<boolean>(false);
-
-const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/reactions/create", {
-  i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
-  noteId: props.note.id,
-  reaction: reactionName,
-});
 </script>
 
 <template>
@@ -64,12 +57,11 @@ const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/re
           />
         </div>
         <div :class="$style.reactions">
-          <p v-for="reaction in note.reactions" :class="[$style.reaction, { [$style.reacted]: note.myReaction == reaction.name }]" @click="createReaction(reaction.name)">
-            <span :style="reaction.link && `content: url(${reaction.link})`" :class="$style.emoji">
-              {{ reaction.name }}
-            </span>
-            <span> {{ reaction.count }}</span>
-          </p>
+          <ReactionButton 
+          v-for="reaction in note.reactions"
+          :reaction="reaction" 
+          :noteId="note.id"
+          :myReaction="note.myReaction"/>
         </div>
         <footer>
           <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>
@@ -213,10 +205,6 @@ const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/re
         margin-bottom: 1%;
 
         font-size: 80%;
-
-        .reacted {
-          background-color: color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0) 40%);
-        }
       }
       footer {
         display: flex;
