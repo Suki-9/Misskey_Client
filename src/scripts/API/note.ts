@@ -1,8 +1,8 @@
 // Types -----------------------------------------------///
-import { ModifiedNote, Note, Reaction, User } from "../types";
+import { ModifiedNote, Note, User } from "../types";
 
 //TS Module --------------------------------------------///
-import { parseEmoji, searchEmoji } from "../emoji";
+import { parseEmoji } from "../emoji";
 import { fetchMisskeyAPI } from "./fetchAPI";
 import { readCookie } from "../cookie";
 
@@ -63,14 +63,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     };
   }
 
-  const reactions: Reaction[] = Object.entries(note.reactions).map(([reaction, count]) => {
-    return {
-      name: reaction,
-      count,
-      link: searchEmoji(reaction.slice(1, reaction.indexOf("@")))
-        .unwrap_or(note.reactionEmojis[reaction.replaceAll(":", "")]),
-    };
-  });
+  console.log(noteData)
 
   return {
     id: note.id,
@@ -84,8 +77,9 @@ export const noteGen = (noteData: Note): ModifiedNote => {
       avatarUrl: note.user.avatarUrl,
     },
     files: note.files,
+    reactionEmojis: note.reactionEmojis,
     myReaction: note.myReaction,
-    reactions,
+    reactions: note.reactions,
     renoter,
     reply,
   };

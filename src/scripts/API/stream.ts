@@ -66,16 +66,6 @@ export const streamTimeLine = async (
         break;
       case "reacted":
         console.log("reacted!");
-        const noteId = parseEvent.id;
-        for (let i in provideTimeLine.value[timeLineSymbol]) { 
-          if (provideTimeLine.value[timeLineSymbol][i].id == noteId) {
-            provideTimeLine.value[timeLineSymbol][i].reactions.push({
-              name: parseEvent.body.emoji.name,
-              count: 9,
-              link: parseEvent.body.emoji.url,
-            });
-          }
-        }
         break;
       default:
         console.log(JSON.parse(event.data).body.type);

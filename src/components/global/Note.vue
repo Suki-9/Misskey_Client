@@ -3,7 +3,7 @@
 import { ModifiedNote } from "../../scripts/types";
 
 // TS Module -------------------------------------------///
-import { ref } from "vue";
+import { provide, ref } from "vue";
 
 //Vue Component ----------------------------------------///
 import NoteImage from "./NoteImage.vue";
@@ -14,9 +14,11 @@ import Post from "./Post.vue";
 //Vue Component function -------------------------------///
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
 
-defineProps<{
+const props = defineProps<{
   note: ModifiedNote;
 }>();
+
+provide(props.note.id , props.note)
 
 const show_reNoteMenu = ref<boolean>(false);
 const show_replyWindow = ref<boolean>(false);
@@ -58,10 +60,9 @@ const show_replyWindow = ref<boolean>(false);
         </div>
         <div :class="$style.reactions">
           <ReactionButton 
-          v-for="reaction in note.reactions"
-          :reaction="reaction" 
-          :noteId="note.id"
-          :myReaction="note.myReaction"/>
+          v-for="reaction in Object.entries(note.reactions)"
+          :reaction="reaction"
+          :noteId="note.id"/>
         </div>
         <footer>
           <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>

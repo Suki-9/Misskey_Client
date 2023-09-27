@@ -1,5 +1,6 @@
 export type ModifiedNote = Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files" | "myReaction"> & {
-  reactions: Reaction[];
+  reactionEmojis: Record<string, string>;
+  reactions: Record<string, number>;
   renoter?: User;
   reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
 };

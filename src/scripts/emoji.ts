@@ -29,12 +29,15 @@ const createEmojiIndex = async (type: string[], host: string) => {
   }
 };
 
-export const searchEmoji = (name: string, host = readCookie("loginHost").unwrap()): Result<string, Error> => {
+export const searchEmoji = (
+  name: string,
+  host = readCookie("loginHost").unwrap()
+): Result<string, Error> => {
   const index = readEmojiIndex("key", host);
   const emojis: Emoji[] = readEmojiIndex(undefined, host);
-  if (index.indexOf(name) === -1) return new Err(new Error(name));
+  if (index.indexOf(name.slice(1, name.indexOf("@"))) === -1) return new Err(new Error(name));
 
-  return new Ok(emojis[index.indexOf(name)].url);
+  return new Ok(emojis[index.indexOf(name.slice(1, name.indexOf("@")))].url);
 };
 
 export const parseEmoji = (text: string) => {
