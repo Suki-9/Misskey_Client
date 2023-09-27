@@ -29,7 +29,7 @@ const createReaction = async (reactionName: string) =>
 <template>
   <p
     :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]"
-    @click="createReaction(reaction.name)"
+    @click="createReaction(reaction[0])"
   >
     <span :style="emojiURL && `content: url(${emojiURL});`" :class="$style.emoji">
       {{ reaction[0] }}
