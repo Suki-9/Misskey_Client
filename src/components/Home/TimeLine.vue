@@ -21,7 +21,7 @@ const props = defineProps<{
 
 const timelineSymbol = Symbol(genUuid());
 const notes = ref<ModifiedNote[]>();
-const loading = ref<boolean>(true)
+const loading = ref<boolean>(false)
 
 // EntryPoint ------------------------------------------///
 if (props.selectTimeLine.hostName) {
@@ -33,10 +33,7 @@ if (props.selectTimeLine.hostName) {
   );
   notes.value = provideTimeLine.value[timelineSymbol];
   onMounted(async () => {
-    (await fetchFirstNotes(props.selectTimeLine.hostName, props.selectTimeLine.channel)).forEach(note => {
-      notes.value?.unshift(note);
-    });
-    loading.value = false
+    
   });
 }
 </script>

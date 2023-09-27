@@ -1,16 +1,29 @@
 // TS module -------------------------------------------///
 import { ref } from "vue";
 import { genUuid } from "../UUID";
-import { noteGen } from "../API/note";
+import { noteGen, fetchFirstNotes } from "../API/note";
 import { readCookie } from "../cookie";
-import { searchEmoji } from "../emoji";
 
 // Type ------------------------------------------------///
 import { ModifiedNote } from "../types";
 
 export const provideTimeLine = ref<Record<symbol, ModifiedNote[]>>({});
 
-export const streamTimeLine = (
+const captchaNote = (
+  webSocket: WebSocket,
+  note: ModifiedNote,
+) => {
+  webSocket.send(
+    JSON.stringify({
+      type: "subNote",
+      body: {
+        id: note.id,
+      },
+    })
+  );
+}
+
+export const streamTimeLine = async (
   host: string,
   timeLineSymbol: symbol,
   channel: string = "home",
@@ -22,7 +35,12 @@ export const streamTimeLine = (
 
   channel = channel == "Home" ? "home" : channel;
   provideTimeLine.value[timeLineSymbol] = [];
-  
+
+  //fetch first Notes
+  (await fetchFirstNotes(host, channel)).forEach(note => {
+    provideTimeLine.value[timeLineSymbol].unshift(note);
+  })
+
   timeLine.addEventListener("open", () => {
     timeLine.send(
       JSON.stringify({
@@ -35,6 +53,7 @@ export const streamTimeLine = (
       })
     );
     console.log(`Connection to the ${channel} TL was successful!`);
+    provideTimeLine.value[timeLineSymbol].forEach(note => captchaNote(timeLine, note));
   });
 
   timeLine.addEventListener("message", event => {
@@ -43,14 +62,7 @@ export const streamTimeLine = (
       case "note":
         console.log("GetNote!");
         provideTimeLine.value[timeLineSymbol].unshift(noteGen(parseEvent.body));
-        timeLine.send(
-          JSON.stringify({
-            type: "subNote",
-            body: {
-              id: provideTimeLine.value[timeLineSymbol][0].id,
-            },
-          })
-        );
+        captchaNote(timeLine, provideTimeLine.value[timeLineSymbol][0]);
         break;
       case "reacted":
         console.log("reacted!");

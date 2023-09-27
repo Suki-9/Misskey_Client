@@ -13,7 +13,7 @@ const htmlTextEscape = (text: string): string => {
 export const fetchFirstNotes = async (host: string, channel: string = "Home"): Promise<ModifiedNote[]> => {
   console.log(channel);
   return fetchMisskeyAPI(
-    `notes/${(channel ?? "Home") == "Home" ? "" : channel + "-"}timeline` as
+    `notes/${(channel ?? "home") == "home" ? "" : channel + "-"}timeline` as
       | "notes/timeline"
       | "notes/hybrid-timeline"
       | "notes/local-timeline"
