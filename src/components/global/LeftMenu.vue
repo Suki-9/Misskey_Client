@@ -4,8 +4,7 @@ import { inject } from "vue";
 import { User } from "../../scripts/types";
 import { parseEmoji } from "../../scripts/emoji";
 
-
-const userData = inject<User>("LoginUserData")
+const userData = inject<User>("LoginUserData");
 </script>
 
 <template>

@@ -13,21 +13,24 @@ const props = defineProps<{
   noteId: string;
 }>();
 
-const note = inject<ModifiedNote>(props.noteId)
+const note = inject<ModifiedNote>(props.noteId);
 const emojiURL: string = searchEmoji(props.reaction[0]).unwrap_or(
-  note!.reactionEmojis[props.reaction[0].replaceAll(":","")]
-)
+  note!.reactionEmojis[props.reaction[0].replaceAll(":", "")]
+);
 
-const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/reactions/create", {
-  i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
-  noteId: props.noteId,
-  reaction: reactionName,
-});
+const createReaction = async (reactionName: string) =>
+  fetchMisskeyAPI("notes/reactions/create", {
+    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+    noteId: props.noteId,
+    reaction: reactionName,
+  });
 </script>
 
-
 <template>
-  <p :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]" @click="createReaction(reaction.name)">
+  <p
+    :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]"
+    @click="createReaction(reaction.name)"
+  >
     <span :style="emojiURL && `content: url(${emojiURL});`" :class="$style.emoji">
       {{ reaction[0] }}
     </span>
@@ -35,13 +38,11 @@ const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/re
   </p>
 </template>
 
-
 <style module lang="scss">
 @import "../../../styles/globalComponent.css";
 .reacted {
   background-color: color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0) 40%);
 }
 .emoji {
-
 }
 </style>

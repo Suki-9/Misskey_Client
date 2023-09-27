@@ -22,7 +22,7 @@ if (loginHost.isErr()) {
 
 // provide ---------------------------------------------///
 const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()));
-provide("LoginUserData" ,userData)
+provide("LoginUserData", userData);
 
 const timeLines: Record<
   string,
@@ -30,7 +30,7 @@ const timeLines: Record<
     channel: "Home" | "hybrid" | "local" | "global";
     autoReConnection: boolean;
     hostName: string;
-}
+  }
 > = {
   Home: { channel: "Home", hostName: loginHost.unwrap(), autoReConnection: true },
   Hybrid: { channel: "hybrid", hostName: loginHost.unwrap(), autoReConnection: true },
@@ -43,17 +43,19 @@ const selectTimeLine = ref();
 const resetKey = ref<number>(0);
 
 onMounted(() => {
-  const observer = new IntersectionObserver( entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        showTimeLine.value = entry.target.id;
-        selectTimeLine.value = timeLines[showTimeLine.value];
-        resetKey.value++;
-      }
-    });
-  }, {
-    threshold: 0.5
-  }
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          showTimeLine.value = entry.target.id;
+          selectTimeLine.value = timeLines[showTimeLine.value];
+          resetKey.value++;
+        }
+      });
+    },
+    {
+      threshold: 0.5,
+    }
   );
   const targetElem = document.querySelectorAll(".timeLine");
   targetElem.forEach(elem => observer.observe(elem));

@@ -9,10 +9,7 @@ import { ModifiedNote } from "../types";
 
 export const provideTimeLine = ref<Record<symbol, ModifiedNote[]>>({});
 
-const captchaNote = (
-  webSocket: WebSocket,
-  note: ModifiedNote,
-) => {
+const captchaNote = (webSocket: WebSocket, note: ModifiedNote) => {
   webSocket.send(
     JSON.stringify({
       type: "subNote",
@@ -21,7 +18,7 @@ const captchaNote = (
       },
     })
   );
-}
+};
 
 export const streamTimeLine = async (
   host: string,
@@ -39,7 +36,7 @@ export const streamTimeLine = async (
   //fetch first Notes
   (await fetchFirstNotes(host, channel)).forEach(note => {
     provideTimeLine.value[timeLineSymbol].unshift(note);
-  })
+  });
 
   timeLine.addEventListener("open", () => {
     timeLine.send(
@@ -57,7 +54,7 @@ export const streamTimeLine = async (
   });
 
   timeLine.addEventListener("message", event => {
-    const parseEvent = JSON.parse(event.data).body
+    const parseEvent = JSON.parse(event.data).body;
     switch (parseEvent.type) {
       case "note":
         console.log("GetNote!");
