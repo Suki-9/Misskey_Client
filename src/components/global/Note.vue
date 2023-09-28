@@ -57,10 +57,7 @@ const show_replyWindow = ref<boolean>(false);
           />
         </div>
         <div :class="$style.reactions">
-          <ReactionButton 
-            v-for="reaction in Object.entries(note.reactions)" 
-            :reaction="reaction"
-            :note="note" />
+          <ReactionButton v-for="reaction in Object.entries(note.reactions)" :reaction="reaction" :note="note" />
         </div>
         <footer>
           <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>

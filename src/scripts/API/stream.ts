@@ -26,7 +26,7 @@ export const streamTimeLine = async (
   timeLineSymbol: symbol,
   channel: string = "home",
   autoReConnection: boolean = false,
-  isReConnect: boolean = false,
+  isReConnect: boolean = false
 ) => {
   const token = readCookie(`${host}_token`).unwrap();
   const loginUserData: User = JSON.parse(await getUserData(host));
@@ -38,8 +38,7 @@ export const streamTimeLine = async (
   //fetch first Notes
   if (!isReConnect) {
     provideTimeLine.value[timeLineSymbol] = {};
-    (await fetchFirstNotes(host, channel))
-      .forEach(note => provideTimeLine.value[timeLineSymbol][note.id] = note);
+    (await fetchFirstNotes(host, channel)).forEach(note => (provideTimeLine.value[timeLineSymbol][note.id] = note));
   }
 
   timeLine.addEventListener("open", () => {
@@ -73,7 +72,9 @@ export const streamTimeLine = async (
         const targetReaction: string = parseEvent.body.reaction;
         const targetNote: ModifiedNote = provideTimeLine.value[timeLineSymbol][parseEvent.id];
 
-        if (parseEvent.body.userId == loginUserData.id) { targetNote.myReaction = targetReaction; }
+        if (parseEvent.body.userId == loginUserData.id) {
+          targetNote.myReaction = targetReaction;
+        }
 
         if (Object.keys(targetNote!.reactions).indexOf(targetReaction) == -1) {
           targetNote!.reactions[targetReaction] = 1;

@@ -27,17 +27,14 @@ if (props.selectTimeLine.hostName) {
     props.selectTimeLine.hostName,
     timeLineSymbol,
     props.selectTimeLine.channel,
-    props.selectTimeLine.autoReConnection,
+    props.selectTimeLine.autoReConnection
   );
 }
 </script>
 
 <template>
   <div :class="$style.root" v-if="!loading">
-    <Note :class="$style.note" 
-    v-for="(note, index) in provideTimeLine[timeLineSymbol]"
-    :note="note"
-    :key="index"/>
+    <Note :class="$style.note" v-for="(note, index) in provideTimeLine[timeLineSymbol]" :note="note" :key="index" />
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
