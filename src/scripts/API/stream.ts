@@ -78,7 +78,6 @@ export const streamTimeLine = async (
             targetNote!.myReaction = reaction;
           }
         });
-        console.log(parseEvent);
         break;
       default:
         console.log(JSON.parse(event.data).body.type);
