@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { genUuid } from "../../scripts/UUID";
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 
@@ -18,27 +18,24 @@ const props = defineProps<{
   };
 }>();
 
-const timelineSymbol = Symbol(genUuid());
-const notes = ref<TimeLine>();
+const timeLineSymbol = Symbol(genUuid());
 const loading = ref<boolean>(false);
 
 // EntryPoint ------------------------------------------///
 if (props.selectTimeLine.hostName) {
   streamTimeLine(
     props.selectTimeLine.hostName,
-    timelineSymbol,
+    timeLineSymbol,
     props.selectTimeLine.channel,
     props.selectTimeLine.autoReConnection,
   );
-  notes.value = provideTimeLine.value[timelineSymbol];
-  onMounted(async () => {});
 }
 </script>
 
 <template>
   <div :class="$style.root" v-if="!loading">
     <Note :class="$style.note" 
-    v-for="(note) in notes"
+    v-for="(note) in provideTimeLine[timeLineSymbol]"
     :note="note"/>
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
