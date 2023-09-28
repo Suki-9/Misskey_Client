@@ -1,3 +1,5 @@
+export type TimeLine = Record<string, ModifiedNote>
+
 export type ModifiedNote = Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files" | "myReaction"> & {
   reactionEmojis: Record<string, string>;
   reactions: Record<string, number>;

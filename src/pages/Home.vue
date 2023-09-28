@@ -32,7 +32,7 @@ const timeLines: Record<
     hostName: string;
   }
 > = {
-  Home: { channel: "Home", hostName: loginHost.unwrap(), autoReConnection: true },
+  //Home: { channel: "Home", hostName: loginHost.unwrap(), autoReConnection: true },
   Hybrid: { channel: "hybrid", hostName: loginHost.unwrap(), autoReConnection: true },
   local: { channel: "local", hostName: loginHost.unwrap(), autoReConnection: true },
   global: { channel: "global", hostName: loginHost.unwrap(), autoReConnection: true },

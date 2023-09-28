@@ -5,9 +5,9 @@ import { noteGen, fetchFirstNotes } from "../API/note";
 import { readCookie } from "../cookie";
 
 // Type ------------------------------------------------///
-import { ModifiedNote } from "../types";
+import { ModifiedNote, TimeLine } from "../types";
 
-export const provideTimeLine = ref<Record<symbol, ModifiedNote[]>>({});
+export const provideTimeLine = ref<Record<symbol, TimeLine>>({});
 
 const captchaNote = (webSocket: WebSocket, note: ModifiedNote) => {
   webSocket.send(
@@ -32,12 +32,12 @@ export const streamTimeLine = async (
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
 
   channel = channel == "Home" ? "home" : channel;
-  provideTimeLine.value[timeLineSymbol] = [];
+  provideTimeLine.value[timeLineSymbol] = {};
 
   //fetch first Notes
-  if (!isReConnect) { 
+  if (!isReConnect) {
     (await fetchFirstNotes(host, channel)).forEach(note => {
-      provideTimeLine.value[timeLineSymbol].unshift(note);
+      provideTimeLine.value[timeLineSymbol][note.id] = note;
     });
   }
 
@@ -53,8 +53,9 @@ export const streamTimeLine = async (
         },
       })
     );
-    provideTimeLine.value[timeLineSymbol].forEach(note => captchaNote(timeLine, note));
-    console.log(provideTimeLine.value[timeLineSymbol]);
+    Object.keys(provideTimeLine.value[timeLineSymbol]).forEach(index =>
+      captchaNote(timeLine, provideTimeLine.value[timeLineSymbol][index])
+    );
   });
 
   timeLine.addEventListener("message", event => {
@@ -62,25 +63,24 @@ export const streamTimeLine = async (
     switch (parseEvent.type) {
       case "note":
         console.log("GetNote!");
-        provideTimeLine.value[timeLineSymbol].unshift(noteGen(parseEvent.body));
+        const note = noteGen(parseEvent.body);
+        provideTimeLine.value[timeLineSymbol][note.id] = note;
         captchaNote(timeLine, provideTimeLine.value[timeLineSymbol][0]);
         break;
       case "reacted":
         console.log("reacted!");
-        const targetReaction = parseEvent.body.reaction;
-        let targetNote: ModifiedNote;
-        provideTimeLine.value[timeLineSymbol].forEach((note, index) => {
-          if (note.id == parseEvent.id) { targetNote = provideTimeLine.value[timeLineSymbol][index]; }
-        });
-        Object.keys(targetNote!.reactions).forEach(reaction => {
-          if (targetReaction == reaction) {
-            targetNote!.reactions[reaction]++;
-            targetNote!.myReaction = reaction;
-          }
-        });
+        const targetReaction: string = parseEvent.body.reaction;
+        const targetNote: ModifiedNote = provideTimeLine.value[timeLineSymbol][Object.keys(provideTimeLine.value[timeLineSymbol]).indexOf(parseEvent.id)];
+
+        //if (parseEvent.body.userId == targetNote.user.id) { targetNote.myReaction = targetReaction; }
+        if (Object.keys(targetNote!.reactions).indexOf(targetReaction) == -1) {
+          targetNote!.reactions[targetReaction] = 1;
+        } else {
+          targetNote!.reactions[targetReaction]++;
+        }
         break;
       default:
-        console.log(JSON.parse(event.data).body.type);
+        console.log(JSON.parse(event.data));
     }
   });
 

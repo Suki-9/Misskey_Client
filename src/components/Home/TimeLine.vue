@@ -5,7 +5,7 @@ import { genUuid } from "../../scripts/UUID";
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 
 // Type ------------------------------------------------///
-import { ModifiedNote } from "../../scripts/types";
+import { TimeLine } from "../../scripts/types";
 
 // Vue Component ---------------------------------------///
 import Note from "../global/Note.vue";
@@ -19,7 +19,7 @@ const props = defineProps<{
 }>();
 
 const timelineSymbol = Symbol(genUuid());
-const notes = ref<ModifiedNote[]>();
+const notes = ref<TimeLine>();
 const loading = ref<boolean>(false);
 
 // EntryPoint ------------------------------------------///
@@ -38,9 +38,8 @@ if (props.selectTimeLine.hostName) {
 <template>
   <div :class="$style.root" v-if="!loading">
     <Note :class="$style.note" 
-    v-for="(note, index) in notes" 
-    :note="note" 
-    :key="index" />
+    v-for="(note) in notes"
+    :note="note"/>
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
