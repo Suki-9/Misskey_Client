@@ -41,6 +41,4 @@ const createReaction = async (reactionName: string) =>
 .reacted {
   background-color: color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0) 40%);
 }
-.emoji {
-}
 </style>
