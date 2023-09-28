@@ -18,8 +18,6 @@ const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-provide(props.note.id, props.note);
-
 const show_reNoteMenu = ref<boolean>(false);
 const show_replyWindow = ref<boolean>(false);
 </script>
@@ -59,7 +57,10 @@ const show_replyWindow = ref<boolean>(false);
           />
         </div>
         <div :class="$style.reactions">
-          <ReactionButton v-for="reaction in Object.entries(note.reactions)" :reaction="reaction" :noteId="note.id" />
+          <ReactionButton 
+            v-for="reaction in Object.entries(note.reactions)" 
+            :reaction="reaction"
+            :note="note" />
         </div>
         <footer>
           <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>

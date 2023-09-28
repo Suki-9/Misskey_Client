@@ -3,25 +3,23 @@
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
 import { readCookie } from "../../../scripts/cookie";
 import { searchEmoji } from "../../../scripts/emoji";
-import { inject } from "vue";
 
 // Type ------------------------------------------------///
 import { ModifiedNote } from "../../../scripts/types";
 
 const props = defineProps<{
   reaction: [string, number];
-  noteId: string;
+  note: ModifiedNote;
 }>();
 
-const note = inject<ModifiedNote>(props.noteId);
 const emojiURL: string = searchEmoji(props.reaction[0]).unwrap_or(
-  note!.reactionEmojis[props.reaction[0].replaceAll(":", "")]
+  props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
 );
 
 const createReaction = async (reactionName: string) =>
   fetchMisskeyAPI("notes/reactions/create", {
     i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
-    noteId: props.noteId,
+    noteId: props.note.id,
     reaction: reactionName,
   });
 </script>
