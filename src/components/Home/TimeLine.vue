@@ -35,8 +35,9 @@ if (props.selectTimeLine.hostName) {
 <template>
   <div :class="$style.root" v-if="!loading">
     <Note :class="$style.note" 
-    v-for="(note) in provideTimeLine[timeLineSymbol]"
-    :note="note"/>
+    v-for="(note, index) in provideTimeLine[timeLineSymbol]"
+    :note="note"
+    :key="index"/>
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
