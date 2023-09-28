@@ -14,7 +14,7 @@ import Post from "./Post.vue";
 //Vue Component function -------------------------------///
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
 
-const props = defineProps<{
+defineProps<{
   note: ModifiedNote;
 }>();
 
