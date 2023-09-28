@@ -4,7 +4,7 @@ import { readCookie } from "./cookie";
 //Type
 import { Emoji } from "./types";
 
-const fetchEmojiIndex = async (host: string): Promise<string> => {
+const fetchEmojiIndex = async (host: string): Promise<Emoji[]> => {
   return await fetch(`https://${host}/api/emojis`)
     .then(response => response.json())
     .then(data => data.emojis);
