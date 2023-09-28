@@ -3,7 +3,7 @@
 import { ModifiedNote } from "../../scripts/types";
 
 // TS Module -------------------------------------------///
-import { provide, ref } from "vue";
+import { ref } from "vue";
 
 //Vue Component ----------------------------------------///
 import NoteImage from "./NoteImage.vue";
