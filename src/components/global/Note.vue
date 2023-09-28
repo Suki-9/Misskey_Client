@@ -60,10 +60,20 @@ const show_replyWindow = ref<boolean>(false);
           <ReactionButton v-for="reaction in Object.entries(note.reactions)" :reaction="reaction" :note="note" />
         </div>
         <footer>
-          <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>
-          <i class="icon-retweet" alt="renote" @click="show_reNoteMenu = !show_reNoteMenu"></i>
-          <i class="icon-plus" alr="reaction" @click="Show_emojiPalette"></i>
-          <i class="icon-dot-3" alt="more" @click=""></i>
+          <p>
+            <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>
+            {{ note.repliesCount }}
+          </p>
+          <p>
+            <i class="icon-retweet" alt="renote" @click="show_reNoteMenu = !show_reNoteMenu"></i>
+            {{ note.renoteCount }}
+          </p>
+          <p>
+            <i class="icon-plus" alr="reaction" @click="Show_emojiPalette"></i>
+          </p>
+          <p>
+            <i class="icon-dot-3" alt="more" @click=""></i>
+          </p>
         </footer>
       </article>
     </div>
@@ -209,8 +219,11 @@ const show_replyWindow = ref<boolean>(false);
         justify-content: space-between;
 
         width: 60%;
-
-        font-size: 130%;
+        p {
+          i {
+            font-size: 130%;
+          }
+        }
       }
     }
   }

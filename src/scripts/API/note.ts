@@ -79,6 +79,8 @@ export const noteGen = (noteData: Note): ModifiedNote => {
     myReaction: note.myReaction,
     reactions: note.reactions,
     renoter,
+    renoteCount: note.renoteCount,
     reply,
+    repliesCount: note.repliesCount,
   };
 };

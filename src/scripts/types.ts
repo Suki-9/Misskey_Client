@@ -1,6 +1,6 @@
 export type TimeLine = Record<string, ModifiedNote>;
 
-export type ModifiedNote = Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files" | "myReaction"> & {
+export type ModifiedNote = Note & {
   reactionEmojis: Record<string, string>;
   reactions: Record<string, number>;
   renoter?: User;
@@ -26,7 +26,9 @@ export type Note = {
   reactionEmojis: Record<string, string>;
   reactions: Record<string, number>;
   renote?: Omit<Note, "renote">;
+  renoteCount: number;
   reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
+  repliesCount: number;
 };
 
 export type Reaction = {
