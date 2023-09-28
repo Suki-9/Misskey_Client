@@ -38,10 +38,9 @@ export const searchEmoji = (name: string, host = readCookie("loginHost").unwrap(
 };
 
 export const parseEmoji = (text: string) => {
-  const regex = /:.*?:/g;
-  const matches = text.match(regex);
+  const matches = text.match(/:.*?:/g);
   matches?.forEach(emoji => {
-    const url = searchEmoji(emoji.replaceAll(":", ""));
+    const url = searchEmoji(emoji);
     if (url.isOk()) text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
   });
   return text;
