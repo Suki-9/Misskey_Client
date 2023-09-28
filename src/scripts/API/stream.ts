@@ -24,7 +24,8 @@ export const streamTimeLine = async (
   host: string,
   timeLineSymbol: symbol,
   channel: string = "home",
-  autoReConnection: boolean = false
+  autoReConnection: boolean = false,
+  isReConnect: boolean = false,
 ) => {
   const token = readCookie(`${host}_token`).unwrap();
   const uuid = genUuid();
@@ -34,11 +35,14 @@ export const streamTimeLine = async (
   provideTimeLine.value[timeLineSymbol] = [];
 
   //fetch first Notes
-  (await fetchFirstNotes(host, channel)).forEach(note => {
-    provideTimeLine.value[timeLineSymbol].unshift(note);
-  });
+  if (!isReConnect) { 
+    (await fetchFirstNotes(host, channel)).forEach(note => {
+      provideTimeLine.value[timeLineSymbol].unshift(note);
+    });
+  }
 
   timeLine.addEventListener("open", () => {
+    console.log(`Connection to the ${channel} TL was successful!`);
     timeLine.send(
       JSON.stringify({
         type: "connect",
@@ -49,8 +53,8 @@ export const streamTimeLine = async (
         },
       })
     );
-    console.log(`Connection to the ${channel} TL was successful!`);
     provideTimeLine.value[timeLineSymbol].forEach(note => captchaNote(timeLine, note));
+    console.log(provideTimeLine.value[timeLineSymbol]);
   });
 
   timeLine.addEventListener("message", event => {
@@ -63,6 +67,18 @@ export const streamTimeLine = async (
         break;
       case "reacted":
         console.log("reacted!");
+        const targetReaction = parseEvent.body.reaction;
+        let targetNote: ModifiedNote;
+        provideTimeLine.value[timeLineSymbol].forEach((note, index) => {
+          if (note.id == parseEvent.id) { targetNote = provideTimeLine.value[timeLineSymbol][index]; }
+        });
+        Object.keys(targetNote!.reactions).forEach(reaction => {
+          if (targetReaction == reaction) {
+            targetNote!.reactions[reaction]++;
+            targetNote!.myReaction = reaction;
+          }
+        });
+        console.log(parseEvent);
         break;
       default:
         console.log(JSON.parse(event.data).body.type);
@@ -71,7 +87,7 @@ export const streamTimeLine = async (
 
   timeLine.addEventListener("close", () => {
     console.log("Connection to TL has been disconnected...");
-    if (autoReConnection) streamTimeLine(host, timeLineSymbol, channel, autoReConnection);
+    if (autoReConnection) streamTimeLine(host, timeLineSymbol, channel, autoReConnection, true);
     return;
   });
 };
