@@ -4,9 +4,6 @@ import { ref } from "vue";
 import { genUuid } from "../../scripts/UUID";
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 
-// Type ------------------------------------------------///
-import { TimeLine } from "../../scripts/types";
-
 // Vue Component ---------------------------------------///
 import Note from "../global/Note.vue";
 
