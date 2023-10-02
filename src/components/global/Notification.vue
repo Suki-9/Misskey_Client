@@ -48,6 +48,7 @@ console.log(p.notification)
 
   border: solid 1px var(--primary-border-color);
 
+  border-radius: var(--default-border-radius);
   .head {
     .reaction {
       width: fit-content;
