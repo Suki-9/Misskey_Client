@@ -5,9 +5,10 @@ import { ModifiedNotification } from "../../scripts/types";
 //Vue Component
 import Note from "./Note.vue";
 
-defineProps<{
+const p = defineProps<{
   notification: ModifiedNotification;
 }>();
+console.log(p.notification)
 </script>
 
 <template>

@@ -43,11 +43,12 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
     }
 
     case "reaction": {
+      console.log(notification);
       ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text);
       ModifiedNotification.reaction = notification.reaction
         ? {
             name: notification.reaction,
-            link: searchEmoji(notification.reaction.slice(1, notification.reaction.indexOf("@"))).unwrap_or(""),
+            link: searchEmoji(notification.reaction).unwrap_or(""),
           }
         : undefined;
       break;
