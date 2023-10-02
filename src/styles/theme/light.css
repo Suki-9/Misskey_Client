@@ -1,26 +1,22 @@
 :root {
   /*background color*/
   --primary-bg-color: rgb(255, 255, 255);
-
-  --secondary-bg-color: rgb(240, 240, 240);
-  --secondary-bg-color-invalid: rgb(190, 190, 190);
-
-  --tertiary-bg-color: rgb(197, 197, 197);
+  --secondary-bg-color: color-mix(in srgb, var(--primary-bg-color), #000000 2%);
+  --tertiary-bg-color: color-mix(in srgb, var(--primary-bg-color), #000000 4%);
 
   /*button color*/
-  --true-button-color: rgb(230, 230, 230);
+  --true-button-color: rgb(255, 255, 255);
 
   /*border color*/
-  --primary-border-color: rgb(41, 41, 41);
-  --secondary-border-color: rgb(53, 53, 53);
+  --primary-border-color: rgb(200, 200, 200);
 
   /*text color*/
   --primary-text-color: rgb(20, 20, 20);
-  --secondary-text-color: rgb(70, 70, 70);
+  --secondary-text-color: rgb(20, 20, 20);
 
   /*shadow color*/
-  --shadow-color: rgba(14, 2, 7, 0.24);
+  --shadow-color: rgba(7, 16, 58, 0.24);
 
   /* */
-  --accent-color: rgb(226, 112, 160);
+  --accent-color: rgb(133, 141, 255);
 }
