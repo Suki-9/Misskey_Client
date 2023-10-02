@@ -55,9 +55,7 @@ if (host) {
     align-items: center;
     justify-content: center;
 
-    height: 6.25vh;
-
-    font-size: 80%;
+    height: var(--head-bar-height);
 
     border-bottom: solid 1px var(--primary-border-color);
   }
