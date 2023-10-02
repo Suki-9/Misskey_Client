@@ -4,8 +4,10 @@ import { ModifiedNote } from "../../scripts/types";
 
 // TS Module -------------------------------------------///
 import { ref } from "vue";
+import { fetchChildrenNotes } from "../../scripts/API/note";
 
 //Vue Component ----------------------------------------///
+import Note from "./Note.vue";
 import NoteImage from "./NoteImage.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
@@ -14,12 +16,17 @@ import Post from "./Post.vue";
 //Vue Component function -------------------------------///
 import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
 
-defineProps<{
+
+const props = defineProps<{
   note: ModifiedNote;
+  replymode?: boolean;
 }>();
 
 const show_reNoteMenu = ref<boolean>(false);
 const show_replyWindow = ref<boolean>(false);
+const childrenNotes = ref<ModifiedNote[]>();
+
+const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(props.note.id) 
 </script>
 
 <template>
@@ -30,7 +37,7 @@ const show_replyWindow = ref<boolean>(false);
         <span v-html="note.renoter.name"></span>さんがリノート<i class="icon-retweet"></i>
       </p>
     </div>
-    <div v-if="note.reply" :class="$style.reply">
+    <div v-if="note.reply && !replymode" :class="$style.reply">
       <img :src="note.reply.user.avatarUrl" :class="$style.avatar" />
       <article>
         <p v-html="note.reply.user.name" :class="$style.name"></p>
@@ -41,7 +48,9 @@ const show_replyWindow = ref<boolean>(false);
       <img :class="$style.avatar" :src="note.user.avatarUrl" />
       <article>
         <header>
-          <p :class="$style.userName">
+          <p
+            :class="$style.userName"
+            @click="$router.push(`/notes/${note.id}`)">
             <span v-html="note.user.name"></span>
             <span>@{{ note.user.username }}</span>
           </p>
@@ -75,6 +84,7 @@ const show_replyWindow = ref<boolean>(false);
             <i class="icon-dot-3" alt="more" @click=""></i>
           </p>
         </footer>
+        <a v-show="note.repliesCount && replymode" @click="loadReplys()">続きを読み込む</a>
       </article>
     </div>
     <ReNoteMenu :noteId="note.id" v-show="show_reNoteMenu" />
@@ -84,6 +94,10 @@ const show_replyWindow = ref<boolean>(false);
       @close="show_replyWindow = false"
       v-if="show_replyWindow"
     />
+    <Note 
+      v-if="childrenNotes"
+      v-for="childrenNote in childrenNotes" 
+      :note="childrenNote" :replymode="true"/>
   </div>
 </template>
 

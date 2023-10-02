@@ -2,7 +2,7 @@
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
 import { readCookie } from "../scripts/cookie";
-import { noteGen } from "../scripts/API/note";
+import { noteGen, fetchChildrenNotes } from "../scripts/API/note";
 import { useRoute } from "vue-router";
 const route = useRoute();
 
@@ -10,10 +10,13 @@ const route = useRoute();
 import Note from "../components/global/Note.vue";
 import HeadBar from "../components/global/HeadBar.vue";
 
+
 const note = await fetchMisskeyAPI<"notes/show">("notes/show", {
   i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
   noteId: route.params["id"] as string,
 }).then(fetchNote => noteGen(fetchNote!));
+
+const childrenNotes = await fetchChildrenNotes(note.id)
 </script>
 
 <template>
@@ -22,6 +25,10 @@ const note = await fetchMisskeyAPI<"notes/show">("notes/show", {
     :icon="note.user.avatarUrl"
   />
   <Note :class="$style.note" :note="note" />
+  <Note v-for="childrenNote in childrenNotes" 
+    :class="$style.note" 
+    :note="childrenNote"
+    :replymode="true"/>
 </template>
 
 <style module lang="scss">

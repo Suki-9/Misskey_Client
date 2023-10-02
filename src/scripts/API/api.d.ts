@@ -112,6 +112,15 @@ export type Endpoints = {
     };
     res: Note;
   };
+  "notes/children": {
+    req: {
+      noteId: string;
+      limit?: number;
+      sinceId?: string;
+      untilId?: string;
+    };
+    res: Note[];
+  };
   "users/reactions": {
     req: {
       i: string;

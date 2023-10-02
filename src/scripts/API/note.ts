@@ -10,6 +10,12 @@ const htmlTextEscape = (text: string): string => {
   return text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("&", "&amp;");
 };
 
+export const fetchChildrenNotes = async (noteId: string): Promise<Note[] | undefined> => {
+  return await fetchMisskeyAPI<"notes/children">("notes/children", {
+    noteId: noteId,
+  }).then(fetchNotes => fetchNotes?.map(fetchNote => noteGen(fetchNote)));
+}
+
 export const fetchFirstNotes = async (host: string, channel: string = "Home"): Promise<ModifiedNote[]> => {
   console.log(channel);
   return fetchMisskeyAPI(
