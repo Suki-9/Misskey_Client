@@ -61,19 +61,20 @@ onMounted(() => {
         <a>下書き</a>
       </div>
     </div>
-    <p :class="$style.reply" v-show="noteId">Reply to {{ noteId }}</p>
     <div :class="$style.content">
       <img :class="$style.avatar" :src="userData.avatarUrl ?? ''" />
       <div :class="$style.text">
-        <select v-model="visibility">
-          <option value="public">パブリック</option>
-          <option value="home">ホーム</option>
-          <option value="followers">フォロワー</option>
-        </select>
+        <div :class="$style.contentHead">
+          <select v-model="visibility">
+            <option value="public">パブリック</option>
+            <option value="home">ホーム</option>
+            <option value="followers">フォロワー</option>
+          </select>
+          <p :class="$style.reply" v-show="noteId">Reply to {{ noteId }}</p>
+        </div>
         <textarea v-model="postText" id="inputText"></textarea>
       </div>
     </div>
-    <div :class="$style.footer"></div>
   </div>
 </template>
 
@@ -85,13 +86,12 @@ onMounted(() => {
   bottom: 12.5vh;
   right: 7.5vw;
 
-  border-radius: var(--default-border-radius);
-
   padding: 3%;
 
   font-size: 2.5rem;
-  line-height: 0;
   color: var(--primary-text-color);
+
+  border-radius: var(--default-border-radius);
 
   background-color: var(--accent-color);
 
@@ -109,8 +109,6 @@ onMounted(() => {
 
   width: 100%;
 
-  margin: 0;
-
   background-color: var(--primary-bg-color);
 
   animation-name: moveIn;
@@ -119,7 +117,6 @@ onMounted(() => {
 
   transform: translateY(-100%);
   opacity: 0;
-
   .header {
     display: flex;
     flex-direction: row;
@@ -127,14 +124,15 @@ onMounted(() => {
     justify-content: space-between;
 
     width: 100%;
-    height: 6.35vh;
+
+    padding: 2% 0;
+
+    font-size: 120%;
 
     border-bottom: solid 1px var(--primary-border-color);
-
     .closeButton::before {
       font-size: 150%;
     }
-
     .submitButtons {
       display: flex;
       flex-direction: row-reverse;
@@ -144,74 +142,64 @@ onMounted(() => {
         margin-right: 10%;
         padding: 3% 6%;
 
-        font-size: 120%;
-
         border: solid 1px var(--primary-border-color);
         border-radius: var(--default-border-radius);
       }
     }
-  }
-  .reply {
-    margin: 2% 2% 0 2%;
   }
   .content {
     display: flex;
     flex-direction: row;
 
     padding: 2%;
-
     .avatar {
       height: var(--avater-size-L);
       width: var(--avater-size-L);
     }
-
     .text {
       display: flex;
       flex-direction: column;
 
       width: 100%;
-      height: 25vh;
 
-      padding-left: 3.125vw;
+      padding-left: 2%;
+      .contentHead {
+        display: flex;
+        select {
+          width: fit-content;
+          height: 2rem;
 
-      select {
-        width: fit-content;
-        height: 2rem;
+          margin-bottom: 1vh;
 
-        margin-bottom: 1vh;
+          border: none;
+          border-radius: var(--default-border-radius);
+          border: solid 1px var(--primary-border-color);
 
-        border: none;
-        border-radius: var(--default-border-radius);
-        border: solid 1px var(--primary-border-color);
+          color: var(--primary-text-color);
 
-        color: var(--primary-text-color);
-
-        background-color: var(--primary-bg-color);
+          background-color: var(--primary-bg-color);
+        }
+        .reply {
+          margin: 2% 2% 0 2%;
+        }
       }
-
       textarea {
         height: 10rem;
 
         padding: 1%;
 
+        color: var(--primary-text-color);
+        font-size: 130%;
+
         border: none;
         border-radius: var(--default-border-radius);
         border: solid 1px var(--primary-border-color);
-
-        color: var(--primary-text-color);
-        font-size: 130%;
 
         background-color: var(--primary-bg-color);
 
         resize: none;
       }
     }
-  }
-  .footer {
-    display: flex;
-    flex-direction: row;
-
-    width: 100%;
   }
 }
 .bg {
