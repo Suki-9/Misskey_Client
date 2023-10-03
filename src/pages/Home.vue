@@ -2,6 +2,7 @@
 //vue component ----------------------------------------///
 import TimeLine from "../components/Home/TimeLine.vue";
 import PopUpUIs from "../components/Home/PopUpUIs.vue";
+import Post from "../components/global/Post.vue";
 
 // TS module -------------------------------------------///
 import { getUserData } from "../scripts/API/userdata";
@@ -65,6 +66,7 @@ onMounted(() => {
   <div :class="$style.headBar">
     <a v-for="timeLine in Object.keys(timeLines)" class="timeLine" :id="timeLine">{{ timeLine }}</a>
   </div>
+  <Post />
   <TimeLine v-if="loginHost.isOk() && selectTimeLine" :key="resetKey" :selectTimeLine="selectTimeLine" />
   <PopUpUIs />
 </template>
