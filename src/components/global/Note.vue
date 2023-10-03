@@ -11,11 +11,8 @@ import Note from "./Note.vue";
 import NoteImage from "./NoteImage.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
+import EmojiPalette from "./EmojiPalette.vue";
 import Post from "./Post.vue";
-
-//Vue Component function -------------------------------///
-import { Show_emojiPalette } from "../Home/PopUpUIs.vue";
-
 
 const props = defineProps<{
   note: ModifiedNote;
@@ -24,6 +21,7 @@ const props = defineProps<{
 
 const show_reNoteMenu = ref<boolean>(false);
 const show_replyWindow = ref<boolean>(false);
+const show_emojiPalette = ref<boolean>(false);
 const childrenNotes = ref<ModifiedNote[]>();
 
 const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(props.note.id) 
@@ -78,7 +76,7 @@ const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(pr
             {{ note.renoteCount }}
           </p>
           <p>
-            <i class="icon-plus" alr="reaction" @click="Show_emojiPalette"></i>
+            <i class="icon-plus" alr="reaction" @click="show_emojiPalette = !show_emojiPalette"></i>
           </p>
           <p>
             <i class="icon-dot-3" alt="more" @click=""></i>
@@ -98,6 +96,7 @@ const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(pr
       v-if="childrenNotes"
       v-for="childrenNote in childrenNotes" 
       :note="childrenNote" :replymode="true"/>
+    <EmojiPalette v-if="show_emojiPalette" :noteId="note.id"/>
   </div>
 </template>
 

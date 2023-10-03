@@ -1,15 +1,29 @@
 <script setup lang="ts">
-//TS Module
-import { readEmojiIndex, searchEmoji } from "../../scripts/emoji";
+// TS Module -------------------------------------------///
+import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+import { readEmojiIndex } from "../../scripts/emoji";
+import { readCookie } from "../../scripts/cookie";
 import { ref } from "vue";
 
+const props = defineProps<{
+  noteId: string;
+}>();
+
 const emojiCategorys = readEmojiIndex("category");
+const index = readEmojiIndex();
 const showCategorys = ref<Record<string, boolean>>({});
 
 Object.keys(emojiCategorys).forEach(category => {
   showCategorys.value[category] = false;
 });
+
+const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/reactions/create", {
+  i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+  noteId: props.noteId,
+  reaction: `:${reactionName}@.:`,
+})
 </script>
+
 
 <template>
   <div :class="$style.root">
@@ -19,24 +33,27 @@ Object.keys(emojiCategorys).forEach(category => {
         <span></span>
       </a>
       <div v-if="showCategorys[category]" :class="$style.emojiBox">
-        <a v-for="emoji in emojiCategorys[category]">
-          <img
-            :src="
-              //@ts-ignore
-              searchEmoji(emoji).value
-            "
-            :class="$style.emoji"
-          />
+        <a
+          v-for="emoji in emojiCategorys[category]"
+          @click="createReaction(index[emoji].name)"
+          :class="$style.emoji"
+          :style="index[emoji].url && `content: url(${index[emoji].url});`">
         </a>
       </div>
     </div>
   </div>
 </template>
 
+
 <style module lang="scss">
-@import "../../styles/globalComponent.css";
 .root {
-  margin: 0 2.5vw;
+  position: fixed;
+  top: 60vh;
+
+  height: 40vh;
+  width: calc(90vw - 2px);
+
+  padding: 0 2.5vw;
 
   overflow: scroll;
 
@@ -49,12 +66,8 @@ Object.keys(emojiCategorys).forEach(category => {
     align-items: center;
     flex-direction: row;
 
-    height: 2.5vh;
-    width: calc(90vw - 2px);
+    height: 2rem;
 
-    margin: 0 2.5vw 1.25vh 2.5vw;
-
-    font-size: 60%;
     white-space: nowrap;
     overflow: hidden;
     span {
@@ -67,16 +80,13 @@ Object.keys(emojiCategorys).forEach(category => {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-
-    margin: 0 2.5vw;
-
     .emoji {
-      width: 10vw;
+      width: 20%;
+      height: 2rem;
 
-      object-fit: cover;
-      object-position: left;
+      margin: 0.5% 0;
 
-      overflow: hidden;
+      object-fit: contain;
     }
   }
 }
