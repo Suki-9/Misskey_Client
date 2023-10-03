@@ -3,15 +3,12 @@
 import { ref } from "vue";
 
 //vue Component
-import Post from "../global/Post.vue";
 import LeftMenu from "../global/LeftMenu.vue";
 import EmojiPalette from "../global/EmojiPalette.vue";
 </script>
 
 <script lang="ts">
 const PopUpMenuList_Listcontent = ref();
-
-const reNoteId = ref<string>("");
 
 const show = ref<Record<string, boolean>>({
   NotificationView: false,
@@ -27,14 +24,6 @@ export const Show_emojiPalette = () => {
   show.value.emojiPalette = !show.value.emojiPalette;
 };
 
-export const Show_reNoteMenu = (noteId: string) => {
-  if (noteId == reNoteId.value || reNoteId.value == "") {
-    show.value.reNoteMenu = !show.value.reNoteMenu;
-    reNoteId.value = noteId;
-  }
-  if (!show.value.reNoteMenu) reNoteId.value = noteId;
-};
-
 export const popUpMenuList = (
   Listcontent?: {
     text: string;
@@ -48,7 +37,6 @@ export const popUpMenuList = (
 <template>
   <div :class="$style.bg" v-show="show.reNoteMenu" @click="show.reNoteMenu = !show.reNoteMenu"></div>
   <LeftMenu v-show="show.LeftMenu" :class="$style.LeftMenu" />
-  <Post />
   <EmojiPalette v-show="show.emojiPalette" :class="$style.emojiPalette" />
 </template>
 
