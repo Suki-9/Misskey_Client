@@ -30,7 +30,7 @@ const Login = () => {
 };
 
 const MiAuth = () => {
-  const callback = "http:/localhost:4000";
+  const callback = import.meta.env.VITE_HOST_URL;
   const sessionId = genUuid();
   const miAuthUrl = `https://${hostName.value}/miauth/${sessionId}?name=Mive&callback=${callback}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
 
