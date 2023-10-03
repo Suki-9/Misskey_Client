@@ -1,7 +1,6 @@
 <script setup lang="ts">
 //vue component ----------------------------------------///
 import TimeLine from "../components/Home/TimeLine.vue";
-import BottomBar from "../components/global/BottomBar.vue";
 import PopUpUIs from "../components/Home/PopUpUIs.vue";
 
 // TS module -------------------------------------------///
@@ -68,7 +67,6 @@ onMounted(() => {
   </div>
   <TimeLine v-if="loginHost.isOk() && selectTimeLine" :key="resetKey" :selectTimeLine="selectTimeLine" />
   <PopUpUIs />
-  <BottomBar />
 </template>
 
 <style module lang="scss">

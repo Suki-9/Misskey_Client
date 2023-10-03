@@ -11,7 +11,6 @@ import { ref } from "vue";
 
 //Vue Component ----------------------------------------///
 import Notification from "../components/global/Notification.vue";
-import BottomBar from "../components/global/BottomBar.vue";
 
 const host = readCookie("loginHost").unwrap();
 const notifications = ref<ModifiedNotification[]>([]);
@@ -41,7 +40,6 @@ if (host) {
     </div>
     <Notification v-for="notification in notifications" :notification="notification" />
   </div>
-  <BottomBar />
 </template>
 
 <style module lang="scss">
