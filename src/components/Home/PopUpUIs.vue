@@ -4,7 +4,6 @@ import { ref } from "vue";
 
 //vue Component
 import LeftMenu from "../global/LeftMenu.vue";
-import EmojiPalette from "../global/EmojiPalette.vue";
 </script>
 
 <script lang="ts">
@@ -20,10 +19,6 @@ export const Show_LeftMenu = () => {
   show.value.LeftMenu = !show.value.LeftMenu;
 };
 
-export const Show_emojiPalette = () => {
-  show.value.emojiPalette = !show.value.emojiPalette;
-};
-
 export const popUpMenuList = (
   Listcontent?: {
     text: string;
@@ -37,7 +32,6 @@ export const popUpMenuList = (
 <template>
   <div :class="$style.bg" v-show="show.reNoteMenu" @click="show.reNoteMenu = !show.reNoteMenu"></div>
   <LeftMenu v-show="show.LeftMenu" :class="$style.LeftMenu" />
-  <EmojiPalette v-show="show.emojiPalette" :class="$style.emojiPalette" />
 </template>
 
 <style module lang="scss">
@@ -56,12 +50,6 @@ export const popUpMenuList = (
   transform: translateX(-100%);
   opacity: 0;
 }
-
-.emojiPalette,
-.emojiPalette {
-  height: 40vh;
-}
-
 .bg {
   position: fixed;
   top: 0;
