@@ -5,14 +5,12 @@ const channels = ["Home", "Hybrid", "local", "global"] as const;
 
 export type Endpoints = {
   i: {
-    method: "POST";
     req: {
       i: string;
     };
     res: {};
   };
   "i/notifications": {
-    method: "POST";
     req: {
       i?: string;
       untilId?: string;
@@ -26,7 +24,6 @@ export type Endpoints = {
     res: Notification[];
   };
   "notes/timeline": {
-    method: "POST";
     req: {
       i: string;
       limit?: number;
@@ -43,7 +40,6 @@ export type Endpoints = {
   };
   "notes/hybrid-timeline": Endpoints["notes/timeline"];
   "notes/global-timeline": {
-    method: "POST";
     req: {
       withFiles: boolean;
       limit?: number;
@@ -55,7 +51,6 @@ export type Endpoints = {
     res: Note[];
   };
   "notes/local-timeline": {
-    method: "POST";
     req: {
       withFiles: boolean;
       fileType: boolean;
@@ -69,7 +64,6 @@ export type Endpoints = {
     res: Note[];
   };
   "notes/create": {
-    method: "POST";
     req: {
       i?: string;
       visibility: "public" | "home" | "followers";
@@ -88,7 +82,6 @@ export type Endpoints = {
     res: Note;
   };
   "notes/reactions/create": {
-    method: "POST";
     req: {
       i: string;
       noteId: string;
@@ -97,7 +90,6 @@ export type Endpoints = {
     res: undefined;
   };
   "notes/reactions/delete": {
-    method: "POST";
     req: {
       i: string;
       noteId: string;
@@ -105,7 +97,6 @@ export type Endpoints = {
     res: undefined;
   };
   "notes/show": {
-    method: "POST";
     req: {
       i: string;
       noteId: string;
