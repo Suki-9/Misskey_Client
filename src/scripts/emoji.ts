@@ -1,7 +1,7 @@
-//TS Module
+//TS Module --------------------------------------------///
 import { readCookie } from "./cookie";
 
-//Type
+// Type ------------------------------------------------///
 import { Emoji } from "./types";
 
 type emojiIndex = Record<string, {
@@ -11,17 +11,13 @@ type emojiIndex = Record<string, {
   url: string;
 }>;
 
-const fetchEmojiIndex = async (host: string): Promise<Emoji[]> => {
-  return await fetch(`https://${host}/api/emojis`)
-    .then(response => response.json())
-    .then(data => data.emojis);
-};
-
 export const createEmojiIndex = async (host: string) => {
-  let emojis: emojiIndex = (await fetchEmojiIndex(host)).reduce((accumulator, value) => ({ ...accumulator, [value.name]: value }), {});
+  let emojis: emojiIndex = (await fetch(`https://${host}/api/emojis`)
+    .then(response => response.json())
+    .then((data): Emoji[] => data.emojis))
+    .reduce((accumulator, value) => ({ ...accumulator, [value.name]: value }), {});
 
   let categorys: Record<string, string[]> = {};
-
   Object.keys(emojis).forEach(key => {
     if (!categorys.hasOwnProperty(emojis[key].category)) categorys[emojis[key].category] = [];
     categorys[emojis[key].category].push(key);
