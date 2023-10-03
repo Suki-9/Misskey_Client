@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap');
 
 /*仮*/
 /*@import "./theme/light.css";*/
@@ -14,7 +14,7 @@
 
   /*font text*/
   --primary-font-size: 2em;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Zen Maru Gothic', sans-serif;
 
   /*border*/
   --default-border-radius: 7px;
