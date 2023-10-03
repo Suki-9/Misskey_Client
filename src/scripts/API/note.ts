@@ -6,9 +6,14 @@ import { parseEmoji } from "../emoji";
 import { fetchMisskeyAPI } from "./fetchAPI";
 import { readCookie } from "../cookie";
 
-const htmlTextEscape = (text: string): string => {
-  return text.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("&", "&amp;");
-};
+const htmlTextEscape = (text: string): string => text.replace(/[&'`"<>]/g, (match): string => ({
+  '&': '&amp;',
+  "'": '&#x27;',
+  '`': '&#x60;',
+  '"': '&quot;',
+  '<': '&lt;',
+  '>': '&gt;',
+})[match] ?? "");
 
 export const fetchChildrenNotes = async (noteId: string): Promise<Note[] | undefined> => {
   return await fetchMisskeyAPI<"notes/children">("notes/children", {
