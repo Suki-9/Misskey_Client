@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// Vue Component ---------------------------------------///
-import HeadBar from "../components/global/Head.vue";
-
 const headBarData: Record<
   string,
   {
