@@ -16,7 +16,7 @@ const show = ref<Record<string, boolean>>({
 });
 
 export const Show_LeftMenu = () => {
-  show.value.LeftMenu = !show.value.LeftMenu;
+  show.value.LeftMenu = show.value.LeftMenu;
 };
 
 export const popUpMenuList = (

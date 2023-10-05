@@ -23,10 +23,6 @@ const reload = () => {
   align-items: center;
   justify-content: space-evenly;
 
-  position: fixed;
-  bottom: 0;
-  left: 0;
-
   width: 100vw;
   height: var(--bottom-bar-height);
 

@@ -33,29 +33,30 @@ if (host) {
 </script>
 
 <template>
-  <div :class="$style.root" id="NotificationView">
-    <div :class="$style.head">
-      <i class="icon-bell-alt"></i>
-      <p>通知</p>
-    </div>
+  <div :class="$style.head">
+    <i class="icon-bell-alt"></i>
+    <p>通知</p>
+  </div>
+  <div :class="$style.root">
     <Notification v-for="notification in notifications" :notification="notification" />
   </div>
 </template>
 
 <style module lang="scss">
-.root {
+.head {
+  position: fixed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: var(--head-bar-height);
   width: 100vw;
-
-  padding-bottom: var(--bottom-bar-height);
-
-  .head {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    height: var(--head-bar-height);
-
-    border-bottom: solid 1px var(--primary-border-color);
-  }
+  
+  border-bottom: solid 1px var(--primary-border-color);
+  background-color: var(--primary-bg-color);
+}
+.root {
+  padding-top: var(--head-bar-height);
 }
 </style>
