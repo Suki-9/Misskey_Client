@@ -8,7 +8,7 @@ export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
   endpoint: keyof Endpoints,
   body: Endpoints[E]["req"],
   host: string = readCookie("loginHost").unwrap(),
-  method: "POST" | "GET" = "POST",
+  method: "POST" | "GET" = "POST"
 ): Promise<Endpoints[E]["res"] | undefined> => {
   return fetch(`https://${host}/api/${endpoint}`, {
     method: method,
@@ -17,7 +17,7 @@ export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
     },
     body: JSON.stringify(body),
   })
-    .then(response => response.json())
+    .then(response => response.ok ? response.json() : undefined)
     .then(data => data)
     .catch(() => {
       return undefined;
