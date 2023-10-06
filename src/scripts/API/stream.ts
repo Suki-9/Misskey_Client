@@ -1,5 +1,5 @@
 // TS module -------------------------------------------///
-import { ref, type Ref } from "vue";
+import { ref } from "vue";
 import { genUuid } from "../UUID";
 import { noteGen, fetchFirstNotes } from "../API/note";
 import { getUserData } from "../API/userdata";
@@ -8,14 +8,14 @@ import { readCookie } from "../cookie";
 // Type ------------------------------------------------///
 import { ModifiedNote, TimeLine, User } from "../types";
 
-export const provideTimeLine: Ref<Record<symbol, TimeLine>> = ref<Record<symbol, TimeLine>>({});
+export const provideTimeLine = ref<Record<symbol, { timeLine: TimeLine; isConnected: boolean }>>({});
 
-const captchaNote = (webSocket: WebSocket, note: ModifiedNote) => {
+const captchaNote = (webSocket: WebSocket, noteId: string) => {
   webSocket.send(
     JSON.stringify({
       type: "subNote",
       body: {
-        id: note.id,
+        id: noteId,
       },
     })
   );
@@ -37,8 +37,15 @@ export const streamTimeLine = async (
 
   //fetch first Notes
   if (!isReConnect) {
-    provideTimeLine.value[timeLineSymbol] = {};
-    (await fetchFirstNotes(host, channel)).forEach(note => (provideTimeLine.value[timeLineSymbol][note.id] = note));
+    provideTimeLine.value[timeLineSymbol] = {
+      timeLine: {},
+      isConnected: false,
+    };
+    (await fetchFirstNotes(host, channel)).forEach(
+      note => (provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note)
+    );
+  } else {
+    provideTimeLine.value[timeLineSymbol].isConnected = false;
   }
 
   timeLine.addEventListener("open", () => {
@@ -53,9 +60,8 @@ export const streamTimeLine = async (
       })
     );
     console.log(`Connection to the ${channel} TL was successful!`);
-    Object.keys(provideTimeLine.value[timeLineSymbol]).forEach(index =>
-      captchaNote(timeLine, provideTimeLine.value[timeLineSymbol][index])
-    );
+    provideTimeLine.value[timeLineSymbol].isConnected = true;
+    Object.keys(provideTimeLine.value[timeLineSymbol].timeLine).forEach(index => captchaNote(timeLine, index));
   });
 
   timeLine.addEventListener("message", event => {
@@ -64,13 +70,13 @@ export const streamTimeLine = async (
       case "note":
         console.log("GetNote!");
         const note = noteGen(parseEvent.body);
-        provideTimeLine.value[timeLineSymbol][note.id] = note;
-        captchaNote(timeLine, provideTimeLine.value[timeLineSymbol][note.id]);
+        provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note;
+        captchaNote(timeLine, note.id);
         break;
       case "reacted":
         console.log("reacted!");
         const targetReaction: string = parseEvent.body.reaction;
-        const targetNote: ModifiedNote = provideTimeLine.value[timeLineSymbol][parseEvent.id];
+        const targetNote: ModifiedNote = provideTimeLine.value[timeLineSymbol].timeLine[parseEvent.id];
 
         if (parseEvent.body.userId == loginUserData.id) {
           targetNote.myReaction = targetReaction;

@@ -7,15 +7,15 @@ import Post from "../components/global/Post.vue";
 // TS module -------------------------------------------///
 import { getUserData } from "../scripts/API/userdata";
 import { readCookie } from "../scripts/cookie";
-import { useRouter } from "vue-router";
 import { onMounted, provide, ref } from "vue";
-const router = useRouter();
+import { genUuid } from "../scripts/UUID";
+import { useRouter } from "vue-router";
 
 // トークンの有無を確認 --------------------------------///
 const loginHost = readCookie("loginHost");
 let hosts: Result<string, Error>;
 if (loginHost.isErr()) {
-  router.push("/login");
+  useRouter().push("/login");
 } else if (((hosts = readCookie("Hosts")), hosts.isErr() || hosts.value.split(",").indexOf(loginHost.value) === -1)) {
   document.cookie = `Hosts=${loginHost.value},${hosts.unwrap_or("")}; path=/`;
 }
@@ -29,13 +29,14 @@ const timeLines: Record<
   {
     channel: "Home" | "hybrid" | "local" | "global";
     autoReConnection: boolean;
+    timeLineSymbol: symbol;
     hostName: string;
   }
 > = {
-  Home: { channel: "Home", hostName: loginHost.unwrap(), autoReConnection: true },
-  Hybrid: { channel: "hybrid", hostName: loginHost.unwrap(), autoReConnection: true },
-  local: { channel: "local", hostName: loginHost.unwrap(), autoReConnection: true },
-  global: { channel: "global", hostName: loginHost.unwrap(), autoReConnection: true },
+  Home:   { channel: "Home",   timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
+  Hybrid: { channel: "hybrid", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
+  local:  { channel: "local",  timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
+  global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
 };
 
 const showTimeLine = ref();
@@ -60,6 +61,8 @@ onMounted(() => {
   const targetElem = document.querySelectorAll(".timeLine");
   targetElem.forEach(elem => observer.observe(elem));
 });
+
+
 </script>
 
 <template>

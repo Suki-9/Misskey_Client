@@ -1,28 +1,25 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { ref } from "vue";
-import { genUuid } from "../../scripts/UUID";
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
 
 // Vue Component ---------------------------------------///
 import Note from "../global/Note.vue";
+import LoadingDots from "../global/LoadingDots.vue";
 
 const props = defineProps<{
   selectTimeLine: {
-    hostName: string;
     channel?: "Home" | "hybrid" | "local" | "global";
     autoReConnection: boolean;
+    timeLineSymbol: symbol;
+    hostName: string;
   };
 }>();
-
-const timeLineSymbol = Symbol(genUuid());
-const loading = ref<boolean>(false);
 
 // EntryPoint ------------------------------------------///
 if (props.selectTimeLine.hostName) {
   streamTimeLine(
     props.selectTimeLine.hostName,
-    timeLineSymbol,
+    props.selectTimeLine.timeLineSymbol,
     props.selectTimeLine.channel,
     props.selectTimeLine.autoReConnection
   );
@@ -30,11 +27,14 @@ if (props.selectTimeLine.hostName) {
 </script>
 
 <template>
-  <div :class="$style.root" v-if="!loading">
-    <Note :class="$style.note" v-for="(note, index) in provideTimeLine[timeLineSymbol]" :note="note" :key="index" />
+  <div :class="$style.root" v-if="provideTimeLine[selectTimeLine.timeLineSymbol]">
+    <Note :class="$style.note" v-for="(note, index) in provideTimeLine[selectTimeLine.timeLineSymbol].timeLine" :note="note" :key="index" />
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
+    <LoadingDots 
+      v-show="!provideTimeLine[selectTimeLine.timeLineSymbol].isConnected"
+      :class="$style.loadingState">接続中</LoadingDots>
   </div>
   <div v-else>読み込み中...</div>
 </template>
@@ -62,6 +62,22 @@ if (props.selectTimeLine.hostName) {
       border-radius: var(--default-border-radius);
       background-color: var(--accent-color);
     }
+  }
+  .loadingState {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    padding: 0.5% 1%;
+    margin: 1%;
+
+    width: 5rem;
+
+    text-align: center;
+
+    border-radius: var(--default-border-radius);
+    border: solid 1px var(--primary-border-color);
   }
 }
 </style>
