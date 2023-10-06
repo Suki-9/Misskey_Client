@@ -41,9 +41,9 @@ export const streamTimeLine = async (
       timeLine: {},
       isConnected: false,
     };
-    (await fetchFirstNotes(host, channel)).forEach(
-      note => (provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note)
-    );
+    (await fetchFirstNotes(host, channel))
+      .reverse()
+      .forEach(note => (provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note));
   } else {
     provideTimeLine.value[timeLineSymbol].isConnected = false;
   }

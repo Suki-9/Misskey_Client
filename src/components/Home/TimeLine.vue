@@ -28,10 +28,10 @@ if (props.selectTimeLine.hostName) {
 
 <template>
   <div :class="$style.root" v-if="provideTimeLine[selectTimeLine.timeLineSymbol]">
-    <Note :class="$style.note" v-for="(note, index) in provideTimeLine[selectTimeLine.timeLineSymbol].timeLine" :note="note" :key="index" />
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
+    <Note :class="$style.note" v-for="(note, index) in provideTimeLine[selectTimeLine.timeLineSymbol].timeLine" :note="note" :key="index" />
     <LoadingDots 
       v-show="!provideTimeLine[selectTimeLine.timeLineSymbol].isConnected"
       :class="$style.loadingState">接続中</LoadingDots>
@@ -42,7 +42,7 @@ if (props.selectTimeLine.hostName) {
 <style module lang="scss">
 .root {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 
   width: calc(100vw - (var(--primary-margin-w) * 2));
 
