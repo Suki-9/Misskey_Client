@@ -96,7 +96,10 @@ const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(pr
       v-if="childrenNotes"
       v-for="childrenNote in childrenNotes" 
       :note="childrenNote" :replymode="true"/>
-    <EmojiPalette v-if="show_emojiPalette" :noteId="note.id"/>
+    <EmojiPalette 
+      v-if="show_emojiPalette"
+      :noteId="note.id"
+      @close="show_emojiPalette = false"/>
   </div>
 </template>
 

@@ -5,6 +5,7 @@ import { readEmojiIndex } from "../../scripts/emoji";
 import { readCookie } from "../../scripts/cookie";
 import { ref } from "vue";
 
+const emit = defineEmits(["close"]);
 const props = defineProps<{
   noteId: string;
 }>();
@@ -26,6 +27,7 @@ const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/re
 
 
 <template>
+  <div :class="$style.bg" @click="emit('close')"></div>
   <div :class="$style.root">
     <div v-for="category in Object.keys(emojiCategorys)">
       <a :class="$style.category" @click="showCategorys[category] = !showCategorys[category]">
@@ -89,5 +91,15 @@ const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/re
       object-fit: contain;
     }
   }
+}
+.bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: color-mix(in srgb, var(--primary-bg-color), rgba(0, 0, 0, 0) 20%);
 }
 </style>
