@@ -12,16 +12,16 @@ import { genUuid } from "../scripts/UUID";
 import { useRouter } from "vue-router";
 
 // トークンの有無を確認 --------------------------------///
-const loginHost = readCookie("loginHost");
-let hosts: Result<string, Error>;
+const loginHost = readCookie("loginHost")._unsafeUnwrap();
+let hosts: Result;
 if (loginHost.isErr()) {
   useRouter().push("/login");
 } else if (((hosts = readCookie("Hosts")), hosts.isErr() || hosts.value.split(",").indexOf(loginHost.value) === -1)) {
-  document.cookie = `Hosts=${loginHost.value},${hosts.unwrap_or("")}; path=/`;
+  document.cookie = `Hosts=${loginHost.value},${hosts.unwrapOr("")}; path=/`;
 }
 
 // provide ---------------------------------------------///
-const userData = JSON.parse(await getUserData(readCookie("loginHost").unwrap()));
+const userData = JSON.parse(await getUserData(readCookie("loginHost")._unsafeUnwrap()));
 provide("LoginUserData", userData);
 
 const timeLines: Record<
@@ -33,10 +33,10 @@ const timeLines: Record<
     hostName: string;
   }
 > = {
-  Home:   { channel: "Home",   timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
-  Hybrid: { channel: "hybrid", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
-  local:  { channel: "local",  timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
-  global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.unwrap(), autoReConnection: true },
+  Home:   { channel: "Home",   timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
+  Hybrid: { channel: "hybrid", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
+  local:  { channel: "local",  timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
+  global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
 };
 
 const showTimeLine = ref();

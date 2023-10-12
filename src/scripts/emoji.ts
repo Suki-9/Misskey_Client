@@ -27,7 +27,7 @@ export const createEmojiIndex = async (host: string) => {
   localStorage.setItem(`${host}_emojis_category`, JSON.stringify(categorys));
 };
 
-export const readEmojiIndex = (type?: string, host = readCookie("loginHost").unwrap()) => {
+export const readEmojiIndex = (type?: string, host = readCookie("loginHost")._unsafeUnwrap()) => {
   let localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
 
   if (!localEmojis) {
@@ -37,11 +37,11 @@ export const readEmojiIndex = (type?: string, host = readCookie("loginHost").unw
   return localEmojis && JSON.parse(localEmojis);
 };
 
-export const searchEmoji = (name: string, host = readCookie("loginHost").unwrap()): Result<string, Error> => {
+export const searchEmoji = (name: string, host = readCookie("loginHost")): Result => {
   const index: emojiIndex = readEmojiIndex(undefined, host);
   return index[name.slice(1, name.indexOf("@"))]
-    ? new Ok(index[name.slice(1, name.indexOf("@"))].url)
-    : new Err(new Error(name));
+    ? ok<string>(index[name.slice(1, name.indexOf("@"))].url)
+    : err<string>(new Error(name));
 };
 
 export const parseEmoji = (text: string) => {

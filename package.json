@@ -3,9 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "workspaces": [
-    "./"
-  ],
+  "workspaces": ["./"],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -13,6 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "neverthrow": "^6.0.0",
     "prettier": "^3.0.3",
     "sass": "^1.68.0",
     "vue": "^3.3.4",

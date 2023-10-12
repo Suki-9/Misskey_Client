@@ -4,7 +4,7 @@ import { fetchMisskeyAPI } from "./fetchAPI";
 export const getUserData = async (host: string, token?: string): Promise<string> => {
   if (!localStorage.getItem(`${host}_userData`)) {
     const res = await fetchMisskeyAPI("i", {
-      i: token ?? readCookie(`${host}_token`).unwrap(),
+      i: token ?? readCookie(`${host}_token`)._unsafeUnwrap(),
     });
     localStorage.setItem(`${host}_userData`, JSON.stringify(res));
   }
