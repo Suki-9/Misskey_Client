@@ -1,12 +1,13 @@
 <script setup lang="ts">
-//TS Module
+// TS Module -------------------------------------------///
+import { $HOST_URL } from "../plugin/vite_env";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { genUuid } from "../scripts/UUID";
 import { getUserData } from "../scripts/API/userdata";
 const router = useRouter();
 
-//Vue Component
+// Vue Component ---------------------------------------///
 import TextInput from "../components/Login/TextInput.vue";
 
 const userName = ref<string>("");
@@ -30,9 +31,8 @@ const Login = () => {
 };
 
 const MiAuth = () => {
-  const callback = import.meta.env.VITE_HOST_URL;
   const sessionId = genUuid();
-  const miAuthUrl = `https://${hostName.value}/miauth/${sessionId}?name=Mive&callback=${callback}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
+  const miAuthUrl = `https://${hostName.value}/miauth/${sessionId}?name=Mive&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
 
   document.cookie = `loginHost=${hostName.value}; path=/`;
   window.location.href = miAuthUrl;
