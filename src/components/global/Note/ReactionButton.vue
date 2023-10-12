@@ -15,16 +15,18 @@ const props = defineProps<{
 const emojiURL: string = searchEmoji(props.reaction[0]).unwrap_or(
   props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
 );
-const createReaction = async (reactionName: string) => { 
+const createReaction = async (reactionName: string) => {
   const body = {
     i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
     noteId: props.note.id,
     reaction: reactionName,
+  };
+  if (props.note.myReaction) {
+    fetchMisskeyAPI("notes/reactions/delete", body);
+  } else {
+    fetchMisskeyAPI("notes/reactions/create", body);
   }
-  if (props.note.myReaction) { fetchMisskeyAPI("notes/reactions/delete", body); }
-  else { fetchMisskeyAPI("notes/reactions/create", body); }
-}
-
+};
 </script>
 
 <template>

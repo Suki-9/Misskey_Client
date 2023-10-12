@@ -52,7 +52,7 @@ if (host) {
 
   height: var(--head-bar-height);
   width: 100vw;
-  
+
   border-bottom: solid 1px var(--primary-border-color);
   background-color: var(--primary-bg-color);
 }

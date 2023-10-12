@@ -14,7 +14,4 @@ import router from "./router";
 
 import App from "./App.vue";
 
-createApp(App)
-  .use(router)
-  .use(VITE_env)
-  .mount("#app");
+createApp(App).use(router).use(VITE_env).mount("#app");

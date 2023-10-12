@@ -31,10 +31,15 @@ if (props.selectTimeLine.hostName) {
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
-    <Note :class="$style.note" v-for="(note, index) in provideTimeLine[selectTimeLine.timeLineSymbol].timeLine" :note="note" :key="index" />
-    <LoadingDots 
-      v-show="!provideTimeLine[selectTimeLine.timeLineSymbol].isConnected"
-      :class="$style.loadingState">接続中</LoadingDots>
+    <Note
+      :class="$style.note"
+      v-for="(note, index) in provideTimeLine[selectTimeLine.timeLineSymbol].timeLine"
+      :note="note"
+      :key="index"
+    />
+    <LoadingDots v-show="!provideTimeLine[selectTimeLine.timeLineSymbol].isConnected" :class="$style.loadingState"
+      >接続中</LoadingDots
+    >
   </div>
   <div v-else>読み込み中...</div>
 </template>

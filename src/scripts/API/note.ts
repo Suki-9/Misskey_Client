@@ -6,20 +6,25 @@ import { parseEmoji } from "../emoji";
 import { fetchMisskeyAPI } from "./fetchAPI";
 import { readCookie } from "../cookie";
 
-const htmlTextEscape = (text: string): string => text.replace(/[&'`"<>]/g, (match): string => ({
-  '&': '&amp;',
-  "'": '&#x27;',
-  '`': '&#x60;',
-  '"': '&quot;',
-  '<': '&lt;',
-  '>': '&gt;',
-})[match] ?? "");
+const htmlTextEscape = (text: string): string =>
+  text.replace(
+    /[&'`"<>]/g,
+    (match): string =>
+      ({
+        "&": "&amp;",
+        "'": "&#x27;",
+        "`": "&#x60;",
+        '"': "&quot;",
+        "<": "&lt;",
+        ">": "&gt;",
+      })[match] ?? ""
+  );
 
 export const fetchChildrenNotes = async (noteId: string): Promise<Note[] | undefined> => {
   return await fetchMisskeyAPI<"notes/children">("notes/children", {
     noteId: noteId,
   }).then(fetchNotes => fetchNotes?.map(fetchNote => noteGen(fetchNote)));
-}
+};
 
 export const fetchFirstNotes = async (host: string, channel: string = "Home"): Promise<ModifiedNote[]> => {
   console.log(channel);

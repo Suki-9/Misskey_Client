@@ -4,18 +4,22 @@ import { readCookie } from "./cookie";
 // Type ------------------------------------------------///
 import { Emoji } from "./types";
 
-type emojiIndex = Record<string, {
-  category: string;
-  aliases: string[];
-  name: string;
-  url: string;
-}>;
+type emojiIndex = Record<
+  string,
+  {
+    category: string;
+    aliases: string[];
+    name: string;
+    url: string;
+  }
+>;
 
 export const createEmojiIndex = async (host: string) => {
-  let emojis: emojiIndex = (await fetch(`https://${host}/api/emojis`)
-    .then(response => response.json())
-    .then((data): Emoji[] => data.emojis))
-    .reduce((accumulator, value) => ({ ...accumulator, [value.name]: value }), {});
+  let emojis: emojiIndex = (
+    await fetch(`https://${host}/api/emojis`)
+      .then(response => response.json())
+      .then((data): Emoji[] => data.emojis)
+  ).reduce((accumulator, value) => ({ ...accumulator, [value.name]: value }), {});
 
   let categorys: Record<string, string[]> = {};
   Object.keys(emojis).forEach(key => {

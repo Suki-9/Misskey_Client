@@ -17,7 +17,7 @@ export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
     },
     body: JSON.stringify(body),
   })
-    .then(response => response.ok ? response.json() : undefined)
+    .then(response => (response.ok ? response.json() : undefined))
     .then(data => data)
     .catch(() => {
       return undefined;

@@ -33,9 +33,9 @@ const timeLines: Record<
     hostName: string;
   }
 > = {
-  Home:   { channel: "Home",   timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
+  Home: { channel: "Home", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
   Hybrid: { channel: "hybrid", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
-  local:  { channel: "local",  timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
+  local: { channel: "local", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
   global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
 };
 
@@ -61,8 +61,6 @@ onMounted(() => {
   const targetElem = document.querySelectorAll(".timeLine");
   targetElem.forEach(elem => observer.observe(elem));
 });
-
-
 </script>
 
 <template>

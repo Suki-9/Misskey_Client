@@ -5,11 +5,11 @@ import BottomBar from "./components/global/BottomBar.vue";
 
 <template>
   <div :class="$style.root">
-      <Suspense>
-        <router-view />
-      </Suspense>
+    <Suspense>
+      <router-view />
+    </Suspense>
   </div>
-  <BottomBar v-show="$route.name !== 'Login'"/>
+  <BottomBar v-show="$route.name !== 'Login'" />
 </template>
 
 <style module lang="scss">

@@ -18,13 +18,13 @@ Object.keys(emojiCategorys).forEach(category => {
   showCategorys.value[category] = false;
 });
 
-const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/reactions/create", {
-  i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
-  noteId: props.noteId,
-  reaction: `:${reactionName}@.:`,
-})
+const createReaction = async (reactionName: string) =>
+  fetchMisskeyAPI("notes/reactions/create", {
+    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+    noteId: props.noteId,
+    reaction: `:${reactionName}@.:`,
+  });
 </script>
-
 
 <template>
   <div :class="$style.bg" @click="emit('close')"></div>
@@ -39,13 +39,13 @@ const createReaction = async (reactionName: string) => fetchMisskeyAPI("notes/re
           v-for="emoji in emojiCategorys[category]"
           @click="createReaction(index[emoji].name)"
           :class="$style.emoji"
-          :style="index[emoji].url && `content: url(${index[emoji].url});`">
+          :style="index[emoji].url && `content: url(${index[emoji].url});`"
+        >
         </a>
       </div>
     </div>
   </div>
 </template>
-
 
 <style module lang="scss">
 .root {

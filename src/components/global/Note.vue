@@ -24,7 +24,7 @@ const show_replyWindow = ref<boolean>(false);
 const show_emojiPalette = ref<boolean>(false);
 const childrenNotes = ref<ModifiedNote[]>();
 
-const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(props.note.id) 
+const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(props.note.id));
 </script>
 
 <template>
@@ -46,9 +46,7 @@ const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(pr
       <img :class="$style.avatar" :src="note.user.avatarUrl" />
       <article>
         <header>
-          <p
-            :class="$style.userName"
-            @click="$router.push(`/notes/${note.id}`)">
+          <p :class="$style.userName" @click="$router.push(`/notes/${note.id}`)">
             <span v-html="note.user.name"></span>
             <span>@{{ note.user.username }}</span>
           </p>
@@ -92,14 +90,8 @@ const loadReplys = async () => childrenNotes.value = await fetchChildrenNotes(pr
       @close="show_replyWindow = false"
       v-if="show_replyWindow"
     />
-    <Note 
-      v-if="childrenNotes"
-      v-for="childrenNote in childrenNotes" 
-      :note="childrenNote" :replymode="true"/>
-    <EmojiPalette 
-      v-if="show_emojiPalette"
-      :noteId="note.id"
-      @close="show_emojiPalette = false"/>
+    <Note v-if="childrenNotes" v-for="childrenNote in childrenNotes" :note="childrenNote" :replymode="true" />
+    <EmojiPalette v-if="show_emojiPalette" :noteId="note.id" @close="show_emojiPalette = false" />
   </div>
 </template>
 
