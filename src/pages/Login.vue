@@ -1,41 +1,35 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { $HOST_URL } from "../plugin/vite_env";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { genUuid } from "../scripts/UUID";
-import { getUserData } from "../scripts/API/userdata";
-const router = useRouter();
+import { useRouter } from "vue-router";
+import { ref } from "vue";
 
 // Vue Component ---------------------------------------///
 import TextInput from "../components/Login/TextInput.vue";
 
-const userName = ref<string>("");
-const password = ref<string>("");
+const
+  userName = ref<string>(),
+  password = ref<string>(),
+  avatarUrl = ref<string>();
 
-const hostName = ref<string>("");
+const
+  hostName = ref<string>(),
+  token = ref<string>();
 
-const token = ref<string>("");
-const avatarUrl = ref<string>("");
-
-const useToken = ref<boolean>(false);
+const
+  useToken = ref<boolean>(false),
+  useMiAuth = ref<boolean>(false);
 
 const Login = () => {
-  if (useToken.value) {
+  if (useToken.value && !useMiAuth.value) {
     document.cookie = `${hostName.value}_token=${token.value}; path=/`;
     document.cookie = `loginHost=${hostName.value}; path=/`;
-
-    getUserData(hostName.value);
-    router.push("/");
+    useRouter().push("/");
+  } else if (useMiAuth.value && hostName.value) {
+    document.cookie = `loginHost=${hostName.value}; path=/`;
+    window.location.href = `https://${hostName.value}/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
   }
-};
-
-const MiAuth = () => {
-  const sessionId = genUuid();
-  const miAuthUrl = `https://${hostName.value}/miauth/${sessionId}?name=Mive&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
-
-  document.cookie = `loginHost=${hostName.value}; path=/`;
-  window.location.href = miAuthUrl;
 };
 </script>
 
@@ -46,35 +40,23 @@ const MiAuth = () => {
       <p :class="$style.tileHead">ログイン<span></span></p>
       <div :class="$style.tileContainer">
         <img :class="$style.avatar" :src="avatarUrl" />
-        <a :class="$style.button" @click="MiAuth">Use MiAuth</a>
-        <a :class="$style.button" @click="useToken = !useToken">{{ useToken ? "Use PassWord" : "Use Token" }}</a>
+        <a :class="$style.button" @click="useMiAuth = !useMiAuth">Use MiAuth</a>
+        <a :class="$style.button" @click="useToken = !useToken, useMiAuth = false">{{ useToken ? "Use PassWord" : "Use Token" }}</a>
       </div>
       <TextInput
         :placeholder="'UserName'"
-        @receive="
-          e => {
-            userName = e;
-          }
-        "
-        v-show="!useToken"
+        @receive="e => userName = e"
+        v-show="!useToken && !useMiAuth "
       />
       <TextInput
         :placeholder="'PassWord'"
-        @receive="
-          e => {
-            password = e;
-          }
-        "
-        v-show="!useToken"
+        @receive="e => password = e"
+        v-show="!useToken && !useMiAuth"
       />
       <TextInput
         :placeholder="'Your Token'"
-        @receive="
-          e => {
-            token = e;
-          }
-        "
-        v-show="useToken"
+        @receive="e => token = e"
+        v-show="useToken && !useMiAuth"
       />
       <p :class="$style.attentionText" v-show="!useToken">パスワードを忘れた場合</p>
       <div :class="$style.submitButtonBox">
@@ -85,11 +67,7 @@ const MiAuth = () => {
       <p :class="$style.tileHead">他のサーバーにログインする<span></span></p>
       <TextInput
         :placeholder="'Host Name'"
-        @receive="
-          e => {
-            hostName = e;
-          }
-        "
+        @receive="e => hostName = e"
       />
     </div>
     <div :class="$style.tile" v-if="false">

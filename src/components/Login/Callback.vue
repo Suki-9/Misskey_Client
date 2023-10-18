@@ -1,11 +1,10 @@
 <script setup lang="ts">
 //TS Module
 import { readCookie } from "../../scripts/cookie";
-import { getUserData } from "../../scripts/API/userdata";
 import { useRoute, useRouter } from "vue-router";
 
 const session = useRoute().query["session"];
-const host = readCookie("loginHost").unwrap();
+const host = readCookie("loginHost").value;
 
 const res = await fetch(`https://${host}/api/miauth/${session}/check`, {
   method: "POST",
@@ -14,7 +13,6 @@ const res = await fetch(`https://${host}/api/miauth/${session}/check`, {
   .then(data => data);
 
 document.cookie = `${host}_token=${res.token}; path=/`;
-getUserData(host);
 useRouter().push("/");
 </script>
 
