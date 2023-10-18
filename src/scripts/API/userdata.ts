@@ -1,12 +1,15 @@
-import { readCookie } from "../cookie";
 import { fetchMisskeyAPI } from "./fetchAPI";
 
-export const getUserData = async (host: string, token?: string): Promise<string> => {
-  if (!localStorage.getItem(`${host}_userData`)) {
-    const res = await fetchMisskeyAPI("i", {
-      i: token ?? readCookie(`${host}_token`)._unsafeUnwrap(),
+export const getUserData = async (
+  host: string,
+  token?: string
+): Promise<Result<string | undefined>> => {
+  if (!localStorage.getItem(`${host}_userData`) && token) {
+    const res = await fetchMisskeyAPI<"i">("i", {
+      i: token,
     });
     localStorage.setItem(`${host}_userData`, JSON.stringify(res));
   }
-  return localStorage.getItem(`${host}_userData`) ?? "error!";
+  const userdata = localStorage.getItem(`${host}_userData`)
+  return userdata ? { value: userdata, isOk: true } : { value: undefined, isOk: false };
 };

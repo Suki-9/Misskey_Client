@@ -47,7 +47,7 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
       ModifiedNotification.reaction = notification.reaction
         ? {
             name: notification.reaction,
-            link: searchEmoji(notification.reaction).unwrap_or(""),
+            link: searchEmoji(notification.reaction).value,
           }
         : undefined;
       break;

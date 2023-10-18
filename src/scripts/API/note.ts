@@ -30,12 +30,12 @@ export const fetchFirstNotes = async (host: string, channel: string = "Home"): P
   console.log(channel);
   return fetchMisskeyAPI(
     `notes/${(channel ?? "home") == "home" ? "" : channel + "-"}timeline` as
-      | "notes/timeline"
-      | "notes/hybrid-timeline"
-      | "notes/local-timeline"
-      | "notes/global-timeline",
+    | "notes/timeline"
+    | "notes/hybrid-timeline"
+    | "notes/local-timeline"
+    | "notes/global-timeline",
     {
-      i: readCookie(`${host}_token`).unwrap(),
+      i: readCookie(`${host}_token`).value,
       limit: 10,
     },
     host

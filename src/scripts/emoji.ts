@@ -22,7 +22,7 @@ export const createEmojiIndex = async (host: string): Promise<void> => {
   localStorage.setItem(`${host}_emojis_category`, JSON.stringify(categorys));
 };
 
-export const readEmojiIndex = (type?: string, host = readCookie("loginHost")) => {
+export const readEmojiIndex = (type?: string, host = readCookie("loginHost").value) => {
   let localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
 
   if (!localEmojis && host) {
@@ -32,7 +32,7 @@ export const readEmojiIndex = (type?: string, host = readCookie("loginHost")) =>
   return localEmojis && JSON.parse(localEmojis);
 };
 
-export const searchEmoji = (name: string, host = readCookie("loginHost")): Result<string> => {
+export const searchEmoji = (name: string, host = readCookie("loginHost").value): Result<string> => {
   const index: EmojiIndex = readEmojiIndex(undefined, host);
   return index[name.slice(1, name.indexOf("@"))]
     ? { value: index[name.slice(1, name.indexOf("@"))].url, isOk: true }
