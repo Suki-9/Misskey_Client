@@ -31,7 +31,7 @@ export const createEmojiIndex = async (host: string) => {
   localStorage.setItem(`${host}_emojis_category`, JSON.stringify(categorys));
 };
 
-export const readEmojiIndex = (type?: string, host = readCookie("loginHost")._unsafeUnwrap()) => {
+export const readEmojiIndex = (type?: string, host = readCookie("loginHost")) => {
   let localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
 
   if (!localEmojis) {
