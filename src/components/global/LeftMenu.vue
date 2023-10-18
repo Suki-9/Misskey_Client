@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { inject } from "vue";
-import { User } from "../../scripts/types";
+import { User } from "../../scripts/Types/types";
 import { parseEmoji } from "../../scripts/emoji";
 
 const userData = inject<User>("LoginUserData");
@@ -42,6 +42,7 @@ const userData = inject<User>("LoginUserData");
 
 <style module lang="scss">
 @import "../../styles/globalComponent.css";
+
 .root {
   display: flex;
   flex-direction: column;
@@ -53,6 +54,7 @@ const userData = inject<User>("LoginUserData");
   font-size: 120%;
 
   background-color: var(--secondary-bg-color);
+
   .bio {
     display: flex;
     flex-direction: column;
@@ -61,30 +63,37 @@ const userData = inject<User>("LoginUserData");
     margin-bottom: 2%;
 
     border-bottom: solid 1px var(--secondary-border-color);
+
     .head {
       display: flex;
       flex-direction: column;
+
       .avatar {
         height: var(--avater-size-L);
         width: var(--avater-size-L);
       }
+
       .name {
         margin-top: 2%;
       }
+
       .userName {
         color: var(--secondary-text-color);
       }
+
       .followCounter {
         display: flex;
         flex-direction: row;
 
         font-size: 90%;
+
         p {
           margin-right: 2%;
         }
       }
     }
   }
+
   .list {
     display: flex;
     flex-direction: column;
@@ -96,5 +105,5 @@ const userData = inject<User>("LoginUserData");
 
     border-bottom: solid 1px var(--secondary-border-color);
   }
-}
-</style>
+}</style>
+../../scripts/Types/types

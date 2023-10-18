@@ -6,7 +6,7 @@ import { getUserData } from "../API/userdata";
 import { readCookie } from "../cookie";
 
 // Type ------------------------------------------------///
-import { ModifiedNote, TimeLine, User } from "../types";
+import { ModifiedNote, TimeLine, User } from "../Types/types";
 
 export const provideTimeLine = ref<Record<symbol, { timeLine: TimeLine; isConnected: boolean }>>({});
 

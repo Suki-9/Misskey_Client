@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Type ------------------------------------------------///
-import { ModifiedNotification } from "../scripts/types";
+import { ModifiedNotification } from "../scripts/Types/types";
 
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
@@ -56,7 +56,9 @@ if (host) {
   border-bottom: solid 1px var(--primary-border-color);
   background-color: var(--primary-bg-color);
 }
+
 .root {
   padding-top: var(--head-bar-height);
 }
 </style>
+../scripts/Types/types

@@ -5,7 +5,7 @@ import { readCookie } from "../../../scripts/cookie";
 import { searchEmoji } from "../../../scripts/emoji";
 
 // Type ------------------------------------------------///
-import { ModifiedNote } from "../../../scripts/types";
+import { ModifiedNote } from "../../../scripts/Types/types";
 
 const props = defineProps<{
   reaction: [string, number];
@@ -15,7 +15,7 @@ const props = defineProps<{
 let emojiURL = searchEmoji(props.reaction[0])
 if (!emojiURL.isOk) {
   emojiURL = props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
-} else { 
+} else {
   emojiURL = emojiURL.value
 }
 
@@ -34,10 +34,8 @@ const createReaction = async (reactionName: string) => {
 </script>
 
 <template>
-  <p
-    :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]"
-    @click="createReaction(reaction[0])"
-  >
+  <p :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]"
+    @click="createReaction(reaction[0])">
     <span :style="emojiURL && `content: url(${emojiURL});`" :class="$style.emoji">
       {{ reaction[0] }}
     </span>
@@ -47,7 +45,9 @@ const createReaction = async (reactionName: string) => {
 
 <style module lang="scss">
 @import "../../../styles/globalComponent.css";
+
 .reacted {
   background-color: color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0) 40%);
 }
 </style>
+../../../scripts/Types/types

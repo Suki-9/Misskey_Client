@@ -1,5 +1,5 @@
 // Import Types ----------------------------------------///
-import { Note, Notification, NoteReaction } from "../types";
+import { Note, Notification, NoteReaction } from "../Types/types";
 
 const channels = ["Home", "Hybrid", "local", "global"] as const;
 

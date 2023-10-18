@@ -1,5 +1,5 @@
 // Types -----------------------------------------------///
-import { ModifiedNote, Note, User } from "../types";
+import { ModifiedNote, Note, User } from "../Types/types";
 
 //TS Module --------------------------------------------///
 import { parseEmoji } from "../emoji";

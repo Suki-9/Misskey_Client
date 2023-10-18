@@ -13,11 +13,8 @@ defineProps<{
 <template>
   <div :class="$style.root">
     <div :class="$style.head">
-      <p
-        v-if="notification.reaction"
-        :class="$style.reaction"
-        :style="notification.reaction.link && `content: url(${notification.reaction.link})`"
-      >
+      <p v-if="notification.reaction" :class="$style.reaction"
+        :style="notification.reaction.link && `content: url(${notification.reaction.link})`">
         {{ notification.reaction?.name }}
       </p>
     </div>
@@ -38,6 +35,7 @@ defineProps<{
 
 <style module lang="scss">
 @import "../../styles/globalComponent.css";
+
 .root {
   display: flex;
   flex-direction: column;
@@ -48,6 +46,7 @@ defineProps<{
   border: solid 1px var(--primary-border-color);
 
   border-radius: var(--default-border-radius);
+
   .head {
     .reaction {
       width: fit-content;
@@ -73,6 +72,7 @@ defineProps<{
       overflow: hidden;
 
       margin-left: 2%;
+
       .username,
       .action {
         display: flex;
@@ -104,3 +104,4 @@ defineProps<{
   }
 }
 </style>
+../../scripts/Types/types

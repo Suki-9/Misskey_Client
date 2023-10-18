@@ -1,5 +1,5 @@
 // Types -----------------------------------------------///
-import { ModifiedNotification, Notification } from "../types";
+import { ModifiedNotification, Notification } from "../Types/types";
 
 //TS module --------------------------------------------///
 import { parseEmoji, searchEmoji } from "../emoji";
@@ -46,9 +46,9 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
       ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text);
       ModifiedNotification.reaction = notification.reaction
         ? {
-            name: notification.reaction,
-            link: searchEmoji(notification.reaction).value,
-          }
+          name: notification.reaction,
+          link: searchEmoji(notification.reaction).value,
+        }
         : undefined;
       break;
     }
