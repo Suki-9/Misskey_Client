@@ -44,6 +44,15 @@ export type Emoji = {
   url: string;
 };
 
+export type EmojiIndex = {
+  [key: string]: {
+    category: string;
+    aliases: string[];
+    name: string;
+    url: string;
+  }
+};
+
 export type User = {
   id: string;
   name: string | null;

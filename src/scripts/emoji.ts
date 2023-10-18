@@ -1,21 +1,12 @@
-//TS Module --------------------------------------------///
+// TS Module -------------------------------------------///
 import { readCookie } from "./cookie";
 
 // Type ------------------------------------------------///
-import { Emoji } from "./types";
+import { Emoji, EmojiIndex } from "./types";
 
-type emojiIndex = Record<
-  string,
-  {
-    category: string;
-    aliases: string[];
-    name: string;
-    url: string;
-  }
->;
 
-export const createEmojiIndex = async (host: string) => {
-  let emojis: emojiIndex = (
+export const createEmojiIndex = async (host: string): Promise<void> => {
+  let emojis: EmojiIndex = (
     await fetch(`https://${host}/api/emojis`)
       .then(response => response.json())
       .then((data): Emoji[] => data.emojis)
@@ -34,24 +25,24 @@ export const createEmojiIndex = async (host: string) => {
 export const readEmojiIndex = (type?: string, host = readCookie("loginHost")) => {
   let localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
 
-  if (!localEmojis) {
+  if (!localEmojis && host) {
     createEmojiIndex(host);
     localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
   }
   return localEmojis && JSON.parse(localEmojis);
 };
 
-export const searchEmoji = (name: string, host = readCookie("loginHost")): Result => {
-  const index: emojiIndex = readEmojiIndex(undefined, host);
+export const searchEmoji = (name: string, host = readCookie("loginHost")): Result<string> => {
+  const index: EmojiIndex = readEmojiIndex(undefined, host);
   return index[name.slice(1, name.indexOf("@"))]
-    ? ok<string>(index[name.slice(1, name.indexOf("@"))].url)
-    : err<string>(new Error(name));
+    ? { value: index[name.slice(1, name.indexOf("@"))].url, isOk: true }
+    : { value: name, isOk: false }
 };
 
 export const parseEmoji = (text: string) => {
   text.match(/:.*?:/g)?.forEach(emoji => {
     const url = searchEmoji(emoji);
-    if (url.isOk()) text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
+    if (url.isOk) text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
   });
   return text;
 };
