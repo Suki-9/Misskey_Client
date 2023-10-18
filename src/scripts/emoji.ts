@@ -39,7 +39,7 @@ export const searchEmoji = (name: string, host = readCookie("loginHost").value):
     : { value: name, isOk: false }
 };
 
-export const parseEmoji = (text: string) => {
+export const parseEmoji = (text: string): string => {
   text.match(/:.*?:/g)?.forEach(emoji => {
     const url = searchEmoji(emoji);
     if (url.isOk) text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);

@@ -12,12 +12,16 @@ const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-const emojiURL: string = searchEmoji(props.reaction[0]).unwrap_or(
-  props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
-);
+let emojiURL = searchEmoji(props.reaction[0])
+if (!emojiURL.isOk) {
+  emojiURL = props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
+} else { 
+  emojiURL = emojiURL.value
+}
+
 const createReaction = async (reactionName: string) => {
   const body = {
-    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+    i: readCookie(`${readCookie("loginHost").value}_token`).value,
     noteId: props.note.id,
     reaction: reactionName,
   };

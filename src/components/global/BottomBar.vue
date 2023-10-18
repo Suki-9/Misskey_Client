@@ -1,7 +1,4 @@
 <script setup lang="ts">
-//Vue Component function
-import { Show_LeftMenu } from "../Home/PopUpUIs.vue";
-
 const reload = () => {
   location.reload();
 };
@@ -9,7 +6,7 @@ const reload = () => {
 
 <template>
   <div :class="$style.root">
-    <i class="icon-dot-3" @click="Show_LeftMenu()"></i>
+    <i class="icon-dot-3" @click=""></i>
     <i class="icon-home" @click="$router.push('/')"></i>
     <i class="icon-bell-alt" @click="$router.push('/notification')"></i>
     <i class="icon-cw" @click="reload()"></i>

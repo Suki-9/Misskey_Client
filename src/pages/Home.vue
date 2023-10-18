@@ -1,7 +1,6 @@
 <script setup lang="ts">
 //vue component ----------------------------------------///
 import TimeLine from "../components/Home/TimeLine.vue";
-import PopUpUIs from "../components/Home/PopUpUIs.vue";
 import Post from "../components/global/Post.vue";
 
 // TS module -------------------------------------------///
@@ -12,17 +11,17 @@ import { genUuid } from "../scripts/UUID";
 import { useRouter } from "vue-router";
 
 // トークンの有無を確認 --------------------------------///
-const loginHost = readCookie("loginHost")._unsafeUnwrap();
-let hosts: Result;
-if (loginHost.isErr()) {
-  useRouter().push("/login");
-} else if (((hosts = readCookie("Hosts")), hosts.isErr() || hosts.value.split(",").indexOf(loginHost.value) === -1)) {
-  document.cookie = `Hosts=${loginHost.value},${hosts.unwrapOr("")}; path=/`;
-}
+const loginHost = readCookie("loginHost");
 
-// provide ---------------------------------------------///
-const userData = JSON.parse(await getUserData(readCookie("loginHost")._unsafeUnwrap()));
-provide("LoginUserData", userData);
+if (!loginHost.isOk) {
+  useRouter().push("/login");
+} else {
+  // provide -------------------------------------------///
+  const userData = await getUserData(loginHost.value);
+  if (userData.isOk) { 
+    provide("LoginUserData", JSON.parse(userData.value));
+  }
+}
 
 const timeLines: Record<
   string,
@@ -33,15 +32,16 @@ const timeLines: Record<
     hostName: string;
   }
 > = {
-  Home: { channel: "Home", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
-  Hybrid: { channel: "hybrid", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
-  local: { channel: "local", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
-  global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost, autoReConnection: true },
+  Home: { channel: "Home", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value, autoReConnection: true },
+  Hybrid: { channel: "hybrid", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value, autoReConnection: true },
+  local: { channel: "local", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value, autoReConnection: true },
+  global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value, autoReConnection: true },
 };
 
-const showTimeLine = ref();
-const selectTimeLine = ref();
-const resetKey = ref<number>(0);
+const
+  showTimeLine = ref(),
+  selectTimeLine = ref(),
+  resetKey = ref<number>(0);
 
 onMounted(() => {
   const observer = new IntersectionObserver(
@@ -68,8 +68,7 @@ onMounted(() => {
     <a v-for="timeLine in Object.keys(timeLines)" class="timeLine" :id="timeLine">{{ timeLine }}</a>
   </div>
   <Post />
-  <TimeLine v-if="loginHost.isOk() && selectTimeLine" :key="resetKey" :selectTimeLine="selectTimeLine" />
-  <PopUpUIs />
+  <TimeLine v-if="loginHost.isOk && selectTimeLine" :key="resetKey" :selectTimeLine="selectTimeLine" />
 </template>
 
 <style module lang="scss">

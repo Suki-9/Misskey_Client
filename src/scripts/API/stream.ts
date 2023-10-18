@@ -29,10 +29,9 @@ export const streamTimeLine = async (
   isReConnect: boolean = false
 ) => {
   const token = readCookie(`${host}_token`).value;
-  const loginUserData: User = JSON.parse(((await getUserData(host)).value!));
+  const loginUserData = JSON.parse((await getUserData(host, token)).value!)
   const uuid = genUuid();
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
-
   channel = channel == "Home" ? "home" : channel;
 
   //fetch first Notes
