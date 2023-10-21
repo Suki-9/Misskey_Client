@@ -7,7 +7,7 @@ import { Emoji, EmojiIndex } from "./Types/types";
 
 export const createEmojiIndex = async (host: string): Promise<void> => {
   let emojis: EmojiIndex = (
-    await fetch(`https://${host}/api/emojis`)
+    await fetch(`http://${host}/api/emojis`)
       .then(response => response.json())
       .then((data): Emoji[] => data.emojis)
   ).reduce((accumulator, value) => ({ ...accumulator, [value.name]: value }), {});

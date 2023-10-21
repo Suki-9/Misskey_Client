@@ -17,9 +17,9 @@ if (!loginHost.isOk) {
   useRouter().push("/login");
 } else {
   // provide -------------------------------------------///
-  const userData = await getUserData(loginHost.value);
-  if (userData.isOk) { 
-    provide("LoginUserData", JSON.parse(userData.value));
+  const userData = await getUserData(loginHost.value!);
+  if (userData.isOk) {
+    provide("LoginUserData", JSON.parse(userData.value!));
   }
 }
 

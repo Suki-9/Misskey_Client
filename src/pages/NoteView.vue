@@ -10,7 +10,7 @@ import Note from "../components/global/Note.vue";
 import HeadBar from "../components/global/HeadBar.vue";
 
 const note = await fetchMisskeyAPI<"notes/show">("notes/show", {
-  i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+  i: readCookie(`${readCookie("loginHost").value}_token`).value,
   noteId: String(useRoute().params["id"]),
 }).then(fetchNote => {
   if (fetchNote) return noteGen(fetchNote);

@@ -10,7 +10,8 @@ export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
   host: string = readCookie("loginHost").value!,
   method: "POST" | "GET" = "POST"
 ): Promise<Endpoints[E]["res"] | undefined> => {
-  return fetch(`https://${host}/api/${endpoint}`, {
+  //TODO https でない場合 どうするか。
+  return fetch(`http://${host}/api/${endpoint}`, {
     method: method,
     headers: {
       "Content-Type": "application/json",

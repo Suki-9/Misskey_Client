@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const renote = () =>
   fetchMisskeyAPI("notes/create", {
-    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+    i: readCookie(`${readCookie("loginHost").value}_token`).value,
     renoteId: props.noteId,
   });
 </script>

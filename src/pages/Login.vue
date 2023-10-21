@@ -35,7 +35,7 @@ const Login = () => {
 
 <template>
   <div :class="$style.root">
-    <p :class="$style.head">Login!!</p>
+    <p :class="$style.head">Login!!{{ useMiAuth ? "(Use MiAuth)" : useToken ? "(Use Token)" : "" }}</p>
     <div :class="$style.tile">
       <p :class="$style.tileHead">ログイン<span></span></p>
       <div :class="$style.tileContainer">
@@ -46,7 +46,7 @@ const Login = () => {
       <TextInput
         :placeholder="'UserName'"
         @receive="e => userName = e"
-        v-show="!useToken && !useMiAuth "
+        v-show="!useToken && !useMiAuth"
       />
       <TextInput
         :placeholder="'PassWord'"
@@ -74,19 +74,11 @@ const Login = () => {
       <p :class="$style.tileHead">新規登録<span></span></p>
       <TextInput
         :placeholder="'UserName'"
-        @receive="
-          e => {
-            userName = e;
-          }
-        "
+        @receive="e => userName = e"
       />
       <TextInput
         :placeholder="'Password'"
-        @receive="
-          e => {
-            password = e;
-          }
-        "
+        @receive="e => password = e"
       />
     </div>
   </div>

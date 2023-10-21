@@ -12,14 +12,14 @@ import { ref } from "vue";
 //Vue Component ----------------------------------------///
 import Notification from "../components/global/Notification.vue";
 
-const host = readCookie("loginHost").unwrap();
+const host = readCookie("loginHost").value;
 const notifications = ref<ModifiedNotification[]>([]);
 //const autoReConnection = true;
 
 //Entry point
 if (host) {
   fetchMisskeyAPI<"i/notifications">("i/notifications", {
-    i: readCookie(`${host}_token`).unwrap(),
+    i: readCookie(`${host}_token`).value,
     maxSize: 20,
     following: false,
     unreadOnly: false,

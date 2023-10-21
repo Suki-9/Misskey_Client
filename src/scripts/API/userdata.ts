@@ -9,8 +9,10 @@ export const getUserData = async (
     const res = await fetchMisskeyAPI<"i">("i", {
       i: token,
     });
-    localStorage.setItem(`${host}_userData`, JSON.stringify(res));
-    userdata = localStorage.getItem(`${host}_userData`)
+    if (res) { 
+      localStorage.setItem(`${host}_userData`, JSON.stringify(res));
+      userdata = localStorage.getItem(`${host}_userData`)
+    }
   }
   return userdata
     ? { value: userdata, isOk: true }

@@ -20,7 +20,7 @@ Object.keys(emojiCategorys).forEach(category => {
 
 const createReaction = async (reactionName: string) =>
   fetchMisskeyAPI("notes/reactions/create", {
-    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+    i: readCookie(`${readCookie("loginHost").value}_token`).value,
     noteId: props.noteId,
     reaction: `:${reactionName}@.:`,
   });

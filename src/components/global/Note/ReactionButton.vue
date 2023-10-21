@@ -12,12 +12,9 @@ const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-let emojiURL = searchEmoji(props.reaction[0])
-if (!emojiURL.isOk) {
-  emojiURL = props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
-} else {
-  emojiURL = emojiURL.value
-}
+let emojiURL: string | Result<string>  = searchEmoji(props.reaction[0])
+emojiURL = emojiURL.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
+
 
 const createReaction = async (reactionName: string) => {
   const body = {

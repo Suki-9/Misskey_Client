@@ -28,24 +28,14 @@ export const streamTimeLine = async (
   autoReConnection: boolean = false,
   isReConnect: boolean = false
 ) => {
-  const token = readCookie(`${host}_token`).value;
-  const loginUserData = JSON.parse((await getUserData(host, token)).value!)
-  const uuid = genUuid();
-  const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
-  channel = channel == "Home" ? "home" : channel;
+  const 
+    token = readCookie(`${host}_token`).value,
+    loginUserData = JSON.parse((await getUserData(host, token)).value!),
+    uuid = genUuid(),
+    //TODO wssで無い場合の処理
+    timeLine = new WebSocket(`ws://${host}/streaming?i=${token}`);
 
-  //fetch first Notes
-  if (!isReConnect) {
-    provideTimeLine.value[timeLineSymbol] = {
-      timeLine: {},
-      isConnected: false,
-    };
-    (await fetchFirstNotes(host, channel))
-      .reverse()
-      .forEach(note => (provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note));
-  } else {
-    provideTimeLine.value[timeLineSymbol].isConnected = false;
-  }
+  channel = channel == "Home" ? "home" : channel;
 
   timeLine.addEventListener("open", () => {
     timeLine.send(
@@ -62,6 +52,19 @@ export const streamTimeLine = async (
     provideTimeLine.value[timeLineSymbol].isConnected = true;
     Object.keys(provideTimeLine.value[timeLineSymbol].timeLine).forEach(index => captchaNote(timeLine, index));
   });
+
+  //fetch first Notes
+  if (!isReConnect) {
+    provideTimeLine.value[timeLineSymbol] = {
+      timeLine: {},
+      isConnected: false,
+    };
+    (await fetchFirstNotes(host, channel))
+      .reverse()
+      .forEach(note => (provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note));
+  } else {
+    provideTimeLine.value[timeLineSymbol].isConnected = false;
+  }
 
   timeLine.addEventListener("message", event => {
     const parseEvent = JSON.parse(event.data).body;
