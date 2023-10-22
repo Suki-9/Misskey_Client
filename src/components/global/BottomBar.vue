@@ -17,7 +17,6 @@ const reload = () => {
 <style module lang="scss">
 .root {
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
 
   width: 100vw;
@@ -25,14 +24,15 @@ const reload = () => {
 
   border-top: solid 1px;
 
-  background-color: var(--primary-bg-color);
-
   i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 12.5vw;
+    height: 100%;
 
     font-size: 150%;
-    text-align: center;
-    line-height: 0;
 
     &::before {
       margin: 0;
