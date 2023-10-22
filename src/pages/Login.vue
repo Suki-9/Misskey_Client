@@ -5,6 +5,8 @@ import { genUuid } from "../scripts/UUID";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
+const router = useRouter() 
+
 // Vue Component ---------------------------------------///
 import TextInput from "../components/Login/TextInput.vue";
 
@@ -25,7 +27,7 @@ const Login = () => {
   if (useToken.value && !useMiAuth.value) {
     document.cookie = `${hostName.value}_token=${token.value}; path=/`;
     document.cookie = `loginHost=${hostName.value}; path=/`;
-    useRouter().push("/");
+    router.push("/");
   } else if (useMiAuth.value && hostName.value) {
     document.cookie = `loginHost=${hostName.value}; path=/`;
     window.location.href = `https://${hostName.value}/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
