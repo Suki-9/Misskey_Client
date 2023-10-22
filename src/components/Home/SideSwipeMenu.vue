@@ -58,7 +58,4 @@ const changeAccount = (loginUser: string) => {
       }
     }
 }
-.showAccount {
-
-}
 </style>
