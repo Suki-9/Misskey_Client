@@ -19,16 +19,17 @@ export const getUserData = async (host: string, token?: string, userName?: strin
 export const addUsersData = async (host: string, token: string): Promise<string | undefined> => {
   const fetchUserdata = await getUserData(host, token)
   if (fetchUserdata) {
-    let usersData = localStorage.getItem("usersData")
-    if (!usersData) {
-      usersData = "{}"
-    }
-    localStorage.setItem("usersData", JSON.stringify(JSON.parse(usersData)[`${host}_${fetchUserdata.id}`] = {
+    const
+      usersData = localStorage.getItem("usersData"),
+      parsedUsersData = usersData ? JSON.parse(usersData) : new Object()
+
+    parsedUsersData[`${host}_${fetchUserdata.id}`] = {
       userName: fetchUserdata.username,
       avaterURL: fetchUserdata.avatarUrl,
       host: host,
       token: token,
-    }))
+    }
+    localStorage.setItem("usersData", JSON.stringify(parsedUsersData))
     return `${host}_${fetchUserdata.id}`
   }
 }
