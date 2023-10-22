@@ -6,7 +6,6 @@ export const useSwipeMenu = () => {
 
   const
     touchXY = ref<[number, number]>([0, 0]),
-    hoverPage = ref<number>(0),
     maxWidth: number = window.outerWidth * 0.9,
     isOpen = ref<boolean>(false)
 
@@ -33,6 +32,4 @@ export const useSwipeMenu = () => {
   })
 
   onUnmounted(() => window.removeEventListener('touchmove', function () { }))
-
-  return hoverPage
 }

@@ -42,15 +42,16 @@ const timeLines: Record<
 
 const
   selectTimeLine = ref(timeLines["local"]),
-  resetKey = ref<number>(0),
-  hoverPage = useSwipeMenu()
+  resetKey = ref<number>(0)
 
+// Animation 
+useSwipeMenu()
 </script>
 
 <template>
   
   <SideSwipeMenu />
-  <div :class="$style.hoverPage" :style="{ left: hoverPage + 'px' }" id="hoverPage">
+  <div :class="$style.hoverPage" id="hoverPage">
     <TimeLine v-if="loginHost.isOk && selectTimeLine" :key="resetKey" :selectTimeLine="selectTimeLine" />
   </div>
   <Post />
