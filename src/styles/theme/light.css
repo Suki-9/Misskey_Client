@@ -1,8 +1,8 @@
 :root {
   /*background color*/
   --primary-bg-color: rgb(255, 255, 255);
-  --secondary-bg-color: color-mix(in srgb, var(--primary-bg-color), #000000 2%);
-  --tertiary-bg-color: color-mix(in srgb, var(--primary-bg-color), #000000 4%);
+  --secondary-bg-color: color-mix(in srgb, var(--primary-bg-color), #000000 5%);
+  --tertiary-bg-color: color-mix(in srgb, var(--primary-bg-color), #000000 10%);
 
   /*button color*/
   --true-button-color: rgb(255, 255, 255);
