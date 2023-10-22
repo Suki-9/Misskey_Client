@@ -5,52 +5,42 @@ import Post from "../components/global/Post.vue";
 import SideSwipeMenu from "../components/Home/SideSwipeMenu.vue";
 
 // TS module -------------------------------------------///
-import { getUserData } from "../scripts/API/userdata";
 import { readCookie } from "../scripts/cookie";
-import { genUuid } from "../scripts/UUID";
 import { useRouter } from "vue-router";
-import { provide, ref } from "vue";
+import { ref } from "vue";
 import { useSwipeMenu } from "../scripts/SideSwipeMenu";
 
 // トークンの有無を確認 --------------------------------///
-const loginHost = readCookie("loginHost");
+const loginUser = readCookie("loginUser");
+const usersData: any = JSON.parse(localStorage.getItem("usersData")!)
 
-if (!loginHost.isOk) {
-  useRouter().push("/login");
+if (loginUser.value) {
+  // Animation -----------------------------------------///
+  useSwipeMenu();
 } else {
-  // provide -------------------------------------------///
-  const userData = await getUserData(loginHost.value!);
-  if (userData.isOk) {
-    provide("LoginUserData", JSON.parse(userData.value!));
-  }
+  useRouter().push("/login");
 }
 
-const timeLines: Record<
-  string,
-  {
-    channel: "Home" | "hybrid" | "local" | "global";
-    autoReConnection: boolean;
-    timeLineSymbol: symbol;
-    hostName: string;
-  }
-> = {
-  Home: { channel: "Home", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value!, autoReConnection: true },
-  Hybrid: { channel: "hybrid", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value!, autoReConnection: true },
-  local: { channel: "local", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value!, autoReConnection: true },
-  global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value!, autoReConnection: true },
-};
-
-const selectTimeLine = ref(timeLines["local"]),
-  resetKey = ref<number>(0);
-
-// Animation
-useSwipeMenu();
+// 仮
+const selectTimeLine =  ref<{
+  channel?: "Home" | "hybrid" | "local" | "global";
+  autoReConnection: boolean;
+  timeLineSymbol: symbol;
+  hostName: string;
+  token: string;
+}>({
+  channel: "local",
+  autoReConnection: true,
+  timeLineSymbol: Symbol("tl"),
+  hostName: String(loginUser.value?.split("_")[0]),
+  token:  usersData![loginUser.value!].token,
+})
 </script>
 
 <template>
   <SideSwipeMenu />
   <div :class="$style.hoverPage" id="hoverPage">
-    <TimeLine v-if="loginHost.isOk && selectTimeLine" :key="resetKey" :selectTimeLine="selectTimeLine" />
+    <TimeLine :selectTimeLine="selectTimeLine" />
   </div>
   <Post />
 </template>
@@ -63,5 +53,7 @@ useSwipeMenu();
   height: var(--display-height);
 
   overflow-y: scroll;
+
+  background-color: var(--primary-bg-color);
 }
 </style>

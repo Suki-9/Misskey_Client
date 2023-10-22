@@ -12,14 +12,18 @@ const props = defineProps<{
     autoReConnection: boolean;
     timeLineSymbol: symbol;
     hostName: string;
+    token: string;
   };
 }>();
 
 // EntryPoint ------------------------------------------///
-if (props.selectTimeLine.hostName) {
+const usersData = localStorage.getItem("usersData")
+
+if (props.selectTimeLine.hostName && usersData) {
   streamTimeLine(
     props.selectTimeLine.hostName,
     props.selectTimeLine.timeLineSymbol,
+    props.selectTimeLine.token,
     props.selectTimeLine.channel,
     props.selectTimeLine.autoReConnection
   );
@@ -52,8 +56,6 @@ if (props.selectTimeLine.hostName) {
   width: calc(100vw - (var(--primary-margin-w) * 2));
 
   padding: 2% var(--primary-margin-w) 0 var(--primary-margin-w);
-
-  background-color: var(--primary-bg-color);
   .note {
     margin-bottom: var(--primary-margin-w);
   }
