@@ -4,6 +4,7 @@ const myAccounts = t ? JSON.parse(t) : undefined
 
 const changeAccount = (loginUser: string) => { 
   document.cookie = `loginUser=${loginUser}; path=/`;
+  location.reload();
 }
 </script>
 
