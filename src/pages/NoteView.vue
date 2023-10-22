@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
-import { readCookie } from "../scripts/cookie";
+import { inject } from "vue";
 import { noteGen, fetchChildrenNotes } from "../scripts/API/note";
 import { useRoute } from "vue-router";
 
@@ -9,13 +9,14 @@ import { useRoute } from "vue-router";
 import Note from "../components/global/Note.vue";
 import HeadBar from "../components/global/HeadBar.vue";
 
+const loginUser = inject<LoginUser>("loginUser")
+
 const note = await fetchMisskeyAPI<"notes/show">("notes/show", {
-  i: readCookie(`${readCookie("loginHost").value}_token`).value,
+  i: loginUser?.token,
   noteId: String(useRoute().params["id"]),
 }).then(fetchNote => {
   if (fetchNote) return noteGen(fetchNote);
 });
-
 const childrenNotes = note ? await fetchChildrenNotes(note.id) : undefined;
 </script>
 

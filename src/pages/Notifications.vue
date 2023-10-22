@@ -1,25 +1,23 @@
 <script setup lang="ts">
-// Type ------------------------------------------------///
-import { ModifiedNotification } from "../scripts/Types/types";
-
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
 import { notificationGen } from "../scripts/API/notification";
 //import { streamMain } from "../scripts/API/stream";
-import { readCookie } from "../scripts/cookie";
-import { ref } from "vue";
+import { ref, inject } from "vue";
+import { type ModifiedNotification } from "../scripts/Types/types";
 
 //Vue Component ----------------------------------------///
 import Notification from "../components/global/Notification.vue";
 
-const host = readCookie("loginHost").value;
+const loginUser = inject<LoginUser>("loginUser")
 const notifications = ref<ModifiedNotification[]>([]);
+
 //const autoReConnection = true;
 
 //Entry point
-if (host) {
+if (loginUser) {
   fetchMisskeyAPI<"i/notifications">("i/notifications", {
-    i: readCookie(`${host}_token`).value,
+    i: loginUser.token,
     maxSize: 20,
     following: false,
     unreadOnly: false,

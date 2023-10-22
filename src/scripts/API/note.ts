@@ -26,8 +26,7 @@ export const fetchChildrenNotes = async (noteId: string): Promise<Note[] | undef
   }).then(fetchNotes => fetchNotes?.map(fetchNote => noteGen(fetchNote)));
 };
 
-export const fetchFirstNotes = async (host: string, channel: string = "Home"): Promise<ModifiedNote[]> => {
-  console.log(channel);
+export const fetchFirstNotes = async (host: string, channel: string = "Home", token: string): Promise<ModifiedNote[]> => {
   return fetchMisskeyAPI(
     `notes/${(channel ?? "home") == "home" ? "" : channel + "-"}timeline` as
       | "notes/timeline"
@@ -35,7 +34,7 @@ export const fetchFirstNotes = async (host: string, channel: string = "Home"): P
       | "notes/local-timeline"
       | "notes/global-timeline",
     {
-      i: readCookie(`${host}_token`).value,
+      i: token,
       limit: 10,
     },
     host
