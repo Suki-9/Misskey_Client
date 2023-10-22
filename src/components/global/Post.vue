@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { ref, nextTick, onMounted } from "vue";
-import { readCookie } from "../../scripts/cookie";
-//import { getUserData } from "../../scripts/API/userdata";
+import { ref, nextTick, onMounted, inject } from "vue";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 
 // Type ------------------------------------------------///
@@ -24,15 +22,16 @@ const props = withDefaults(
 const isActive = ref<boolean>(!props.isShowWindow);
 const postText = ref<string>(props.postText);
 const visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home");
+const loginUser = inject<LoginUser>("loginUser")
 
 const post = () => {
-  if (postText.value !== "")
+  if (postText.value !== "", loginUser)
     fetchMisskeyAPI("notes/create", {
-      i: readCookie(`${readCookie("loginHost").value}_token`).value,
+      i: loginUser.token,
       text: postText.value,
       visibility: visibility.value,
       replyId: props.noteId,
-    });
+    }, loginUser.host);
   isActive.value = false;
   postText.value = "";
 };
@@ -61,7 +60,7 @@ onMounted(() => {
       </div>
     </div>
     <div :class="$style.content">
-      <img :class="$style.avatar" />
+      <img :class="$style.avatar" :src="loginUser?.avaterURL ?? ''"/>
       <div :class="$style.text">
         <div :class="$style.contentHead">
           <select v-model="visibility">
