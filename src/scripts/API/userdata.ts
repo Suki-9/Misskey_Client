@@ -8,7 +8,7 @@ export const getUserData = async (host: string, token?: string, userName?: strin
       i: token,
     }, host);
     if (fetchUserData) {
-      localStorage.setItem(`${host}_${fetchUserData.username}_UserData`, JSON.stringify(fetchUserData))
+      localStorage.setItem(`${host}_${fetchUserData.id}_UserData`, JSON.stringify(fetchUserData))
       return fetchUserData
     }
   }
