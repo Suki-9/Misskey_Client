@@ -1,8 +1,18 @@
 <script setup lang="ts">
-let t = localStorage.getItem("usersData")
-const myAccounts = t ? JSON.parse(t) : undefined
+// TS Module -------------------------------------------///
+import { ref } from 'vue';
 
-const changeAccount = (loginUser: string) => { 
+
+// Vue Component ---------------------------------------///
+import AddAccount from './SideSwipeMenus/AddAccount.vue';
+
+const showAddAccount = ref<boolean>(false)
+
+let t = localStorage.getItem("usersData")
+const myAccounts: Record<string, LoginUser> = t ? JSON.parse(t) : undefined
+
+const changeAccount = (loginUser: string) => {
+  console.log(loginUser)
   document.cookie = `loginUser=${loginUser}; path=/`;
   location.reload();
 }
@@ -12,11 +22,14 @@ const changeAccount = (loginUser: string) => {
   <div :class="$style.root">
     <div :class="$style.accounts">
       <div v-for="(myAccount, key) in myAccounts" :class="$style.accountTile" @click="changeAccount(key)">
-        <img :src="myAccount.avaterURL" />
+        <img :src="myAccount.avatarURL" />
       </div>
-      <div :class="$style.accountTile">
+      <div :class="$style.accountTile" @click="showAddAccount = !showAddAccount">
         <i class="icon-user-add"></i>
       </div>
+    </div>
+    <div :class="$style.subMenu">
+      <AddAccount v-if="showAddAccount" />
     </div>
   </div>
 </template>
@@ -25,6 +38,9 @@ const changeAccount = (loginUser: string) => {
 .root {
   display: flex;
   width: 90vw;
+
+  margin: 2%;
+  height: calc(var(--display-height) - 2%);
 }
 .accounts {
     display: flex;
@@ -32,7 +48,6 @@ const changeAccount = (loginUser: string) => {
     align-items: center;
 
     width: 16vw;
-    height: var(--display-height);
 
     background-color: var(--tertiary-bg-color);
     border-radius: var(--default-border-radius);
@@ -58,5 +73,13 @@ const changeAccount = (loginUser: string) => {
         }
       }
     }
+}
+.subMenu {
+  width: 70vw;
+
+  margin: 0 auto;
+
+  background-color: var(--tertiary-bg-color);
+  border-radius: var(--default-border-radius);
 }
 </style>
