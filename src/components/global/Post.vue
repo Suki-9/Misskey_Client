@@ -67,7 +67,7 @@ onMounted(() => {
       </div>
     </div>
     <div :class="$style.content">
-      <img :class="$style.avatar" :src="loginUser?.avaterURL ?? ''"/>
+      <img :class="$style.avatar" :src="loginUser?.avatarURL ?? ''"/>
       <div :class="$style.text">
         <div :class="$style.contentHead">
           <select v-model="visibility">

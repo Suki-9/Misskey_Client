@@ -25,7 +25,7 @@ export const addUsersData = async (host: string, token: string): Promise<string 
 
     parsedUsersData[`${host}_${fetchUserdata.id}`] = {
       userName: fetchUserdata.username,
-      avaterURL: fetchUserdata.avatarUrl,
+      avatarURL: fetchUserdata.avatarUrl,
       host: host,
       token: token,
     }
