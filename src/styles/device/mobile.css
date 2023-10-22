@@ -9,6 +9,7 @@
 
   /* height */
   --bottom-bar-height: 7.5vh;
+  --display-height: calc(100vh - var(--bottom-bar-height));
   --head-bar-height: 4vh;
 
   /* margin */

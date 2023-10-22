@@ -51,9 +51,9 @@ if (props.selectTimeLine.hostName) {
 
   width: calc(100vw - (var(--primary-margin-w) * 2));
 
-  padding: calc(var(--head-bar-height) + 2%) var(--primary-margin-w) 0 var(--primary-margin-w);
+  padding: 2% var(--primary-margin-w) 0 var(--primary-margin-w);
 
-  scroll-snap-align: start;
+  background-color: var(--primary-bg-color);
   .note {
     margin-bottom: var(--primary-margin-w);
   }
