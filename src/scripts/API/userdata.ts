@@ -1,15 +1,34 @@
+import { UserData } from "../Types/types";
 import { fetchMisskeyAPI } from "./fetchAPI";
 
-export const getUserData = async (host: string, token?: string): Promise<Result<string | undefined>> => {
-  let userdata = localStorage.getItem(`${host}_userData`);
-  if (!localStorage.getItem(`${host}_userData`) && token) {
-    const res = await fetchMisskeyAPI<"i">("i", {
+
+export const getUserData = async (host: string, token?: string, userName?: string): Promise<UserData | undefined> => {
+  if (token) {
+    const fetchUserData = await fetchMisskeyAPI<"i">("i", {
       i: token,
-    });
-    if (res) {
-      localStorage.setItem(`${host}_userData`, JSON.stringify(res));
-      userdata = localStorage.getItem(`${host}_userData`);
+    }, host);
+    if (fetchUserData) {
+      localStorage.setItem(`${host}_${fetchUserData.username}_UserData`, JSON.stringify(fetchUserData))
+      return fetchUserData
     }
   }
-  return userdata ? { value: userdata, isOk: true } : { value: undefined, isOk: false };
-};
+  let UserData = localStorage.getItem(`${host}_${userName}_userName`)
+  return UserData ? JSON.parse(UserData) : undefined
+}
+
+export const addUsersData = async (host: string, token: string): Promise<string | undefined> => {
+  const fetchUserdata = await getUserData(host, token)
+  if (fetchUserdata) {
+    let usersData = localStorage.getItem("usersData")
+    if (!usersData) {
+      usersData = "{}"
+    }
+    localStorage.setItem("usersData", JSON.stringify(JSON.parse(usersData)[`${host}_${fetchUserdata.id}`] = {
+      userName: fetchUserdata.username,
+      avaterURL: fetchUserdata.avatarUrl,
+      host: host,
+      token: token,
+    }))
+    return `${host}_${fetchUserdata.id}`
+  }
+}

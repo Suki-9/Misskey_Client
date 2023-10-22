@@ -1,19 +1,24 @@
 <script setup lang="ts">
-//TS Module
+// TS Module -----------------------------------------------------///
 import { readCookie } from "../../scripts/cookie";
 import { useRoute, useRouter } from "vue-router";
+import { addUsersData } from "../../scripts/API/userdata";
 
+// TODO 失敗時の動作
 const session = useRoute().query["session"];
-const host = readCookie("loginHost").value;
+const host = readCookie("loginHost");
 
-const res = await fetch(`https://${host}/api/miauth/${session}/check`, {
-  method: "POST",
-})
-  .then(response => response.json())
-  .then(data => data);
+if (session && host.isOk) {
+  const res = await fetch(`${host.value}/api/miauth/${session}/check`, {
+    method: "POST",
+  })
+    .then(response => response.json())
+    .then(data => data);
 
-document.cookie = `${host}_token=${res.token}; path=/`;
-useRouter().push("/");
+  const loginUser = await addUsersData(host.value!, res.token)
+  document.cookie = `loginUser=${loginUser}; path=/`;
+  useRouter().push("/");
+}
 </script>
 
 <template>

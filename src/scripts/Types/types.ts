@@ -124,3 +124,126 @@ export type PostData = {
   unreadOnly: boolean;
   markAsRead: boolean;
 };
+
+
+export type UserData = {
+  id: string;
+  name: string | null;
+  username: string;
+  host: string | null;
+  avatarUrl: string | null;
+  avatarBlurhash: string | null;
+  isBot: boolean;
+  isCat: boolean;
+  emojis: {};
+  onlineStatus: "online" | "offline";
+  badgeRoles: {
+    name: string;
+    iconUrl: string;
+    displayOrder: number;
+  }[];
+  url: string | null;
+  uri: string | null;
+  movedTo: string | null;
+  alsoKnownAs: string | null,
+  createdAt: string;
+  updatedAt: string | null;
+  lastFetchedAt: string | null;
+  bannerUrl: string | null;
+  bannerBlurhash: string | null;
+  isLocked: boolean;
+  isSilenced: boolean;
+  isLimited: boolean;
+  isSuspended: boolean;
+  description: string | null;
+  location: string | null;
+  birthday: string;
+  fields: {
+    name: string | null;
+    value: string | null;
+  }[]
+  followersCount: number;
+  followingCount: number;
+  notesCoun: number;
+  pinnedNoteIds: string[] | null;
+  pinnedNotes: Note[] | null;
+  pinnedPageId: string[] | null;
+  pinnedPage: any | null;
+  publicReactions: boolean;
+  ffVisibility: string;
+  twoFactorEnabled: Boolean;
+  usePasswordLessLogin: boolean;
+  securityKeys: boolean;
+  roles: [{
+    id: string;
+    name: string | null;
+    color: string;
+    iconUrl: string | null;
+    description: string;
+    isModerator: boolean;
+    isAdministrator: boolean;
+    displayOrder: number;
+  }];
+  memo: string | null;
+  avatarId: string | null;
+  bannerId: string | null;
+  isModerator: boolean;
+  isAdmin: boolean;
+  injectFeaturedNote: boolean;
+  receiveAnnouncementEmail: boolean;
+  alwaysMarkNsfw: boolean;
+  autoSensitive: boolean;
+  carefulBot: boolean;
+  autoAcceptFollowed: boolean;
+  noCrawle: boolean;
+  preventAiLearning: boolean;
+  isExplorable: boolean;
+  isDeleted: boolean;
+  twoFactorBackupCodes: boolean;
+  hideOnlineStatus: boolean;
+  hasUnreadSpecifiedNotes: boolean;
+  hasUnreadMentions: boolean;
+  hasUnreadAnnouncement: boolean;
+  unreadAnnouncements: Array<any>;
+  hasUnreadAntenna: boolean;
+  hasUnreadChannel: boolean;
+  hasUnreadNotification: boolean;
+  hasPendingReceivedFollowRequest: boolean;
+  mutedWords: string[];
+  mutedInstances: string[];
+  mutingNotificationTypes: string[];
+  achievements: {
+    name: string;
+    unlockedAt: number;
+  }[];
+  loggedInDays: number;
+  policies: {
+    gtlAvailable: boolean;
+    ltlAvailable: boolean;
+    canPublicNote: boolean;
+    canCreateContent: boolean;
+    canUpdateContent: boolean;
+    canDeleteContent: boolean;
+    canInvite: boolean;
+    inviteLimit: number;
+    inviteLimitCycle: number;
+    inviteExpirationTime: number;
+    canManageCustomEmojis: boolean;
+    canSearchNotes: boolean;
+    canHideAds: boolean;
+    driveCapacityMb: number;
+    alwaysMarkNsfw: number;
+    pinLimit: number;
+    antennaLimit: number;
+    wordMuteLimit: number;
+    webhookLimit: number;
+    clipLimit: number;
+    noteEachClipsLimit: number;
+    userListLimit: number;
+    userEachUserListsLimit: number;
+    rateLimitFactor: number;
+    email: string | null;
+    emailVerified: boolean;
+    securityKeysList: Array<any>,
+  }
+}

@@ -11,7 +11,7 @@ export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
   method: "POST" | "GET" = "POST"
 ): Promise<Endpoints[E]["res"] | undefined> => {
   //TODO https でない場合 どうするか。
-  return fetch(`http://${host}/api/${endpoint}`, {
+  return fetch(`${host}/api/${endpoint}`, {
     method: method,
     headers: {
       "Content-Type": "application/json",
