@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
-import { readCookie } from "../../../scripts/cookie";
 import { searchEmoji } from "../../../scripts/emoji";
+import { inject } from "vue"
 
 // Type ------------------------------------------------///
 import { ModifiedNote } from "../../../scripts/Types/types";
@@ -12,12 +12,15 @@ const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-let emojiURL: string | Result<string> = searchEmoji(props.reaction[0]);
-emojiURL = emojiURL.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
+let
+  emojiURL: string | Result<string> = searchEmoji(props.reaction[0]);
+  emojiURL = emojiURL.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
+
+const loginUser = inject<LoginUser>("loginUser")
 
 const createReaction = async (reactionName: string) => {
   const body = {
-    i: readCookie(`${readCookie("loginHost").value}_token`).value,
+    i: loginUser?.token,
     noteId: props.note.id,
     reaction: reactionName,
   };
@@ -43,9 +46,7 @@ const createReaction = async (reactionName: string) => {
 
 <style module lang="scss">
 @import "../../../styles/globalComponent.css";
-
 .reacted {
   background-color: color-mix(in srgb, var(--accent-color), rgba(0, 0, 0, 0) 40%);
 }
 </style>
-../../../scripts/Types/types

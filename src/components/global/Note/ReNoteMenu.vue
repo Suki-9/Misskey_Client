@@ -1,17 +1,18 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
-import { readCookie } from "../../../scripts/cookie";
+import { inject } from "vue";
 
 const props = defineProps<{
   noteId: string;
 }>();
 
-const renote = () =>
-  fetchMisskeyAPI("notes/create", {
-    i: readCookie(`${readCookie("loginHost").value}_token`).value,
-    renoteId: props.noteId,
-  });
+const loginUser = inject<LoginUser>("loginUser")
+
+const renote = () => fetchMisskeyAPI("notes/create", {
+  i: loginUser?.token,
+  renoteId: props.noteId,
+});
 </script>
 
 <template>
