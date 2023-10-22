@@ -1,20 +1,15 @@
 import { fetchMisskeyAPI } from "./fetchAPI";
 
-export const getUserData = async (
-  host: string,
-  token?: string
-): Promise<Result<string | undefined>> => {
-  let userdata = localStorage.getItem(`${host}_userData`)
+export const getUserData = async (host: string, token?: string): Promise<Result<string | undefined>> => {
+  let userdata = localStorage.getItem(`${host}_userData`);
   if (!localStorage.getItem(`${host}_userData`) && token) {
     const res = await fetchMisskeyAPI<"i">("i", {
       i: token,
     });
-    if (res) { 
+    if (res) {
       localStorage.setItem(`${host}_userData`, JSON.stringify(res));
-      userdata = localStorage.getItem(`${host}_userData`)
+      userdata = localStorage.getItem(`${host}_userData`);
     }
   }
-  return userdata
-    ? { value: userdata, isOk: true }
-    : { value: undefined, isOk: false };
+  return userdata ? { value: userdata, isOk: true } : { value: undefined, isOk: false };
 };

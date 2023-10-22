@@ -13,8 +13,11 @@ defineProps<{
 <template>
   <div :class="$style.root">
     <div :class="$style.head">
-      <p v-if="notification.reaction" :class="$style.reaction"
-        :style="notification.reaction.link && `content: url(${notification.reaction.link})`">
+      <p
+        v-if="notification.reaction"
+        :class="$style.reaction"
+        :style="notification.reaction.link && `content: url(${notification.reaction.link})`"
+      >
         {{ notification.reaction?.name }}
       </p>
     </div>

@@ -105,5 +105,6 @@ const userData = inject<User>("LoginUserData");
 
     border-bottom: solid 1px var(--secondary-border-color);
   }
-}</style>
+}
+</style>
 ../../scripts/Types/types

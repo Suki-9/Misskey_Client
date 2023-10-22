@@ -4,7 +4,6 @@ import { readCookie } from "./cookie";
 // Type ------------------------------------------------///
 import { Emoji, EmojiIndex } from "./Types/types";
 
-
 export const createEmojiIndex = async (host: string): Promise<void> => {
   let emojis: EmojiIndex = (
     await fetch(`http://${host}/api/emojis`)
@@ -36,7 +35,7 @@ export const searchEmoji = (name: string, host = readCookie("loginHost").value):
   const index: EmojiIndex = readEmojiIndex(undefined, host);
   return index[name.slice(1, name.indexOf("@"))]
     ? { value: index[name.slice(1, name.indexOf("@"))].url, isOk: true }
-    : { value: name, isOk: false }
+    : { value: name, isOk: false };
 };
 
 export const parseEmoji = (text: string): string => {

@@ -50,7 +50,7 @@ export type EmojiIndex = {
     aliases: string[];
     name: string;
     url: string;
-  }
+  };
 };
 
 export type User = {

@@ -53,8 +53,13 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
         </header>
         <div :class="$style.text" v-html="note.text"></div>
         <div :class="$style.files">
-          <NoteImage v-for="file in note.files" :thumbnailUrl="file.thumbnailUrl" :url="file.url"
-            :isSensitive="file.isSensitive" :isActive="false" />
+          <NoteImage
+            v-for="file in note.files"
+            :thumbnailUrl="file.thumbnailUrl"
+            :url="file.url"
+            :isSensitive="file.isSensitive"
+            :isActive="false"
+          />
         </div>
         <div :class="$style.reactions">
           <ReactionButton v-for="reaction in Object.entries(note.reactions)" :reaction="reaction" :note="note" />
@@ -79,7 +84,12 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
       </article>
     </div>
     <ReNoteMenu :noteId="note.id" v-show="show_reNoteMenu" />
-    <Post :isShowWindow="show_replyWindow" :noteId="note.id" @close="show_replyWindow = false" v-if="show_replyWindow" />
+    <Post
+      :isShowWindow="show_replyWindow"
+      :noteId="note.id"
+      @close="show_replyWindow = false"
+      v-if="show_replyWindow"
+    />
     <Note v-if="childrenNotes" v-for="childrenNote in childrenNotes" :note="childrenNote" :replymode="true" />
     <EmojiPalette v-if="show_emojiPalette" :noteId="note.id" @close="show_emojiPalette = false" />
   </div>
@@ -242,5 +252,6 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
       }
     }
   }
-}</style>
+}
+</style>
 ../../scripts/Types/types

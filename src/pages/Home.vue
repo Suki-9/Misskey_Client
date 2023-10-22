@@ -10,7 +10,7 @@ import { readCookie } from "../scripts/cookie";
 import { genUuid } from "../scripts/UUID";
 import { useRouter } from "vue-router";
 import { provide, ref } from "vue";
-import { useSwipeMenu } from "../scripts/SideSwipeMenu"
+import { useSwipeMenu } from "../scripts/SideSwipeMenu";
 
 // トークンの有無を確認 --------------------------------///
 const loginHost = readCookie("loginHost");
@@ -40,16 +40,14 @@ const timeLines: Record<
   global: { channel: "global", timeLineSymbol: Symbol(genUuid()), hostName: loginHost.value!, autoReConnection: true },
 };
 
-const
-  selectTimeLine = ref(timeLines["local"]),
-  resetKey = ref<number>(0)
+const selectTimeLine = ref(timeLines["local"]),
+  resetKey = ref<number>(0);
 
-// Animation 
-useSwipeMenu()
+// Animation
+useSwipeMenu();
 </script>
 
 <template>
-  
   <SideSwipeMenu />
   <div :class="$style.hoverPage" id="hoverPage">
     <TimeLine v-if="loginHost.isOk && selectTimeLine" :key="resetKey" :selectTimeLine="selectTimeLine" />

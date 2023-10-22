@@ -5,22 +5,19 @@ import { genUuid } from "../scripts/UUID";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
-const router = useRouter() 
+const router = useRouter();
 
 // Vue Component ---------------------------------------///
 import TextInput from "../components/Login/TextInput.vue";
 
-const
-  userName = ref<string>(),
+const userName = ref<string>(),
   password = ref<string>(),
   avatarUrl = ref<string>();
 
-const
-  hostName = ref<string>(),
+const hostName = ref<string>(),
   token = ref<string>();
 
-const
-  useToken = ref<boolean>(false),
+const useToken = ref<boolean>(false),
   useMiAuth = ref<boolean>(false);
 
 const Login = () => {
@@ -30,7 +27,9 @@ const Login = () => {
     router.push("/");
   } else if (useMiAuth.value && hostName.value) {
     document.cookie = `loginHost=${hostName.value}; path=/`;
-    window.location.href = `https://${hostName.value}/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
+    window.location.href = `https://${
+      hostName.value
+    }/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
   }
 };
 </script>
@@ -43,23 +42,13 @@ const Login = () => {
       <div :class="$style.tileContainer">
         <img :class="$style.avatar" :src="avatarUrl" />
         <a :class="$style.button" @click="useMiAuth = !useMiAuth">Use MiAuth</a>
-        <a :class="$style.button" @click="useToken = !useToken, useMiAuth = false">{{ useToken ? "Use PassWord" : "Use Token" }}</a>
+        <a :class="$style.button" @click="(useToken = !useToken), (useMiAuth = false)">{{
+          useToken ? "Use PassWord" : "Use Token"
+        }}</a>
       </div>
-      <TextInput
-        :placeholder="'UserName'"
-        @receive="e => userName = e"
-        v-show="!useToken && !useMiAuth"
-      />
-      <TextInput
-        :placeholder="'PassWord'"
-        @receive="e => password = e"
-        v-show="!useToken && !useMiAuth"
-      />
-      <TextInput
-        :placeholder="'Your Token'"
-        @receive="e => token = e"
-        v-show="useToken && !useMiAuth"
-      />
+      <TextInput :placeholder="'UserName'" @receive="e => (userName = e)" v-show="!useToken && !useMiAuth" />
+      <TextInput :placeholder="'PassWord'" @receive="e => (password = e)" v-show="!useToken && !useMiAuth" />
+      <TextInput :placeholder="'Your Token'" @receive="e => (token = e)" v-show="useToken && !useMiAuth" />
       <p :class="$style.attentionText" v-show="!useToken">パスワードを忘れた場合</p>
       <div :class="$style.submitButtonBox">
         <a :class="$style.submitButton" @click="Login">Login</a>
@@ -67,21 +56,12 @@ const Login = () => {
     </div>
     <div :class="$style.tile">
       <p :class="$style.tileHead">他のサーバーにログインする<span></span></p>
-      <TextInput
-        :placeholder="'Host Name'"
-        @receive="e => hostName = e"
-      />
+      <TextInput :placeholder="'Host Name'" @receive="e => (hostName = e)" />
     </div>
     <div :class="$style.tile" v-if="false">
       <p :class="$style.tileHead">新規登録<span></span></p>
-      <TextInput
-        :placeholder="'UserName'"
-        @receive="e => userName = e"
-      />
-      <TextInput
-        :placeholder="'Password'"
-        @receive="e => password = e"
-      />
+      <TextInput :placeholder="'UserName'" @receive="e => (userName = e)" />
+      <TextInput :placeholder="'Password'" @receive="e => (password = e)" />
     </div>
   </div>
 </template>

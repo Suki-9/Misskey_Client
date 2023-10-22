@@ -12,9 +12,8 @@ const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-let emojiURL: string | Result<string>  = searchEmoji(props.reaction[0])
-emojiURL = emojiURL.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
-
+let emojiURL: string | Result<string> = searchEmoji(props.reaction[0]);
+emojiURL = emojiURL.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
 
 const createReaction = async (reactionName: string) => {
   const body = {
@@ -31,8 +30,10 @@ const createReaction = async (reactionName: string) => {
 </script>
 
 <template>
-  <p :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]"
-    @click="createReaction(reaction[0])">
+  <p
+    :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]"
+    @click="createReaction(reaction[0])"
+  >
     <span :style="emojiURL && `content: url(${emojiURL});`" :class="$style.emoji">
       {{ reaction[0] }}
     </span>

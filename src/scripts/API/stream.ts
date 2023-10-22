@@ -28,8 +28,7 @@ export const streamTimeLine = async (
   autoReConnection: boolean = false,
   isReConnect: boolean = false
 ) => {
-  const 
-    token = readCookie(`${host}_token`).value,
+  const token = readCookie(`${host}_token`).value,
     loginUserData = JSON.parse((await getUserData(host, token)).value!),
     uuid = genUuid(),
     //TODO wssで無い場合の処理

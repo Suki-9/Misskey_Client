@@ -24,4 +24,3 @@ export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
       return undefined;
     });
 };
-
