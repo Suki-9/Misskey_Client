@@ -78,7 +78,7 @@ export const streamTimeLine = async (
       switch (parseEvent.type) {
         case "note":
           console.log("GetNote!");
-          const note = noteGen(parseEvent.body);
+          const note = noteGen(parseEvent.body, host);
           provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note;
           captchaNote(timeLine, note.id);
           break;

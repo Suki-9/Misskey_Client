@@ -4,6 +4,7 @@ import { inject } from "vue";
 import { parseEmoji } from "../../scripts/emoji";
 
 const userData = inject<User>("LoginUserData");
+const loginUser = inject<LoginUser>("loginUser")
 </script>
 
 <template>
@@ -11,7 +12,7 @@ const userData = inject<User>("LoginUserData");
     <div :class="$style.bio">
       <div :class="$style.head">
         <img :class="$style.avatar" :src="userData?.avatarUrl" />
-        <p :class="$style.name" v-html="userData?.name == null ? userData?.username : parseEmoji(userData.name)"></p>
+        <p :class="$style.name" v-html="userData?.name && loginUser ? parseEmoji(userData.name, loginUser?.host): userData?.username"></p>
         <p :class="$style.userName">@{{ userData?.username }}</p>
         <div :class="$style.followCounter">
           <p>

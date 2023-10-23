@@ -9,10 +9,10 @@ const props = defineProps<{
 
 const loginUser = inject<LoginUser>("loginUser")
 
-const renote = () => fetchMisskeyAPI("notes/create", {
+const renote = () => loginUser && fetchMisskeyAPI("notes/create", {
   i: loginUser?.token,
   renoteId: props.noteId,
-});
+}, loginUser?.host);
 </script>
 
 <template>

@@ -9,11 +9,13 @@ const props = defineProps<{
   note: ModifiedNote;
 }>();
 
-let
-  emojiURL: string | Result<string> = searchEmoji(props.reaction[0]);
-  emojiURL = emojiURL.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
-
+// TODO inject ではなく props から受け取れるように
 const loginUser = inject<LoginUser>("loginUser")
+
+// TODO ここ適当すぎる
+let
+  emojiURL: string | undefined | Result<string> = loginUser && searchEmoji(props.reaction[0], loginUser?.host);
+  emojiURL = emojiURL?.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
 
 const createReaction = async (reactionName: string) => {
   const body = {
@@ -22,9 +24,9 @@ const createReaction = async (reactionName: string) => {
     reaction: reactionName,
   };
   if (props.note.myReaction) {
-    fetchMisskeyAPI("notes/reactions/delete", body);
+    if (loginUser) fetchMisskeyAPI("notes/reactions/delete", body, loginUser?.host);
   } else {
-    fetchMisskeyAPI("notes/reactions/create", body);
+    if (loginUser) fetchMisskeyAPI("notes/reactions/create", body, loginUser?.host);
   }
 };
 </script>

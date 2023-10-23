@@ -2,28 +2,31 @@
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 import { readEmojiIndex } from "../../scripts/emoji";
-import { readCookie } from "../../scripts/cookie";
-import { ref } from "vue";
+import { ref, inject } from "vue";
 
 const emit = defineEmits(["close"]);
 const props = defineProps<{
   noteId: string;
 }>();
 
-const emojiCategorys = readEmojiIndex("category");
-const index = readEmojiIndex();
+// TODO inject ではなく props から受け取るように
+const loginUser = inject<LoginUser>("loginUser")
+const emojiCategorys = loginUser && readEmojiIndex(loginUser?.host, "category");
+const index = loginUser && readEmojiIndex(loginUser?.host);
 const showCategorys = ref<Record<string, boolean>>({});
 
 Object.keys(emojiCategorys).forEach(category => {
   showCategorys.value[category] = false;
 });
 
-const createReaction = async (reactionName: string) =>
-  fetchMisskeyAPI("notes/reactions/create", {
-    i: readCookie(`${readCookie("loginHost").value}_token`).value,
+const createReaction = async (reactionName: string) => {
+  if (loginUser) fetchMisskeyAPI("notes/reactions/create", {
+    i: loginUser.token,
     noteId: props.noteId,
     reaction: `:${reactionName}@.:`,
-  });
+  }, loginUser?.host);
+}
+
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { ref } from "vue";
+import { ref, inject } from "vue";
 import { fetchChildrenNotes } from "../../scripts/API/note";
 
 //Vue Component ----------------------------------------///
@@ -21,7 +21,11 @@ const show_replyWindow = ref<boolean>(false);
 const show_emojiPalette = ref<boolean>(false);
 const childrenNotes = ref<ModifiedNote[]>();
 
-const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(props.note.id));
+// TODO inject ではなく props から受け取るように
+const loginUser = inject<LoginUser>("loginUser")
+
+// ここではなく note.ts に移動するべき
+const loadReplys = async (): Promise<Mi_Note[] | undefined> => loginUser && (childrenNotes.value = await fetchChildrenNotes(props.note.id, loginUser?.host));
 </script>
 
 <template>

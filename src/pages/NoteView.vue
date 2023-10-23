@@ -11,13 +11,14 @@ import HeadBar from "../components/global/HeadBar.vue";
 
 const loginUser = inject<LoginUser>("loginUser")
 
-const note = await fetchMisskeyAPI<"notes/show">("notes/show", {
+const note = loginUser && await fetchMisskeyAPI<"notes/show">("notes/show", {
   i: loginUser?.token,
   noteId: String(useRoute().params["id"]),
-}).then(fetchNote => {
-  if (fetchNote) return noteGen(fetchNote);
+}, loginUser?.host).then(fetchNote => {
+  if (fetchNote) return noteGen(fetchNote, loginUser?.host);
 });
-const childrenNotes = note ? await fetchChildrenNotes(note.id) : undefined;
+
+const childrenNotes = note ? await fetchChildrenNotes(note.id, loginUser?.host) : undefined;
 </script>
 
 <template>

@@ -18,7 +18,7 @@ type Mi_Endpoints = {
       includeTypes?: Mi_NotificationType[];
       excludeTypes?: Mi_NotificationType[];
     };
-    res: Notification[];
+    res: Mi_Notification[];
   };
   "notes/timeline": {
     req: {

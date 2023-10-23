@@ -21,9 +21,9 @@ if (loginUser) {
     following: false,
     unreadOnly: false,
     markAsRead: false,
-  }).then(
+  }, loginUser.host).then(
     fetchNotification =>
-      fetchNotification?.forEach((Notification: Mi_Notification)=> notifications.value.push(notificationGen(Notification)))
+      fetchNotification?.forEach((notification: Mi_Notification) => notifications.value.push(notificationGen(notification, loginUser.host)))
   );
   //streamMain(host, autoReConnection)
 }
