@@ -1,5 +1,3 @@
-import { Note, Notification, NoteReaction, UserData } from "../Types/types";
-
 const channels = "Home" | "Hybrid" | "local" | "global";
 
 type Mi_Endpoints = {

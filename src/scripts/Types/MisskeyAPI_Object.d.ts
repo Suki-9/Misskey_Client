@@ -1,12 +1,5 @@
 type TimeLine = Record<string, ModifiedNote>;
 
-type ModifiedNote = Note & {
-  reactionEmojis: Record<string, string>;
-  reactions: Record<string, number>;
-  renoter?: User;
-  reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
-};
-
 type NoteReaction = {
   id: string;
   createdAt: string;
@@ -88,15 +81,6 @@ type Mi_Notification = {
   type: NotificationType;
   note: Note;
   reaction?: string;
-};
-
-type ModifiedNotification = {
-  id: string;
-  user: User;
-  type: NotificationType;
-  text?: string | null;
-  note?: ModifiedNote;
-  reaction?: Reaction;
 };
 
 type MainStreamEventType =
