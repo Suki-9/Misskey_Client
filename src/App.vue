@@ -5,7 +5,6 @@ import BottomBar from "./components/global/BottomBar.vue";
 // TS module -------------------------------------------///
 import { readCookie } from "./scripts/cookie";
 import { provide } from "vue";
-import { UserData } from "./scripts/Types/types";
 
 const
   loginUser = readCookie("loginUser"),
