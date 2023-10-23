@@ -1,6 +1,6 @@
 import { ref, onMounted, onUnmounted } from "vue";
 
-export const useSwipeMenu = () => {
+export const useSwipeMenu = (): void => {
   let startXY: [number, number] = [0, 0];
 
   const touchXY = ref<[number, number]>([0, 0]),

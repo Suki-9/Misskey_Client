@@ -1,7 +1,4 @@
 <script setup lang="ts">
-//Types
-import { ModifiedNotification } from "../../scripts/Types/types";
-
 //Vue Component
 import Note from "./Note.vue";
 

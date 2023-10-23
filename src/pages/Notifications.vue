@@ -4,7 +4,6 @@ import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
 import { notificationGen } from "../scripts/API/notification";
 //import { streamMain } from "../scripts/API/stream";
 import { ref, inject } from "vue";
-import { type ModifiedNotification } from "../scripts/Types/types";
 
 //Vue Component ----------------------------------------///
 import Notification from "../components/global/Notification.vue";
@@ -24,7 +23,7 @@ if (loginUser) {
     markAsRead: false,
   }).then(
     fetchNotification =>
-      fetchNotification?.forEach(Notification => notifications.value.push(notificationGen(Notification)))
+      fetchNotification?.forEach((Notification: Mi_Notification)=> notifications.value.push(notificationGen(Notification)))
   );
   //streamMain(host, autoReConnection)
 }

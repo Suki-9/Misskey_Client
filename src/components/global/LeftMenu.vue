@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { inject } from "vue";
-import { User } from "../../scripts/Types/types";
 import { parseEmoji } from "../../scripts/emoji";
 
 const userData = inject<User>("LoginUserData");

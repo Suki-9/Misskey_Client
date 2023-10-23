@@ -1,4 +1,3 @@
-import { UserData } from "../Types/types";
 import { fetchMisskeyAPI } from "./fetchAPI";
 
 

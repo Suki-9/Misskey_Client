@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// Type ------------------------------------------------///
-import { ModifiedNote } from "../../scripts/Types/types";
-
 // TS Module -------------------------------------------///
 import { ref } from "vue";
 import { fetchChildrenNotes } from "../../scripts/API/note";

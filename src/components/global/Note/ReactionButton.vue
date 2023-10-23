@@ -4,9 +4,6 @@ import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
 import { searchEmoji } from "../../../scripts/emoji";
 import { inject } from "vue"
 
-// Type ------------------------------------------------///
-import { ModifiedNote } from "../../../scripts/Types/types";
-
 const props = defineProps<{
   reaction: [string, number];
   note: ModifiedNote;

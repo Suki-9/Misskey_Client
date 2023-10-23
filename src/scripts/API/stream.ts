@@ -5,9 +5,6 @@ import { noteGen, fetchFirstNotes } from "../API/note";
 import { getUserData } from "../API/userdata";
 import { readCookie } from "../cookie";
 
-// Type ------------------------------------------------///
-import { ModifiedNote, TimeLine, User } from "../Types/types";
-
 export const provideTimeLine = ref<Record<symbol, { timeLine: TimeLine; isConnected: boolean }>>({});
 
 const captchaNote = (webSocket: WebSocket, noteId: string) => {
@@ -30,7 +27,7 @@ export const streamTimeLine = async (
   channel: string = "home",
   autoReConnection: boolean = false,
   isReConnect: boolean = false,
-) => {
+): Promise<void> => {
   const
     loginUserData = await getUserData(host, token)
 

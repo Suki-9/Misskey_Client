@@ -1,9 +1,6 @@
 // TS Module -------------------------------------------///
 import { readCookie } from "./cookie";
 
-// Type ------------------------------------------------///
-import { Emoji, EmojiIndex } from "./Types/types";
-
 export const createEmojiIndex = async (host: string): Promise<void> => {
   let emojis: EmojiIndex = (
     await fetch(`${host}/api/emojis`)

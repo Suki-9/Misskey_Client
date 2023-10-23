@@ -2,7 +2,6 @@
 // TS Module -----------------------------------------------------///
 import { ref, nextTick, onMounted, inject } from "vue";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
-import { type Endpoints } from "../../scripts/API/api";
 
 
 // Emit Props ----------------------------------------------------///
@@ -24,7 +23,7 @@ const
 const
   isActive = ref<boolean>(!props.isShowWindow),
   postText = ref<string>(props.postText),
-  visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home"),
+  visibility = ref<Mi_Endpoints["notes/create"]["req"]["visibility"]>("home"),
   loginUser = inject<LoginUser>("loginUser")
 
 

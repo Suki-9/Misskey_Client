@@ -1,11 +1,8 @@
-// Types -----------------------------------------------///
-import { ModifiedNotification, Notification } from "../Types/types";
-
 //TS module --------------------------------------------///
 import { parseEmoji, searchEmoji } from "../emoji";
 import { noteGen } from "./note";
 
-export const notificationGen = (notification: Notification): ModifiedNotification => {
+export const notificationGen = (notification: Mi_Notification): ModifiedNotification => {
   notification.user ??= {
     id: "",
     name: null,

@@ -1,13 +1,13 @@
-export type TimeLine = Record<string, ModifiedNote>;
+type TimeLine = Record<string, ModifiedNote>;
 
-export type ModifiedNote = Note & {
+type ModifiedNote = Note & {
   reactionEmojis: Record<string, string>;
   reactions: Record<string, number>;
   renoter?: User;
   reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
 };
 
-export type NoteReaction = {
+type NoteReaction = {
   id: string;
   createdAt: string;
   user: User;
@@ -15,13 +15,13 @@ export type NoteReaction = {
   note: Note;
 };
 
-export type Note = {
+type Note = {
   id: string;
   createdAt: string;
   text: string | null;
   cw: string | null;
   user: User;
-  files: File[];
+  files: Mi_File[];
   myReaction?: string;
   reactionEmojis: Record<string, string>;
   reactions: Record<string, number>;
@@ -31,20 +31,20 @@ export type Note = {
   repliesCount: number;
 };
 
-export type Reaction = {
+type Reaction = {
   name: string;
   count?: number;
   link: string;
 };
 
-export type Emoji = {
+type Emoji = {
   aliases: string[];
   category: string;
   name: string;
   url: string;
 };
 
-export type EmojiIndex = {
+type EmojiIndex = {
   [key: string]: {
     category: string;
     aliases: string[];
@@ -53,7 +53,7 @@ export type EmojiIndex = {
   };
 };
 
-export type User = {
+type User = {
   id: string;
   name: string | null;
   username: string;
@@ -62,14 +62,14 @@ export type User = {
   followersCount?: number;
 };
 
-export type File = {
+type Mi_File = {
   thumbnailUrl: string;
   createdAt: string;
   url: string;
   isSensitive: boolean;
 };
 
-export type NotificationType =
+type NotificationType =
   | "follow"
   | "mention"
   | "reply"
@@ -82,7 +82,7 @@ export type NotificationType =
   | "groupInvited"
   | "app";
 
-export type Notification = {
+type Mi_Notification = {
   id: string;
   user: User;
   type: NotificationType;
@@ -90,7 +90,7 @@ export type Notification = {
   reaction?: string;
 };
 
-export type ModifiedNotification = {
+type ModifiedNotification = {
   id: string;
   user: User;
   type: NotificationType;
@@ -99,7 +99,7 @@ export type ModifiedNotification = {
   reaction?: Reaction;
 };
 
-export type MainStreamEventType =
+type MainStreamEventType =
   | "Notification"
   | "mention"
   | "reply"
@@ -117,7 +117,7 @@ export type MainStreamEventType =
   | "unreadMessagingMessage"
   | "readAllMessagingMessages";
 
-export type PostData = {
+type PostData = {
   i: string;
   limit: number;
   following: boolean;
@@ -126,7 +126,7 @@ export type PostData = {
 };
 
 
-export type UserData = {
+type UserData = {
   id: string;
   name: string | null;
   username: string;

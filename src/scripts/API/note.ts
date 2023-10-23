@@ -1,10 +1,6 @@
-// Types -----------------------------------------------///
-import { ModifiedNote, Note, User } from "../Types/types";
-
 //TS Module --------------------------------------------///
 import { parseEmoji } from "../emoji";
 import { fetchMisskeyAPI } from "./fetchAPI";
-import { readCookie } from "../cookie";
 
 const htmlTextEscape = (text: string): string =>
   text.replace(
@@ -23,7 +19,7 @@ const htmlTextEscape = (text: string): string =>
 export const fetchChildrenNotes = async (noteId: string): Promise<Note[] | undefined> => {
   return await fetchMisskeyAPI<"notes/children">("notes/children", {
     noteId: noteId,
-  }).then(fetchNotes => fetchNotes?.map(fetchNote => noteGen(fetchNote)));
+  }).then(fetchNotes => fetchNotes?.map((fetchNote: Note) => noteGen(fetchNote)));
 };
 
 export const fetchFirstNotes = async (host: string, channel: string = "Home", token: string): Promise<ModifiedNote[]> => {
