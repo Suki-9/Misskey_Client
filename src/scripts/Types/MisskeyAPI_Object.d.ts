@@ -1,6 +1,6 @@
 type TimeLine = Record<string, ModifiedNote>;
 
-type NoteReaction = {
+type Mi_NoteReaction = {
   id: string;
   createdAt: string;
   user: User;
@@ -8,7 +8,7 @@ type NoteReaction = {
   note: Note;
 };
 
-type Note = {
+type Mi_Note = {
   id: string;
   createdAt: string;
   text: string | null;
@@ -18,13 +18,13 @@ type Note = {
   myReaction?: string;
   reactionEmojis: Record<string, string>;
   reactions: Record<string, number>;
-  renote?: Omit<Note, "renote">;
+  renote?: Omit<Mi_Note, "renote">;
   renoteCount: number;
-  reply?: Pick<Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
+  reply?: Pick<Mi_Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
   repliesCount: number;
 };
 
-type Reaction = {
+type Mi_Reaction = {
   name: string;
   count?: number;
   link: string;
@@ -62,7 +62,7 @@ type Mi_File = {
   isSensitive: boolean;
 };
 
-type NotificationType =
+type Mi_NotificationType =
   | "follow"
   | "mention"
   | "reply"
@@ -78,12 +78,12 @@ type NotificationType =
 type Mi_Notification = {
   id: string;
   user: User;
-  type: NotificationType;
+  type: Mi_NotificationType;
   note: Note;
   reaction?: string;
 };
 
-type MainStreamEventType =
+type Mi_MainStreamEventType =
   | "Notification"
   | "mention"
   | "reply"

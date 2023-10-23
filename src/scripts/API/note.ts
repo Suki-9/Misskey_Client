@@ -16,10 +16,10 @@ const htmlTextEscape = (text: string): string =>
       })[match] ?? ""
   );
 
-export const fetchChildrenNotes = async (noteId: string): Promise<Note[] | undefined> => {
+export const fetchChildrenNotes = async (noteId: string): Promise<Mi_Note[] | undefined> => {
   return await fetchMisskeyAPI<"notes/children">("notes/children", {
     noteId: noteId,
-  }).then(fetchNotes => fetchNotes?.map((fetchNote: Note) => noteGen(fetchNote)));
+  }).then(fetchNotes => fetchNotes?.map((fetchNote: Mi_Note) => noteGen(fetchNote)));
 };
 
 export const fetchFirstNotes = async (host: string, channel: string = "Home", token: string): Promise<ModifiedNote[]> => {
@@ -40,10 +40,10 @@ export const fetchFirstNotes = async (host: string, channel: string = "Home", to
   });
 };
 
-export const noteGen = (noteData: Note): ModifiedNote => {
-  const note: Note = noteData.renote ?? noteData;
+export const noteGen = (noteData: Mi_Note): ModifiedNote => {
+  const note: Mi_Note = noteData.renote ?? noteData;
   let renoter: User | undefined;
-  let reply: Note["reply"] | undefined;
+  let reply: Mi_Note["reply"] | undefined;
 
   // nameは初期設定だと空の場合があるので空であればidを使う
   note.user.name ??= note.user.username;

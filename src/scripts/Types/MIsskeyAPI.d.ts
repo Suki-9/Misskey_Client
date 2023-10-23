@@ -15,8 +15,8 @@ type Mi_Endpoints = {
       following?: boolean;
       unreadOnly?: boolean;
       markAsRead?: boolean;
-      includeTypes?: NotificationType[];
-      excludeTypes?: NotificationType[];
+      includeTypes?: Mi_NotificationType[];
+      excludeTypes?: Mi_NotificationType[];
     };
     res: Notification[];
   };
@@ -33,7 +33,7 @@ type Mi_Endpoints = {
       includeLocalRenotes?: boolean;
       withFiles?: boolean;
     };
-    res: Note[];
+    res: Mi_Note[];
   };
   "notes/hybrid-timeline": Endpoints["notes/timeline"];
   "notes/global-timeline": {
@@ -45,7 +45,7 @@ type Mi_Endpoints = {
       sinceDate?: string;
       untilDate?: string;
     };
-    res: Note[];
+    res: Mi_Note[];
   };
   "notes/local-timeline": {
     req: {
@@ -58,7 +58,7 @@ type Mi_Endpoints = {
       sinceDate?: string;
       untilDate?: string;
     };
-    res: Note[];
+    res: Mi_Note[];
   };
   "notes/create": {
     req: {
@@ -76,7 +76,7 @@ type Mi_Endpoints = {
       renoteId?: string;
       channelId?: string;
     };
-    res: Note;
+    res: Mi_Note;
   };
   "notes/reactions/create": {
     req: {
@@ -98,7 +98,7 @@ type Mi_Endpoints = {
       i: string;
       noteId: string;
     };
-    res: Note;
+    res: Mi_Note;
   };
   "notes/children": {
     req: {
@@ -107,7 +107,7 @@ type Mi_Endpoints = {
       sinceId?: string;
       untilId?: string;
     };
-    res: Note[];
+    res: Mi_Note[];
   };
   "users/reactions": {
     req: {
@@ -119,6 +119,6 @@ type Mi_Endpoints = {
       sinceDate?: string;
       untilDate?: string;
     };
-    res: NoteReaction[];
+    res: Mi_NoteReaction[];
   };
 };
