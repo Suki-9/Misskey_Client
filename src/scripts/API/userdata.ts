@@ -2,7 +2,7 @@ import { fetchMisskeyAPI } from "./fetchAPI";
 
 
 export const getUserData = async (host: string, token?: string, userName?: string): Promise<UserData | undefined> => {
-  if (token) {
+  if (host && token) {
     const fetchUserData = await fetchMisskeyAPI<"i">("i", {
       i: token,
     }, host);
