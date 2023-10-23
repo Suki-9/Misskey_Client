@@ -21,8 +21,12 @@ const
 const Login = async () => {
   if (useToken.value && token.value && hostURL.value && !useMiAuth.value) { 
     const loginUser = await addUsersData(hostURL.value, token.value)
-    document.cookie = `loginUser=${loginUser}; path=/`;
-    router.push("/");
+    if (loginUser) {
+      document.cookie = `loginUser=${loginUser}; path=/`;
+      router.push("/");
+    } else {
+      alert("ログインに失敗しました！")
+    }
   } else if (useMiAuth.value && hostURL.value) {
     document.cookie = `loginHost=${hostURL.value}; path=/`;
     window.location.href = `${hostURL.value}/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
