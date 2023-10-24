@@ -1,18 +1,16 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
-import { inject } from "vue";
 
 const props = defineProps<{
   noteId: string;
+  loginUser: LoginUser;
 }>();
 
-const loginUser = inject<LoginUser>("loginUser")
-
-const renote = () => loginUser && fetchMisskeyAPI("notes/create", {
-  i: loginUser?.token,
+const renote = () => fetchMisskeyAPI("notes/create", {
+  i: props.loginUser.token,
   renoteId: props.noteId,
-}, loginUser?.host);
+}, props.loginUser.host);
 </script>
 
 <template>

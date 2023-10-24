@@ -2,31 +2,28 @@
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
 import { searchEmoji } from "../../../scripts/emoji";
-import { inject } from "vue"
 
 const props = defineProps<{
   reaction: [string, number];
   note: ModifiedNote;
+  loginUser: LoginUser;
 }>();
-
-// TODO inject ではなく props から受け取れるように
-const loginUser = inject<LoginUser>("loginUser")
 
 // TODO ここ適当すぎる
 let
-  emojiURL: string | undefined | Result<string> = loginUser && searchEmoji(props.reaction[0], loginUser?.host);
+  emojiURL: string | undefined | Result<string> = props.loginUser && searchEmoji(props.reaction[0], props.loginUser.host);
   emojiURL = emojiURL?.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
 
 const createReaction = async (reactionName: string) => {
   const body = {
-    i: loginUser?.token,
+    i: props.loginUser.token,
     noteId: props.note.id,
     reaction: reactionName,
   };
   if (props.note.myReaction) {
-    if (loginUser) fetchMisskeyAPI("notes/reactions/delete", body, loginUser?.host);
+    fetchMisskeyAPI("notes/reactions/delete", body, props.loginUser?.host);
   } else {
-    if (loginUser) fetchMisskeyAPI("notes/reactions/create", body, loginUser?.host);
+    fetchMisskeyAPI("notes/reactions/create", body, props.loginUser?.host);
   }
 };
 </script>

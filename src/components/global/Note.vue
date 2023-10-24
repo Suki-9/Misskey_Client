@@ -5,7 +5,7 @@ import { fetchChildrenNotes } from "../../scripts/API/note";
 
 //Vue Component ----------------------------------------///
 import Note from "./Note.vue";
-import NoteImage from "./NoteImage.vue";
+import NoteImage from "./Note/NoteImage.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
 import EmojiPalette from "./EmojiPalette.vue";
@@ -29,7 +29,7 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> => loginUser && (chi
 </script>
 
 <template>
-  <div :class="$style.root">
+  <div :class="$style.root" v-if="note && loginUser">
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
       <p :class="$style.renoterName">
@@ -63,7 +63,7 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> => loginUser && (chi
           />
         </div>
         <div :class="$style.reactions">
-          <ReactionButton v-for="reaction in Object.entries(note.reactions)" :reaction="reaction" :note="note" />
+          <ReactionButton v-for="reaction in Object.entries(note.reactions)" :loginUser="loginUser" :reaction="reaction" :note="note" />
         </div>
         <footer>
           <p>
@@ -84,7 +84,7 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> => loginUser && (chi
         <a v-show="note.repliesCount && replymode" @click="loadReplys()">続きを読み込む</a>
       </article>
     </div>
-    <ReNoteMenu :noteId="note.id" v-show="show_reNoteMenu" />
+    <ReNoteMenu :noteId="note.id" :loginUser="loginUser" v-show="show_reNoteMenu" />
     <Post
       :isShowWindow="show_replyWindow"
       :noteId="note.id"
