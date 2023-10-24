@@ -30,21 +30,18 @@ type Mi_Reaction = {
   link: string;
 };
 
-type Emoji = {
+type Mi_Emoji = {
   aliases: string[];
   category: string;
   name: string;
   url: string;
 };
 
-type EmojiIndex = {
-  [key: string]: {
-    category: string;
-    aliases: string[];
-    name: string;
-    url: string;
-  };
+type Mi_EmojiIndex = {
+  [key: string]: Mi_Emoji
 };
+
+type Mi_EmojisCategory = Record<string, string[]>
 
 type User = {
   id: string;
