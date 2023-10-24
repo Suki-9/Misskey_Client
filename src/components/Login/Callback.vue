@@ -1,23 +1,26 @@
 <script setup lang="ts">
 // TS Module -----------------------------------------------------///
-import { readCookie } from "../../scripts/cookie";
+import { readCookie, deleteCookie, writeCookie } from "../../scripts/cookie";
 import { useRoute, useRouter } from "vue-router";
 import { addUsersData } from "../../scripts/API/userdata";
 
-// TODO 失敗時の動作
 const session = useRoute().query["session"];
 const host = readCookie("loginHost");
 
 if (session && host.isOk) {
-  const res = await fetch(`${host.value}/api/miauth/${session}/check`, {
+  fetch(`${host.value}/api/miauth/${session}/check`, {
     method: "POST",
   })
-    .then(response => response.json())
-    .then(data => data);
-
-  const loginUser = await addUsersData(host.value!, res.token)
-  document.cookie = `loginUser=${loginUser}; path=/`;
-  useRouter().push("/");
+    .then(async (response) => {
+      if (response.ok) {
+        writeCookie("loginUser", await addUsersData(host.value!, (await response.json()).token))
+        useRouter().push("/");
+      } else {
+        deleteCookie("loginHost")
+        alert("トークンの取得に失敗しました!!!")
+        useRouter().push("/login");
+      }
+    })
 }
 </script>
 
