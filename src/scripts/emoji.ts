@@ -1,13 +1,13 @@
 export const createEmojiIndex = async (host: string): Promise<void> => {
-  let emojis: Mi_EmojiIndex = (
+  const emojis: Mi_EmojiIndex = (
     await fetch(`${host}/api/emojis`)
       .then(response => response.json())
       .then((data): Mi_Emoji[] => data.emojis)
   ).reduce((accumulator, value) => ({ ...accumulator, [value.name]: value }), {});
 
-  let categorys: Record<string, string[]> = {};
+  const categorys: Record<string, string[]> = {};
   Object.keys(emojis).forEach(key => {
-    if (!categorys.hasOwnProperty(emojis[key].category)) categorys[emojis[key].category] = [];
+    if (!Object.prototype.hasOwnProperty.call(categorys, emojis[key].category)) categorys[emojis[key].category] = [];
     categorys[emojis[key].category].push(key);
   });
 
@@ -16,7 +16,7 @@ export const createEmojiIndex = async (host: string): Promise<void> => {
 };
 
 export const readEmojiIndex = <T extends "category" | undefined>(host: string, type?: T): OptionalArgBranch<T, Mi_EmojiIndex, Mi_EmojisCategory> => {
-  const item = (_host: string) => `${host}_emojis${type ? `_${type}` : ""}`
+  const item = (_host: string) => `${_host}_emojis${type ? `_${type}` : ""}`
   let localEmojis = localStorage.getItem(item(host));
 
   if (!localEmojis && host) {
