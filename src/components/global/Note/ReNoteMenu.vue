@@ -1,17 +1,16 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
-import { readCookie } from "../../../scripts/cookie";
 
 const props = defineProps<{
   noteId: string;
+  loginUser: LoginUser;
 }>();
 
-const renote = () =>
-  fetchMisskeyAPI("notes/create", {
-    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
-    renoteId: props.noteId,
-  });
+const renote = () => fetchMisskeyAPI("notes/create", {
+  i: props.loginUser.token,
+  renoteId: props.noteId,
+}, props.loginUser.host);
 </script>
 
 <template>

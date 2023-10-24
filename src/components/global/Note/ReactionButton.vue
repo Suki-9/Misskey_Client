@@ -1,30 +1,29 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
-import { readCookie } from "../../../scripts/cookie";
 import { searchEmoji } from "../../../scripts/emoji";
-
-// Type ------------------------------------------------///
-import { ModifiedNote } from "../../../scripts/types";
 
 const props = defineProps<{
   reaction: [string, number];
   note: ModifiedNote;
+  loginUser: LoginUser;
 }>();
 
-const emojiURL: string = searchEmoji(props.reaction[0]).unwrap_or(
-  props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")]
-);
+// TODO ここ適当すぎる
+let
+  emojiURL: string | undefined | Result<string> = props.loginUser && searchEmoji(props.reaction[0], props.loginUser.host);
+  emojiURL = emojiURL?.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
+
 const createReaction = async (reactionName: string) => {
   const body = {
-    i: readCookie(`${readCookie("loginHost").unwrap()}_token`).unwrap(),
+    i: props.loginUser.token,
     noteId: props.note.id,
     reaction: reactionName,
   };
   if (props.note.myReaction) {
-    fetchMisskeyAPI("notes/reactions/delete", body);
+    fetchMisskeyAPI("notes/reactions/delete", body, props.loginUser?.host);
   } else {
-    fetchMisskeyAPI("notes/reactions/create", body);
+    fetchMisskeyAPI("notes/reactions/create", body, props.loginUser?.host);
   }
 };
 </script>

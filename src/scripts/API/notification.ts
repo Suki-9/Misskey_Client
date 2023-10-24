@@ -1,11 +1,8 @@
-// Types -----------------------------------------------///
-import { ModifiedNotification, Notification } from "../types";
-
 //TS module --------------------------------------------///
 import { parseEmoji, searchEmoji } from "../emoji";
 import { noteGen } from "./note";
 
-export const notificationGen = (notification: Notification): ModifiedNotification => {
+export const notificationGen = (notification: Mi_Notification, host: string): ModifiedNotification => {
   notification.user ??= {
     id: "",
     name: null,
@@ -19,7 +16,7 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
     type: notification.type,
     user: {
       id: notification.user.id,
-      name: parseEmoji(notification.user.name),
+      name: parseEmoji(notification.user.name, host),
       username: notification.user.username,
       avatarUrl: notification.user.avatarUrl,
     },
@@ -27,27 +24,27 @@ export const notificationGen = (notification: Notification): ModifiedNotificatio
 
   switch (notification.type) {
     case "renote": {
-      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text);
+      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text, host);
       break;
     }
 
     case "reply": {
-      ModifiedNotification.text = notification.note.reply?.text && parseEmoji(notification.note.reply.text);
-      ModifiedNotification.note = noteGen(notification.note);
+      ModifiedNotification.text = notification.note.reply?.text && parseEmoji(notification.note.reply.text, host);
+      ModifiedNotification.note = noteGen(notification.note, host);
       break;
     }
 
     case "quote": {
-      ModifiedNotification.note = noteGen(notification.note);
+      ModifiedNotification.note = noteGen(notification.note, host);
       break;
     }
 
     case "reaction": {
-      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text);
+      ModifiedNotification.text = notification.note.text && parseEmoji(notification.note.text, host);
       ModifiedNotification.reaction = notification.reaction
         ? {
             name: notification.reaction,
-            link: searchEmoji(notification.reaction).unwrap_or(""),
+            link: searchEmoji(notification.reaction, host).value,
           }
         : undefined;
       break;

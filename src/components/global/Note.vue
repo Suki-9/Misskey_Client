@@ -1,14 +1,11 @@
 <script setup lang="ts">
-// Type ------------------------------------------------///
-import { ModifiedNote } from "../../scripts/types";
-
 // TS Module -------------------------------------------///
-import { ref } from "vue";
+import { ref, inject } from "vue";
 import { fetchChildrenNotes } from "../../scripts/API/note";
 
 //Vue Component ----------------------------------------///
 import Note from "./Note.vue";
-import NoteImage from "./NoteImage.vue";
+import NoteImage from "./Note/NoteImage.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
 import EmojiPalette from "./EmojiPalette.vue";
@@ -24,11 +21,15 @@ const show_replyWindow = ref<boolean>(false);
 const show_emojiPalette = ref<boolean>(false);
 const childrenNotes = ref<ModifiedNote[]>();
 
-const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(props.note.id));
+// TODO inject ではなく props から受け取るように
+const loginUser = inject<LoginUser>("loginUser")
+
+// ここではなく note.ts に移動するべき
+const loadReplys = async (): Promise<Mi_Note[] | undefined> => loginUser && (childrenNotes.value = await fetchChildrenNotes(props.note.id, loginUser?.host));
 </script>
 
 <template>
-  <div :class="$style.root">
+  <div :class="$style.root" v-if="note && loginUser">
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
       <p :class="$style.renoterName">
@@ -62,7 +63,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
           />
         </div>
         <div :class="$style.reactions">
-          <ReactionButton v-for="reaction in Object.entries(note.reactions)" :reaction="reaction" :note="note" />
+          <ReactionButton v-for="reaction in Object.entries(note.reactions)" :loginUser="loginUser" :reaction="reaction" :note="note" />
         </div>
         <footer>
           <p>
@@ -83,7 +84,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
         <a v-show="note.repliesCount && replymode" @click="loadReplys()">続きを読み込む</a>
       </article>
     </div>
-    <ReNoteMenu :noteId="note.id" v-show="show_reNoteMenu" />
+    <ReNoteMenu :noteId="note.id" :loginUser="loginUser" v-show="show_reNoteMenu" />
     <Post
       :isShowWindow="show_replyWindow"
       :noteId="note.id"
@@ -97,6 +98,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
 
 <style module lang="scss">
 @import "../../styles/globalComponent.css";
+
 .root {
   display: flex;
   flex-direction: column;
@@ -106,6 +108,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
   border: solid 1px var(--primary-border-color);
   border-radius: var(--default-border-radius);
   background-color: var(--tertiary-bg-color);
+
   .renote {
     display: flex;
     flex-direction: row;
@@ -116,6 +119,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
     padding: 1% 2%;
 
     border-bottom: solid 1px var(--primary-border-color);
+
     .renoterAvatar {
       height: 1.3rem;
       width: 1.3rem;
@@ -124,6 +128,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
 
       border-radius: 0.2em;
     }
+
     .renoterName {
       display: flex;
       flex-direction: row;
@@ -134,12 +139,14 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
 
       overflow: hidden;
       white-space: nowrap;
+
       span {
         display: flex;
         align-items: center;
       }
     }
   }
+
   .reply {
     display: flex;
     align-items: center;
@@ -149,12 +156,14 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
     font-size: 90%;
 
     border-bottom: solid 1px var(--primary-border-color);
+
     .avatar {
       height: var(--avater-size-M);
       width: var(--avater-size-M);
 
       margin-right: 2%;
     }
+
     article {
       p {
         white-space: nowrap;
@@ -162,6 +171,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
       }
     }
   }
+
   .note {
     display: flex;
     flex-direction: row;
@@ -172,6 +182,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
 
       margin: 2%;
     }
+
     article {
       display: flex;
       flex-direction: column;
@@ -185,23 +196,27 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
         flex-direction: row;
 
         margin-bottom: 2%;
+
         .userName {
           display: flex;
           flex-direction: row;
 
           overflow: hidden;
           white-space: nowrap;
+
           span {
             display: flex;
             align-items: center;
           }
         }
       }
+
       .text {
         margin-bottom: 1%;
 
         overflow: hidden;
       }
+
       .files {
         display: flex;
         flex-wrap: wrap;
@@ -211,6 +226,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
 
         width: 100%;
       }
+
       .reactions {
         display: flex;
         flex-wrap: wrap;
@@ -220,6 +236,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
 
         font-size: 80%;
       }
+
       footer {
         display: flex;
         align-items: center;
@@ -227,6 +244,7 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
         justify-content: space-between;
 
         width: 60%;
+
         p {
           i {
             font-size: 130%;
@@ -237,3 +255,4 @@ const loadReplys = async () => (childrenNotes.value = await fetchChildrenNotes(p
   }
 }
 </style>
+../../scripts/Types/types

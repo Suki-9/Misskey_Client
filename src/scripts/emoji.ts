@@ -1,24 +1,8 @@
-//TS Module --------------------------------------------///
-import { readCookie } from "./cookie";
-
-// Type ------------------------------------------------///
-import { Emoji } from "./types";
-
-type emojiIndex = Record<
-  string,
-  {
-    category: string;
-    aliases: string[];
-    name: string;
-    url: string;
-  }
->;
-
-export const createEmojiIndex = async (host: string) => {
-  let emojis: emojiIndex = (
-    await fetch(`https://${host}/api/emojis`)
+export const createEmojiIndex = async (host: string): Promise<void> => {
+  let emojis: Mi_EmojiIndex = (
+    await fetch(`${host}/api/emojis`)
       .then(response => response.json())
-      .then((data): Emoji[] => data.emojis)
+      .then((data): Mi_Emoji[] => data.emojis)
   ).reduce((accumulator, value) => ({ ...accumulator, [value.name]: value }), {});
 
   let categorys: Record<string, string[]> = {};
@@ -31,27 +15,28 @@ export const createEmojiIndex = async (host: string) => {
   localStorage.setItem(`${host}_emojis_category`, JSON.stringify(categorys));
 };
 
-export const readEmojiIndex = (type?: string, host = readCookie("loginHost")._unsafeUnwrap()) => {
-  let localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
+export const readEmojiIndex = <T extends "category" | undefined>(host: string, type?: T): OptionalArgBranch<T, Mi_EmojiIndex, Mi_EmojisCategory> => {
+  const item = (_host: string) => `${host}_emojis${type ? `_${type}` : ""}`
+  let localEmojis = localStorage.getItem(item(host));
 
-  if (!localEmojis) {
+  if (!localEmojis && host) {
     createEmojiIndex(host);
-    localEmojis = localStorage.getItem(`${host}_emojis${type ? `_${type}` : ""}`);
+    localEmojis = localStorage.getItem(item(host));
   }
-  return localEmojis && JSON.parse(localEmojis);
+  return (localEmojis && JSON.parse(localEmojis)) ?? <OptionalArgBranch<T, Mi_EmojiIndex, Mi_EmojisCategory>>{};
 };
 
-export const searchEmoji = (name: string, host = readCookie("loginHost")): Result => {
-  const index: emojiIndex = readEmojiIndex(undefined, host);
-  return index[name.slice(1, name.indexOf("@"))]
-    ? ok<string>(index[name.slice(1, name.indexOf("@"))].url)
-    : err<string>(new Error(name));
+export const searchEmoji = (name: string, host: string): Result<string> => {
+  const index = readEmojiIndex(host);
+  return index && index[name.slice(1, name.indexOf("@"))]
+    ? { value: index[name.slice(1, name.indexOf("@"))].url, isOk: true }
+    : { value: name, isOk: false };
 };
 
-export const parseEmoji = (text: string) => {
+export const parseEmoji = (text: string, host: string): string => {
   text.match(/:.*?:/g)?.forEach(emoji => {
-    const url = searchEmoji(emoji);
-    if (url.isOk()) text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
+    const url = searchEmoji(emoji, host);
+    if (url.isOk) text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
   });
   return text;
 };

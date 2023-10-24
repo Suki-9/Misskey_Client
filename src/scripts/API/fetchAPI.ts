@@ -1,16 +1,10 @@
-// Type ------------------------------------------------///
-import { Endpoints } from "./api";
-
-//TS Module --------------------------------------------///
-import { readCookie } from "../cookie";
-
-export const fetchMisskeyAPI = async <E extends keyof Endpoints>(
-  endpoint: keyof Endpoints,
-  body: Endpoints[E]["req"],
-  host: string = readCookie("loginHost")._unsafeUnwrap(),
+export const fetchMisskeyAPI = async <E extends keyof Mi_Endpoints>(
+  endpoint: keyof Mi_Endpoints,
+  body: Mi_Endpoints[E]["req"],
+  host: string,
   method: "POST" | "GET" = "POST"
-): Promise<Endpoints[E]["res"] | undefined> => {
-  return fetch(`https://${host}/api/${endpoint}`, {
+): Promise<Mi_Endpoints[E]["res"] | undefined> => {
+  return fetch(`${host}/api/${endpoint}`, {
     method: method,
     headers: {
       "Content-Type": "application/json",

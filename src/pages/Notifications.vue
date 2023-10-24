@@ -1,32 +1,29 @@
 <script setup lang="ts">
-// Type ------------------------------------------------///
-import { ModifiedNotification } from "../scripts/types";
-
 // TS Module -------------------------------------------///
 import { fetchMisskeyAPI } from "../scripts/API/fetchAPI";
 import { notificationGen } from "../scripts/API/notification";
 //import { streamMain } from "../scripts/API/stream";
-import { readCookie } from "../scripts/cookie";
-import { ref } from "vue";
+import { ref, inject } from "vue";
 
 //Vue Component ----------------------------------------///
 import Notification from "../components/global/Notification.vue";
 
-const host = readCookie("loginHost").unwrap();
+const loginUser = inject<LoginUser>("loginUser")
 const notifications = ref<ModifiedNotification[]>([]);
+
 //const autoReConnection = true;
 
 //Entry point
-if (host) {
+if (loginUser) {
   fetchMisskeyAPI<"i/notifications">("i/notifications", {
-    i: readCookie(`${host}_token`).unwrap(),
+    i: loginUser.token,
     maxSize: 20,
     following: false,
     unreadOnly: false,
     markAsRead: false,
-  }).then(
+  }, loginUser.host).then(
     fetchNotification =>
-      fetchNotification?.forEach(Notification => notifications.value.push(notificationGen(Notification)))
+      fetchNotification?.forEach((notification: Mi_Notification) => notifications.value.push(notificationGen(notification, loginUser.host)))
   );
   //streamMain(host, autoReConnection)
 }
@@ -56,7 +53,9 @@ if (host) {
   border-bottom: solid 1px var(--primary-border-color);
   background-color: var(--primary-bg-color);
 }
+
 .root {
   padding-top: var(--head-bar-height);
 }
 </style>
+../scripts/Types/types

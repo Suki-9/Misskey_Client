@@ -1,10 +1,6 @@
-// Types -----------------------------------------------///
-import { ModifiedNote, Note, User } from "../types";
-
 //TS Module --------------------------------------------///
 import { parseEmoji } from "../emoji";
 import { fetchMisskeyAPI } from "./fetchAPI";
-import { readCookie } from "../cookie";
 
 const htmlTextEscape = (text: string): string =>
   text.replace(
@@ -20,14 +16,13 @@ const htmlTextEscape = (text: string): string =>
       })[match] ?? ""
   );
 
-export const fetchChildrenNotes = async (noteId: string): Promise<Note[] | undefined> => {
+export const fetchChildrenNotes = async (noteId: string, host: string): Promise<Mi_Note[] | undefined> => {
   return await fetchMisskeyAPI<"notes/children">("notes/children", {
     noteId: noteId,
-  }).then(fetchNotes => fetchNotes?.map(fetchNote => noteGen(fetchNote)));
+  }, host).then(fetchNotes => fetchNotes?.map((fetchNote: Mi_Note) => noteGen(fetchNote, host)));
 };
 
-export const fetchFirstNotes = async (host: string, channel: string = "Home"): Promise<ModifiedNote[]> => {
-  console.log(channel);
+export const fetchFirstNotes = async (host: string, channel: string = "Home", token: string): Promise<ModifiedNote[]> => {
   return fetchMisskeyAPI(
     `notes/${(channel ?? "home") == "home" ? "" : channel + "-"}timeline` as
       | "notes/timeline"
@@ -35,20 +30,19 @@ export const fetchFirstNotes = async (host: string, channel: string = "Home"): P
       | "notes/local-timeline"
       | "notes/global-timeline",
     {
-      i: readCookie(`${host}_token`).unwrap(),
+      i: token,
       limit: 10,
     },
     host
-  ).then(fetchNotes => {
-    //@ts-ignore
-    return fetchNotes?.map(note => noteGen(note));
+  ).then((fetchNotes: Mi_Note[]) => {
+    return fetchNotes?.map(note => noteGen(note, host));
   });
 };
 
-export const noteGen = (noteData: Note): ModifiedNote => {
-  const note: Note = noteData.renote ?? noteData;
+export const noteGen = (noteData: Mi_Note, host : string): ModifiedNote => {
+  const note: Mi_Note = noteData.renote ?? noteData;
   let renoter: User | undefined;
-  let reply: Note["reply"] | undefined;
+  let reply: Mi_Note["reply"] | undefined;
 
   // nameは初期設定だと空の場合があるので空であればidを使う
   note.user.name ??= note.user.username;
@@ -57,7 +51,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
   if (noteData.renote) {
     renoter = {
       id: noteData.user.id,
-      name: parseEmoji(noteData.user.name),
+      name: noteData.user.name && parseEmoji(noteData.user.name, host),
       username: noteData.user.username,
       avatarUrl: noteData.user.avatarUrl,
     };
@@ -73,7 +67,7 @@ export const noteGen = (noteData: Note): ModifiedNote => {
         id: note.reply!.user.id,
         avatarUrl: note.reply!.user.avatarUrl,
         username: note.reply!.user.username,
-        name: parseEmoji(note.reply!.user.name!),
+        name: note.reply!.user.name && parseEmoji(note.reply!.user.name, host),
       },
       files: note.reply!.files,
     };
@@ -82,11 +76,11 @@ export const noteGen = (noteData: Note): ModifiedNote => {
   return {
     id: note.id,
     createdAt: note.createdAt,
-    text: note.text && parseEmoji(htmlTextEscape(note.text)),
+    text: note.text && parseEmoji(htmlTextEscape(note.text), host),
     cw: note.cw,
     user: {
       id: note.user.id,
-      name: parseEmoji(htmlTextEscape(note.user.name)),
+      name: parseEmoji(htmlTextEscape(note.user.name), host),
       username: note.user.username,
       avatarUrl: note.user.avatarUrl,
     },

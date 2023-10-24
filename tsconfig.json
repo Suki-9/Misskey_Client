@@ -22,7 +22,7 @@
 
     "typeRoots": [
       "node_modules/@types",
-      "src/scripts/types"
+      "src/scripts/Types"
     ]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
