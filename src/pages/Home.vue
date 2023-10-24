@@ -12,7 +12,7 @@ import { useSwipeMenu } from "../scripts/SideSwipeMenu";
 
 // トークンの有無を確認 --------------------------------///
 const loginUser = readCookie("loginUser");
-const usersData: any = JSON.parse(localStorage.getItem("usersData")!)
+const usersData: any = JSON.parse(localStorage.getItem("usersData")!);
 
 if (loginUser.value) {
   // Animation -----------------------------------------///
@@ -22,7 +22,7 @@ if (loginUser.value) {
 }
 
 // 仮
-const selectTimeLine =  ref<{
+const selectTimeLine = ref<{
   channel?: "Home" | "hybrid" | "local" | "global";
   autoReConnection: boolean;
   timeLineSymbol: symbol;
@@ -33,8 +33,8 @@ const selectTimeLine =  ref<{
   autoReConnection: true,
   timeLineSymbol: Symbol("tl"),
   hostName: String(loginUser.value?.split("_")[0]),
-  token:  usersData![loginUser.value!].token,
-})
+  token: usersData![loginUser.value!].token,
+});
 </script>
 
 <template>

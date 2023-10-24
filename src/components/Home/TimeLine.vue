@@ -17,7 +17,7 @@ const props = defineProps<{
 }>();
 
 // EntryPoint ------------------------------------------///
-const usersData = localStorage.getItem("usersData")
+const usersData = localStorage.getItem("usersData");
 
 if (props.selectTimeLine.hostName && usersData) {
   streamTimeLine(

@@ -10,8 +10,8 @@ export const readCookie = (key: string): Result<string | undefined> => {
 // TODO 何かしら返したほうがいいかも
 export const writeCookie = (key: string, value?: string): void => {
   document.cookie = `${key}=${value}; expires=0; path=/`;
-}
+};
 
 export const deleteCookie = (key: string): void => {
   document.cookie = `${key}=; expires=0; path=/`;
-}
+};

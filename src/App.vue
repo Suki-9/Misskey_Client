@@ -6,14 +6,13 @@ import BottomBar from "./components/global/BottomBar.vue";
 import { readCookie } from "./scripts/cookie";
 import { provide } from "vue";
 
-const
-  loginUser = readCookie("loginUser"),
+const loginUser = readCookie("loginUser"),
   loginUserData = localStorage.getItem(`${loginUser.value}_UserData`),
   usersData = localStorage.getItem("usersData");
 
-if (loginUser.value) { 
-  if (loginUserData) provide<UserData>("loginUserData", JSON.parse(loginUserData))
-  if (usersData) provide<LoginUser>("loginUser", JSON.parse(usersData)[loginUser.value])
+if (loginUser.value) {
+  if (loginUserData) provide<UserData>("loginUserData", JSON.parse(loginUserData));
+  if (usersData) provide<LoginUser>("loginUser", JSON.parse(usersData)[loginUser.value]);
 }
 </script>
 

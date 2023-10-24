@@ -15,8 +15,11 @@ export const createEmojiIndex = async (host: string): Promise<void> => {
   localStorage.setItem(`${host}_emojis_category`, JSON.stringify(categorys));
 };
 
-export const readEmojiIndex = <T extends "category" | undefined>(host: string, type?: T): OptionalArgBranch<T, Mi_EmojiIndex, Mi_EmojisCategory> => {
-  const item = (_host: string) => `${_host}_emojis${type ? `_${type}` : ""}`
+export const readEmojiIndex = <T extends "category" | undefined>(
+  host: string,
+  type?: T
+): OptionalArgBranch<T, Mi_EmojiIndex, Mi_EmojisCategory> => {
+  const item = (_host: string) => `${_host}_emojis${type ? `_${type}` : ""}`;
   let localEmojis = localStorage.getItem(item(host));
 
   if (!localEmojis && host) {

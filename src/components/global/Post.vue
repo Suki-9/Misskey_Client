@@ -3,51 +3,48 @@
 import { ref, nextTick, onMounted, inject } from "vue";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 
-
 // Emit Props ----------------------------------------------------///
-const
-  emit = defineEmits(["close"]),
+const emit = defineEmits(["close"]),
   props = withDefaults(
-  defineProps<{
-    isShowWindow?: boolean;
-    postText?: string;
-    noteId?: string;
-  }>(),
-  {
-    isShowWindow: false,
-    postText: "",
-  }
-);
+    defineProps<{
+      isShowWindow?: boolean;
+      postText?: string;
+      noteId?: string;
+    }>(),
+    {
+      isShowWindow: false,
+      postText: "",
+    }
+  );
 
 // Variables -----------------------------------------------------///
-const
-  isActive = ref<boolean>(!props.isShowWindow),
+const isActive = ref<boolean>(!props.isShowWindow),
   postText = ref<string>(props.postText),
   visibility = ref<Mi_Endpoints["notes/create"]["req"]["visibility"]>("home"),
-  loginUser = inject<LoginUser>("loginUser")
-
+  loginUser = inject<LoginUser>("loginUser");
 
 // functions -----------------------------------------------------///
-const
-  post = () => {
-    if (postText.value !== "", loginUser)
-      fetchMisskeyAPI("notes/create", {
-        i: loginUser.token,
-        text: postText.value,
-        visibility: visibility.value,
-        replyId: props.noteId,
-      }, loginUser.host);
+const post = () => {
+    if ((postText.value !== "", loginUser))
+      fetchMisskeyAPI(
+        "notes/create",
+        {
+          i: loginUser.token,
+          text: postText.value,
+          visibility: visibility.value,
+          replyId: props.noteId,
+        },
+        loginUser.host
+      );
     isActive.value = false;
     postText.value = "";
   },
-
   showPostWindow = () => {
     isActive.value = !isActive.value;
     nextTick(() => {
       document.getElementById("inputText")?.focus();
     });
   };
-
 
 onMounted(() => {
   showPostWindow();
@@ -66,7 +63,7 @@ onMounted(() => {
       </div>
     </div>
     <div :class="$style.content">
-      <img :class="$style.avatar" :src="loginUser?.avatarURL ?? ''"/>
+      <img :class="$style.avatar" :src="loginUser?.avatarURL ?? ''" />
       <div :class="$style.text">
         <div :class="$style.contentHead">
           <select v-model="visibility">

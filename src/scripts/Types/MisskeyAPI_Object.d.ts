@@ -38,10 +38,10 @@ type Mi_Emoji = {
 };
 
 type Mi_EmojiIndex = {
-  [key: string]: Mi_Emoji
+  [key: string]: Mi_Emoji;
 };
 
-type Mi_EmojisCategory = Record<string, string[]>
+type Mi_EmojisCategory = Record<string, string[]>;
 
 type User = {
   id: string;
@@ -106,7 +106,6 @@ type PostData = {
   markAsRead: boolean;
 };
 
-
 type UserData = {
   id: string;
   name: string | null;
@@ -126,7 +125,7 @@ type UserData = {
   url: string | null;
   uri: string | null;
   movedTo: string | null;
-  alsoKnownAs: string | null,
+  alsoKnownAs: string | null;
   createdAt: string;
   updatedAt: string | null;
   lastFetchedAt: string | null;
@@ -142,7 +141,7 @@ type UserData = {
   fields: {
     name: string | null;
     value: string | null;
-  }[]
+  }[];
   followersCount: number;
   followingCount: number;
   notesCoun: number;
@@ -155,16 +154,18 @@ type UserData = {
   twoFactorEnabled: Boolean;
   usePasswordLessLogin: boolean;
   securityKeys: boolean;
-  roles: [{
-    id: string;
-    name: string | null;
-    color: string;
-    iconUrl: string | null;
-    description: string;
-    isModerator: boolean;
-    isAdministrator: boolean;
-    displayOrder: number;
-  }];
+  roles: [
+    {
+      id: string;
+      name: string | null;
+      color: string;
+      iconUrl: string | null;
+      description: string;
+      isModerator: boolean;
+      isAdministrator: boolean;
+      displayOrder: number;
+    },
+  ];
   memo: string | null;
   avatarId: string | null;
   bannerId: string | null;
@@ -225,6 +226,6 @@ type UserData = {
     rateLimitFactor: number;
     email: string | null;
     emailVerified: boolean;
-    securityKeysList: Array<any>,
-  }
-}
+    securityKeysList: Array<any>;
+  };
+};

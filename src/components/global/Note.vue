@@ -22,10 +22,11 @@ const show_emojiPalette = ref<boolean>(false);
 const childrenNotes = ref<ModifiedNote[]>();
 
 // TODO inject ではなく props から受け取るように
-const loginUser = inject<LoginUser>("loginUser")
+const loginUser = inject<LoginUser>("loginUser");
 
 // ここではなく note.ts に移動するべき
-const loadReplys = async (): Promise<Mi_Note[] | undefined> => loginUser && (childrenNotes.value = await fetchChildrenNotes(props.note.id, loginUser?.host));
+const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
+  loginUser && (childrenNotes.value = await fetchChildrenNotes(props.note.id, loginUser?.host));
 </script>
 
 <template>
@@ -63,7 +64,12 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> => loginUser && (chi
           />
         </div>
         <div :class="$style.reactions">
-          <ReactionButton v-for="reaction in Object.entries(note.reactions)" :loginUser="loginUser" :reaction="reaction" :note="note" />
+          <ReactionButton
+            v-for="reaction in Object.entries(note.reactions)"
+            :loginUser="loginUser"
+            :reaction="reaction"
+            :note="note"
+          />
         </div>
         <footer>
           <p>

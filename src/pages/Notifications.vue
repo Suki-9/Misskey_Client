@@ -8,22 +8,28 @@ import { ref, inject } from "vue";
 //Vue Component ----------------------------------------///
 import Notification from "../components/global/Notification.vue";
 
-const loginUser = inject<LoginUser>("loginUser")
+const loginUser = inject<LoginUser>("loginUser");
 const notifications = ref<ModifiedNotification[]>([]);
 
 //const autoReConnection = true;
 
 //Entry point
 if (loginUser) {
-  fetchMisskeyAPI<"i/notifications">("i/notifications", {
-    i: loginUser.token,
-    maxSize: 20,
-    following: false,
-    unreadOnly: false,
-    markAsRead: false,
-  }, loginUser.host).then(
+  fetchMisskeyAPI<"i/notifications">(
+    "i/notifications",
+    {
+      i: loginUser.token,
+      maxSize: 20,
+      following: false,
+      unreadOnly: false,
+      markAsRead: false,
+    },
+    loginUser.host
+  ).then(
     fetchNotification =>
-      fetchNotification?.forEach((notification: Mi_Notification) => notifications.value.push(notificationGen(notification, loginUser.host)))
+      fetchNotification?.forEach((notification: Mi_Notification) =>
+        notifications.value.push(notificationGen(notification, loginUser.host))
+      )
   );
   //streamMain(host, autoReConnection)
 }

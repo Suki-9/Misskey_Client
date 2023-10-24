@@ -17,12 +17,20 @@ const htmlTextEscape = (text: string): string =>
   );
 
 export const fetchChildrenNotes = async (noteId: string, host: string): Promise<Mi_Note[] | undefined> => {
-  return await fetchMisskeyAPI<"notes/children">("notes/children", {
-    noteId: noteId,
-  }, host).then(fetchNotes => fetchNotes?.map((fetchNote: Mi_Note) => noteGen(fetchNote, host)));
+  return await fetchMisskeyAPI<"notes/children">(
+    "notes/children",
+    {
+      noteId: noteId,
+    },
+    host
+  ).then(fetchNotes => fetchNotes?.map((fetchNote: Mi_Note) => noteGen(fetchNote, host)));
 };
 
-export const fetchFirstNotes = async (host: string, channel: string = "Home", token: string): Promise<ModifiedNote[]> => {
+export const fetchFirstNotes = async (
+  host: string,
+  channel: string = "Home",
+  token: string
+): Promise<ModifiedNote[]> => {
   return fetchMisskeyAPI(
     `notes/${(channel ?? "home") == "home" ? "" : channel + "-"}timeline` as
       | "notes/timeline"
@@ -39,7 +47,7 @@ export const fetchFirstNotes = async (host: string, channel: string = "Home", to
   });
 };
 
-export const noteGen = (noteData: Mi_Note, host : string): ModifiedNote => {
+export const noteGen = (noteData: Mi_Note, host: string): ModifiedNote => {
   const note: Mi_Note = noteData.renote ?? noteData;
   let renoter: User | undefined;
   let reply: Mi_Note["reply"] | undefined;

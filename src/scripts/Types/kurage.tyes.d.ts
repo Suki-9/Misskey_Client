@@ -1,11 +1,11 @@
-type OptionalArgBranch<T, U, E> = undefined extends T ? U : E
+type OptionalArgBranch<T, U, E> = undefined extends T ? U : E;
 
 type LoginUser = {
   token: string;
   avatarURL: string;
   host: string;
   userName: string;
-}
+};
 
 type ModifiedNote = Mi_Note & {
   reactionEmojis: Record<string, string>;
@@ -13,7 +13,6 @@ type ModifiedNote = Mi_Note & {
   renoter?: User;
   reply?: Pick<Mi_Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
 };
-
 
 type ModifiedNotification = {
   id: string;

@@ -1,7 +1,7 @@
 const channels = "Home" | "Hybrid" | "local" | "global";
 
 type Mi_Endpoints = {
-  "i": {
+  i: {
     req: {
       i: string;
     };

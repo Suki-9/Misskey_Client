@@ -10,23 +10,28 @@ const props = defineProps<{
 }>();
 
 // TODO inject ではなく props から受け取るように
-const loginUser = inject<LoginUser>("loginUser")
+const loginUser = inject<LoginUser>("loginUser");
 const emojiCategories = loginUser ? readEmojiIndex(loginUser.host, "category") : <Mi_EmojisCategory>{};
 const index = loginUser ? readEmojiIndex(loginUser.host) : <Mi_EmojiIndex>{};
-const showCategories = ref<{[key: string]: boolean}>({});
+const showCategories = ref<{ [key: string]: boolean }>({});
 
-if (emojiCategories) Object.keys(emojiCategories).forEach(category => {
-  showCategories.value[category] = false;
-});
+if (emojiCategories)
+  Object.keys(emojiCategories).forEach(category => {
+    showCategories.value[category] = false;
+  });
 
 const createReaction = async (reactionName: string) => {
-  if (loginUser) fetchMisskeyAPI("notes/reactions/create", {
-    i: loginUser.token,
-    noteId: props.noteId,
-    reaction: `:${reactionName}@.:`,
-  }, loginUser.host);
-}
-
+  if (loginUser)
+    fetchMisskeyAPI(
+      "notes/reactions/create",
+      {
+        i: loginUser.token,
+        noteId: props.noteId,
+        reaction: `:${reactionName}@.:`,
+      },
+      loginUser.host
+    );
+};
 </script>
 
 <template>

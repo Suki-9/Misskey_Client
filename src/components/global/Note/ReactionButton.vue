@@ -10,9 +10,9 @@ const props = defineProps<{
 }>();
 
 // TODO ここ適当すぎる
-let
-  emojiURL: string | undefined | Result<string> = props.loginUser && searchEmoji(props.reaction[0], props.loginUser.host);
-  emojiURL = emojiURL?.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
+let emojiURL: string | undefined | Result<string> =
+  props.loginUser && searchEmoji(props.reaction[0], props.loginUser.host);
+emojiURL = emojiURL?.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
 
 const createReaction = async (reactionName: string) => {
   const body = {

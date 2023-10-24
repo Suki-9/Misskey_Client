@@ -20,11 +20,11 @@ export const useSwipeMenu = (): void => {
     window.addEventListener("touchend", () => {
       if (Math.abs(touchXY.value[0] - startXY[0]) > Math.abs(touchXY.value[1] - startXY[1])) {
         if (touchXY.value[0] - startXY[0] > 0 && !isOpen.value) {
-          isOpen.value = true
+          isOpen.value = true;
           document.getElementById("hoverPage")?.animate([frameA, frameB], options);
         }
         if (touchXY.value[0] - startXY[0] < 0 && isOpen.value) {
-          isOpen.value = false
+          isOpen.value = false;
           document.getElementById("hoverPage")?.animate([frameB, frameA], options);
         }
       }

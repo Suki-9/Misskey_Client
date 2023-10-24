@@ -18,24 +18,20 @@ const captchaNote = (webSocket: WebSocket, noteId: string) => {
   );
 };
 
-
-
 export const streamTimeLine = async (
   host: string,
   timeLineSymbol: symbol,
   token?: string,
   channel: string = "home",
   autoReConnection: boolean = false,
-  isReConnect: boolean = false,
+  isReConnect: boolean = false
 ): Promise<void> => {
-  const
-    loginUserData = await getUserData(host, token)
+  const loginUserData = await getUserData(host, token);
 
   if (loginUserData) {
-    const connectURL = (host.indexOf("https://") == -1) ? host.replace("http", "ws") : host.replace("https", "wss");
-    const 
-      uuid = genUuid(),
-      timeLine = token ? new WebSocket(`${connectURL}/streaming?i=${token}`) : new WebSocket(`ws://${host}/streaming`)
+    const connectURL = host.indexOf("https://") == -1 ? host.replace("http", "ws") : host.replace("https", "wss");
+    const uuid = genUuid(),
+      timeLine = token ? new WebSocket(`${connectURL}/streaming?i=${token}`) : new WebSocket(`ws://${host}/streaming`);
 
     // Home を homeに変換 トークンが存在しない場合は強制的にローカルに接続
     channel = channel == "Home" ? "home" : !token ? "local" : channel;
@@ -57,7 +53,6 @@ export const streamTimeLine = async (
       Object.keys(provideTimeLine.value[timeLineSymbol].timeLine).forEach(index => captchaNote(timeLine, index));
     });
 
-
     // fetch first Notes ---------------------------------------------------------------------------------------------///
     if (!isReConnect) {
       provideTimeLine.value[timeLineSymbol] = {
@@ -71,7 +66,6 @@ export const streamTimeLine = async (
       provideTimeLine.value[timeLineSymbol].isConnected = false;
     }
 
-    
     // WebSocket Get MessageEvent ----------------------------------------------------------------------------------///
     timeLine.addEventListener("message", event => {
       const parseEvent = JSON.parse(event.data).body;
@@ -101,7 +95,6 @@ export const streamTimeLine = async (
           console.log(parseEvent);
       }
     });
-
 
     // WebSocket CloseEvent ----------------------------------------------------------------------------------------///
     timeLine.addEventListener("close", () => {

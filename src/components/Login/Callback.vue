@@ -10,17 +10,16 @@ const host = readCookie("loginHost");
 if (session && host.isOk) {
   fetch(`${host.value}/api/miauth/${session}/check`, {
     method: "POST",
-  })
-    .then(async (response) => {
-      if (response.ok) {
-        writeCookie("loginUser", await addUsersData(host.value!, (await response.json()).token))
-        useRouter().push("/");
-      } else {
-        deleteCookie("loginHost")
-        alert("トークンの取得に失敗しました!!!")
-        useRouter().push("/login");
-      }
-    })
+  }).then(async response => {
+    if (response.ok) {
+      writeCookie("loginUser", await addUsersData(host.value!, (await response.json()).token));
+      useRouter().push("/");
+    } else {
+      deleteCookie("loginHost");
+      alert("トークンの取得に失敗しました!!!");
+      useRouter().push("/login");
+    }
+  });
 }
 </script>
 
