@@ -1,3 +1,5 @@
+type OptionalArgBranch<T, U, E> = undefined extends T ? U : E
+
 type LoginUser = {
   token: string;
   avatarURL: string;
