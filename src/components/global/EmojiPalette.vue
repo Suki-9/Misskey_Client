@@ -11,12 +11,12 @@ const props = defineProps<{
 
 // TODO inject ではなく props から受け取るように
 const loginUser = inject<LoginUser>("loginUser")
-const emojiCategorys = loginUser && readEmojiIndex(loginUser?.host, "category");
-const index = loginUser && readEmojiIndex(loginUser?.host);
-const showCategorys = ref<Record<string, boolean>>({});
+const emojiCategories = loginUser ? readEmojiIndex(loginUser.host, "category") : <Mi_EmojisCategory>{};
+const index = loginUser ? readEmojiIndex(loginUser.host) : <Mi_EmojiIndex>{};
+const showCategories = ref<{[key: string]: boolean}>({});
 
-Object.keys(emojiCategorys).forEach(category => {
-  showCategorys.value[category] = false;
+if (emojiCategories) Object.keys(emojiCategories).forEach(category => {
+  showCategories.value[category] = false;
 });
 
 const createReaction = async (reactionName: string) => {
@@ -32,14 +32,14 @@ const createReaction = async (reactionName: string) => {
 <template>
   <div :class="$style.bg" @click="emit('close')"></div>
   <div :class="$style.root">
-    <div v-for="category in Object.keys(emojiCategorys)">
-      <a :class="$style.category" @click="showCategorys[category] = !showCategorys[category]">
+    <div v-for="category in Object.keys(emojiCategories)">
+      <a :class="$style.category" @click="showCategories[category] = !showCategories[category]">
         {{ category }}
         <span></span>
       </a>
-      <div v-if="showCategorys[category]" :class="$style.emojiBox">
+      <div v-if="showCategories[category]" :class="$style.emojiBox">
         <a
-          v-for="emoji in emojiCategorys[category]"
+          v-for="emoji in emojiCategories[category]"
           @click="createReaction(index[emoji].name)"
           :class="$style.emoji"
           :style="index[emoji].url && `content: url(${index[emoji].url});`"
