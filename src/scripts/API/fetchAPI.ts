@@ -4,7 +4,6 @@ export const fetchMisskeyAPI = async <E extends keyof Mi_Endpoints>(
   host: string,
   method: "POST" | "GET" = "POST"
 ): Promise<Mi_Endpoints[E]["res"] | undefined> => {
-  //TODO https でない場合 どうするか。
   return fetch(`${host}/api/${endpoint}`, {
     method: method,
     headers: {

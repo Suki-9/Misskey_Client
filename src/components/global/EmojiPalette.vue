@@ -24,7 +24,7 @@ const createReaction = async (reactionName: string) => {
     i: loginUser.token,
     noteId: props.noteId,
     reaction: `:${reactionName}@.:`,
-  }, loginUser?.host);
+  }, loginUser.host);
 }
 
 </script>
