@@ -49,7 +49,8 @@ export const fetchFirstNotes = async (
 
 export const noteGen = (noteData: Mi_Note, host: string): ModifiedNote => {
   const note: Mi_Note = noteData.renote ?? noteData;
-  let renoter: User | undefined;
+  // TODO ここ無理やり過ぎる
+  let renoter: Partial<UserData> | undefined;
   let reply: Mi_Note["reply"] | undefined;
 
   // nameは初期設定だと空の場合があるので空であればidを使う
@@ -88,7 +89,7 @@ export const noteGen = (noteData: Mi_Note, host: string): ModifiedNote => {
     cw: note.cw,
     user: {
       id: note.user.id,
-      name: parseEmoji(htmlTextEscape(note.user.name), host),
+      name: parseEmoji(htmlTextEscape(note.user.name!), host),
       username: note.user.username,
       avatarUrl: note.user.avatarUrl,
     },

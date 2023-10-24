@@ -13,7 +13,8 @@ type Mi_Note = {
   createdAt: string;
   text: string | null;
   cw: string | null;
-  user: User;
+  // ここ無理やり過ぎる
+  user: Partial<UserData>;
   files: Mi_File[];
   myReaction?: string;
   reactionEmojis: Record<string, string>;
@@ -42,15 +43,6 @@ type Mi_EmojiIndex = {
 };
 
 type Mi_EmojisCategory = Record<string, string[]>;
-
-type User = {
-  id: string;
-  name: string | null;
-  username: string;
-  avatarUrl: string;
-  followingCount?: number;
-  followersCount?: number;
-};
 
 type Mi_File = {
   thumbnailUrl: string;

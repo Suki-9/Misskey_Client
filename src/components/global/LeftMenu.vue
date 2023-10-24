@@ -3,7 +3,7 @@
 import { inject } from "vue";
 import { parseEmoji } from "../../scripts/emoji";
 
-const userData = inject<User>("LoginUserData");
+const userData = inject<UserData>("LoginUserData");
 const loginUser = inject<LoginUser>("loginUser");
 </script>
 
