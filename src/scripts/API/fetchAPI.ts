@@ -1,5 +1,5 @@
 export const fetchMisskeyAPI = async <E extends keyof Mi_Endpoints>(
-  endpoint: keyof Mi_Endpoints,
+  endpoint: E,
   body: Mi_Endpoints[E]["req"],
   host: string,
   method: "POST" | "GET" = "POST"
