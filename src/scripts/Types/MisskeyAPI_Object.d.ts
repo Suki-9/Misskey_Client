@@ -45,10 +45,25 @@ type Mi_EmojiIndex = {
 type Mi_EmojisCategory = Record<string, string[]>;
 
 type Mi_File = {
-  thumbnailUrl: string;
+  blurhash: string;
+  comment: string | null;
   createdAt: string;
-  url: string;
+  folder: string | null;
+  folderId: string | null;
+  id: string;
   isSensitive: boolean;
+  md5: string;
+  name: string | null;
+  properties: {
+    hight: number;
+    width: number;
+  }
+  size: number;
+  thumbnailUrl: string;
+  type: string;
+  url: string;
+  user: string | null;
+  userId: string | null;
 };
 
 type Mi_NotificationType =
@@ -107,7 +122,7 @@ type UserData = {
   avatarBlurhash: string | null;
   isBot: boolean;
   isCat: boolean;
-  emojis: {};
+  emojis: Record<Any, Any>;
   onlineStatus: "online" | "offline";
   badgeRoles: {
     name: string;
@@ -140,10 +155,10 @@ type UserData = {
   pinnedNoteIds: string[] | null;
   pinnedNotes: Note[] | null;
   pinnedPageId: string[] | null;
-  pinnedPage: any | null;
+  pinnedPage: Any | null;
   publicReactions: boolean;
   ffVisibility: string;
-  twoFactorEnabled: Boolean;
+  twoFactorEnabled: boolean;
   usePasswordLessLogin: boolean;
   securityKeys: boolean;
   roles: [
@@ -178,7 +193,7 @@ type UserData = {
   hasUnreadSpecifiedNotes: boolean;
   hasUnreadMentions: boolean;
   hasUnreadAnnouncement: boolean;
-  unreadAnnouncements: Array<any>;
+  unreadAnnouncements: Array<Any>;
   hasUnreadAntenna: boolean;
   hasUnreadChannel: boolean;
   hasUnreadNotification: boolean;
@@ -218,6 +233,6 @@ type UserData = {
     rateLimitFactor: number;
     email: string | null;
     emailVerified: boolean;
-    securityKeysList: Array<any>;
+    securityKeysList: Array<Any>;
   };
 };

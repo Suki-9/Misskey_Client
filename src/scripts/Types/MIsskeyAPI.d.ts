@@ -1,5 +1,3 @@
-const channels = "Home" | "Hybrid" | "local" | "global";
-
 type Mi_Endpoints = {
   i: {
     req: {
@@ -113,7 +111,7 @@ type Mi_Endpoints = {
     req: {
       i: string;
       userId: string;
-      limit?: Number;
+      limit?: number;
       sinceId?: string;
       untilId?: string;
       sinceDate?: string;
