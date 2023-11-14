@@ -18,33 +18,34 @@ const emit = defineEmits(["close"]),
   );
 
 // Variables -----------------------------------------------------///
-const isActive = ref<boolean>(!props.isShowWindow),
-  postText = ref<string>(props.postText),
-  visibility = ref<Mi_Endpoints["notes/create"]["req"]["visibility"]>("home"),
-  loginUser = inject<LoginUser>("loginUser");
+const isActive = ref<boolean>(!props.isShowWindow);
+const postText = ref<string>(props.postText);
+const visibility = ref<Mi_Endpoints["notes/create"]["req"]["visibility"]>("home");
+const loginUser = inject<LoginUser>("loginUser");
 
 // functions -----------------------------------------------------///
 const post = () => {
-    if ((postText.value !== "", loginUser))
-      fetchMisskeyAPI(
-        "notes/create",
-        {
-          i: loginUser.token,
-          text: postText.value,
-          visibility: visibility.value,
-          replyId: props.noteId,
-        },
-        loginUser.host
-      );
-    isActive.value = false;
-    postText.value = "";
-  },
-  showPostWindow = () => {
-    isActive.value = !isActive.value;
-    nextTick(() => {
-      document.getElementById("inputText")?.focus();
-    });
-  };
+  if ((postText.value !== "", loginUser))
+    fetchMisskeyAPI(
+      "notes/create",
+      {
+        i: loginUser.token,
+        text: postText.value,
+        visibility: visibility.value,
+        replyId: props.noteId,
+      },
+      loginUser.host
+    );
+  isActive.value = false;
+  postText.value = "";
+}
+
+const showPostWindow = () => {
+  isActive.value = !isActive.value;
+  nextTick(() => {
+    document.getElementById("inputText")?.focus();
+  });
+};
 
 onMounted(() => {
   showPostWindow();

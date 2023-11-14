@@ -2,7 +2,7 @@ import { fetchMisskeyAPI } from "./fetchAPI";
 
 export const getUserData = async (host: string, token?: string, userName?: string): Promise<UserData | undefined> => {
   if (host && token) {
-    const fetchUserData = await fetchMisskeyAPI<"i">(
+    const fetchUserData = await fetchMisskeyAPI(
       "i",
       {
         i: token,
@@ -14,7 +14,7 @@ export const getUserData = async (host: string, token?: string, userName?: strin
       return fetchUserData;
     }
   }
-  let UserData = localStorage.getItem(`${host}_${userName}_userName`);
+  const UserData = localStorage.getItem(`${host}_${userName}_userName`);
   return UserData ? JSON.parse(UserData) : undefined;
 };
 

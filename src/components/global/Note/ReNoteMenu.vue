@@ -7,8 +7,9 @@ const props = defineProps<{
   loginUser: LoginUser;
 }>();
 
-const renote = () =>
-  fetchMisskeyAPI(
+const renote = () => {
+  if (props.loginUser) {
+    fetchMisskeyAPI(
     "notes/create",
     {
       i: props.loginUser.token,
@@ -16,6 +17,8 @@ const renote = () =>
     },
     props.loginUser.host
   );
+  }
+}
 </script>
 
 <template>

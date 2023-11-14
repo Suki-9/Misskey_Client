@@ -1,9 +1,7 @@
 <script setup lang="ts">
-// TS Module -------------------------------------------///
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
+import { VNode, h } from 'vue';
 
-// Vue Component ---------------------------------------///
-import Note from "../global/Note.vue";
 import LoadingDots from "../global/LoadingDots.vue";
 
 const props = defineProps<{
@@ -28,6 +26,8 @@ if (props.selectTimeLine.hostName && usersData) {
     props.selectTimeLine.autoReConnection
   );
 }
+
+const TimeLineNotes: VNode = h('div',{},[Object.values(provideTimeLine.value[props.selectTimeLine.timeLineSymbol].timeLine)])
 </script>
 
 <template>
@@ -35,12 +35,7 @@ if (props.selectTimeLine.hostName && usersData) {
     <div :class="$style.fetchButton">
       <a>更に読み込む</a>
     </div>
-    <Note
-      :class="$style.note"
-      v-for="(note, index) in provideTimeLine[selectTimeLine.timeLineSymbol].timeLine"
-      :note="note"
-      :key="index"
-    />
+    <TimeLineNotes />
     <LoadingDots v-show="!provideTimeLine[selectTimeLine.timeLineSymbol].isConnected" :class="$style.loadingState"
       >接続中</LoadingDots
     >

@@ -30,6 +30,18 @@ module.exports = {
         "@typescript-eslint",
         "vue"
     ],
+    "globals": {
+        "LoginUser": false,
+        "ModifiedNote": false,
+        "Mi_Endpoints": false,
+        "Mi_Note": false,
+        "Mi_File": false,
+        "renoter": false,
+        "Result": false,
+        "loginUser": false,
+        "TimeLine": false,
+        "ModifiedNotification": false,
+	},
     "rules": {
     }
 }

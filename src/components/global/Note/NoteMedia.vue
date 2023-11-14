@@ -3,23 +3,20 @@
 import { ref } from "vue";
 
 const prprs = defineProps<{
-  thumbnailUrl: string;
-  url: string;
-  isSensitive: boolean;
-  isActive: boolean;
+  mediaData: Mi_File;
 }>();
 
-const isPopUpImage = ref<boolean>(prprs.isActive);
-const showSensitive = ref<boolean>(!prprs.isSensitive);
+const isPopUpImage = ref<boolean>(false);
+const showSensitive = ref<boolean>(!prprs.mediaData.isSensitive);
 </script>
 
 <template>
-  <img :src="thumbnailUrl" :class="$style.media" v-show="showSensitive" @click="isPopUpImage = true" />
-  <div :class="$style.sensitiveAlert" v-show="!showSensitive" @click="showSensitive = !showSensitive">
+  <img :src="mediaData.thumbnailUrl" :class="$style.media" v-show="showSensitive" @click="isPopUpImage = true" />
+  <div :class="$style.sensitiveAlert" v-if="!showSensitive" @click="showSensitive = !showSensitive">
     <p>センシティブな画像</p>
   </div>
   <div v-if="isPopUpImage" :class="$style.popUpImage" @click="isPopUpImage = false">
-    <img :src="url" />
+    <img :src="mediaData.url" />
   </div>
 </template>
 

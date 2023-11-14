@@ -4,12 +4,11 @@ import { ref, inject } from "vue";
 import { fetchChildrenNotes } from "../../scripts/API/note";
 
 //Vue Component ----------------------------------------///
-import Note from "./Note.vue";
-import NoteImage from "./Note/NoteImage.vue";
+import NoteImage from "./Note/NoteMedia.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
 import EmojiPalette from "./EmojiPalette.vue";
-import Post from "./Post.vue";
+import Post from "./PostNote.vue";
 
 const props = defineProps<{
   note: ModifiedNote;
@@ -31,12 +30,15 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
 
 <template>
   <div :class="$style.root" v-if="note && loginUser">
+
+    <!--reNoteLabel-->
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
       <p :class="$style.renoterName">
         <span v-html="note.renoter.name"></span>さんがリノート<i class="icon-retweet"></i>
       </p>
     </div>
+
     <div v-if="note.reply && !replymode" :class="$style.reply">
       <img :src="note.reply.user.avatarUrl" :class="$style.avatar" />
       <article>
@@ -44,6 +46,8 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
         <p v-html="note.reply.text" :class="$style.userName"></p>
       </article>
     </div>
+
+    <!--NoteMain-->
     <div :class="$style.note">
       <img :class="$style.avatar" :src="note.user.avatarUrl" />
       <article>
@@ -56,16 +60,20 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
         <div :class="$style.text" v-html="note.text"></div>
         <div :class="$style.files">
           <NoteImage
-            v-for="file in note.files"
+            v-for="(file, key) in note.files"
+            :key="key"
             :thumbnailUrl="file.thumbnailUrl"
             :url="file.url"
             :isSensitive="file.isSensitive"
             :isActive="false"
           />
         </div>
+
+        <!--reactions-->
         <div :class="$style.reactions">
           <ReactionButton
-            v-for="reaction in Object.entries(note.reactions)"
+            v-for="(reaction, key) in Object.entries(note.reactions)"
+            :key="key"
             :loginUser="loginUser"
             :reaction="reaction"
             :note="note"
@@ -84,7 +92,7 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
             <i class="icon-plus" alr="reaction" @click="show_emojiPalette = !show_emojiPalette"></i>
           </p>
           <p>
-            <i class="icon-dot-3" alt="more" @click=""></i>
+            <i class="icon-dot-3" alt="more"></i>
           </p>
         </footer>
         <a v-show="note.repliesCount && replymode" @click="loadReplys()">続きを読み込む</a>
@@ -97,7 +105,7 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
       @close="show_replyWindow = false"
       v-if="show_replyWindow"
     />
-    <Note v-if="childrenNotes" v-for="childrenNote in childrenNotes" :note="childrenNote" :replymode="true" />
+    <!-- <Note v-if="childrenNotes" v-for="(childrenNote, key) in childrenNotes" :note="childrenNote" replymode :key="key"/>-->
     <EmojiPalette v-if="show_emojiPalette" :noteId="note.id" @close="show_emojiPalette = false" />
   </div>
 </template>
@@ -261,4 +269,3 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
   }
 }
 </style>
-../../scripts/Types/types

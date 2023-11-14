@@ -1,5 +1,5 @@
 // TS module -------------------------------------------///
-import { ref } from "vue";
+import { ref, VNode } from "vue";
 import { genUuid } from "../UUID";
 import { noteGen, fetchFirstNotes } from "../API/note";
 import { getUserData } from "../API/userdata";
@@ -30,8 +30,10 @@ export const streamTimeLine = async (
 
   if (loginUserData) {
     const connectURL = host.indexOf("https://") == -1 ? host.replace("http", "ws") : host.replace("https", "wss");
-    const uuid = genUuid(),
-      timeLine = token ? new WebSocket(`${connectURL}/streaming?i=${token}`) : new WebSocket(`ws://${host}/streaming`);
+    const uuid = genUuid()
+    const timeLine = token 
+      ? new WebSocket(`${connectURL}/streaming?i=${token}`) 
+      : new WebSocket(`ws://${host}/streaming`);
 
     // Home を homeに変換 トークンが存在しない場合は強制的にローカルに接続
     channel = channel == "Home" ? "home" : !token ? "local" : channel;
@@ -50,18 +52,16 @@ export const streamTimeLine = async (
       );
       console.log(`Connection to the ${channel} TL was successful!`);
       provideTimeLine.value[timeLineSymbol].isConnected = true;
-      Object.keys(provideTimeLine.value[timeLineSymbol].timeLine).forEach(index => captchaNote(timeLine, index));
+      Object.keys(provideTimeLine.value[timeLineSymbol].timeLine ?? []).forEach(index => captchaNote(timeLine, index));
     });
 
     // fetch first Notes ---------------------------------------------------------------------------------------------///
-    if (!isReConnect) {
+    if (!isReConnect && token) {
       provideTimeLine.value[timeLineSymbol] = {
         timeLine: {},
         isConnected: false,
       };
-      (await fetchFirstNotes(host, channel, token!))
-        .reverse()
-        .forEach(note => (provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note));
+      provideTimeLine.value[timeLineSymbol].timeLine = (await fetchFirstNotes(host, channel, token)) ?? {}
     } else {
       provideTimeLine.value[timeLineSymbol].isConnected = false;
     }
@@ -70,27 +70,30 @@ export const streamTimeLine = async (
     timeLine.addEventListener("message", event => {
       const parseEvent = JSON.parse(event.data).body;
       switch (parseEvent.type) {
-        case "note":
+        case "note": {
           console.log("GetNote!");
-          const note = noteGen(parseEvent.body, host);
-          provideTimeLine.value[timeLineSymbol].timeLine[note.id] = note;
-          captchaNote(timeLine, note.id);
+          provideTimeLine.value[timeLineSymbol].timeLine[parseEvent.body.id] = noteGen(parseEvent.body, host);
+          captchaNote(timeLine, parseEvent.body.id);
           break;
-        case "reacted":
+        }
+        case "reacted": {
           console.log("reacted!");
           const targetReaction: string = parseEvent.body.reaction;
-          const targetNote: ModifiedNote = provideTimeLine.value[timeLineSymbol].timeLine[parseEvent.id];
+          const targetNote: VNode = provideTimeLine.value[timeLineSymbol].timeLine[parseEvent.id];
 
-          if (parseEvent.body.userId == loginUserData.id) {
-            targetNote.myReaction = targetReaction;
-          }
+          console.log(targetNote);
 
-          if (Object.keys(targetNote!.reactions).indexOf(targetReaction) == -1) {
-            targetNote!.reactions[targetReaction] = 1;
-          } else {
-            targetNote!.reactions[targetReaction]++;
-          }
+          //if (parseEvent.body.userId == loginUserData.id) {
+          //  targetNote.myReaction = targetReaction;
+          //}
+
+          //if (Object.keys(targetNote!.reactions).indexOf(targetReaction) == -1) {
+          //  targetNote!.reactions[targetReaction] = 1;
+          //} else {
+          //  targetNote!.reactions[targetReaction]++;
+          //}
           break;
+        }
         default:
           console.log(parseEvent);
       }

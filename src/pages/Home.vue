@@ -1,7 +1,7 @@
 <script setup lang="ts">
 //vue component ----------------------------------------///
 import TimeLine from "../components/Home/TimeLine.vue";
-import Post from "../components/global/Post.vue";
+import Post from "../components/global/PostNote.vue";
 import SideSwipeMenu from "../components/Home/SideSwipeMenu.vue";
 
 // TS module -------------------------------------------///

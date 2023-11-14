@@ -6,6 +6,7 @@
 @import "./device/mobile.css";
 
 @import "./globalComponent.css";
+@import './note.scss';
 
 :root {
   /*color*/

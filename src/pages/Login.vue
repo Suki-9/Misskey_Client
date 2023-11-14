@@ -25,6 +25,7 @@ const Login = async () => {
       router.push("/");
     } else {
       alert("ログインに失敗しました！");
+      router.push("/login")
     }
   } else if (useMiAuth.value && hostURL.value) {
     document.cookie = `loginHost=${hostURL.value}; path=/`;

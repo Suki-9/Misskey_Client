@@ -1,4 +1,4 @@
-type TimeLine = Record<string, ModifiedNote>;
+type TimeLine = { [key: string]: VNode };
 
 type Mi_NoteReaction = {
   id: string;

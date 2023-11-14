@@ -1,3 +1,5 @@
+import { VNode, h } from "vue";
+
 export const createEmojiIndex = async (host: string): Promise<void> => {
   const emojis: Mi_EmojiIndex = (
     await fetch(`${host}/api/emojis`)
@@ -36,10 +38,23 @@ export const searchEmoji = (name: string, host: string): Result<string> => {
     : { value: name, isOk: false };
 };
 
-export const parseEmoji = (text: string, host: string): string => {
-  text.match(/:.*?:/g)?.forEach(emoji => {
-    const url = searchEmoji(emoji, host);
-    if (url.isOk) text = text.replace(emoji, `<img class="emoji" src="${url.value}">`);
-  });
-  return text;
+export const parseEmoji = <T extends boolean | undefined>(
+  text: string,
+  host: string, 
+  vnode?: T,
+): OptionalArgBranch<T, string, (VNode | string)[]> => {
+  return <OptionalArgBranch<T, string, (VNode | string)[]>>text.split(/(:.*?:)/g).map(item => {
+    if (item.match(/:.*?:/g)) {
+      const url = searchEmoji(item, host);
+      return url.isOk
+        ? vnode
+          ? h('img',{
+              class: 'emoji',
+              src: url.value,
+            })
+          : `<img class="emoji" src="${url.value}">`
+        : item
+    } else {
+      return item
+  }})
 };
