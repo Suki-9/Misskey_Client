@@ -1,18 +1,14 @@
 <script setup lang="ts">
-// TS Module -------------------------------------------///
-import { ref } from "vue";
-
-// Vue Component ---------------------------------------///
 import AddAccount from "./SideSwipeMenus/AddAccount.vue";
 
-const showAddAccount = ref<boolean>(false);
+import { ref } from "vue";
+import cookie from '../../scripts/cookie';
 
-let t = localStorage.getItem("usersData");
-const myAccounts: Record<string, LoginUser> = t ? JSON.parse(t) : undefined;
+const showAddAccount = ref<boolean>(false);
+const myAccounts: Record<string, LoginUser> = JSON.parse(localStorage.getItem("usersData") ?? '{}');
 
 const changeAccount = (loginUser: string) => {
-  console.log(loginUser);
-  document.cookie = `loginUser=${loginUser}; path=/`;
+  cookie.write('loginUser', loginUser);
   location.reload();
 };
 </script>
@@ -20,7 +16,8 @@ const changeAccount = (loginUser: string) => {
 <template>
   <div :class="$style.root">
     <div :class="$style.accounts">
-      <div v-for="(myAccount, key) in myAccounts" :class="$style.accountTile" @click="changeAccount(key)">
+      <!--TODO key を修正してください。-->
+      <div v-for="(myAccount, key) in myAccounts" :key="key" :class="$style.accountTile" @click="changeAccount(key)">
         <img :src="myAccount.avatarURL" />
       </div>
       <div :class="$style.accountTile" @click="showAddAccount = !showAddAccount">

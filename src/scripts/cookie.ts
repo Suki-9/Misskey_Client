@@ -1,17 +1,5 @@
-export const cookieIndex: { [key: string]: string } = document.cookie.split("; ").reduce((accumulator, value) => {
-  const kv = value.split("=");
-  return { ...accumulator, [kv[0]]: kv[1] };
-}, {});
-
-export const readCookie = (key: string): Result<string | undefined> => {
-  return cookieIndex[key] ? { value: cookieIndex[key], isOk: true } : { value: undefined, isOk: false };
-};
-
-// TODO 何かしら返したほうがいいかも
-export const writeCookie = (key: string, value?: string): void => {
-  document.cookie = `${key}=${value}; expires=0; path=/`;
-};
-
-export const deleteCookie = (key: string): void => {
-  document.cookie = `${key}=; expires=0; path=/`;
-};
+export default {
+  read(k: string): string | undefined { return document.cookie.split('; ').map(e => e.split('=')).reduce((a: { [k: string]: string }, kv: string[]) => { return { ...a, [kv[0]]: kv[1] } }, {})[k] },
+  write(k: string, v: string | undefined): void { v && (document.cookie = `${k}=${v}`) },
+  delete(k:string): void{ document.cookie = `${k}=;max-age=0` },
+}

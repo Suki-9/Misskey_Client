@@ -1,19 +1,20 @@
 <script setup lang="ts">
-//vue component ----------------------------------------///
 import BottomBar from "./components/global/BottomBar.vue";
 
-// TS module -------------------------------------------///
-import { readCookie } from "./scripts/cookie";
+import cookie from "./scripts/cookie";
 import { provide } from "vue";
 
-const loginUser = readCookie("loginUser"),
-  loginUserData = localStorage.getItem(`${loginUser.value}_UserData`),
-  usersData = localStorage.getItem("usersData");
+const loginUser = cookie.read("loginUser");
 
-if (loginUser.value) {
-  if (loginUserData) provide<UserData>("loginUserData", JSON.parse(loginUserData));
-  if (usersData) provide<LoginUser>("loginUser", JSON.parse(usersData)[loginUser.value]);
-}
+// 必要なデータが無いとき、これらはundefinedをprovideする( null )が帰るのを防ぐため。
+provide<UserData>(
+  "loginUserData",
+  JSON.parse((loginUser && localStorage.getItem(`${loginUser}_UserData`)) ?? '{}')
+);
+provide<LoginUser>(
+  "loginUser",
+  JSON.parse(localStorage.getItem("usersData") ?? '{}')[loginUser ?? '']
+);
 </script>
 
 <template>

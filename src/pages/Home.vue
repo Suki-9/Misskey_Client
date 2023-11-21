@@ -1,20 +1,19 @@
 <script setup lang="ts">
-//vue component ----------------------------------------///
 import TimeLine from "../components/Home/TimeLine.vue";
 import Post from "../components/global/PostNote.vue";
 import SideSwipeMenu from "../components/Home/SideSwipeMenu.vue";
 
-// TS module -------------------------------------------///
-import { readCookie } from "../scripts/cookie";
+import cookie from "../scripts/cookie";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { useSwipeMenu } from "../scripts/SideSwipeMenu";
 
 // トークンの有無を確認 --------------------------------///
-const loginUser = readCookie("loginUser");
+const loginUser = cookie.read("loginUser");
+//TODO ここの any
 const usersData: any = JSON.parse(localStorage.getItem("usersData")!);
 
-if (loginUser.value) {
+if (loginUser) {
   // Animation -----------------------------------------///
   useSwipeMenu();
 } else {
@@ -32,8 +31,8 @@ const selectTimeLine = ref<{
   channel: "local",
   autoReConnection: true,
   timeLineSymbol: Symbol("tl"),
-  hostName: String(loginUser.value?.split("_")[0]),
-  token: usersData![loginUser.value!].token,
+  hostName: String(loginUser?.split("_")[0]),
+  token: loginUser && usersData[loginUser].token,
 });
 </script>
 

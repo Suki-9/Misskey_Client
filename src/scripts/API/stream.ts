@@ -3,7 +3,7 @@ import { ref, VNode } from "vue";
 import { genUuid } from "../UUID";
 import { noteGen, fetchFirstNotes } from "../API/note";
 import { getUserData } from "../API/userdata";
-import { readCookie } from "../cookie";
+import cookie from "../cookie";
 
 export const provideTimeLine = ref<Record<symbol, { timeLine: TimeLine; isConnected: boolean }>>({});
 
@@ -78,7 +78,7 @@ export const streamTimeLine = async (
         }
         case "reacted": {
           console.log("reacted!");
-          const targetReaction: string = parseEvent.body.reaction;
+          //const targetReaction: string = parseEvent.body.reaction;
           const targetNote: VNode = provideTimeLine.value[timeLineSymbol].timeLine[parseEvent.id];
 
           console.log(targetNote);
@@ -109,7 +109,7 @@ export const streamTimeLine = async (
 };
 
 export const streamMain = (host: string, autoReConnection: boolean = false) => {
-  const token = readCookie(`${host}_token`).value;
+  const token = cookie.read(`${host}_token`);
   const uuid = genUuid();
 
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);
