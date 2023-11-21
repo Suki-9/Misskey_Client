@@ -3,8 +3,7 @@ export const fetchMisskeyAPI = async <E extends keyof Mi_Endpoints>(
   body: Mi_Endpoints[E]["req"],
   host: string,
   method: "POST" | "GET" = "POST"
-): Promise<Mi_Endpoints[E]["res"] | undefined> => {
-  return fetch(`${host}/api/${endpoint}`, {
+): Promise<Mi_Endpoints[E]["res"] | undefined> => fetch(`${host}/api/${endpoint}`, {
     method: method,
     headers: {
       "Content-Type": "application/json",
@@ -15,5 +14,4 @@ export const fetchMisskeyAPI = async <E extends keyof Mi_Endpoints>(
     .then(data => data)
     .catch(() => {
       return undefined;
-    });
-};
+});
