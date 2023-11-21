@@ -19,6 +19,6 @@ type ModifiedNotification = {
   user: User;
   type: Mi_NotificationType;
   text?: string | null;
-  note?: ModifiedNote;
+  note?: Vnode;
   reaction?: Mi_Reaction;
 };
