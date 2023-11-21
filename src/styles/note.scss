@@ -1,28 +1,27 @@
 @scope (.Mi_Note) {
-	:scope {
+  :scope {
     display: flex;
     flex-direction: column;
-  
+
     overflow: hidden;
-  
+
     border: solid 1px var(--primary-border-color);
     border-radius: var(--default-border-radius);
     background-color: var(--tertiary-bg-color);
-	}
+  }
 
   .note {
-		display: flex;
-		flex-direction: row;
-
+    display: flex;
+    flex-direction: row;
 
     .userAvatar {
-			height: var(--avater-size-L);
+      height: var(--avater-size-L);
       width: var(--avater-size-L);
 
       margin: 2%;
     }
 
-		article {
+    article {
       display: flex;
       flex-direction: column;
 
@@ -36,22 +35,22 @@
 
         margin-bottom: 2%;
 
-				.userName {
-					display: flex;
-					flex-direction: row;
+        .userName {
+          display: flex;
+          flex-direction: row;
 
-					overflow: hidden;
-					white-space: nowrap;
-				}
-			}
+          overflow: hidden;
+          white-space: nowrap;
+        }
+      }
 
-			.parsedMFM {
+      .parsedMFM {
         margin-bottom: 1%;
 
         overflow: hidden;
       }
 
-			.files {
+      .files {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
@@ -61,7 +60,7 @@
         width: 100%;
       }
 
-			.reactions {
+      .reactions {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
@@ -70,12 +69,11 @@
 
         font-size: 80%;
 
-				.reaction {
-
-				}
+        .reaction {
+        }
       }
 
-			footer {
+      footer {
         display: flex;
         align-items: center;
         flex-direction: row;
@@ -89,6 +87,6 @@
           }
         }
       }
-		}
+    }
   }
 }

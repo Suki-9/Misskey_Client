@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
-import { VNode, h } from 'vue';
+import { VNode, h } from "vue";
 
 import LoadingDots from "../global/LoadingDots.vue";
 
@@ -27,7 +27,9 @@ if (props.selectTimeLine.hostName && usersData) {
   );
 }
 
-const TimeLineNotes: VNode = h('div',{},[Object.values(provideTimeLine.value[props.selectTimeLine.timeLineSymbol].timeLine)])
+const TimeLineNotes: VNode = h("div", {}, [
+  Object.values(provideTimeLine.value[props.selectTimeLine.timeLineSymbol].timeLine),
+]);
 </script>
 
 <template>

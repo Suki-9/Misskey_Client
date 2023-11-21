@@ -2,13 +2,13 @@
 import AddAccount from "./SideSwipeMenus/AddAccount.vue";
 
 import { ref } from "vue";
-import cookie from '../../scripts/cookie';
+import cookie from "../../scripts/cookie";
 
 const showAddAccount = ref<boolean>(false);
-const myAccounts: Record<string, LoginUser> = JSON.parse(localStorage.getItem("usersData") ?? '{}');
+const myAccounts: Record<string, LoginUser> = JSON.parse(localStorage.getItem("usersData") ?? "{}");
 
 const changeAccount = (loginUser: string) => {
-  cookie.write('loginUser', loginUser);
+  cookie.write("loginUser", loginUser);
   location.reload();
 };
 </script>

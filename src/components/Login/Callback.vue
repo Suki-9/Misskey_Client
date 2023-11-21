@@ -5,12 +5,11 @@ import { useRoute, useRouter } from "vue-router";
 import { addUsersData } from "../../scripts/API/userdata";
 const router = useRouter();
 
-
 const host = cookie.read("loginHost");
 
-
-(useRoute().query["session"] && host) && fetch(
-  `${host}/api/miauth/${useRoute().query["session"]}/check`, {
+useRoute().query["session"] &&
+  host &&
+  fetch(`${host}/api/miauth/${useRoute().query["session"]}/check`, {
     method: "POST",
   }).then(async response => {
     if (response.ok) {
@@ -21,8 +20,7 @@ const host = cookie.read("loginHost");
       alert("トークンの取得に失敗しました!!!");
       router.push("/login");
     }
-  }
-);
+  });
 </script>
 
 <template>

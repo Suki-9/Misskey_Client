@@ -57,7 +57,7 @@ type Mi_File = {
   properties: {
     hight: number;
     width: number;
-  }
+  };
   size: number;
   thumbnailUrl: string;
   type: string;

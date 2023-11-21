@@ -30,7 +30,6 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
 
 <template>
   <div :class="$style.root" v-if="note && loginUser">
-
     <!--reNoteLabel-->
     <div v-if="note.renoter" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />

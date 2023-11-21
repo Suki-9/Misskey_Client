@@ -30,9 +30,9 @@ export const streamTimeLine = async (
 
   if (loginUserData) {
     const connectURL = host.indexOf("https://") == -1 ? host.replace("http", "ws") : host.replace("https", "wss");
-    const uuid = genUuid()
-    const timeLine = token 
-      ? new WebSocket(`${connectURL}/streaming?i=${token}`) 
+    const uuid = genUuid();
+    const timeLine = token
+      ? new WebSocket(`${connectURL}/streaming?i=${token}`)
       : new WebSocket(`ws://${host}/streaming`);
 
     // Home を homeに変換 トークンが存在しない場合は強制的にローカルに接続
@@ -61,7 +61,7 @@ export const streamTimeLine = async (
         timeLine: {},
         isConnected: false,
       };
-      provideTimeLine.value[timeLineSymbol].timeLine = (await fetchFirstNotes(host, channel, token)) ?? {}
+      provideTimeLine.value[timeLineSymbol].timeLine = (await fetchFirstNotes(host, channel, token)) ?? {};
     } else {
       provideTimeLine.value[timeLineSymbol].isConnected = false;
     }

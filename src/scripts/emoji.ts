@@ -40,21 +40,22 @@ export const searchEmoji = (name: string, host: string): Result<string> => {
 
 export const parseEmoji = <T extends boolean | undefined>(
   text: string,
-  host: string, 
-  vnode?: T,
+  host: string,
+  vnode?: T
 ): OptionalArgBranch<T, string, (VNode | string)[]> => {
   return <OptionalArgBranch<T, string, (VNode | string)[]>>text.split(/(:.*?:)/g).map(item => {
     if (item.match(/:.*?:/g)) {
       const url = searchEmoji(item, host);
       return url.isOk
         ? vnode
-          ? h('img',{
-              class: 'emoji',
+          ? h("img", {
+              class: "emoji",
               src: url.value,
             })
           : `<img class="emoji" src="${url.value}">`
-        : item
+        : item;
     } else {
-      return item
-  }})
+      return item;
+    }
+  });
 };

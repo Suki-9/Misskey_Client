@@ -7,14 +7,8 @@ import { provide } from "vue";
 const loginUser = cookie.read("loginUser");
 
 // 必要なデータが無いとき、これらはundefinedをprovideする( null )が帰るのを防ぐため。
-provide<UserData>(
-  "loginUserData",
-  JSON.parse((loginUser && localStorage.getItem(`${loginUser}_UserData`)) ?? '{}')
-);
-provide<LoginUser>(
-  "loginUser",
-  JSON.parse(localStorage.getItem("usersData") ?? '{}')[loginUser ?? '']
-);
+provide<UserData>("loginUserData", JSON.parse((loginUser && localStorage.getItem(`${loginUser}_UserData`)) ?? "{}"));
+provide<LoginUser>("loginUser", JSON.parse(localStorage.getItem("usersData") ?? "{}")[loginUser ?? ""]);
 </script>
 
 <template>

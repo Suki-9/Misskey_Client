@@ -20,15 +20,17 @@ const Login = async () => {
   if (useToken.value && token.value && hostURL.value && !useMiAuth.value) {
     const loginUser = await addUsersData(hostURL.value, token.value);
     if (loginUser) {
-      cookie.write('loginUser', loginUser);
+      cookie.write("loginUser", loginUser);
       router.push("/");
     } else {
       alert("ログインに失敗しました！");
       router.push("/login");
     }
   } else if (useMiAuth.value && hostURL.value) {
-    cookie.write('loginHost', hostURL.value);
-    window.location.href = `${hostURL.value}/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
+    cookie.write("loginHost", hostURL.value);
+    window.location.href = `${
+      hostURL.value
+    }/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
   }
 };
 </script>
