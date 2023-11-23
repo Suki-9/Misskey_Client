@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
 import { searchEmoji } from "../../../scripts/emoji";
-import { inject } from 'vue'
+import { inject } from "vue";
 
 const props = defineProps<{
   reaction: [string, number];
@@ -11,8 +11,7 @@ const props = defineProps<{
 const loginUser = inject<LoginUser>("loginUser");
 
 // TODO ここ適当すぎる
-let emojiURL: string | undefined | Result<string> =
-  loginUser && searchEmoji(props.reaction[0], loginUser.host);
+let emojiURL: string | undefined | Result<string> = loginUser && searchEmoji(props.reaction[0], loginUser.host);
 emojiURL = emojiURL?.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
 
 const createReaction = async (reactionName: string): Promise<void> => {

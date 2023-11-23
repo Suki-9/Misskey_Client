@@ -10,15 +10,15 @@ const props = defineProps<{
 const renote = () => {
   if (props.loginUser) {
     fetchMisskeyAPI(
-    "notes/create",
-    {
-      i: props.loginUser.token,
-      renoteId: props.noteId,
-    },
-    props.loginUser.host
-  );
+      "notes/create",
+      {
+        i: props.loginUser.token,
+        renoteId: props.noteId,
+      },
+      props.loginUser.host
+    );
   }
-}
+};
 </script>
 
 <template>

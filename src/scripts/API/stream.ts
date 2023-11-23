@@ -1,14 +1,33 @@
-// TS module -------------------------------------------///
-import { ref, VNode } from "vue";
+import { VNode } from "vue";
 import { genUuid } from "../UUID";
-import { noteGen, fetchFirstNotes } from "../API/note";
-import { getUserData } from "../API/userdata";
-import { readCookie } from "../cookie";
+import { Note, fetchFirstNotes } from "../API/note";
+//import { getUserData } from "../API/userdata";
+import cookie from "../cookie";
 
-export const provideTimeLine = ref<Record<symbol, { timeLine: TimeLine; isConnected: boolean }>>({});
+export class StreamTimeLine {
+  public get: VNode[] = [];
+  public webSocket: WebSocket;
+  public isConnected: boolean = false;
 
-const captchaNote = (webSocket: WebSocket, noteId: string) => {
-  webSocket.send(
+  private host: string;
+  private token: string;
+  private channel: string;
+  private autoReConnection: boolean;
+
+  constructor(
+    host: string,
+    token: string,
+    channel: string = "home",
+    autoReConnection: boolean = false,
+  ) {
+    this.host = host;
+    this.token = token;
+    this.channel = channel == "Home" ? "home" : !token ? "local" : channel;
+    this.autoReConnection = autoReConnection;
+    this.webSocket = new WebSocket(`wss://${host}/streaming`);
+  }
+
+  private captchaNote = (noteId: string) => this.webSocket.send(
     JSON.stringify({
       type: "subNote",
       body: {
@@ -16,72 +35,41 @@ const captchaNote = (webSocket: WebSocket, noteId: string) => {
       },
     })
   );
-};
 
-export const streamTimeLine = async (
-  host: string,
-  timeLineSymbol: symbol,
-  token?: string,
-  channel: string = "home",
-  autoReConnection: boolean = false,
-  isReConnect: boolean = false
-): Promise<void> => {
-  const loginUserData = await getUserData(host, token);
+  private async init(
+    isReConnect: boolean,
+  ) {
+    if (!isReConnect) {
+      //this.get = await fetchFirstNotes(this.host, this.channel, this.token);
+    }
 
-  if (loginUserData) {
-    const connectURL = host.indexOf("https://") == -1 ? host.replace("http", "ws") : host.replace("https", "wss");
-    const uuid = genUuid()
-    const timeLine = token 
-      ? new WebSocket(`${connectURL}/streaming?i=${token}`) 
-      : new WebSocket(`ws://${host}/streaming`);
-
-    // Home を homeに変換 トークンが存在しない場合は強制的にローカルに接続
-    channel = channel == "Home" ? "home" : !token ? "local" : channel;
-
-    // WebSocket OpenEvent -------------------------------------------------------------------------------------------///
-    timeLine.addEventListener("open", () => {
-      timeLine.send(
+    this.webSocket.addEventListener("open", () => {
+      this.webSocket.send(
         JSON.stringify({
           type: "connect",
           body: {
-            channel: `${channel}Timeline`,
-            id: uuid,
+            channel: `${this.channel}Timeline`,
+            id: genUuid(),
             params: {},
           },
         })
       );
-      console.log(`Connection to the ${channel} TL was successful!`);
-      provideTimeLine.value[timeLineSymbol].isConnected = true;
-      Object.keys(provideTimeLine.value[timeLineSymbol].timeLine ?? []).forEach(index => captchaNote(timeLine, index));
+      console.log(`Connection to the ${this.channel} TL was successful!`);
+      this.isConnected = true;
     });
 
-    // fetch first Notes ---------------------------------------------------------------------------------------------///
-    if (!isReConnect && token) {
-      provideTimeLine.value[timeLineSymbol] = {
-        timeLine: {},
-        isConnected: false,
-      };
-      provideTimeLine.value[timeLineSymbol].timeLine = (await fetchFirstNotes(host, channel, token)) ?? {}
-    } else {
-      provideTimeLine.value[timeLineSymbol].isConnected = false;
-    }
-
-    // WebSocket Get MessageEvent ----------------------------------------------------------------------------------///
-    timeLine.addEventListener("message", event => {
+    this.webSocket.addEventListener("message", event => {
       const parseEvent = JSON.parse(event.data).body;
       switch (parseEvent.type) {
         case "note": {
           console.log("GetNote!");
-          provideTimeLine.value[timeLineSymbol].timeLine[parseEvent.body.id] = noteGen(parseEvent.body, host);
-          captchaNote(timeLine, parseEvent.body.id);
+          this.get.push(new Note(parseEvent.body, this.host).gen());
+          this.captchaNote(parseEvent.body.id);
           break;
         }
         case "reacted": {
           console.log("reacted!");
-          const targetReaction: string = parseEvent.body.reaction;
-          const targetNote: VNode = provideTimeLine.value[timeLineSymbol].timeLine[parseEvent.id];
-
-          console.log(targetNote);
+          //const targetReaction: string = parseEvent.body.reaction;
 
           //if (parseEvent.body.userId == loginUserData.id) {
           //  targetNote.myReaction = targetReaction;
@@ -99,17 +87,28 @@ export const streamTimeLine = async (
       }
     });
 
-    // WebSocket CloseEvent ----------------------------------------------------------------------------------------///
-    timeLine.addEventListener("close", () => {
+    this.webSocket.addEventListener("close", () => {
+      this.webSocket.removeEventListener('open', () => { });
+      this.webSocket.removeEventListener('close', () => { });
+      this.webSocket.removeEventListener('message', () => { });
       console.log("Connection to TL has been disconnected...");
-      if (autoReConnection) streamTimeLine(host, timeLineSymbol, token, channel, autoReConnection, true);
-      return;
+      this.autoReConnection && this.reConnect();
     });
   }
-};
+
+  public reConnect() {
+    this.webSocket = new WebSocket(`wss://${this.host}/streaming`);
+    this.init(true);
+  }
+
+  public connect() {
+    this.webSocket = new WebSocket(`wss://${this.host}/streaming`);
+    this.init(false);
+  }
+}
 
 export const streamMain = (host: string, autoReConnection: boolean = false) => {
-  const token = readCookie(`${host}_token`).value;
+  const token = cookie.read(`${host}_token`);
   const uuid = genUuid();
 
   const timeLine = new WebSocket(`wss://${host}/streaming?i=${token}`);

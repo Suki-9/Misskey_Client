@@ -38,7 +38,7 @@ const post = () => {
     );
   isActive.value = false;
   postText.value = "";
-}
+};
 
 const showPostWindow = () => {
   isActive.value = !isActive.value;

@@ -39,6 +39,7 @@ module.exports = {
         "renoter": false,
         "Result": false,
         "loginUser": false,
+        "UserData": false,
         "TimeLine": false,
         "ModifiedNotification": false,
 	},

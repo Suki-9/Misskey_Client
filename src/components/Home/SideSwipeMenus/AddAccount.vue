@@ -2,21 +2,22 @@
 // TS Module -------------------------------------------///
 import { $HOST_URL } from "../../../plugin/vite_env";
 import { genUuid } from "../../../scripts/UUID";
+import cookie from "../../../scripts/cookie";
 import { ref } from "vue";
 import { addUsersData } from "../../../scripts/API/userdata";
 
-const hostURL = ref<string>(),
-  token = ref<string>(),
-  useToken = ref<boolean>(false),
-  useMiAuth = ref<boolean>(true);
+const hostURL = ref<string>();
+const token = ref<string>();
+const useToken = ref<boolean>(false);
+const useMiAuth = ref<boolean>(true);
 
 const Login = async () => {
   if (useToken.value && token.value && hostURL.value && !useMiAuth.value) {
     const loginUser = await addUsersData(hostURL.value, token.value);
-    document.cookie = `loginUser=${loginUser}; path=/`;
+    loginUser && cookie.write("loginUser", loginUser);
     location.reload();
   } else if (useMiAuth.value && hostURL.value) {
-    document.cookie = `loginHost=${hostURL.value}; path=/`;
+    cookie.write("loginHost", hostURL.value);
     window.location.href = `${
       hostURL.value
     }/miauth/${genUuid()}?name=Kurage&callback=${$HOST_URL}/callback&permission=read:account,write:account,read:blocks,write:blocks,read:drive,write:drive,read:favorites,write:favorites,read:following,write:following,read:messaging,write:messaging,read:mutes,write:mutes,write:notes,read:notifications,write:notifications,write:reactions,write:votes,read:pages,write:pages,write:page-likes,read:page-likes,write:gallery-likes,read:gallery-likes`;
