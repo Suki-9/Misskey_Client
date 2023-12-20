@@ -1,11 +1,11 @@
 import { VNode } from "vue";
 import { genUuid } from "../UUID";
-import { Note, fetchFirstNotes } from "../API/note";
+import { Note } from "../API/note";
 //import { getUserData } from "../API/userdata";
 import cookie from "../cookie";
 
 export class StreamTimeLine {
-  public get: VNode[] = [];
+  public notes: VNode[] = [];
   public webSocket: WebSocket;
   public isConnected: boolean = false;
 
@@ -20,11 +20,11 @@ export class StreamTimeLine {
     channel: string = "home",
     autoReConnection: boolean = false,
   ) {
-    this.host = host;
+    this.host = host.replace('https://', '');
     this.token = token;
     this.channel = channel == "Home" ? "home" : !token ? "local" : channel;
     this.autoReConnection = autoReConnection;
-    this.webSocket = new WebSocket(`wss://${host}/streaming`);
+    this.webSocket = new WebSocket(`wss://${host}/streaming?i=${this.token}`);
   }
 
   private captchaNote = (noteId: string) => this.webSocket.send(
@@ -36,13 +36,9 @@ export class StreamTimeLine {
     })
   );
 
-  private async init(
-    isReConnect: boolean,
+  public async init(
+    // isReConnect: boolean,
   ) {
-    if (!isReConnect) {
-      //this.get = await fetchFirstNotes(this.host, this.channel, this.token);
-    }
-
     this.webSocket.addEventListener("open", () => {
       this.webSocket.send(
         JSON.stringify({
@@ -63,7 +59,7 @@ export class StreamTimeLine {
       switch (parseEvent.type) {
         case "note": {
           console.log("GetNote!");
-          this.get.push(new Note(parseEvent.body, this.host).gen());
+          this.notes.push(new Note(parseEvent.body, this.host).gen());
           this.captchaNote(parseEvent.body.id);
           break;
         }
@@ -94,16 +90,13 @@ export class StreamTimeLine {
       console.log("Connection to TL has been disconnected...");
       this.autoReConnection && this.reConnect();
     });
+
+    return this.notes;
   }
 
   public reConnect() {
-    this.webSocket = new WebSocket(`wss://${this.host}/streaming`);
-    this.init(true);
-  }
-
-  public connect() {
-    this.webSocket = new WebSocket(`wss://${this.host}/streaming`);
-    this.init(false);
+    this.webSocket = new WebSocket(`wss://${this.host}/streaming?i=${this.token}`);
+    this.init();
   }
 }
 

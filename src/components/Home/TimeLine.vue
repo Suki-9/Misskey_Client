@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { streamTimeLine, provideTimeLine } from "../../scripts/API/stream";
+import { StreamTimeLine } from "../../scripts/API/stream";
 import { VNode, h } from "vue";
 
 import LoadingDots from "../global/LoadingDots.vue";
@@ -18,31 +18,20 @@ const props = defineProps<{
 const usersData = localStorage.getItem("usersData");
 
 if (props.selectTimeLine.hostName && usersData) {
-  streamTimeLine(
+  const notes = new StreamTimeLine(
     props.selectTimeLine.hostName,
-    props.selectTimeLine.timeLineSymbol,
     props.selectTimeLine.token,
     props.selectTimeLine.channel,
     props.selectTimeLine.autoReConnection
-  );
+  ).init();
 }
 
-const TimeLineNotes: VNode = h("div", {}, [
-  Object.values(provideTimeLine.value[props.selectTimeLine.timeLineSymbol].timeLine),
-]);
 </script>
 
 <template>
-  <div :class="$style.root" v-if="provideTimeLine[selectTimeLine.timeLineSymbol]">
-    <div :class="$style.fetchButton">
-      <a>更に読み込む</a>
-    </div>
-    <TimeLineNotes />
-    <LoadingDots v-show="!provideTimeLine[selectTimeLine.timeLineSymbol].isConnected" :class="$style.loadingState"
-      >接続中</LoadingDots
-    >
+  <div :class="$style.root">
+    
   </div>
-  <div v-else>読み込み中...</div>
 </template>
 
 <style module lang="scss">
