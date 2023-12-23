@@ -20,7 +20,7 @@ export class StreamTimeLine {
     channel: string = "home",
     autoReConnection: boolean = false,
   ) {
-    this.host = host;
+    this.host = host.replace('https://', '');
     this.token = token;
     this.channel = channel == "Home" ? "home" : !token ? "local" : channel;
     this.autoReConnection = autoReConnection;
@@ -101,7 +101,6 @@ export class StreamTimeLine {
       console.log("Connection to TL has been disconnected...");
       this.autoReConnection && this.reConnect();
     });
-
 
     return this.notes;
   }
