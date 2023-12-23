@@ -82,10 +82,8 @@ const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUs
             <i class="icon-dot-3" alt="more"></i>
           </p>
         </footer>
-        <a v-show="note.repliesCount && replymode" @click="loadReplys()">続きを読み込む</a>
       </article>
     </div>
-    <ReNoteMenu :noteId="note.id" :loginUser="loginUser" v-show="show_reNoteMenu" />
     <Post
       :isShowWindow="show_replyWindow"
       :noteId="note.id"

@@ -26,7 +26,7 @@ if (loginUser) {
 }
 
 // 仮
-const selectTimeLine = loginUser && ref<{
+const selectTimeLine = ref<{
   channel?: "Home" | "hybrid" | "local" | "global";
   autoReConnection: boolean;
   hostName: string;
@@ -35,14 +35,14 @@ const selectTimeLine = loginUser && ref<{
   channel: "local",
   autoReConnection: true,
   hostName: String(loginUser?.split("_")[0]),
-  token: usersData[loginUser].token,
+  token: loginUser && usersData[loginUser].token,
 });
 </script>
 
 <template>
   <SideSwipeMenu />
   <div :class="$style.hoverPage" id="hoverPage">
-    <TimeLine v-if="selectTimeLine" :selectTimeLine="selectTimeLine" />
+    <TimeLine :selectTimeLine="selectTimeLine" />
   </div>
   <Post />
 </template>

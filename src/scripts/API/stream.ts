@@ -20,7 +20,7 @@ export class StreamTimeLine {
     channel: string = "home",
     autoReConnection: boolean = false,
   ) {
-    this.host = host.replace('https://', '');
+    this.host = host;
     this.token = token;
     this.channel = channel == "Home" ? "home" : !token ? "local" : channel;
     this.autoReConnection = autoReConnection;
