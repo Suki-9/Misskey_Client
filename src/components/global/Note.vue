@@ -1,11 +1,8 @@
 <script setup lang="ts">
-// TS Module -------------------------------------------///
 import { ref } from "vue";
 import cookie from "../../scripts/cookie";
 
-//Vue Component ----------------------------------------///
 import NoteMedia from "./Note/NoteMedia.vue";
-import ReNoteMenu from "./Note/ReNoteMenu.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
 import EmojiPalette from "./EmojiPalette.vue";
 import Post from "./PostNote.vue";
