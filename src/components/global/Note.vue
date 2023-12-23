@@ -1,54 +1,45 @@
 <script setup lang="ts">
 // TS Module -------------------------------------------///
-import { ref, inject } from "vue";
-import { fetchChildrenNotes } from "../../scripts/API/note";
+import { ref } from "vue";
+import cookie from "../../scripts/cookie";
 
 //Vue Component ----------------------------------------///
-import NoteImage from "./Note/NoteMedia.vue";
+import NoteMedia from "./Note/NoteMedia.vue";
 import ReNoteMenu from "./Note/ReNoteMenu.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
 import EmojiPalette from "./EmojiPalette.vue";
 import Post from "./PostNote.vue";
 
-const props = defineProps<{
-  note: ModifiedNote;
-  replymode?: boolean;
+defineProps<{
+  note: Mi_Note;
 }>();
 
 const show_reNoteMenu = ref<boolean>(false);
 const show_replyWindow = ref<boolean>(false);
 const show_emojiPalette = ref<boolean>(false);
-const childrenNotes = ref<ModifiedNote[]>();
 
-// TODO inject ではなく props から受け取るように
-const loginUser = inject<LoginUser>("loginUser");
-
-// ここではなく note.ts に移動するべき
-const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
-  loginUser && (childrenNotes.value = await fetchChildrenNotes(props.note.id, loginUser?.host));
+const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUser') ?? '') ?? '{}');
 </script>
 
 <template>
-  <div :class="$style.root" v-if="note && loginUser">
-    <!--reNoteLabel-->
-    <div v-if="note.renoter" :class="$style.renote">
-      <img :class="$style.renoterAvatar" :src="note.renoter.avatarUrl" />
+  <div :class="$style.root" v-if="note">
+    <div v-if="note.renote" :class="$style.renote">
+      <img :class="$style.renoterAvatar" :src="note.renote.user.avatarUrl ?? ''" />
       <p :class="$style.renoterName">
-        <span v-html="note.renoter.name"></span>さんがリノート<i class="icon-retweet"></i>
+        <span v-html="note.renote.user.name"></span>さんがリノート<i class="icon-retweet"></i>
       </p>
     </div>
 
-    <div v-if="note.reply && !replymode" :class="$style.reply">
-      <img :src="note.reply.user.avatarUrl" :class="$style.avatar" />
+    <div v-if="note.reply" :class="$style.reply">
+      <img :src="note.reply.user.avatarUrl ?? ''" :class="$style.avatar" />
       <article>
         <p v-html="note.reply.user.name" :class="$style.name"></p>
         <p v-html="note.reply.text" :class="$style.userName"></p>
       </article>
     </div>
 
-    <!--NoteMain-->
     <div :class="$style.note">
-      <img :class="$style.avatar" :src="note.user.avatarUrl" />
+      <img :class="$style.avatar" :src="note.user.avatarUrl ?? ''" />
       <article>
         <header>
           <p :class="$style.userName" @click="$router.push(`/notes/${note.id}`)">
@@ -57,18 +48,15 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
           </p>
         </header>
         <div :class="$style.text" v-html="note.text"></div>
+        <div :class="$style.text" v-html="note.cw" v-if="note.cw"></div>
         <div :class="$style.files">
-          <NoteImage
+          <NoteMedia
             v-for="(file, key) in note.files"
             :key="key"
-            :thumbnailUrl="file.thumbnailUrl"
-            :url="file.url"
-            :isSensitive="file.isSensitive"
-            :isActive="false"
+            :mediaData="file"
           />
         </div>
 
-        <!--reactions-->
         <div :class="$style.reactions">
           <ReactionButton
             v-for="(reaction, key) in Object.entries(note.reactions)"
@@ -111,7 +99,6 @@ const loadReplys = async (): Promise<Mi_Note[] | undefined> =>
 
 <style module lang="scss">
 @import "../../styles/globalComponent.css";
-
 .root {
   display: flex;
   flex-direction: column;

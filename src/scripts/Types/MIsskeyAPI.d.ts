@@ -65,10 +65,10 @@ type Mi_Endpoints = {
       visibleUserIds?: string[];
       text?: string;
       cw?: string;
-      localOnly: boolean;
-      noExtractMentions: boolean;
-      noExtractHashtags: boolean;
-      noExtractEmojis: boolean;
+      localOnly?: boolean;
+      noExtractMentions?: boolean;
+      noExtractHashtags?: boolean;
+      noExtractEmojis?: boolean;
       fileIds?: string[];
       replyId?: string;
       renoteId?: string;

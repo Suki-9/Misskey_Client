@@ -13,13 +13,14 @@ type Mi_Note = {
   createdAt: string;
   text: string | null;
   cw: string | null;
-  // ここ無理やり過ぎる
+  visibility: string,
+  localOnly: boolean,
   user: Partial<UserData>;
   files: Mi_File[];
   myReaction?: string;
-  reactionEmojis: Record<string, string>;
+  reactionEmojis: Record<string, number>;
   reactions: Record<string, number>;
-  renote?: Omit<Mi_Note, "renote">;
+  renote?: Omit<Mi_Note, "renote"> & Rename<Pick<UserData, "id">, "id", "userId">;
   renoteCount: number;
   reply?: Pick<Mi_Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
   repliesCount: number;
@@ -55,7 +56,7 @@ type Mi_File = {
   md5: string;
   name: string | null;
   properties: {
-    hight: number;
+    height: number;
     width: number;
   };
   size: number;
@@ -120,6 +121,11 @@ type UserData = {
   host: string | null;
   avatarUrl: string | null;
   avatarBlurhash: string | null;
+  avatarDecorations: {
+    id: string,
+    angle: number,
+    url: string,
+  }[]
   isBot: boolean;
   isCat: boolean;
   emojis: Record<Any, Any>;

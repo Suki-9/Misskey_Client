@@ -1,9 +1,7 @@
 <script setup lang="ts">
-// TS Module -----------------------------------------------------///
 import { ref, nextTick, onMounted, inject } from "vue";
 import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
 
-// Emit Props ----------------------------------------------------///
 const emit = defineEmits(["close"]),
   props = withDefaults(
     defineProps<{
@@ -17,13 +15,11 @@ const emit = defineEmits(["close"]),
     }
   );
 
-// Variables -----------------------------------------------------///
 const isActive = ref<boolean>(!props.isShowWindow);
 const postText = ref<string>(props.postText);
 const visibility = ref<Mi_Endpoints["notes/create"]["req"]["visibility"]>("home");
 const loginUser = inject<LoginUser>("loginUser");
 
-// functions -----------------------------------------------------///
 const post = () => {
   if ((postText.value !== "", loginUser))
     fetchMisskeyAPI(

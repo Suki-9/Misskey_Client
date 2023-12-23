@@ -1,17 +1,15 @@
 type OptionalArgBranch<T, U, E> = undefined extends T ? U : E;
 
+type Rename<T, Key1 extends keyof T, Key2 extends string> = Omit<
+  T,
+  Key1
+> & { [key in Key2]: T[Key1] }
+
 type LoginUser = {
   token: string;
   avatarURL: string;
   host: string;
   userName: string;
-};
-
-type ModifiedNote = Mi_Note & {
-  reactionEmojis: Record<string, string>;
-  reactions: Record<string, number>;
-  renoter?: User;
-  reply?: Pick<Mi_Note, "id" | "createdAt" | "text" | "cw" | "user" | "files">;
 };
 
 type ModifiedNotification = {

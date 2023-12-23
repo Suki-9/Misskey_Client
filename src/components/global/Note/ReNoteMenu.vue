@@ -1,29 +1,36 @@
 <script setup lang="ts">
-// TS Module -------------------------------------------///
-import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
+import { fetchMisskeyAPI } from '../../../scripts/API/fetchAPI';
+import cookie from '../../../scripts/cookie';
 
 const props = defineProps<{
   noteId: string;
   loginUser: LoginUser;
 }>();
 
-const renote = () => {
-  if (props.loginUser) {
-    fetchMisskeyAPI(
-      "notes/create",
-      {
-        i: props.loginUser.token,
-        renoteId: props.noteId,
-      },
-      props.loginUser.host
-    );
-  }
-};
+// TODO ここどうにかしろ
+const usersData: Record<string, {
+  avatarURL: string,
+  host: string,
+  token: string,
+  userName: string,
+}>  = JSON.parse(localStorage.getItem("usersData")!)[cookie.read("loginUser")!]
+
+const reNote = () => fetchMisskeyAPI(
+  'notes/create',
+  {
+    i: usersData.token,
+    visibility: 'public',
+    renoteId: props.noteId
+  },
+  usersData.host,
+);
+
+
 </script>
 
 <template>
   <div :class="$style.root">
-    <a @click="renote()">Renote</a>
+    <a @click="reNote()">Renote</a>
     <a>引用</a>
   </div>
 </template>

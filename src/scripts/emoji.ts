@@ -4,6 +4,10 @@ import { VNode, h } from "vue";
 export class Emoji {
   public index: Mi_EmojiIndex = {};
 
+  constructor(host: string) {
+    this.init(host);
+  }
+
   private createEmojiIndex = async (host: string): Promise<void> => {
     localStorage.setItem(`${host}_emojis`, JSON.stringify((
       await fetch(`${host}/api/emojis`)
@@ -17,11 +21,7 @@ export class Emoji {
     this.index = JSON.parse((host && (localStorage.getItem(`${host}_emojis`) ?? (await this.createEmojiIndex(host), localStorage.getItem(`${host}_emojis`)))) ?? '{}')
   }
 
-  constructor(host: string) {
-    this.init(host);
-  }
-
-  read<T extends "category" | undefined>(
+  public read<T extends "category" | undefined>(
     type?: "category",
   ): OptionalArgBranch<T, Mi_EmojiIndex, Mi_EmojisCategory> {
     return <OptionalArgBranch<T, Mi_EmojiIndex, Mi_EmojisCategory>>(type
@@ -34,10 +34,10 @@ export class Emoji {
       : this.index);
   }
 
-  search = (name: string): string | undefined =>
+  public search = (name: string): string | undefined =>
     this.index[name.slice(1, name.indexOf("@"))]?.url;
 
-  parse = <T extends boolean | undefined>(
+  public parse = <T extends boolean | undefined>(
     text: string,
     vnode?: T
   ): OptionalArgBranch<T, string, (VNode | string)[]> => {

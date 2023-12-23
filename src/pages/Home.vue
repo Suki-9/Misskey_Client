@@ -11,7 +11,12 @@ import { useSwipeMenu } from "../scripts/SideSwipeMenu";
 // トークンの有無を確認 --------------------------------///
 const loginUser = cookie.read("loginUser");
 //TODO ここの any
-const usersData: any = JSON.parse(localStorage.getItem("usersData")!);
+const usersData: Record<string, {
+  avatarURL: string,
+  host: string,
+  token: string,
+  userName: string,
+}> = JSON.parse(localStorage.getItem("usersData")!);
 
 if (loginUser) {
   // Animation -----------------------------------------///
@@ -21,25 +26,23 @@ if (loginUser) {
 }
 
 // 仮
-const selectTimeLine = ref<{
+const selectTimeLine = loginUser && ref<{
   channel?: "Home" | "hybrid" | "local" | "global";
   autoReConnection: boolean;
-  timeLineSymbol: symbol;
   hostName: string;
   token: string;
 }>({
   channel: "local",
   autoReConnection: true,
-  timeLineSymbol: Symbol("tl"),
   hostName: String(loginUser?.split("_")[0]),
-  token: loginUser && usersData[loginUser].token,
+  token: usersData[loginUser].token,
 });
 </script>
 
 <template>
   <SideSwipeMenu />
   <div :class="$style.hoverPage" id="hoverPage">
-    <TimeLine :selectTimeLine="selectTimeLine" />
+    <TimeLine v-if="selectTimeLine" :selectTimeLine="selectTimeLine" />
   </div>
   <Post />
 </template>
@@ -50,6 +53,7 @@ const selectTimeLine = ref<{
   top: 0;
 
   height: var(--display-height);
+  width: 100%;
 
   overflow-y: scroll;
 

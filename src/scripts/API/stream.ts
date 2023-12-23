@@ -1,18 +1,18 @@
-import { VNode } from "vue";
 import { genUuid } from "../UUID";
-import { Note, fetchFirstNotes } from "../API/note";
-//import { getUserData } from "../API/userdata";
+import { fetchFirstNotes } from "../API/note";
 import cookie from "../cookie";
+import { ref, type Ref } from "vue";
 
 export class StreamTimeLine {
-  public get: VNode[] = [];
-  public webSocket: WebSocket;
-  public isConnected: boolean = false;
-
   private host: string;
   private token: string;
   private channel: string;
   private autoReConnection: boolean;
+
+  private notes = ref<Mi_Note[]>([]);
+
+  public webSocket: WebSocket;
+  public isConnected: boolean = false;
 
   constructor(
     host: string,
@@ -24,10 +24,10 @@ export class StreamTimeLine {
     this.token = token;
     this.channel = channel == "Home" ? "home" : !token ? "local" : channel;
     this.autoReConnection = autoReConnection;
-    this.webSocket = new WebSocket(`wss://${host}/streaming`);
+    this.webSocket = new WebSocket(`${this.host.replace('http', 'ws')}/streaming?i=${this.token}`);
   }
 
-  private captchaNote = (noteId: string) => this.webSocket.send(
+  private captchaNote = (noteId: string): void => this.webSocket.send(
     JSON.stringify({
       type: "subNote",
       body: {
@@ -36,14 +36,10 @@ export class StreamTimeLine {
     })
   );
 
-  private async init(
-    isReConnect: boolean,
-  ) {
-    if (!isReConnect) {
-      //this.get = await fetchFirstNotes(this.host, this.channel, this.token);
-    }
-
-    this.webSocket.addEventListener("open", () => {
+  public async init(
+    isReConnect: boolean = false,
+  ): Promise<Ref<Mi_Note[]>> {
+    this.webSocket.addEventListener("open", async (): Promise<void> => {
       this.webSocket.send(
         JSON.stringify({
           type: "connect",
@@ -54,6 +50,12 @@ export class StreamTimeLine {
           },
         })
       );
+
+      if (!isReConnect) {
+        this.notes.value = await fetchFirstNotes(this.host, this.channel, this.token);
+        this.notes.value.forEach(n => this.captchaNote(n.id));
+      }
+
       console.log(`Connection to the ${this.channel} TL was successful!`);
       this.isConnected = true;
     });
@@ -63,10 +65,11 @@ export class StreamTimeLine {
       switch (parseEvent.type) {
         case "note": {
           console.log("GetNote!");
-          this.get.push(new Note(parseEvent.body, this.host).gen());
           this.captchaNote(parseEvent.body.id);
+          this.notes.value.unshift(parseEvent.body);
           break;
         }
+
         case "reacted": {
           console.log("reacted!");
           //const targetReaction: string = parseEvent.body.reaction;
@@ -82,28 +85,30 @@ export class StreamTimeLine {
           //}
           break;
         }
+
+        case "deleted": { 
+          console.log("deleted");
+          this.notes.value = this.notes.value.filter(n => n.id !== parseEvent.id);
+          break;
+        }
+
         default:
           console.log(parseEvent);
       }
     });
 
     this.webSocket.addEventListener("close", () => {
-      this.webSocket.removeEventListener('open', () => { });
-      this.webSocket.removeEventListener('close', () => { });
-      this.webSocket.removeEventListener('message', () => { });
       console.log("Connection to TL has been disconnected...");
       this.autoReConnection && this.reConnect();
     });
+
+
+    return this.notes;
   }
 
   public reConnect() {
-    this.webSocket = new WebSocket(`wss://${this.host}/streaming`);
+    this.webSocket = new WebSocket(`${this.host.replace('http', 'ws')}/streaming?i=${this.token}`);
     this.init(true);
-  }
-
-  public connect() {
-    this.webSocket = new WebSocket(`wss://${this.host}/streaming`);
-    this.init(false);
   }
 }
 
@@ -145,4 +150,4 @@ export const streamMain = (host: string, autoReConnection: boolean = false) => {
     streamMain(host, autoReConnection);
     return;
   });
-};
+  };

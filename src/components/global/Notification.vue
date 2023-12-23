@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //Vue Component
-import Note from "./Note.vue";
+import Note from "./Note.vue.js";
 
 defineProps<{
   notification: ModifiedNotification;
