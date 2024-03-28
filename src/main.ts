@@ -1,5 +1,5 @@
 // css -------------------------------------------------///
-import "./styles/main.css";
+import "./styles/main.scss";
 import "./assets/icon/fontello/css/fontello.css";
 
 // JS Module -------------------------------------------///
@@ -10,7 +10,7 @@ import { createApp } from "vue";
 
 // plugins ---------------------------------------------///
 import VITE_env from "./plugin/vite_env";
-import router from "./router";
+import router from "./plugin/router_index";
 
 import App from "./App.vue";
 
