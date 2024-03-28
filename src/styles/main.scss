@@ -19,15 +19,20 @@
 
   /*border*/
   --default-border-radius: 7px;
+
+  height: 100%;
 }
 
-body,
+body {
+  margin: 0;
+  height: 100%;
+}
+
 #app {
   display: flex;
   flex-direction: column;
-
+  height: 100%;
   overflow: hidden;
-
   margin: 0;
 }
 
