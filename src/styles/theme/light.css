@@ -8,15 +8,26 @@
   --true-button-color: rgb(255, 255, 255);
 
   /*border color*/
-  --primary-border-color: rgb(200, 200, 200);
+  --primary-border-color: rgb(20, 20, 20);
 
   /*text color*/
   --primary-text-color: rgb(20, 20, 20);
-  --secondary-text-color: rgb(20, 20, 20);
+  --secondary-text-color: color-mix(in srgb, var(--primary-text-color), #ffffff 10%);
+  --placeholder-text-color: color-mix(in srgb, var(--primary-text-color), #ffffff 30%);
+  --is-disabled-text-color: color-mix(in srgb, var(--primary-text-color), #ffffff 50%);
 
   /*shadow color*/
   --shadow-color: rgba(7, 16, 58, 0.24);
 
   /* */
   --accent-color: rgb(133, 141, 255);
+  --accent-color-100: color-mix(in srgb, var(--accent-color), #ffffff 10%);
+  --accent-color-200: color-mix(in srgb, var(--accent-color), #ffffff 20%);
+  --accent-color-300: color-mix(in srgb, var(--accent-color), #ffffff 30%);
+  --accent-color-400: color-mix(in srgb, var(--accent-color), #ffffff 40%);
+  --accent-color-500: color-mix(in srgb, var(--accent-color), #ffffff 50%);
+  --accent-color-600: color-mix(in srgb, var(--accent-color), #ffffff 60%);
+  --accent-color-700: color-mix(in srgb, var(--accent-color), #ffffff 70%);
+  --accent-color-800: color-mix(in srgb, var(--accent-color), #ffffff 80%);
+  --accent-color-900: color-mix(in srgb, var(--accent-color), #ffffff 90%);
 }
