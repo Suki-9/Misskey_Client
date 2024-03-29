@@ -1,38 +1,64 @@
 <script setup lang="ts">
 import Note from '../global/Note.vue';
+import BottomBar from '../global/BottomBar.vue';
+import { inject, ref, Ref } from 'vue';
+import { Stream, Channels, api, Endpoints } from 'misskey-js';
+import { components } from "misskey-js/autogen/types.js";
 
-import { StreamTimeLine } from "../../scripts/API/stream";
 
 const props = defineProps<{
-  selectTimeLine: {
-    hostName: string;
-    token: string;
-    channel?: "Home" | "hybrid" | "local" | "global";
-    autoReConnection: boolean;
-  };
+  channel: keyof Channels,
 }>();
 
-const stream = new StreamTimeLine(
-  props.selectTimeLine.hostName,
-  props.selectTimeLine.token,
-  props.selectTimeLine.channel,
-  props.selectTimeLine.autoReConnection,
-)
+const notes = ref<components['schemas']['Note'][]>([]);
 
-const TL = await stream.init()
+const stream = inject<Ref<Stream>>('stream');
+const misskeyApi = inject<Ref<api.APIClient>>('api');
+
+if (misskeyApi?.value) {
+  const result = await misskeyApi.value.request('notes/timeline', {
+    limit: 20,
+  }).catch(() => [])
+  for (const note of result) notes.value.push(note);
+}
+
+if (stream?.value) {
+  const timeLine = stream.value.useChannel(props.channel);
+  timeLine.on('note', (e) => {
+    console.log('getNote');
+    notes.value.push(e);
+  });
+}
 </script>
 
 <template>
-  <div :class="$style.root">
-    <Note :class="$style.note" v-for="(note, key) in TL" :key="key" :note="note"/>
+  <div :class="$style.notes">
+    <Note v-for="note in notes" :note="note" :class="$style.note" />
   </div>
+  <BottomBar :class="$style.bottomBar" />
 </template>
 
-<style module lang="scss">
-.root {
+<style>
+#app {
   width: 100%;
+  height: 100vh;
+}
+</style>
+
+<style module lang="scss">
+.notes {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  overflow-y: scroll;
+
   .note {
-    margin: 5px;
+    margin: 0.1em;
+    flex-shrink: 0;
   }
 }
+
+.bottomBar {}
 </style>
