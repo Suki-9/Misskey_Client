@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('@/Root.vue'),
+      component: () => import('@/AppRoot.vue'),
       children: [
         {
           path: '',
@@ -59,7 +59,7 @@ const router = createRouter({
     {
       path: '/callback',
       name: 'Callback',
-      component: () => import('@/pages/Login/Callback.vue'),
+      component: () => import('@/pages/Login/MiauthCallback.vue'),
     },
   ],
 });
