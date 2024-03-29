@@ -1,41 +1,12 @@
 <script setup lang="ts">
-// TS Module -------------------------------------------///
-import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
-import { readEmojiIndex } from "../../scripts/emoji";
-import { ref, inject } from "vue";
-
 const emit = defineEmits(["close"]);
 const props = defineProps<{
   noteId: string;
 }>();
-
-// TODO inject ではなく props から受け取るように
-const loginUser = inject<LoginUser>("loginUser");
-const emojiCategories = loginUser ? readEmojiIndex(loginUser.host, "category") : <Mi_EmojisCategory>{};
-const index = loginUser ? readEmojiIndex(loginUser.host) : <Mi_EmojiIndex>{};
-const showCategories = ref<{ [key: string]: boolean }>({});
-
-if (emojiCategories)
-  Object.keys(emojiCategories).forEach(category => {
-    showCategories.value[category] = false;
-  });
-
-const createReaction = async (reactionName: string) => {
-  if (loginUser)
-    fetchMisskeyAPI(
-      "notes/reactions/create",
-      {
-        i: loginUser.token,
-        noteId: props.noteId,
-        reaction: `:${reactionName}@.:`,
-      },
-      loginUser.host
-    );
-};
 </script>
 
 <template>
-  <div :class="$style.bg" @click="emit('close')"></div>
+  <!--  <div :class="$style.bg" @click="emit('close')"></div>
   <div :class="$style.root">
     <div v-for="category in Object.keys(emojiCategories)">
       <a :class="$style.category" @click="showCategories[category] = !showCategories[category]">
@@ -52,7 +23,7 @@ const createReaction = async (reactionName: string) => {
         </a>
       </div>
     </div>
-  </div>
+  </div>-->
 </template>
 
 <style module lang="scss">

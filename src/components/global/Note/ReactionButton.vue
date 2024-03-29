@@ -1,37 +1,21 @@
 <script setup lang="ts">
-import { fetchMisskeyAPI } from "../../../scripts/API/fetchAPI";
 import { searchEmoji } from "../../../scripts/emoji";
+import { components } from "misskey-js/autogen/types.js";
 import { inject } from "vue";
 
 const props = defineProps<{
   reaction: [string, number];
-  note: ModifiedNote;
+  note: components['schemas']['Note'];
 }>();
 
 const loginUser = inject<LoginUser>("loginUser");
 
-// TODO ここ適当すぎる
-let emojiURL: string | undefined | Result<string> = loginUser && searchEmoji(props.reaction[0], loginUser.host);
-emojiURL = emojiURL?.isOk ? emojiURL.value : props.note.reactionEmojis[props.reaction[0].replaceAll(":", "")];
-
 const createReaction = async (reactionName: string): Promise<void> => {
-  if (loginUser) {
-    const body = {
-      i: loginUser.token,
-      noteId: props.note.id,
-      reaction: reactionName,
-    };
-    if (props.note.myReaction) {
-      fetchMisskeyAPI("notes/reactions/delete", body, loginUser.host);
-    } else {
-      fetchMisskeyAPI("notes/reactions/create", body, loginUser.host);
-    }
-  }
 };
 </script>
 
 <template>
-  <p
+  <!--  <p
     :class="[$style.reaction, { [$style.reacted]: note?.myReaction == reaction[0] }]"
     @click="createReaction(reaction[0])"
   >
@@ -39,7 +23,7 @@ const createReaction = async (reactionName: string): Promise<void> => {
       {{ reaction[0] }}
     </span>
     <span>{{ reaction[1] }}</span>
-  </p>
+  </p>-->
 </template>
 
 <style module lang="scss">

@@ -1,66 +1,43 @@
 <script setup lang="ts">
-import { ref, nextTick, onMounted, inject } from "vue";
-import { fetchMisskeyAPI } from "../../scripts/API/fetchAPI";
+import { ref, Ref, inject } from "vue";
+import { Endpoints, api } from "misskey-js";
+const props = defineProps<{
+  noteId?: string;
+}>();
 
-const emit = defineEmits(["close"]),
-  props = withDefaults(
-    defineProps<{
-      isShowWindow?: boolean;
-      postText?: string;
-      noteId?: string;
-    }>(),
-    {
-      isShowWindow: false,
-      postText: "",
-    }
-  );
+const isActive = defineModel<boolean>('isActive', { required: true });
 
-const isActive = ref<boolean>(!props.isShowWindow);
-const postText = ref<string>(props.postText);
-const visibility = ref<Mi_Endpoints["notes/create"]["req"]["visibility"]>("home");
-const loginUser = inject<LoginUser>("loginUser");
+const postText = ref<string>();
+const visibility = ref<Endpoints["notes/create"]["req"]["visibility"]>("home");
+const loginUser = inject<Ref<LoginUser>>("userData");
+const misskeyApi = inject<Ref<api.APIClient>>('api');
 
 const post = () => {
-  if ((postText.value !== "", loginUser))
-    fetchMisskeyAPI(
-      "notes/create",
-      {
-        i: loginUser.token,
-        text: postText.value,
-        visibility: visibility.value,
-        replyId: props.noteId,
-      },
-      loginUser.host
-    );
-  isActive.value = false;
-  postText.value = "";
+  if (misskeyApi?.value) {
+    misskeyApi.value.request('notes/create', {
+      visibility: visibility.value,
+      text: postText.value,
+    }).then(() => { 
+      isActive.value = false;
+      postText.value = undefined;
+    })
+  }
 };
-
-const showPostWindow = () => {
-  isActive.value = !isActive.value;
-  nextTick(() => {
-    document.getElementById("inputText")?.focus();
-  });
-};
-
-onMounted(() => {
-  showPostWindow();
-});
 </script>
 
-<template>
-  <i class="icon-pencil" :class="$style.postButton" v-show="!isActive" @click="showPostWindow"></i>
-  <div :class="$style.bg" v-show="isActive" @click="(isActive = false), emit('close')"></div>
+<template>{{ isActive }}
+  <i class="icon-pencil" :class="$style.postButton" v-show="!isActive" @click="isActive != isActive"></i>
+  <div :class="$style.bg" v-show="isActive" @click="((isActive = false), console.log('!'))"></div>
   <div v-show="isActive" :class="$style.root">
     <div :class="$style.header">
-      <i class="icon-cancel" :class="$style.closeButton" @click="(isActive = false), emit('close')"></i>
+      <i class="icon-cancel" :class="$style.closeButton" @click="isActive = false"></i>
       <div :class="$style.submitButtons">
-        <a @click="post">ノート</a>
+        <a @click="post()">ノート</a>
         <a>下書き</a>
       </div>
     </div>
     <div :class="$style.content">
-      <img :class="$style.avatar" :src="loginUser?.avatarURL ?? ''" />
+      <img :class="$style.avatar" :src="loginUser?.userData.avatarUrl ?? ''" />
       <div :class="$style.text">
         <div :class="$style.contentHead">
           <select v-model="visibility">
@@ -91,7 +68,7 @@ onMounted(() => {
 
   border-radius: var(--default-border-radius);
 
-  background-color: var(--accent-color);
+  background-color: var(--accent-color-200);
 
   &::before {
     margin: 0;
