@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import cookie from "../../scripts/cookie";
-
 import NoteMedia from "./Note/NoteMedia.vue";
 import ReactionButton from "./Note/ReactionButton.vue";
 import EmojiPalette from "./EmojiPalette.vue";
-import Post from "./PostNote.vue";
+import { ref, Ref, inject } from "vue";
+import { components } from "misskey-js/autogen/types.js";
+import cookie from "../../scripts/cookie";
 
 defineProps<{
-  note: Mi_Note;
+  note: components['schemas']['Note'];
 }>();
 
+const showPostNote = inject<Ref<boolean>>('showPostNote');
 const show_reNoteMenu = ref<boolean>(false);
-const show_replyWindow = ref<boolean>(false);
 const show_emojiPalette = ref<boolean>(false);
-
 const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUser') ?? '') ?? '{}');
 </script>
 
 <template>
   <div :class="$style.root" v-if="note">
+    {{ showPostNote }}
     <div v-if="note.renote" :class="$style.renote">
       <img :class="$style.renoterAvatar" :src="note.renote.user.avatarUrl ?? ''" />
       <p :class="$style.renoterName">
@@ -47,33 +46,27 @@ const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUs
         <div :class="$style.text" v-html="note.text"></div>
         <div :class="$style.text" v-html="note.cw" v-if="note.cw"></div>
         <div :class="$style.files">
-          <NoteMedia
-            v-for="(file, key) in note.files"
-            :key="key"
-            :mediaData="file"
-          />
+          <NoteMedia v-for="(file, key) in note.files" :key="key" :mediaData="file" />
         </div>
 
         <div :class="$style.reactions">
-          <ReactionButton
-            v-for="(reaction, key) in Object.entries(note.reactions)"
-            :key="key"
-            :loginUser="loginUser"
-            :reaction="reaction"
-            :note="note"
-          />
+          <ReactionButton v-for="(reaction, key) in Object.entries(note.reactions)" :key="key" :loginUser="loginUser"
+            :reaction="reaction" :note="note" />
         </div>
         <footer>
           <p>
-            <i class="icon-comment" alt="reply" @click="show_replyWindow = !show_replyWindow"></i>
+            <i class="icon-comment" alt="reply" @click="(showPostNote = true, console.log(showPostNote))"></i>
             {{ note.repliesCount }}
           </p>
           <p>
-            <i class="icon-retweet" alt="renote" @click="show_reNoteMenu = !show_reNoteMenu"></i>
+            <i class="icon-retweet" alt="renote" @click="show_reNoteMenu = true"></i>
             {{ note.renoteCount }}
           </p>
           <p>
-            <i class="icon-plus" alr="reaction" @click="show_emojiPalette = !show_emojiPalette"></i>
+            <i v-if="!note.myReaction" class="icon-plus" alr="reaction"
+              @click="show_emojiPalette = !show_emojiPalette"></i>
+            <i v-else :class="['icon-plus', $style.active]" alr="reaction"></i>
+            {{ Object.keys(note.reactionEmojis).length + Object.keys(note.reactions).length }}
           </p>
           <p>
             <i class="icon-dot-3" alt="more"></i>
@@ -81,28 +74,20 @@ const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUs
         </footer>
       </article>
     </div>
-    <Post
-      :isShowWindow="show_replyWindow"
-      :noteId="note.id"
-      @close="show_replyWindow = false"
-      v-if="show_replyWindow"
-    />
-    <!-- <Note v-if="childrenNotes" v-for="(childrenNote, key) in childrenNotes" :note="childrenNote" replymode :key="key"/>-->
     <EmojiPalette v-if="show_emojiPalette" :noteId="note.id" @close="show_emojiPalette = false" />
   </div>
 </template>
 
 <style module lang="scss">
 @import "../../styles/globalComponent.css";
+
 .root {
   display: flex;
   flex-direction: column;
 
   overflow: hidden;
 
-  border: solid 1px var(--primary-border-color);
-  border-radius: var(--default-border-radius);
-  background-color: var(--tertiary-bg-color);
+  border-top: solid 0.2px var(--primary-border-color);
 
   .renote {
     display: flex;
@@ -112,8 +97,6 @@ const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUs
     width: 96%;
 
     padding: 1% 2%;
-
-    border-bottom: solid 1px var(--primary-border-color);
 
     .renoterAvatar {
       height: 1.3rem;
@@ -127,6 +110,8 @@ const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUs
     .renoterName {
       display: flex;
       flex-direction: row;
+
+      color: var(--accent-color);
 
       width: 90%;
 
@@ -181,8 +166,9 @@ const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUs
     article {
       display: flex;
       flex-direction: column;
+      box-sizing: border-box;
 
-      width: calc(96% - 2em);
+      width: 96%;
 
       padding: 2% 2% 2% 0;
 
@@ -243,6 +229,10 @@ const loginUser: UserData = JSON.parse(localStorage.getItem(cookie.read('loginUs
         p {
           i {
             font-size: 130%;
+
+            &.active {
+              color: var(--accent-color);
+            }
           }
         }
       }
