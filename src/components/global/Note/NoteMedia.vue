@@ -1,9 +1,9 @@
 <script setup lang="ts">
-//TS Module
 import { ref } from "vue";
+import { components } from "misskey-js/autogen/types.js";
 
 const prprs = defineProps<{
-  mediaData: Mi_File;
+  mediaData: components['schemas']['DriveFile'];
 }>();
 
 const isPopUpImage = ref<boolean>(false);
@@ -11,7 +11,7 @@ const showSensitive = ref<boolean>(!prprs.mediaData.isSensitive);
 </script>
 
 <template>
-  <img :src="mediaData.thumbnailUrl" :class="$style.media" v-show="showSensitive" @click="isPopUpImage = true" />
+  <img :src="mediaData.thumbnailUrl ?? ''" :class="$style.media" v-show="showSensitive" @click="isPopUpImage = true" />
   <div :class="$style.sensitiveAlert" v-if="!showSensitive" @click="showSensitive = !showSensitive">
     <p>センシティブな画像</p>
   </div>
