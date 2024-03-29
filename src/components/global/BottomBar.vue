@@ -6,7 +6,7 @@ const reload = () => {
 
 <template>
   <div :class="$style.root">
-    <i class="icon-dot-3" @click=""></i>
+    <i class="icon-dot-3"></i>
     <i class="icon-home" @click="$router.push('/')"></i>
     <i class="icon-bell-alt" @click="$router.push('/notification')"></i>
     <i class="icon-cw" @click="reload()"></i>
@@ -17,25 +17,22 @@ const reload = () => {
 <style module lang="scss">
 .root {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
 
-  width: 100vw;
-  height: var(--bottom-bar-height);
+  height: 10em;
 
   border-top: solid 1px;
 
   i {
     display: flex;
     align-items: center;
-    justify-content: center;
+    box-sizing: border-box;
 
-    width: 12.5vw;
-    height: 100%;
-
-    font-size: 150%;
+    font-size: 1.5em;
 
     &::before {
       margin: 0;
+      padding: 0;
     }
   }
 }
