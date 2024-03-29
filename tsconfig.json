@@ -31,7 +31,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "@Types/*.d.ts"
+    "@Types/*.d.ts",
   ],
   "references": [
     {
