@@ -32,17 +32,10 @@ type Mi_Reaction = {
   link: string;
 };
 
-type Mi_Emoji = {
-  aliases: string[];
-  category: string;
-  name: string;
-  url: string;
-};
-
+type Mi_Emoji = components['schemas']['EmojiSimple'];
 type Mi_EmojiIndex = {
   [key: string]: Mi_Emoji;
 };
-
 type Mi_EmojisCategory = Record<string, string[]>;
 
 type Mi_File = {

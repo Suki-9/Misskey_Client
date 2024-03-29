@@ -7,9 +7,9 @@ type Rename<T, Key1 extends keyof T, Key2 extends string> = Omit<
 
 type LoginUser = {
   token: string;
-  avatarURL: string;
   host: string;
-  userName: string;
+  userId: string;
+  userData: entities.User;
 };
 
 type ModifiedNotification = {
