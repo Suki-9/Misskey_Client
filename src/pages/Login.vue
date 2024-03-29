@@ -6,7 +6,7 @@ import KuButton from "@/components/global/KuButton.vue";
 import cookie from '@/scripts/cookie';
 import { $HOST_URL } from "../plugin/vite_env";
 import { genUuid } from "../scripts/UUID";
-import { IdexedDB } from "@/scripts/indexedDB";
+import { IndexedDB } from "@/scripts/indexedDB";
 //import { useRouter } from "vue-router";
 import { ref } from "vue";
 import { api } from "misskey-js";
@@ -25,7 +25,7 @@ const Login = async () => {
       credential: token.value,
     });
     const userData = await mk.request('i', {});
-    const db = new IdexedDB();
+    const db = new IndexedDB();
     const result = db.addUser({
       host: hostURL.value,
       token: token.value,
