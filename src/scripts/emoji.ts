@@ -46,7 +46,7 @@ export class Emoji {
     if (await result.then(() => true).catch(() => false)) {
       this.index = this.modifyIndex(index.emojis);
       this.categoryIndex = this.modifyIndex(index.emojis, 'category');
-    };
+    }
   };
 
   public read<T extends "category" | undefined>(
